@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\TeamCraft\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\TeamCraft.csproj": {}
+    "F:\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\TeamCraft.csproj": {}
   },
   "projects": {
-    "F:\\TeamCraft\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\TeamCraft.csproj": {
+    "F:\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\TeamCraft.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\TeamCraft\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\TeamCraft.csproj",
+        "projectUniqueName": "F:\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\TeamCraft.csproj",
         "projectName": "TeamCraft",
-        "projectPath": "F:\\TeamCraft\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\TeamCraft.csproj",
+        "projectPath": "F:\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\TeamCraft.csproj",
         "packagesPath": "C:\\Users\\StackOverFlol\\.nuget\\packages\\",
-        "outputPath": "F:\\TeamCraft\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\obj\\",
+        "outputPath": "F:\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
