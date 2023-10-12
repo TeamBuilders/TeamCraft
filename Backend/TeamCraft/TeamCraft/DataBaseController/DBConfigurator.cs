@@ -9,6 +9,8 @@ namespace TeamCraft.DataBaseController
         public DbSet<SkillPerson> skillPeople { get; set; } = null!;
         public DbSet<CategoryHobby> categoryHobbies { get; set; } = null!;
 
+        public DbSet<Team> Teams { get; set; } = null!;
+
         public DBConfigurator(DbContextOptions<DBConfigurator> options)
             : base(options)
         {
