@@ -14,8 +14,8 @@ namespace TeamCraft.DataBaseController
         public DBConfigurator(DbContextOptions<DBConfigurator> options)
             : base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();   // создаем базу данных при первом обращении
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();   // создаем базу данных при первом обращении
         }
     }
 }
