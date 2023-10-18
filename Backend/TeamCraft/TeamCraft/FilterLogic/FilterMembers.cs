@@ -1,5 +1,5 @@
 ﻿namespace TeamCraft.FilterLogic;
-using TeamCraft.Model;
+using TeamCraft.Model.UserAcrhitecture;
 
 public class FilterMembers
 {
@@ -16,7 +16,7 @@ public class FilterMembers
     private string skillsPerson;
     private bool strictSearch;
 
-    public  bool IsEqual(Person targetPerson)
+    public  bool IsEqual(DataUser targetPerson)
     {
         Helper.CalculateAgePerson(targetPerson.databirthday);
         return false;
