@@ -71,27 +71,28 @@ app.MapPost("/api/users/login/", async delegate (HttpContext context)
 {
     
     AutorizationData user = await context.Request.ReadFromJsonAsync<AutorizationData>();
-    Person usern = users.FirstOrDefault(u => u.login == user.login && u.hashPassword==user.password);
-    if (usern == null) return Results.NotFound(new { message = "Неверный логин или пароль" });
-    return Results.Json(usern);
+    Person usernew = users.FirstOrDefault(u => u.login == user.login && u.hashPassword==user.password);
+    if (usernew == null) return Results.NotFound(new { message = "Неверный логин или пароль" });
+    return Results.Json(usernew);
 });
 
 app.MapPut("/api/users/change", async delegate (HttpContext context)
 {
 
     Person user = await context.Request.ReadFromJsonAsync<Person>();
-    Person usern = users.FirstOrDefault(u => u.Id == user.Id && u.hashPassword == user.hashPassword);
-    if (usern == null) return Results.NotFound(new { message = "Неверный пароль" });
-    usern.name = user.name;
-    usern.sureName = user.sureName;
-    usern.hashPassword = user.hashPassword;
-    usern.skillsPerson = user.skillsPerson;
-    usern.urlContact = user.urlContact;
-    usern.hobbiesPerson = user.hobbiesPerson;
-    usern.login = user.login;
-    usern.databirthday = user.databirthday;
-    usern.gender = user.gender;
-    return Results.Json(usern);
+    Person usernew = users.FirstOrDefault(u => u.Id == user.Id && u.hashPassword == user.hashPassword);
+    if (usernew == null)
+        return Results.NotFound(new { message = "Неверный пароль" });
+    usernew.name = user.name;
+    usernew.sureName = user.sureName;
+    usernew.hashPassword = user.hashPassword;
+    usernew.skillsPerson = user.skillsPerson;
+    usernew.urlContact = user.urlContact;
+    usernew.hobbiesPerson = user.hobbiesPerson;
+    usernew.login = user.login;
+    usernew.databirthday = user.databirthday;
+    usernew.gender = user.gender;
+    return Results.Json(usernew);
 });
 
 app.Run();
