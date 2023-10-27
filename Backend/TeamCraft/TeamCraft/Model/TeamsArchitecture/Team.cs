@@ -28,7 +28,7 @@ namespace TeamCraft.Model.TeamsArchitecture
         public void AddPersonInTeam(MemberTeam user)
         {
             MemberTeam.Add(user);
-            user.dataMemberUser.inTeam = true;
+            user.dataMemberUser.inTeam = true; 
         }
     }
 }
