@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "d9cjQblQhZCUIQ5avlWD1m5ayWZswbPSEpkx/NvfSF7nLTAOFPJCV5cRYgOEN1upg93jQl4bohr5X/0J5LlULw==",
+  "dgSpecHash": "91DU3v83cwm3NTq2kElaoeXg+DePk+tMOdUGDyrBEn7AgZFak6adVJWrJrlB0CY3MEEdWAGH6AskA4trMLna5g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\TeamCraft.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kirill\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Kirill\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\Kirill\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.13\\microsoft.aspnetcore.authentication.jwtbearer.7.0.13.nupkg.sha512",
     "C:\\Users\\Kirill\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Kirill\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Kirill\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.1\\microsoft.data.sqlclient.5.1.1.nupkg.sha512",
