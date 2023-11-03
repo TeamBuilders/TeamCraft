@@ -12,7 +12,6 @@
 
         public List<SkillPerson> skillPeople { get; set; }
 
-        //public int PersonId { get; set; }
-        //public Person? person { get; set; }
+
     }
 }

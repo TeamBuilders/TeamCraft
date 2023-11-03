@@ -1,5 +1,5 @@
-﻿
-using TeamCraft.Model.TeamsArchitecture;
+﻿using TeamCraft.Model.TeamsArchitecture;
+
 namespace TeamCraft.Model.UserAcrhitecture
 
 {
@@ -19,6 +19,8 @@ namespace TeamCraft.Model.UserAcrhitecture
 
         public int settingsUserId { get; set; }
         public SettingsProfileUser settingsUser { get; set; }
+
+
 
     }
 }

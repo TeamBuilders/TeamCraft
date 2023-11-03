@@ -21,7 +21,7 @@ namespace TeamCraft.Model.UserAcrhitecture
         public string descriptionUser { get; set; }
         public DateTime databirthday { get; set; }
         public string? gender { get; set; }
-
+        
 
         public List<CategoryHobby> hobbiesPerson { get; set; }
         public List<SkillPerson> skillsPerson { get; set; }

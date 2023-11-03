@@ -1,9 +1,9 @@
 ﻿namespace TeamCraft.FilterLogic;
 using TeamCraft.Model.UserAcrhitecture;
 
-public class FilterMembers
+public class MembersRequest
 {
-    public FilterMembers((int, int) ageRange, string hobbiesPerson, string skillsPerson, bool strictSearch = false)
+    public MembersRequest((int, int) ageRange, string[] hobbiesPerson, string[] skillsPerson, bool strictSearch = false)
     {
         this.ageRange = ageRange;
         this.hobbiesPerson = hobbiesPerson;
@@ -12,17 +12,17 @@ public class FilterMembers
     }
 
     private (int, int) ageRange;
-    private string hobbiesPerson;
-    private string skillsPerson;
+    private string[] hobbiesPerson;
+    private string[] skillsPerson;
     private bool strictSearch;
 
-    public  bool IsEqual(DataUser targetPerson)
+    public bool IsEqual(DataUser targetPerson)
     {
         Helper.CalculateAgePerson(targetPerson.databirthday);
         return false;
     }
 
-    public  int ProcentEqual()
+    public int ProcentEqual()
     {
         throw new NotImplementedException();
     }

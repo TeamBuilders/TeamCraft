@@ -1,17 +1,15 @@
-﻿namespace TeamCraft.Model.UserAcrhitecture
+﻿using TeamCraft.FilterLogic;
+
+namespace TeamCraft.Model.UserAcrhitecture
 {
     public class SettingsProfileUser
     {
         public SettingsProfileUser() { }
-        public SettingsProfileUser(string login, string hashPassword) 
+
+        public SettingsProfileUser(string login, string password, bool isHade = false)
         {
             this.login = login;
-            this.hashPassword = hashPassword;
-        }
-        public SettingsProfileUser(string login, string hashPassword, bool isHade = false)
-        {
-            this.login = login;
-            this.hashPassword = hashPassword;
+            this.hashPassword = Helper.ComputeSHA512(hashPassword);
             this.isHiddeInResearch = isHade;
         }
         public int id { get; set; }
