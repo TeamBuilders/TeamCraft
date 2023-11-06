@@ -3,15 +3,17 @@ using TeamCraft.Model.UserAcrhitecture;
 
 public class MembersRequest
 {
-    public MembersRequest((int, int) ageRange, string[] hobbiesPerson, string[] skillsPerson, bool strictSearch = false)
+    public MembersRequest(int ageFrom, int ageTo, string[] hobbiesPerson, string[] skillsPerson, bool strictSearch = false)
     {
-        this.ageRange = ageRange;
+        this.fromAge = ageFrom;
+        this.toAge = ageTo;
         this.hobbiesPerson = hobbiesPerson;
         this.skillsPerson = skillsPerson;
         this.strictSearch = strictSearch;
     }
 
-    private (int, int) ageRange;
+    private int fromAge;
+    private int toAge;
     private string[] hobbiesPerson;
     private string[] skillsPerson;
     private bool strictSearch;
