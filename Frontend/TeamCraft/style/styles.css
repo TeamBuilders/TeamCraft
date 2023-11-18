@@ -1,0 +1,274 @@
+/**
+ * Базовые стили для всего сайта
+ */
+body {
+  position: relative;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #000;
+  min-width: 320px;
+  overflow-x: hidden;
+  height: auto;
+  width: 100%;
+  background-color: #1d2125;
+}
+body div.container {
+  
+  max-width: 1200px;
+  width: 85%;
+  margin-bottom: 20px;
+}
+.account {
+  overflow: hidden;
+  display: block;
+  color: #fff;
+  margin: 1em auto;
+}
+.account .acc_panel {
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 26em;
+  border: 3px solid #9fc4f0;
+  border-radius: 10px;
+}
+.avatar {
+  width: 87px;
+  height: 87px;
+  border-radius: 50%;
+  margin: 8px 25px;
+}
+.profile {
+  margin-bottom: 10px;
+}
+.profile h1 {
+  font-size: 30px;
+  font-weight: bold;
+}
+.initials p {
+  margin-left: 6px;
+  border-bottom: 2px solid #9fc4f0;
+}
+p.nick {
+  font-size: 20px;
+}
+p.init {
+  font-size: 18px;
+}
+div.edit {
+  margin-bottom: 30px;
+}
+div.edit a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration-line: underline;
+}
+.description {
+  overflow: hidden;
+  display: flex;
+  color: #fff;
+  margin: 1em auto;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.description h2 {
+  font-size: 27px;
+  font-weight: bold;
+}
+.description .personal h6 {
+  font-size: 15;
+  font-weight: bold;
+}
+/* .personal {} */
+.personal .field p {
+  max-width: 400px;
+  background-color: #313338;
+  border: 1px solid #000;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 3px 15px;
+}
+.personal .edit {
+	color: #4361ee;
+	font-size: 18px;
+	max-width: 400px;
+  }
+footer {
+  display: flex;
+  justify-content: space-around;
+}
+footer .footcont {
+  max-width: 1200px;
+  width: 80%;
+  margin-top: 40px;
+  height: 130px;
+  display: flex;
+  align-items: start;
+  flex-direction: row-reverse;
+
+}
+.footcont div {
+  display: flex;
+  width: min-content;
+  flex-wrap: wrap;
+  margin: 12px;
+}
+.footcont div a {
+  text-decoration: none;
+  width: max-content;
+  min-width: 90px;
+  color: #fff;
+}
+.footcont div a.header {
+  color:#4361ee;
+  font-weight: bold;
+}
+.footcont div a:hover {
+  text-decoration-line: underline;
+  opacity: 0.8;
+}
+.navbar {
+  width: 100%;
+  height: 60px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-image: url(../images/NavbarBG.jpg);
+  background-position-y: 2530px;
+  background-position-x: 2890px;
+}
+.navbar .container {
+  height: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.teams .block_team {
+	margin: 20px 0px;
+	display: flex;
+	width: auto;
+	border-left: 3px solid #9fc4f0;
+	background-color: #313338;
+	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+}
+.teams .team_icon {
+	width: 60px;
+    height: 60px;
+    border-radius: 6%;
+    margin: 17px;
+  }
+.block_team .desc {
+	margin-top: 17px;
+}
+.desc .team_title {
+	font-size: 18px;
+}
+.desc .state {
+	display: flex;
+}
+.desc .circle {
+	width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 5px;
+}
+.desc .circle[id="1"]{
+	background-color: #9fc4f0;
+}
+.desc .circle[id="2"] {
+	background-color: #4361ee;
+}
+p.fullness {
+	margin: 0;
+}
+
+.teams {
+	width: calc(10% + 300px);
+  margin-right: 5px;
+}
+.teams .buttons {
+	display: flex;
+	justify-content: space-between;
+}
+.teams .buttons .button {
+	width: 160px;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    padding-top: 8px;
+}
+.teams .buttons .button:hover {
+  box-shadow: none;
+  box-shadow:0 0 5px #9fc4f0;
+}
+.buttons a {
+	text-decoration: none;
+}
+.teams .buttons .button[id="b1"] {
+	color: #000;
+	background-color: #9fc4f0;
+	
+}
+.teams .buttons .button[id="b2"] {
+	color: #fff;
+	background-color: #4361ee;
+}
+
+.navbar-menu {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-right: auto;
+  margin-left: 2%;
+}
+
+.navbar-menu li {
+  display: inline-block;
+}
+
+.navbar-menu li a {
+  display: inline-block;
+  color: #fff;
+  opacity: 0.8;
+  text-decoration: none;
+  padding: 10px;
+}
+.navbar-menu li a:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  transition: all 0.1s ease-in-out;
+}
+
+.navbar-wrap {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.faq {
+  padding: 10px;
+  border-radius: 100px;
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.8;
+}
+.faq:hover {
+  color: #fff;
+  text-decoration: none;
+  opacity: 1;
+  transform: scale(1.05);
+  transition: all 0.1s ease-in-out;
+}
+.navbar-brand {
+  font-weight: 700;
+  font-size: 35px;
+  text-decoration: none;
+  font-style: bold;
+  color: #fff;
+}
+.navbar-brand:hover {
+  color: #9fc4f0;
+  transition: all 0.1s ease-in-out;
+}
