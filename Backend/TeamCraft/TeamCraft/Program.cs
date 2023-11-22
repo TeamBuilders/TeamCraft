@@ -10,6 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using System.Net.Mail;
+using System.Net;
+using TeamCraft;
+using System;
 
 
 List<Person> users = new List<Person>
@@ -141,4 +145,34 @@ app.MapGet("/api/user/login/{id}", (string id) =>
             signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
     return new JwtSecurityTokenHandler().WriteToken(jwt);
+});
+
+app.MapPost("/api/profile/restoration/", async delegate (HttpContext context)
+{
+    EmailData email = await context.Request.ReadFromJsonAsync<EmailData>();
+    // Отправка письма
+    using (MailMessage mail = new MailMessage())
+    {
+        mail.From = new MailAddress("proverka_2121@mail.ru"); // Адрес отправителя
+        mail.To.Add(email.Email); // Адрес получателя
+        mail.Subject = "Проверка"; // Тема письма
+        mail.Body = "Всё хорошо"; // Текст письма
+
+        using (SmtpClient smtp = new SmtpClient("smtp.mail.ru")) // Укажите SMTP сервер
+        {
+            smtp.Port = 587; // Укажите порт сервера
+            smtp.Credentials = new System.Net.NetworkCredential("proverka_2121@mail.ru", "TRbrPTp31rs*"); // Укажите учетные данные для авторизации
+            smtp.EnableSsl = false; // Включение SSL-шифрования (если необходимо)
+
+            try
+            {
+                smtp.Send(mail); // Отправка письма
+                Console.WriteLine("Письмо успешно отправлено на " + email.Email);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка при отправке письма: " + ex.ToString());
+            }
+        }
+    }
 });
