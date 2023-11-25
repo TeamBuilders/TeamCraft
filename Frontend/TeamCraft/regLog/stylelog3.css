@@ -1,0 +1,212 @@
+body {
+    background-color: #1D2125; /* Цвет фона страницы */
+    margin: 0; /* Убираем отступы у body */
+    display: flex; /* Используем flex-контейнер для центрирования по вертикали и горизонтали */
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Высота экрана */
+}
+
+/* весь блок */
+
+.form {
+    position: absolute; /* Абсолютное позиционирование для центрирования по экрану */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Центрирование по вертикали и горизонтали */
+    font-family: 'Noto Sans', sans-serif; /* Выбор шрифта для текста в форме */
+    background-color: #313338; /* Цвет фона формы */
+    padding: 20px; /* Отступ внутри формы */
+    border-radius: 5px; /* Скругление углов формы */
+    width: 670px; /* Ширина формы */
+    border: 2px solid #9FC4F0; /* Обводка формы */
+    height: 493px;
+    box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+}
+
+/* надпись */
+
+.form h1 {
+    margin: 40px;
+    padding: 0;
+    text-align: center; /* Центрирование текста заголовка */
+    color: #FFF9FC; /* Цвет текста заголовка */
+    font-size: 30pt;
+}
+
+/* блоки ввода */
+
+.input-form {
+    margin: 15px 0; /* Внешний отступ сверху и снизу блока ввода */
+    
+}
+
+.dot1 {
+    position: absolute;
+    top: 30px;
+    left: 25px;
+    width: 9px; 
+    height: 9px;
+    background: #83A7C9;
+    border-radius: 50%;
+    background-color: #4361EE;
+}
+
+.dot2 {
+    position: absolute;
+    top: 30px;
+    left: 45px;
+    width: 9px; 
+    height: 9px;
+    background: #83A7C9;
+    border-radius: 50%;
+    background-color: #4361EE;
+}
+
+.dot3 {
+    position: absolute;
+    top: 30px;
+    left: 65px;
+    width: 9px; 
+    height: 9px;
+    background: #83A7C9;
+    border-radius: 50%;
+    background-color: #4361EE;
+}
+
+/* кнопка */
+
+.input-form_continue input[type="submit"] {
+    margin-top: 50px; /* Внешний отступ сверху кнопки */
+    background-color: #4361EE; /* Цвет фона кнопки */
+    color: white; /* Цвет текста на кнопке */
+    border: none; /* Убираем границу кнопки */
+    padding: 10px; /* Внутренний отступ вокруг текста на кнопке */
+    cursor: pointer; /* Указатель при наведении на кнопку */
+    border-radius: 4px; /* Скругление углов кнопки */
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    position:relative;
+    left:100%;
+    width: 175px;
+    box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+    
+}
+
+/* Кнопка назад*/
+
+.input-form_back input[type="submit"] {
+    position:relative;
+    left: 76%;
+    background-color: #8BE3FF; /* Цвет фона кнопки */
+    color: black; /* Цвет текста на кнопке */
+    border: none; /* Убираем границу кнопки */
+    padding: 10px; /* Внутренний отступ вокруг текста на кнопке */
+    cursor: pointer; /* Указатель при наведении на кнопку */
+    border-radius: 4px; /* Скругление углов кнопки */
+    width: 180px;
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+}
+
+.input-form_back input[type="submit"]:hover {
+    background-color:#8be4ffd3; /* Изменение цвета фона при наведении на кнопку */
+}
+
+.input-form_continue, .input-form_back{
+    display: inline-block;
+}
+
+/* Стили для выпадающего списка */
+
+.input-form_dropdown select {
+    font-family: 'Noto Sans', sans-serif;
+    padding: 10px; /* Внутренний отступ вокруг текста в поле ввода */
+    width: 60%; /* Занимает % доступной ширины */
+    outline: none; /* Убираем контур фокуса на полях ввода */
+    box-sizing: border-box; /* Учитываем границу в расчетах ширины */
+    background-color: #1D2125; /* Цвет фона полей ввода */
+    color: #FFF9FC; /* Цвет текста в полях ввода */
+    border-radius: 5px; /* Скругление углов полей ввода */
+    border: none; /* Границы */
+    margin-left: 20%;
+}
+
+.input-form_dropdown select:focus {
+    border: 1px solid #4361EE; /* Изменение цвета границы при фокусировке */
+}
+
+.input-form_dropdown option {
+    background-color: #1D2125; /* Цвет фона опции в списке */
+    color: #FFF9FC; /* Цвет текста опции в списке */
+}
+
+/* Определение стилей для наведения на кнопку "Продолжить" */
+
+.input-form_continue input[type="submit"]:hover {
+    background-color: #3349C0; /* Изменение цвета фона при наведении на кнопку "Продолжить" */
+}
+
+.input-form_dropdown {
+    margin: 15px 0;
+}
+
+.input-form_dropdown label {
+    color: #ffffffcd;
+    display: block;
+    margin-bottom: 5px;
+    margin-left: 20%;
+}
+
+.select-container {
+    position: relative;
+}
+
+.input-form_dropdown select {
+    font-family: 'Noto Sans', sans-serif;
+    padding: 10px;
+    width: 60%;
+    outline: none;
+    box-sizing: border-box;
+    background-color: #1D2125;
+    color: #FFF9FC;
+    border-radius: 5px;
+    border: none;
+    margin-left: 20%;
+}
+
+.input-form_dropdown select:focus {
+    border: 1px solid #4361EE;
+}
+
+
+/* стили для многострочного текстового поля */
+
+.input-form textarea {
+    font-family: 'Noto Sans', sans-serif;
+    padding: 10px; /* Внутренний отступ вокруг текста в многострочном поле */
+    width: 60%; /* Занимает % доступной ширины */
+    outline: none; /* Убираем контур фокуса на многострочном поле */
+    box-sizing: border-box; /* Учитываем границу в расчетах ширины */
+    background-color: #1D2125; /* Цвет фона многострочного поля */
+    color: #FFF9FC; /* Цвет текста в многострочном поле */
+    border-radius: 5px; /* Скругление углов многострочного поля */
+    border: none; /* Границы */
+    margin-left: 20%;
+    resize: none; /* Запрещаем изменение размера многострочного поля */
+}
+
+.input-form textarea:focus {
+    border: 1px solid #4361EE; /* Изменение цвета границы при фокусировке на многострочном поле */
+}
+
+.input-form label {
+    color: #ffffffcd; /* Цвет текста метки */
+    margin-bottom: 5px; /* Отступ снизу метки */
+    display: block; /* Размещаем метку на новой строке */
+    margin-left: 20%;
+}
+
