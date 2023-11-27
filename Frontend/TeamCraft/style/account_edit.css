@@ -99,6 +99,7 @@ a:hover {
   margin: 10px;
   display: block;
 }
+
 .personal .field .sex label {
   width: 60px;
   font-size: 15px;
@@ -116,16 +117,27 @@ a:hover {
   box-sizing: border-box;
   padding: 3px 15px;
   color: #fff;
-  transition: height 0.3s ease;
 }
+
 .field select {
+  margin-left: 1px;
   background-color: #313338;
   border: 1px solid #000;
   border-radius: 6px;
   box-sizing: border-box;
   padding: 3px 15px;
   color: #fff;
-  transition: height 0.3s ease;
+}
+.field textarea {
+  margin-left: 1px;
+  background-color: #313338;
+  border: 1px solid #000;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 3px 15px;
+  color: #fff;
+  transition: height 0.1s ease;
+  max-height: 300px;
 }
 .cancel_accept {
   max-width: 400px;
@@ -188,7 +200,7 @@ footer {
 }
 footer .footcont {
   max-width: 1200px;
-  width: 80%;
+  width: 100%;
   margin-top: 30px;
   margin-bottom: 30px;
   height: 130px;
