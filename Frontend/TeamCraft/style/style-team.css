@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500;600;700&display=swap');
 
-*{
-  margin: 0;
-  padding: 0;
-}
-
 body {
   position: relative;
   font-family: "Noto Sans", sans-serif;
@@ -15,8 +10,18 @@ body {
   overflow-x: hidden;
   height: auto;
   width: 100%;
-  background-color: #1d2125;
+  background-color: #131619;
 }
+
+body .bgcolor {
+  max-width: 1200px;
+  width: 85%;
+  height: 100vh;
+  background-color: #1d2125;
+  margin: auto;
+  padding: 1em;
+}
+
 
 /*header*/
 
@@ -30,11 +35,10 @@ body {
 }
 
 .navbar .container {
-  height: inherit;
+  min-height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0px auto;
 }
 
 .navbar-menu {
@@ -100,24 +104,21 @@ body {
 .btn-profile:hover{
   box-shadow: none;
   box-shadow:0 0 5px #9fc4f0;
-}
+} 
 
 /*main unit*/
 
 .description {
+  max-width: 1200px;
+  width: 100%;
+  margin-bottom: 20px;
+  padding-left: 1em;
+  padding-right: 1em;
   overflow: hidden;
   display: flex;
   color: #fff;
-  margin: 1em auto;
   justify-content: space-between;
   flex-wrap: wrap;
-}
-
-body div.container {
-  max-width: 1200px;
-  width: 85%;
-  margin-bottom: 20px;
-  margin: 0px auto;
 }
 
 .navbar-brand {
@@ -137,7 +138,6 @@ body div.container {
   overflow: hidden;
   display: block;
   color: #fff;
-  margin: 1em auto;
 }
 .team .acc_panel {
   padding: 10px;
@@ -176,6 +176,11 @@ p.name {
 	border-left: 3px solid #9fc4f0;
 	background-color: #313338;
 	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+}
+
+.player h2{
+  font-size: 27px;
+  font-weight: bold;
 }
 
 .player .player_icon {
@@ -217,12 +222,12 @@ p.fullness {
 .player {
 	width: calc(10% + 350px);
   margin-right: 5px;
+  margin-top: 1em;
 }
 
 .info-team{
-  margin-top: 20px;
   width: calc(10% + 300px);
-  margin-right: 80px;
+  margin-right: 50px;
 }
 
 .tags,.inf-p{
@@ -233,7 +238,7 @@ p.fullness {
   color: #fff;
   background-color: #313338;
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
-  border: 3px solid #9fc4f0;
+  border: 1px solid #000;
   border-radius: 10px;
   outline-color: #fff;
 }
@@ -272,14 +277,19 @@ p.fullness {
 /*footer*/
 
 footer {
+  max-width: 1200px;
+  width: 85%;
+  background-color: #1d2125;
+  margin: auto;
   display: flex;
   justify-content: space-around;
 }
 
 footer .footcont {
   max-width: 1200px;
-  width: 80%;
-  margin-top: 100px;
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 30px;
   height: 130px;
   display: flex;
   align-items: start;
@@ -305,4 +315,24 @@ footer .footcont {
 .footcont div a:hover {
   text-decoration-line: underline;
   opacity: 0.8;
+}
+
+
+@media (max-width: 750px){
+	.navbar .container{
+		/* Изменяем направление оси в шапке на вертикальное */
+		flex-direction: column;
+		
+		/* Выравниваем элементы в «шапке» влево */
+		align-items: flex-start;
+	}
+}
+@media (max-width: 460px){
+	.navbar .navbar-menu{
+		/* Изменяем направление оси в шапке на вертикальное */
+		flex-direction: column;
+		
+		/* Выравниваем элементы в «шапке» влево */
+		align-items: flex-start;
+	}
 }
