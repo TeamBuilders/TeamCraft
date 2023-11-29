@@ -1,16 +1,11 @@
 body {
-    background: 
-    linear-gradient( #1d212588,
-    #1d212588 ), 
-    url(/images/main_bg.jpg);
+    background: linear-gradient( #1d212588,#1d212588 ), url(../images/main_bg.jpg);
     background-size: cover;
     display: flex; /* Используем flex-контейнер для центрирования по вертикали и горизонтали */
     justify-content: center;
     align-items: center;
     height: 98vh; /* Высота экрана */
 }
-
-
 
 /* весь блок */
 .registration-step {
