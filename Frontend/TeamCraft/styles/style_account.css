@@ -17,11 +17,9 @@ body .bgcolor {
   margin: auto;
   padding: 1em;
 }
-@media (max-width:555px) {
-  body .bgcolor {
-    width: 100%;
-  }
-}
+/* body div.container {
+  margin-bottom: 20px;
+} */
 .account {
   overflow: hidden;
   display: block;
@@ -61,6 +59,7 @@ p.init {
   font-size: 18px;
 }
 div.edit {
+  max-width: 400px;
   margin-bottom: 30px;
   margin-top: 20px;
 }
@@ -82,97 +81,19 @@ a:hover {
   font-size: 27px;
   font-weight: bold;
 }
-
-.personal .account_editing {
-  max-width: 400px;
-}
-.personal .field {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-}
-.personal form label{
+.description .personal h6 {
+  font-size: 15;
   font-weight: bold;
-  margin-bottom: 8px;
 }
-.personal .field .sex {
-  margin: 10px;
-  display: block;
-}
-
-.personal .field .sex label {
-  width: 60px;
-  font-size: 15px;
-  font-weight: normal;
-}
-.field {
-  max-width: 400px;
-}
-
-.field input {
-  margin-left: 1px;
-  background-color: #313338;
-  border: 1px solid #000;
-  border-radius: 6px;
-  box-sizing: border-box;
-  padding: 3px 15px;
-  color: #fff;
-}
-
-.field select {
-  margin-left: 1px;
-  background-color: #313338;
-  border: 1px solid #000;
-  border-radius: 6px;
-  box-sizing: border-box;
-  padding: 3px 15px;
-  color: #fff;
-}
-.field textarea {
-  margin-left: 1px;
-  background-color: #313338;
-  border: 1px solid #000;
-  border-radius: 6px;
-  box-sizing: border-box;
-  padding: 3px 15px;
-  color: #fff;
-  transition: height 0.1s ease;
-  max-height: 300px;
-}
-.cancel_accept {
-  max-width: 400px;
-  padding-bottom: 5px;
-	display: flex;
-	justify-content: space-between;
-}
-.cancel_accept .button[id="b1"] {
-	color: #000;
-	background-color: #9fc4f0;
-}
-.cancel_accept .button[id="b2"] {
-	color: #fff;
-	background-color: #4361ee;
-}
-.button:hover {
-  box-shadow: none;
-  box-shadow:0 0 5px #9fc4f0;
-}
-.cancel_accept a {
-	text-decoration: none;
-}
-/* Начальная высота в обычном состоянии. Можете настроить по вашему усмотрению */
-
-.personal {
-      width: calc(10% + 300px);
-}
-/* .personal .field p {
+/* .personal {} */
+.personal .field p {
   max-width: 400px;
   background-color: #313338;
   border: 1px solid #000;
   border-radius: 6px;
   box-sizing: border-box;
   padding: 3px 15px;
-} */
+}
 /* .personal .edit {
 	color: #4361ee;
 	font-size: 18px;
@@ -207,6 +128,7 @@ footer .footcont {
   display: flex;
   align-items: start;
   flex-direction: row-reverse;
+
 }
 .footcont div {
   display: flex;
@@ -232,7 +154,7 @@ footer .footcont {
   width: 100%;
   min-height: 60px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-image: url(../images/NavbarBG.jpg);
+  background-image: url(../images/main_bg.jpg);
   background-position-y: 2530px;
   background-position-x: 2890px;
 }
@@ -287,25 +209,28 @@ p.fullness {
   margin-right: 5px;
 }
 .teams .buttons {
-  padding-bottom: 5px;
 	display: flex;
 	justify-content: space-between;
 }
-.button {
+.teams .buttons .button {
 	width: 160px;
-  height: 40px;
-  border-radius: 5px;
-  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  padding-top: 8px;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    padding-top: 8px;
+}
+.teams .buttons .button:hover {
+  box-shadow: none;
+  box-shadow:0 0 5px #9fc4f0;
 }
 .buttons a {
 	text-decoration: none;
 }
-
 .teams .buttons .button[id="b1"] {
 	color: #000;
 	background-color: #9fc4f0;
+	
 }
 .teams .buttons .button[id="b2"] {
 	color: #fff;

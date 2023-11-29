@@ -19,13 +19,13 @@
     />
 
     <!-- Стили сайта -->
-    <link rel="stylesheet" href="style/account_edit.css" />
+    <link rel="stylesheet" href="styles/style_account_edit.css" />
   </head>
   <body>
     <header>
       <div class="navbar">
         <div class="container">
-          <a href="#" class="navbar-brand">TeamCraft</a>
+          <a href="main_page.html" class="navbar-brand">TeamCraft</a>
           <ul class="navbar-menu">
             <li><a href="#">Найти команду</a></li>
             <li><a href="#">Создать команду</a></li>
@@ -57,7 +57,8 @@
         <div class="personal">
           <h2>Личная информация</h2>
           <div class="fields">
-            <form class="account_editing">
+            <!-- Вставить в action файл скрипта -->
+            <form action="" method="post" class="account_editing">
               <div class="field">
                 <label for="name">ИМЯ</label>
                 <input type="text" name="name" value="Костян">
@@ -81,7 +82,7 @@
                 <label for="info">О СЕБЕ</label>
                 <!-- <input type="text" name="info" id="expandableInput" oninput="adjustInputHeight(this)" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."> -->
-                <textarea name="info" id="expandableTextarea" oninput="adjustTextareaHeight(this)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                <textarea name="info" id="expandableTextarea" rows="6" oninput="adjustTextareaHeight(this)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</textarea>
                 <script>
                   function adjustTextareaHeight(textareaElement) {
@@ -89,7 +90,7 @@
                       textareaElement.style.height = "auto";
                       textareaElement.style.height = (textareaElement.scrollHeight + 4) + "px";
                   }
-              </script>
+                </script>
               </div>
               <div class="field">
                 <label for="contacts">КОНТАКТЫ</label>

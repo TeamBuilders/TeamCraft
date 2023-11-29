@@ -12,6 +12,7 @@ body{
     background-image: url("../images/bg.jpg");
     background-size: 100% 1024px;
     background-repeat: no-repeat;
+    
 }
 
 /*header*/
@@ -82,7 +83,10 @@ body{
     transition: all 0.1s ease-in-out;
 }
 
-.btn-sign-in{
+a.btn-sign-in{
+    text-decoration: none;
+    color: #FFF9FC;
+    padding: auto;
     float: right;
     width: 95px;
     height: 35px;
@@ -91,12 +95,14 @@ body{
     cursor: pointer;
     background-color: #4361EE;
     box-shadow: 0 5px 5px rgba(0,0,0,0.6);
-    color: #FFF9FC;
     font-size: 15px;
     font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.btn-sign-in:hover{
+a.btn-sign-in:hover{
     box-shadow: none;
     box-shadow:0 0 5px #9fc4f0;
 }
@@ -141,19 +147,29 @@ body{
     font-weight: 500;
 }
 
-.btn-sign-up{
+
+a.btn-sign-up{
+    text-decoration: none;
+    color: #000;
     width: 288px;
     height: 52px;
+    background-color: #8BE3FF;
+    box-shadow: 0 5px 5px rgba(0,0,0,1);
+    margin-left: auto;
+    margin-right: auto;
     cursor: pointer;
     font-weight: 500;
     font-size: 25px;
-    color: #000;
-    background-color: #8BE3FF;
-    border: none;
     border-radius: 5px;
-    box-shadow: 0 5px 5px rgba(0,0,0,1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
+#foot_sign_up {
+    margin-left: 30px;
+    margin-top: 25px;
+    margin-bottom: auto;
+}
 .btn-sign-up:hover{
     box-shadow: none;
     box-shadow:0 0 5px #9fc4f0;
