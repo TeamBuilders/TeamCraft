@@ -1,11 +1,11 @@
-﻿namespace TeamCraft.Model
+﻿namespace TeamCraft.JwtData
 {
     public class EmailData
     {
         public EmailData() { }
-        public EmailData(string mail) 
+        public EmailData(string mail)
         {
-            this.email = mail;
+            email = mail;
         }
 
         public string email { get; set; }
