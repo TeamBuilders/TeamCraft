@@ -19,13 +19,13 @@
     />
 
     <!-- Стили сайта -->
-    <link rel="stylesheet" href="style/styles.css" />
+    <link rel="stylesheet" href="styles/style_account.css" />
   </head>
   <body>
     <header>
       <div class="navbar">
         <div class="container">
-          <a href="#" class="navbar-brand">TeamCraft</a>
+          <a href="main_page.html" class="navbar-brand">TeamCraft</a>
           <ul class="navbar-menu">
             <li><a href="#">Найти команду</a></li>
             <li><a href="#">Создать команду</a></li>
@@ -37,106 +37,110 @@
         </div>
       </div>
     </header>
-    <div class="container">
-      <div class="account">
-        <div class="profile">
-          <h1>Аккаунт</h1>
-        </div>
-  
-        <div class="acc_panel">
-          <img src="images/avatar.jpg" alt="Avatar" class="avatar" />
-  
-          <div class="initials">
-            <p class="nick">Никнейм</p>
-            <p class="init">Имя Фамилия</p>
+    <div class="bgcolor">
+      <div class="container">
+        <div class="account">
+          <div class="profile">
+            <h1>Аккаунт</h1>
+          </div>
+    
+          <div class="acc_panel">
+            <img src="images/avatar.jpg" alt="Avatar" class="avatar" />
+    
+            <div class="initials">
+              <p class="nick">Никнейм</p>
+              <p class="init">Имя Фамилия</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="description">
-        <div class="personal">
-          <h2>Личная информация</h2>
-          <div class="fields">
-            <div class="field">
-              <h6>ИМЯ</h6>
-              <p>Костян</p>
+        <div class="description">
+          <div class="personal">
+            <h2>Личная информация</h2>
+            <div class="fields">
+              <div class="field">
+                <h6>ИМЯ</h6>
+                <p>Костян</p>
+              </div>
+              <div class="field">
+                <h6>ФАМИЛИЯ</h6>
+                <p>Фабрикатор</p>
+              </div>
+              <div class="field">
+                <h6>ДАТА РОЖДЕНИЯ</h6>
+                <p>Календарь с датой рождения</p>
+              </div>
+              <div class="field">
+                <h6>ПОЛ</h6>
+                <p>Мужской</p>
+              </div>
+              <div class="field">
+                <h6>О СЕБЕ</h6>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+              </div>
+              <div class="field">
+                <h6>КОНТАКТЫ</h6>
+                <p>ссылка на вк и телегу</p>
+              </div>
             </div>
-            <div class="field">
-              <h6>ФАМИЛИЯ</h6>
-              <p>Фабрикатор</p>
-            </div>
-            <div class="field">
-              <h6>ДАТА РОЖДЕНИЯ</h6>
-              <p>Календарь с датой рождения</p>
-            </div>
-            <div class="field">
-              <h6>ПОЛ</h6>
-              <p>Мужской</p>
-            </div>
-            <div class="field">
-              <h6>О СЕБЕ</h6>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-            </div>
-            <div class="field">
-              <h6>КОНТАКТЫ</h6>
-              <p>ссылка на вк и телегу</p>
+    
+            <div class="edit">
+              <a href="account_edit.html">Редактировать профиль</a>
             </div>
           </div>
-  
-          <div class="edit">
-            <a href="#">Редактировать профиль</a>
-          </div>
-        </div>
-        <div class="teams">
-          <h2>Команды</h2>
-      <div class="blocks_teams">
-        <div class="block_team">
-          <img src="images/csgo.ico" alt="team_icon" class="team_icon">
-          <div class="desc">
-            <p class="team_title">Турнир по CS:GO</p>
-            <div class="state">
-              <div class="circle" id="1"></div>
-              <p class="fullness">3 из 5</p>
+          <div class="teams">
+            <h2>Команды</h2>
+        <div class="blocks_teams">
+          <div class="block_team">
+            <img src="images/csgo.ico" alt="team_icon" class="team_icon">
+            <div class="desc">
+              <p class="team_title">Турнир по CS:GO</p>
+              <div class="state">
+                <div class="circle" id="1"></div>
+                <p class="fullness">3 из 5</p>
+              </div>
+              
             </div>
             
           </div>
-          
-        </div>
-        <div class="block_team">
-          <img src="images/хакатон.jpg" alt="team_icon" class="team_icon">
-          <div class="desc">
-            <p class="team_title">Хакатончик</p>
-            <div class="state">
-              <div class="circle" id="2"></div>
-              <p class="fullness">3 из 3</p>
+          <div class="block_team">
+            <img src="images/хакатон.jpg" alt="team_icon" class="team_icon">
+            <div class="desc">
+              <p class="team_title">Хакатончик</p>
+              <div class="state">
+                <div class="circle" id="2"></div>
+                <p class="fullness">3 из 3</p>
+              </div>
+              
             </div>
             
           </div>
-          
+        </div>
+        <div class="buttons">
+          <a href="#" class="button" id="b1">Найти</a>
+          <a href="#" class="button" id="b2">Создать</a>
+        </div>
+          </div>
         </div>
       </div>
-      <div class="buttons">
-        <a href="#" class="button" id="b1">Найти</a>
-        <a href="#" class="button" id="b2">Создать</a>
-      </div>
+      <footer>
+  
+        <div class="footcont">
+          <div class="company">
+            <a href="#" class="header">КОМПАНИЯ</a>
+            <a href="#">О проекте</a>
+            <a href="#">Реклама</a>
+            <a href="#">Контакты</a>
+            <a href="#">Конфиденциальность</a>
+          </div>
+          <div class="social">
+            <a href="#" class="header">Социальные сети</a>
+            <a href="#" class="header">FAQ</a>
+          </div>
         </div>
-      </div>
+      </footer>
     </div>
     
   </body>
-  <footer>
-    <div class="footcont">
-      <div class="company">
-        <a href="#" class="header">КОМПАНИЯ</a>
-        <a href="#">О проекте</a>
-        <a href="#">Реклама</a>
-        <a href="#">Контакты</a>
-        <a href="#">Конфиденциальность</a>
-      </div>
-      <div class="social">
-        <a href="#" class="header">Социальные сети</a>
-        <a href="#" class="header">FAQ</a>
-      </div>
-    </div>
-  </footer>
+  
 </html>

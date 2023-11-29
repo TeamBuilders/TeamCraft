@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeamCraft</title>
+
+    <!-- Bootstrap reboot (для сброса стилей) -->
+    <link rel="stylesheet" href="libs/bootstrap-reboot.min.css" />
+
+    <!-- Bootstrap сетка -->
+    <link rel="stylesheet" href="libs/bootstrap-grid.min.css" />
+
+    <!-- Шрифты с Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Стили сайта -->
+    <link rel="stylesheet" href="styles/style_account_edit.css" />
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <div class="container">
+          <a href="main_page.html" class="navbar-brand">TeamCraft</a>
+          <ul class="navbar-menu">
+            <li><a href="#">Найти команду</a></li>
+            <li><a href="#">Создать команду</a></li>
+            <li><a href="#">Блог</a></li>
+          </ul>
+          <div class="navbar-wrap">
+            <a href="#" class="faq">FAQ</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="bgcolor">
+    <div class="container">
+      <div class="account">
+        <div class="profile">
+          <h1>Аккаунт</h1>
+        </div>
+  
+        <div class="acc_panel">
+          <img src="images/avatar.jpg" alt="Avatar" class="avatar" />
+  
+          <div class="initials">
+            <p class="nick">Никнейм</p>
+            <p class="init">Имя Фамилия</p>
+          </div>
+        </div>
+      </div>
+      <div class="description">
+        <div class="personal">
+          <h2>Личная информация</h2>
+          <div class="fields">
+            <!-- Вставить в action файл скрипта -->
+            <form action="" method="post" class="account_editing">
+              <div class="field">
+                <label for="name">ИМЯ</label>
+                <input type="text" name="name" value="Костян">
+              </div>
+              <div class="field">
+                <label for="surname">ФАМИЛИЯ</label>
+                <input type="text" name="surname" value="Фабрикатор">
+              </div>
+              <div class="field">
+                <label for="birthday">ДАТА РОЖДЕНИЯ</label>
+                <input type="date" name="birthday">
+              </div>
+              <div class="field">
+                <label for="sex">ПОЛ</label>
+                  <select name="sex" id="sex-select" value="Мужской">
+                    <option value="male">Мужской</option>
+                    <option value="female">Женский</option>
+                  </select>
+              </div>
+              <div class="field">
+                <label for="info">О СЕБЕ</label>
+                <!-- <input type="text" name="info" id="expandableInput" oninput="adjustInputHeight(this)" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."> -->
+                <textarea name="info" id="expandableTextarea" rows="6" oninput="adjustTextareaHeight(this)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</textarea>
+                <script>
+                  function adjustTextareaHeight(textareaElement) {
+                      // Вычисляем высоту текстового содержимого и устанавливаем высоту элемента
+                      textareaElement.style.height = "auto";
+                      textareaElement.style.height = (textareaElement.scrollHeight + 4) + "px";
+                  }
+                </script>
+              </div>
+              <div class="field">
+                <label for="contacts">КОНТАКТЫ</label>
+                <input type="text" name="info" value="Ссылки на вк, телегу и т.п.">
+              </div>
+            </form>
+            
+          </div>
+  
+          <div class="cancel_accept">
+            <a href="account.html" class="button" id="b1">Отмена</a>
+            <a href="#" class="button" id="b2">Принять</a>
+          </div>
+        </div>
+        <div class="teams">
+          <h2>Команды</h2>
+      <div class="blocks_teams">
+        <div class="block_team">
+          <img src="images/csgo.ico" alt="team_icon" class="team_icon">
+          <div class="desc">
+            <p class="team_title">Турнир по CS:GO</p>
+            <div class="state">
+              <div class="circle" id="1"></div>
+              <p class="fullness">3 из 5</p>
+            </div>
+            
+          </div>
+          
+        </div>
+        <div class="block_team">
+          <img src="images/хакатон.jpg" alt="team_icon" class="team_icon">
+          <div class="desc">
+            <p class="team_title">Хакатончик</p>
+            <div class="state">
+              <div class="circle" id="2"></div>
+              <p class="fullness">3 из 3</p>
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+      <div class="buttons">
+        <a href="#" class="button" id="b1">Найти</a>
+        <a href="#" class="button" id="b2">Создать</a>
+      </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      
+      <div class="footcont">
+        <div class="company">
+          <a href="#" class="header">КОМПАНИЯ</a>
+          <a href="#">О проекте</a>
+          <a href="#">Реклама</a>
+          <a href="#">Контакты</a>
+          <a href="#">Конфиденциальность</a>
+        </div>
+        <div class="social">
+          <a href="#" class="header">Социальные сети</a>
+          <a href="#" class="header">FAQ</a>
+        </div>
+      </div>
+    </div>
+    </footer>
+  </body>
+  
+</html>
