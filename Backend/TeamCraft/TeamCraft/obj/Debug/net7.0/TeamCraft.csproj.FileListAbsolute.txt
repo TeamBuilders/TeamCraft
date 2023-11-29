@@ -63,3 +63,7 @@ F:\TeamCraft\Backend\TeamCraft\TeamCraft\obj\Debug\net7.0\refint\TeamCraft.dll
 F:\TeamCraft\Backend\TeamCraft\TeamCraft\obj\Debug\net7.0\TeamCraft.pdb
 F:\TeamCraft\Backend\TeamCraft\TeamCraft\obj\Debug\net7.0\TeamCraft.genruntimeconfig.cache
 F:\TeamCraft\Backend\TeamCraft\TeamCraft\obj\Debug\net7.0\ref\TeamCraft.dll
+F:\TeamCraft\Backend\TeamCraft\TeamCraft\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+F:\TeamCraft\Backend\TeamCraft\TeamCraft\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+F:\TeamCraft\Backend\TeamCraft\TeamCraft\bin\Debug\net7.0\Newtonsoft.Json.dll
+F:\TeamCraft\Backend\TeamCraft\TeamCraft\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
