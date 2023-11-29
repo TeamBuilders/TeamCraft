@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TeamCraft")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cf5f2b31f00deb07f3a2c9dda790aaa961ca20e6")]
 [assembly: System.Reflection.AssemblyProductAttribute("TeamCraft")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TeamCraft")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

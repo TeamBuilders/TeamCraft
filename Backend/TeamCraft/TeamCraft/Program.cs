@@ -52,8 +52,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 
+
+
 app.MapPost("/api/profile/restoration/", async delegate (HttpContext context)
 {
+    Random random = new Random();
+    int randomNumber = random.Next(1000, 10000);
     EmailData email = await context.Request.ReadFromJsonAsync<EmailData>();
     // Отправка письма
     // Настройки SMTP-сервера Mail.ru
@@ -74,21 +78,24 @@ app.MapPost("/api/profile/restoration/", async delegate (HttpContext context)
             mailMessage.From = new MailAddress(smtpUsername);
             mailMessage.To.Add(email.email); // Укажите адрес получателя
             mailMessage.Subject = "Заголовок сообщения (тема)";
-            mailMessage.Body = $"Текст сообщения";
+            mailMessage.Body = $"код:{randomNumber}";
 
             try
             {
                 // Отправляем сообщение
                 smtpClient.Send(mailMessage);
                 Console.WriteLine("Сообщение успешно отправлено.");
+                return Results.Json(randomNumber);
+
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка отправки сообщения: {ex.Message}");
+                return Results.Json("ошибка");
             }
         }
     }
 });
-
 
 app.Run();
