@@ -29,6 +29,9 @@ builder.Services.AddControllers()
        });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+
+
+
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -53,7 +56,7 @@ var app = builder.Build();
 
 
 
-
+// Метод восстановления пароля через почту
 app.MapPost("/api/profile/restoration/", async delegate (HttpContext context)
 {
     Random random = new Random();
