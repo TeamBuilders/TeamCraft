@@ -5,13 +5,22 @@ namespace TeamCraft.FilterLogic
 {
     public static class Helper
     {
-        static public int CalculateAgePerson(DateTime dataBirthday)
+
+        public static int CalculateAgePerson(DateTime birthDate)
         {
-            var  substract = dataBirthday - DateTime.Now;
-            return (new DateTime(1970, 1, 1, 0, 0, 0, 0)).AddSeconds(substract.TotalSeconds).Year;
+            DateTime currentDate = DateTime.Now;
+            int age = currentDate.Year - birthDate.Year;
+
+            if (birthDate > currentDate.AddYears(-age))
+            {
+                age--;
+            }
+
+            return age;
         }
 
-        static public string ComputeSHA512(string stringValue)
+
+        static public string ComputeSHA512(string stringValue) // ДЕЛАЕТ В КАПСЕ, А НА САЙТАХ ХЭШКОД В НИЖНЕМ РЕГИСТРЕ
         {
             StringBuilder sb = new StringBuilder();
             using (SHA512 sha512 = SHA512.Create())
@@ -34,7 +43,10 @@ namespace TeamCraft.FilterLogic
                  hasNumber = CheckNumberInString(password),
                  hasSpecialChar = false;
 
-            if(password.Length >= 8)
+
+            if (password.Any(ch => !char.IsLetterOrDigit(ch)))
+                hasSpecialChar = true;
+            if (password.Length >= 8)
                 sizePassword = true;
             if(password.ToUpper() != password)
                 hasDownChar= true;
@@ -51,7 +63,7 @@ namespace TeamCraft.FilterLogic
             return hashCode == ComputeSHA512(enterPassword);
         }
 
-        static private bool CheckNumberInString(string value)
+        static public bool CheckNumberInString(string value)
         {
             for(int i = 0; i < value.Length; i++) 
                 if (value[i] > 47 && value[i] < 58)
