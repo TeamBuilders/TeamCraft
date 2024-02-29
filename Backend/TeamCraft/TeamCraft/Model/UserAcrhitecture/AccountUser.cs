@@ -1,4 +1,5 @@
-﻿using TeamCraft.Model.TeamsArchitecture;
+﻿using TeamCraft.JsonParsersClasses;
+using TeamCraft.Model.TeamsArchitecture;
 
 namespace TeamCraft.Model.UserAcrhitecture
 
@@ -6,10 +7,16 @@ namespace TeamCraft.Model.UserAcrhitecture
     public class AccountUser
     {
         public AccountUser() { }
-        public AccountUser(DataUser dataUser, SettingsProfileUser settingUser)
+        //public AccountUser(DataUser dataUser, SettingsProfileUser settingUser)
+        //{
+        //    this.dataUser = dataUser;
+        //    this.settingsUser = settingUser;
+        //}
+
+        public AccountUser(RegistrationForm form)
         {
-            this.dataUser = dataUser;
-            this.settingsUser = settingUser;
+            dataUser = new DataUser(form);
+            settingsUser = new SettingsProfileUser(form);
         }
 
         public int id { get; set; }

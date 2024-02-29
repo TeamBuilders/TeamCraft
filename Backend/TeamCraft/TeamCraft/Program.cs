@@ -1,20 +1,16 @@
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Text.Json.Serialization;
 using TeamCraft.DataBaseController;
 using TeamCraft.FilterLogic;
-using TeamCraft.Model.TeamsArchitecture;
 using TeamCraft.Model.UserAcrhitecture;
 using System.Net.Mail;
 using System.Net;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using TeamCraft.JwtData;
+using TeamCraft.JsonParsersClasses;
+using TeamCraft.Model;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -99,6 +95,34 @@ app.MapPost("/api/profile/restoration/", async delegate (HttpContext context)
             }
         }
     }
+});
+
+app.MapPost("/api/register", async delegate (HttpContext context, DBConfigurator db)
+{
+    RegistrationForm userForm = await context.Request.ReadFromJsonAsync<RegistrationForm>();
+    RequestStatus statusRequestUser = DataValidator.CheckCorrectUserData(userForm);
+    if(statusRequestUser.statusCode == 200)
+    {
+        AccountUser user = new AccountUser(userForm);
+        db.accountsUser.Add(user);
+        await db.SaveChangesAsync();
+        statusRequestUser.message.Add("successful addition");
+    }
+    context.Response.StatusCode = statusRequestUser.statusCode;
+    return  JsonConvert.SerializeObject(statusRequestUser);
+});
+
+app.MapPost("/api/login", async delegate (HttpContext context, DBConfigurator db)
+{
+    LoginForm logForm = await context.Request.ReadFromJsonAsync<LoginForm>();
+    RequestStatus statusRequestUser = DataValidator.CheckCorrectLoginData(logForm, db);
+    if (statusRequestUser.statusCode == 200)
+    {
+        AccountUser account = db.accountsUser.FirstOrDefault(users => users.settingsUser.hashPassword == Helper.ComputeSHA512(logForm.password));
+        return JsonConvert.SerializeObject(account);
+    }
+    context.Response.StatusCode = statusRequestUser.statusCode;
+    return JsonConvert.SerializeObject("Inccorect password");
 });
 
 app.Run();
