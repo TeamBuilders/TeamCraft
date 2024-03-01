@@ -11,6 +11,10 @@ using TeamCraft.JwtData;
 using TeamCraft.JsonParsersClasses;
 using TeamCraft.Model;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -99,8 +103,8 @@ app.MapPost("/api/profile/restoration/", async delegate (HttpContext context)
 
 app.MapPost("/api/register", async delegate (HttpContext context, DBConfigurator db)
 {
-    RegistrationForm userForm = await context.Request.ReadFromJsonAsync<RegistrationForm>();
-    RequestStatus statusRequestUser = DataValidator.CheckCorrectUserData(userForm);
+    RegistrationForm? userForm = await context.Request.ReadFromJsonAsync<RegistrationForm>();
+    RequestStatus statusRequestUser = DataValidator.CheckCorrectUserData(userForm, db);
     if(statusRequestUser.statusCode == 200)
     {
         AccountUser user = new AccountUser(userForm);
@@ -114,15 +118,32 @@ app.MapPost("/api/register", async delegate (HttpContext context, DBConfigurator
 
 app.MapPost("/api/login", async delegate (HttpContext context, DBConfigurator db)
 {
-    LoginForm logForm = await context.Request.ReadFromJsonAsync<LoginForm>();
+    LoginForm? logForm = await context.Request.ReadFromJsonAsync<LoginForm>();
     RequestStatus statusRequestUser = DataValidator.CheckCorrectLoginData(logForm, db);
     if (statusRequestUser.statusCode == 200)
     {
         AccountUser account = db.accountsUser.FirstOrDefault(users => users.settingsUser.hashPassword == Helper.ComputeSHA512(logForm.password));
-        return JsonConvert.SerializeObject(account);
+        var claims = new List<Claim> { new Claim(logForm.login, logForm.password) };
+        var jwt = new JwtSecurityToken(
+                issuer: AuthOptions.ISSUER,
+                audience: AuthOptions.AUDIENCE,
+                claims: claims,
+                expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)), // время действия 2 минуты
+                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+
+        var response = new
+        {
+            user = account,
+            jwtToken = new JwtSecurityTokenHandler().WriteToken(jwt)
+        };
+
+        //return new JwtSecurityTokenHandler().WriteToken(jwt);
+        return JsonConvert.SerializeObject(response);
     }
     context.Response.StatusCode = statusRequestUser.statusCode;
-    return JsonConvert.SerializeObject("Inccorect password");
+    return JsonConvert.SerializeObject(statusRequestUser);
 });
+
+app.MapGet("/api/data", [Authorize] (HttpContext context) => $"Successfully!");
 
 app.Run();

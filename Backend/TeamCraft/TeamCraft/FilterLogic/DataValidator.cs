@@ -9,7 +9,7 @@ namespace TeamCraft.FilterLogic
     {
         private static string specSymbols = "!@#$%^&?*()\\/:;'[]{},.\"`~";
         private static string numbers = "1234567890";
-        static public RequestStatus CheckCorrectUserData(RegistrationForm unverifiedUser)
+        static public RequestStatus CheckCorrectUserData(RegistrationForm? unverifiedUser, DBConfigurator db)
         {
             var result = new RequestStatus();
 
@@ -17,6 +17,15 @@ namespace TeamCraft.FilterLogic
             {
                 result.SetBadStatus();
                 result.message.Add("User = null");
+                return result;
+            }
+            if(unverifiedUser.gender == null || unverifiedUser.sureName == null || unverifiedUser.name == null ||
+                unverifiedUser.birthday == null || unverifiedUser.contact == null || unverifiedUser.login == null
+                || unverifiedUser.password == null) 
+            {
+                
+                result.SetBadStatus();
+                result.message.Add("Not all required fields are filled in!");
                 return result;
             }
             if (!unverifiedUser.login.All(symbols => !specSymbols.Contains(symbols)) || unverifiedUser.login.Length < 6 || unverifiedUser.login.Length > 16)
@@ -39,21 +48,24 @@ namespace TeamCraft.FilterLogic
             {
                 result.message.Add("Юзер либо еще не родился, либо уже умер, в любом случае все по новой");
             }
-
-            if(result.message.Count > 0) 
+            if (db.settingsProfileUser.FirstOrDefault(users => users.login == unverifiedUser.login) != null) 
+            {
+                result.message.Add("Такой логин уже есть");
+            }
+            if (result.message.Count > 0) 
             {
                 result.SetBadStatus();
             }
 
             return result;
         }
-        static public RequestStatus CheckCorrectLoginData(LoginForm loginForm, DBConfigurator db)
+        static public RequestStatus CheckCorrectLoginData(LoginForm? loginForm, DBConfigurator db)
         {
             RequestStatus result = new RequestStatus();
-            if (loginForm == null) 
+            if (loginForm == null || loginForm.login == null || loginForm.password == null) 
             {
                 result.SetBadStatus();
-                result.message.Add("loginForm = null");
+                result.message.Add("loginForm = null or Not all required fields are filled in!");
                 return result;
             }
             string pass = Helper.ComputeSHA512(loginForm.password);

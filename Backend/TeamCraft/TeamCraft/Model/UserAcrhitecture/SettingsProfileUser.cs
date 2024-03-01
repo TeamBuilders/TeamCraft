@@ -1,4 +1,6 @@
-﻿using TeamCraft.FilterLogic;
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using TeamCraft.FilterLogic;
 using TeamCraft.JsonParsersClasses;
 
 namespace TeamCraft.Model.UserAcrhitecture
@@ -20,6 +22,8 @@ namespace TeamCraft.Model.UserAcrhitecture
         //}
         public int id { get; set; }
         public string login { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
+        //[System.Text.Json.Serialization.JsonIgnore]
         public string hashPassword { get; set; }
 
 

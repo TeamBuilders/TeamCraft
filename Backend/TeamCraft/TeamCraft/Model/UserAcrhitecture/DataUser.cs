@@ -28,8 +28,8 @@ namespace TeamCraft.Model.UserAcrhitecture
         public string name { get; set; }
         public string sureName { get; set; }
 
-        public string descriptionUser { get; set; }
-        public DateTime databirthday { get; set; }
+        public string? descriptionUser { get; set; }
+        public DateTime? databirthday { get; set; }
         public string? gender { get; set; }
         
 

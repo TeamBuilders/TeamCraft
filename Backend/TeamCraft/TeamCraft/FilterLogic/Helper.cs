@@ -6,10 +6,10 @@ namespace TeamCraft.FilterLogic
     public static class Helper
     {
 
-        public static int CalculateAgePerson(DateTime birthDate)
+        public static int CalculateAgePerson(DateTime? birthDate)
         {
             DateTime currentDate = DateTime.Now;
-            int age = currentDate.Year - birthDate.Year;
+            int age = currentDate.Year - birthDate.Value.Year;
 
             if (birthDate > currentDate.AddYears(-age))
             {
