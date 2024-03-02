@@ -209,3 +209,8 @@ C:\Users\StackOverFlow\Documents\GitHub\TeamCraft\Backend\TeamCraft\TeamCraft\ob
 C:\Users\StackOverFlow\Documents\GitHub\TeamCraft\Backend\TeamCraft\TeamCraft\obj\Debug\net7.0\TeamCraft.pdb
 C:\Users\StackOverFlow\Documents\GitHub\TeamCraft\Backend\TeamCraft\TeamCraft\obj\Debug\net7.0\TeamCraft.genruntimeconfig.cache
 C:\Users\StackOverFlow\Documents\GitHub\TeamCraft\Backend\TeamCraft\TeamCraft\obj\Debug\net7.0\ref\TeamCraft.dll
+C:\Users\StackOverFlow\Documents\GitHub\TeamCraft\Backend\TeamCraft\TeamCraft\bin\Debug\net7.0\publish\web.config
+C:\Users\StackOverFlow\Documents\GitHub\TeamCraft\Backend\TeamCraft\TeamCraft\bin\Debug\net7.0\publish\appsettings.Development.json
+C:\Users\StackOverFlow\Documents\GitHub\TeamCraft\Backend\TeamCraft\TeamCraft\bin\Debug\net7.0\publish\appsettings.json
+C:\Users\StackOverFlow\Documents\GitHub\TeamCraft\Backend\TeamCraft\TeamCraft\bin\Debug\net7.0\publish\TeamCraft.deps.json
+C:\Users\StackOverFlow\Documents\GitHub\TeamCraft\Backend\TeamCraft\TeamCraft\bin\Debug\net7.0\publish\TeamCraft.runtimeconfig.json

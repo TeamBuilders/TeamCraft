@@ -20,6 +20,7 @@ namespace TeamCraft.FilterLogic
         public string nameSkill { get; set; }
         public int? categoryHobbyId { get; set; }
         [JsonIgnore]
+        [Newtonsoft.Json.JsonIgnore]
         public CategoryHobby? categoryHobby { get; set; }
 
         //public int? CategoryHobbyId { get; set; }

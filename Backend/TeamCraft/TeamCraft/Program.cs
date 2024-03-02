@@ -144,6 +144,19 @@ app.MapPost("/api/login", async delegate (HttpContext context, DBConfigurator db
     return JsonConvert.SerializeObject(statusRequestUser);
 });
 
+
+
+app.MapGet("/api/hobby", async delegate (HttpContext context, DBConfigurator db)
+{
+    return db.categoryHobbies.ToList();
+});
+app.MapGet("/api/skill/{number}", async delegate (HttpContext context, DBConfigurator db, int number)
+{
+    
+    return db.skillPeople.Where(x => x.categoryHobbyId == number).ToList();
+});
+
+
 app.MapGet("/api/data", [Authorize] (HttpContext context) => $"Successfully!");
 
 app.Run();
