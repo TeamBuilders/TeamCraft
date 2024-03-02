@@ -152,8 +152,10 @@ app.MapGet("/api/hobby", async delegate (HttpContext context, DBConfigurator db)
 });
 app.MapGet("/api/skill/{number}", async delegate (HttpContext context, DBConfigurator db, int number)
 {
-    
-    return db.skillPeople.Where(x => x.categoryHobbyId == number).ToList();
+    if (number < db.categoryHobbies.ToList().Count && number > 0)
+        return JsonConvert.SerializeObject(db.skillPeople.Where(x => x.categoryHobbyId == number).ToList());
+    else
+        return JsonConvert.SerializeObject("Inccorect number");
 });
 
 
