@@ -19,8 +19,8 @@ namespace TeamCraft.DataBaseController
         public DBConfigurator(DbContextOptions<DBConfigurator> options)
             : base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();   // создаем базу данных при первом обращении
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();   // создаем базу данных при первом обращении
             CategoryHobby[] listHobbies = new CategoryHobby[]
             {       new CategoryHobby("Разработка"),
                     new CategoryHobby("Музыка"),
