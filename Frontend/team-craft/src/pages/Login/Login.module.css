@@ -1,4 +1,4 @@
-body {
+login {
     background: 
     linear-gradient( #1d212588,
     #1d212588 ), 
@@ -7,7 +7,9 @@ body {
      display: flex; /* Используем flex-контейнер для центрирования по вертикали и горизонтали */
      justify-content: center;
      align-items: center;
-     height: 98vh; /* Высота экрана */}
+     height: 98vh; /* Высота экрана */
+     background-repeat: no-repeat;
+    }
 
 /* весь блок */
 
@@ -96,12 +98,20 @@ body {
     background-color: #3349C0; /* Изменение цвета фона при наведении на кнопку */
 }
 
-a{
+.reg_button{
     text-decoration: none;
     color:#4361EE;
 }
 
-a:hover{
+.reg_button:hover{
     color:#3349C0;
 }
 
+.text{
+    text-align: center;
+    margin-top: 20px;
+    color: #FFFFFF;
+    font-weight: 300;
+    margin-bottom: 0;
+    font-size: 15px;
+}

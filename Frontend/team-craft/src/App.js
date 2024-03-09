@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';
 import Signup from './pages/Signup/Signup';
+import Login from './pages/Login/Login';
 
 import './App.css';
 
@@ -15,6 +16,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomeWithHeaderAndFooter />} />
           <Route path="/signup" element={<SignupWithoutHeaderAndFooter />} />
+          <Route path="/login" element={<Login/>}/>
         </Routes>
       </Router>
     </div>
@@ -37,3 +39,7 @@ function HomeWithHeaderAndFooter() {
 function SignupWithoutHeaderAndFooter() {
   return <Signup />;
 }
+
+// function LoginPage(){
+//   return <Login/>;
+// }

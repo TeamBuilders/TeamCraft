@@ -17,7 +17,7 @@ function Header() {
              </div>
             <div className={styles.header_text_r} >
                 <a className={styles.h_text3} href="#">FAQ</a>
-                <a href="login.html" className={styles.btn_sign_in}>Войти</a>
+                <Link to="/login" href="login.html" className={styles.btn_sign_in}>Войти</Link>
             </div>
         </div>
     </header>
