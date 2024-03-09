@@ -4,6 +4,7 @@ import styles from './Header.module.css';
 function Header() {
   return (
     <header>
+      
       <div className={styles.header}>
             <div className={styles.header_text}>
                 <a className={styles.h_text1}>TeamCraft</a>
@@ -18,7 +19,6 @@ function Header() {
                 <a href="login.html" className={styles.btn_sign_in}>Войти</a>
             </div>
         </div>
-      
     </header>
   );
 }

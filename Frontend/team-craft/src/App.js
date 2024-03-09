@@ -6,17 +6,19 @@ import Footer from './components/Footer/Footer';
 import logo from './logo.svg';
 import './App.css';
 import Home from './pages/Home/Home';
+import Signup from './pages/Signup/Signup';
 
  export default function App() {
   return (
-    <div className="App">
-      <body>
-      <Header />
-      <Home />
-      <Footer />
-      </body>
+    // <div className="App">
+    //   <body>
+    //   <Header />
+    //   <Home />
+    //   <Footer />
+    //   </body>
       
-    </div>
+    // </div>
+    <Signup />
   );
 }
 
