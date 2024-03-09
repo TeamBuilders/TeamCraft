@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Home.module.css';
-
+import { Link } from 'react-router-dom';
 function Home() {
   return (
 
@@ -11,7 +11,7 @@ function Home() {
                 <a className={styles.first_text}>Добро пожаловать на <span className={styles.name}>TeamCraft</span> <br/> 
                 <span className={styles.second_text}>Платформу для поиска команды или члена команды</span></a>
             </div>
-            <a className={styles.btn_sign_up} href="registration.html">Регистрация</a>
+            <Link className={styles.btn_sign_up} to="/Signup" >Регистрация</Link>
         
     </div>
            </div>

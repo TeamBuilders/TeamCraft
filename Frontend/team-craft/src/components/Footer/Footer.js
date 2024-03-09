@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from './Footer.module.css';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
     <footer className={styles.Footer}>
     <footer className={styles.foot}>
-        <a className={styles.btn_sign_up} href="#">Регистрация</a>
+        <Link className={styles.btn_sign_up} to="/Signup" >Регистрация</Link>
+
         <div className={styles.footer_text}>
             <div className={styles.soc}>
                 <a className={styles.foot_h} href="#">Социальные сети</a>

@@ -35,8 +35,13 @@
     font-weight: 700;
     font-style: bold;
     font-size: 30px;
+    color: #FFF9FC;
+    text-decoration: none;
 }
-
+.h_text1:hover {
+    transform: scale(1.05);
+    transition: all 0.1s ease-in-out;
+}
 .h_text2{
     color: #FFF9FC;
     text-decoration: none;
