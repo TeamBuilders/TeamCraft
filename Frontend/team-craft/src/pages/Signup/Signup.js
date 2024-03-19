@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Signup.module.css';
 
+
 function Signup() {
+  const navigate = useNavigate();
+
+  const handleCancel = () => {
+    navigate(-1); 
+  };
   return (
     <signup>
     <div className={styles.wrapper}>
@@ -66,7 +73,7 @@ function Signup() {
         </div>
         
     <div className={styles.btns}>
-    <button className={`${styles.cancel}`} type="button" id="cancel">Отмена</button>
+    <button className={`${styles.cancel}`} type="button" id="cancel" onClick={handleCancel}>Отмена</button>
     <button className={`${styles.confirm}`} type="button" id="confirm">Завершить</button>
     </div>
 
