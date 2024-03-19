@@ -1,13 +1,10 @@
-login {
-    background: 
-    linear-gradient( #1d212588,
-    #1d212588 ), 
-     url(../../images/main_bg.jpg);
+.login {
+     background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url(../../images/bg.jpg); 
      background-size: cover;
      display: flex; /* Используем flex-контейнер для центрирования по вертикали и горизонтали */
      justify-content: center;
      align-items: center;
-     height: 98vh; /* Высота экрана */
+     height: 100vh; /* Высота экрана */
      background-repeat: no-repeat;
     }
 
