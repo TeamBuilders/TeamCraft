@@ -1,0 +1,142 @@
+.bgcolor {
+    max-width: 1200px;
+    width: 90%;
+    height: 100vh;
+    background-color: #1d2125;
+    margin: auto;
+    padding: 1em;
+  }
+
+  .description {
+    max-width: 1200px;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: flex;
+    color: #fff;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .team {
+    overflow: hidden;
+    display: block;
+    color: #fff;
+  }
+  .team .acc_panel {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 26em;
+    border: 3px solid #9fc4f0;
+    border-radius: 10px;
+  }
+  .avatar {
+    width: 87px;
+    height: 87px;
+    border-radius: 6%;
+    margin: 8px 25px;
+  }
+  
+  .team h2 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .initials .name {
+    margin-left: 6px;
+    border-bottom: 2px solid #9fc4f0;
+  }
+  p.name {
+    font-size: 20px;
+  }
+  
+  .player .block_player {
+      margin: 20px 0px;
+      display: flex;
+      width: 430px;
+      border-left: 3px solid #9fc4f0;
+      background-color: #313338;
+      box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+  }
+  
+  .player h2{
+    font-size: 27px;
+    font-weight: bold;
+  }
+  
+  .player .player_icon {
+      width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 17px;
+  }
+  
+  .block_player .desc {
+      margin-top: 17px;
+  }
+  
+  .desc .player_title {
+      font-size: 18px;
+  }
+  
+  .initials .state {
+      display: flex;
+    margin-top: 10px;
+  }
+  
+  .initials .circle {
+      width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 5px;
+  }
+  
+  .initials .circle[id="1"]{
+      background-color: #9fc4f0;
+  }
+  
+  p.fullness {
+      margin: 0;
+  }
+  
+  .player {
+      width: calc(10% + 350px);
+    margin-right: 5px;
+    margin-top: 1em;
+  }
+  
+  .info_team{
+    width: calc(10% + 300px);
+    margin-right: 62px;
+  }
+  
+  .tags,.inf_p{
+    resize: none;
+    font-size: 20;
+    padding: 5px;
+    font-family: "Noto Sans", sans-serif;
+    color: #fff;
+    background-color: #313338;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+    border: 1px solid #000;
+    border-radius: 10px;
+    outline-color: #fff;
+  }
+  
+  .tag p, .info p{
+    font-size: 25px;
+    font-style: bold;
+    margin-bottom: 15px;
+  }
+  
+  .tag{ 
+    margin-bottom: 50px;
+  }
+  
+  .tag_field{
+    display: flex;
+  }
