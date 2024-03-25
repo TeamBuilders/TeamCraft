@@ -5,12 +5,12 @@
     padding: 0;
 }
 
-body{
+.App{
   font-family: 'Noto Sans', sans-serif;
   color: #FFF9FC;
-  background-color: #1D2125;
-  background-image: url("images/bg.jpg");
+  background-color: #131619;
+  /* background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url("images/bg.jpg"); */
+  /* background-image: url("images/bg.jpg");  */
   background-size: 100% 1024px;
   background-repeat: no-repeat;
-  
 }

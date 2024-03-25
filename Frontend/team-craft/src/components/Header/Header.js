@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   return (
-    <header>
-      
+    <header>      
       <div className={styles.header}>
             <div className={styles.header_text}>
                 <Link to="/" className={styles.h_text1}>TeamCraft</Link>
                 <ul className={styles.navbar_menu}>
-                    <li><a className={styles.h_text2} href="#">Найти команду</a></li>
+                    <li><Link to="/team" className={styles.h_text2} href="#">Найти команду</Link></li>
                     <li><a className={styles.h_text2} href="#">Создать команду</a></li>
                     <li><a className={styles.h_text2} href="#">Блог</a></li>
                 </ul>

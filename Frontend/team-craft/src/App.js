@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
+import Team from './pages/Team/Team';
 
 import './App.css';
 
@@ -14,32 +15,39 @@ export default function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<HomeWithHeaderAndFooter />} />
-          <Route path="/signup" element={<SignupWithoutHeaderAndFooter />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login/>}/>
+          <Route path="/team" element={<Team/>}/>
         </Routes>
-      </Router>
+      </Router> 
     </div>
   );
 }
 
-function HomeWithHeaderAndFooter() {
-  return (
-    <>
-    <body>
-      <Header />
-      <Home />
-      <Footer />
-    </body>
+// function HomeWithHeaderAndFooter() {
+//   return (
+//     <>
+//     <body>
+//       <Header />
+//       <Home />
+//       <Footer />
+//     </body>
       
-    </>
-  );
-}
+//     </>
+//   );
+// }
 
-function SignupWithoutHeaderAndFooter() {
-  return <Signup />;
-}
+// function SignupWithoutHeaderAndFooter() {
+//   return <Signup />;
+// }
 
-// function LoginPage(){
-//   return <Login/>;
+// function TeamWithHeaderAndFooter() {
+//   return (
+//     <>
+//       <Header />
+//       <Team />
+//       <Footer />
+//     </>
+//   );
 // }
