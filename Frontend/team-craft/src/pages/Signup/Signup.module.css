@@ -1,25 +1,3 @@
-body {
-    background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url(../../images/main_bg.jpg);
-    background-size: cover;
-}
-
-.wrapper {
-    display: flex;
-    
-    justify-content: center;
-    align-items: center;
-}
-.form {
-    width: 37%;
-    margin: 20px auto;
-    display: block;
-    font-family: 'Noto Sans', sans-serif; /* Выбор шрифта для текста в форме */
-    padding: 10px 100px;
-    background-color: #313338; /* Цвет фона формы */
-    border-radius: 5px; /* Скругление углов формы */
-    border: 2px solid #9FC4F0; /* Обводка формы */
-    box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
-}
 
 /* надпись вход */
 
@@ -44,6 +22,36 @@ h1 {
     color: #ffffffcd; /* Цвет текста метки */
     margin-bottom: 5px; /* Отступ снизу метки */
     display: block; /* Размещаем метку на новой строке */
+}
+/* Галочки */
+.valid {
+color: green; /* Цвет для галочки */   
+}
+
+.invalid {
+color: red; /* Цвет для крестика */
+}
+
+.hide {
+display: none; /* Скрываем элемент */
+}
+
+/* Стили для подсказки под полем ввода */
+.instrucions {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+.offscreen {
+    display: none;
+}
+
+/* Стили для отображения ошибки */
+.errmsg {
+margin-top: 5px;
+font-size: 14px;
+color: red;
 }
 
 /* поля ввода */
@@ -183,7 +191,6 @@ h1 {
     border: 1px solid #4361EE;
 }
 
-
 /* стили для многострочного текстового поля */
 
 .field_textarea textarea {
@@ -210,3 +217,24 @@ h1 {
     display: block; /* Размещаем метку на новой строке */
 }
 
+body {
+    background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url(../../images/main_bg.jpg);
+    background-size: contain;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form {
+    width: 37%;
+    margin: 20px auto;
+    display: block;
+    font-family: 'Noto Sans', sans-serif; /* Выбор шрифта для текста в форме */
+    padding: 10px 100px;
+    background-color: #313338; /* Цвет фона формы */
+    border-radius: 5px; /* Скругление углов формы */
+    border: 2px solid #9FC4F0; /* Обводка формы */
+    box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+}

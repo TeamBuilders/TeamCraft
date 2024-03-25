@@ -7,7 +7,7 @@ import axios from "../../api/axios";
 
 const USER_REGEX = /^[a-zA-Zа-яА-Я][a-zA-Zа-яА-Я0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,24}$/;
-const REGISTER_URL = 'http://a25473-8e1e.w.d-f.pw/api/register'
+const REGISTER_URL = 'https://a25581-9d46.w.d-f.pw/api/register'
 
 const Signup = () => {
     const loginRef = useRef();
@@ -21,6 +21,10 @@ const Signup = () => {
     
     const [matchPwd, setMatchPwd] = useState('');
     const [validMatch, setValidMatch] = useState(false);
+
+    const [loginFocus, setLoginFocus] = useState(false);
+    const [pwdFocus, setPwdFocus] = useState(false);
+    const [matchPwdFocus, setMatchPwdFocus] = useState(false);
     
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
@@ -31,9 +35,6 @@ const Signup = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
     
-    // const [loginFocus, setLoginFocus] = useState(false);
-    // const [pwdFocus, setPwdFocus] = useState(false);
-    // const [matchPwdFocus, setMatchPwdFocus] = useState(false);
     // const [validSurname, setValidSurname] = useState(false);
     // const [surnameFocus, setSurnameFocus] = useState(false);
     // const [validBirth_date, setValidBirth_date] = useState(false);
@@ -52,14 +53,14 @@ const Signup = () => {
     };
 
     useEffect(() => {
-      // loginRef.current.focus();
+      loginRef.current.focus();
     }, [])
 
     useEffect(() => {
       const result = USER_REGEX.test(login);
-      console.log(result);
-      console.log(login);
+      console.log(result, login);
       setValidLogin(result);
+      console.log("Валидация логина: ", validLogin);
     }, [login])
 
     useEffect(() => {
@@ -77,17 +78,17 @@ const Signup = () => {
       setErrMsg('');
     }, [login, pwd, matchPwd])
 //     const [formData, setFormData] = useState({
-    //       login: "",
-    //       password: "",
-    //       confirmPassword: "",
-    //       name: "",
-    //       surname: "",
-    //       birth_date: "",
-    //       gender: "male",
-    //       user_contacts: "",
-    //     });
-  //   {
-  //     "login" : "Kot-Vasiliy",
+//       login: "",
+//       password: "",
+//       confirmPassword: "",
+//       name: "",
+//       surname: "",
+//       birth_date: "",
+//       gender: "male",
+//       user_contacts: "",
+//     });
+//   {
+//     "login" : "Kot-Vasiliy",
   //     "password" : "M0neyL!e",
   //     "gender" : "man",
   //     "name" : "Kolya",
@@ -104,28 +105,28 @@ const Signup = () => {
       //   return;
       // }
       try{
-        const json = JSON.stringify({login, password: pwd, gender, name, sureName: surname, birthday: birth_date, contact: user_contacts});
-        console.log(json);
+        const jsonData = JSON.stringify({login, password: pwd, gender, name, sureName: surname, birthday: birth_date, contact: user_contacts});
+        console.log(jsonData);
         const response = await axios.post(REGISTER_URL, 
-          json,
+          jsonData,
           {
             headers: { 'Content-Type' : 'application/json'},
-            withCredentials: true
+            withCredentials: false
           }
         );
-
+        console.log(response?.status);
         console.log(JSON.stringify(response?.data));
         console.log('Успешно!', response);
       }catch (err){
-
+        console.log(err.response);
         if (!err?.response) {
           setErrMsg('No Server Response');
         } else if (err.response?.status === 400) {
-          setErrMsg('Username Taken');
+          setErrMsg(err.response?.data.message);
         } else {
           setErrMsg('Registration Failed');
         }
-        // errRef.current.focus();
+        errRef.current.focus();
 
       }
       // try {
@@ -162,21 +163,22 @@ const Signup = () => {
       <signup>
       <div className={styles.wrapper}>
         <div className={styles.form}>
-          {/* <p ref={errRef} className={errMsg ? "errmsg" :
-          "offscreen"} aria-live="assertive">{errMsg}</p> */}
+          <p ref={errRef} className={(errMsg) ? styles.errmsg :
+          styles.offscreen} aria-live="assertive">{errMsg}</p>
           <h1>Регистрация</h1>
 
           <form onSubmit={handleSubmit}>
             <div className={styles.field}>
               {/* ЛОГИН */}
-              <label htmlFor="login">логин
-                {/* <span className={validLogin ? "valid" : "hide"}>
+              <label htmlFor="login" className={styles.labelWithIcon}>логин<span> </span>
+                <span className={validLogin ? styles.valid : styles.hide}>
                   <FontAwesomeIcon icon={faCheck} />
                 </span>
-                <span className={validLogin || !login ? "hide" : "invalid"}>
+                <span className={(validLogin || !login) ? styles.hide : styles.invalid}>
                   <FontAwesomeIcon icon={faTimes} />
-                </span> */}
+                </span>
               </label>
+
               <input
                 type="text"
                 id="login"
@@ -185,18 +187,19 @@ const Signup = () => {
                 onChange={(e) => setLogin(e.target.value)} 
                 value={login}
                 required
-                // aria-invalid={validLogin ? "false" : "true"}
-                // aria-describedby="uidnote"
-                // onFocus={() => setLoginFocus(true)}
-                // onBlur={() => setLoginFocus(false)}
+                aria-invalid={validLogin ? "false" : "true"}
+                aria-describedby="uidnote"
+                onFocus={() => setLoginFocus(true)}
+                onBlur={() => setLoginFocus(false)}
               />
-              {/* <p id="uidnote" className={loginFocus && login &&
-              !validLogin ? "instrucions" : "offscreen"}>
-                <FontAwesomeIcon icon={faInfoCircle} />
+              <p id="uidnote" className={(loginFocus && login &&
+              !validLogin) ? styles.instrucions : styles.offscreen} >
+                <FontAwesomeIcon icon={faInfoCircle} /><span> </span>
                 4 to 24 characters. <br/>
                 Must begin with a letter. <br/>
                 Letters, numbers, underscores, hyphens allowed.
-              </p> */}
+                
+              </p>
             </div>
 
             {/* ПАРОЛЬ */}
@@ -215,12 +218,12 @@ const Signup = () => {
               onChange={(e) => setPwd(e.target.value)} 
               value={pwd}
               required
-              // aria-invalid={validPwd ? "false" : "true"}
-              // aria-describedby="pwdnote"
-              // onFocus={() => setPwdFocus(true)}
-              // onBlur={() => setPwdFocus(false)}
+              aria-invalid={validPwd ? "false" : "true"}
+              aria-describedby="pwdnote"
+              onFocus={() => setPwdFocus(true)}
+              onBlur={() => setPwdFocus(false)}
               />
-              {/* <p id="pwdnote" className={pwdFocus && !validPwd 
+              <p id="pwdnote" className={pwdFocus && !validPwd 
                 ? "instrucions" : "offscreen"}>
                 <FontAwesomeIcon icon={faInfoCircle} />
                 8 to 24 characters. <br/>
@@ -231,7 +234,7 @@ const Signup = () => {
                 <span aria-label="at symbol">@</span> 
                 <span aria-label="hashtag">#</span> 
                 <span aria-label="percent">%</span>
-              </p> */}
+              </p>
             </div>
 
             <div className={styles.field}>

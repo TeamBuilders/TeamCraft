@@ -3,7 +3,7 @@ import styles from './Login.module.css';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/AuthProvider';
 import axios from 'axios';
-const LOGIN_URL = 'https://25046-a0f1.v.d-f.pw/api/login';
+const LOGIN_URL = 'https://a25581-9d46.w.d-f.pw/api/login';
 
 export default function Login(){
     const {setAuth} = useContext(AuthContext);
@@ -30,7 +30,7 @@ export default function Login(){
           JSON.stringify({login: user, password: pwd}),
           {
             headers: { 'Content-Type' : 'application/json'},
-            withCredentials: true
+            // withCredentials: true
           });
 
         console.log(JSON.stringify(response?.data));
