@@ -48,7 +48,12 @@ namespace TeamCraft.FilterLogic
             this.nameSkill = name;
             this.categoryHobby = hobbyAttachment;
         }
-        
+
+        public new string gamedev
+        {
+            get { return base.field1; }
+            set { base.field1 = value; }
+        }
     }
 
 
