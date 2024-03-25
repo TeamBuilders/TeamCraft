@@ -70,7 +70,7 @@ namespace TeamCraft.FilterLogic
             }
             string pass = Helper.ComputeSHA512(loginForm.password);
             var users = db.accountsUser.Include(item => item.dataUser).Include(item => item.settingsUser).ToList();
-            AccountUser? account = db.accountsUser.Include(item => item.dataUser).Include(item => item.settingsUser).FirstOrDefault(users => users.settingsUser.hashPassword == Helper.ComputeSHA512(loginForm.password));
+            AccountUser? account = db.accountsUser.Include(item => item.dataUser).Include(item => item.settingsUser).FirstOrDefault(users => users.settingsUser.hashPassword == pass && users.settingsUser.login == loginForm.login);
             if (account == null || account.settingsUser.login != loginForm.login) 
             {
                 result.SetBadStatus();

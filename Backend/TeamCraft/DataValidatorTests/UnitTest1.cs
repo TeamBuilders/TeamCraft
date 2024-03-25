@@ -14,49 +14,7 @@ namespace DataValidator.Tests
     public class Tests
     {
 
-        /*[SetUp]
-        public static void Setup()
-        {
-            
-            var newUser = new DataUser(new RegistrationForm
-            {
-                name = "рома",
-                sureName = "огоговый",
-                description = "существую",
-                gender = "male",
-                birthday = new DateTime(1990, 5, 15),
-                contact = "roma141@gmail.com"
-            });
-            var options = new DbContextOptionsBuilder<DBConfigurator>()
-    .UseSqlServer("MSSQLLocalDB")
-    .Options;
-            var db = new DBConfigurator(options);   
-            db.dataUser.Add(newUser);
-            db.SaveChanges();
-        }*/
-
-
-
-
-
-        /*[SetUp]
-        public static void Setupp()
-        {
-            var newUser = new DataUser(new RegistrationForm
-            {
-                name = "редис",
-                sureName = "красный",
-                description = "существую",
-                gender = "male",
-                birthday = new DateTime(1990, 5, 15),
-                contact = "roma141@gmail.com"
-            });
-            var options = new DbContextOptionsBuilder<DBConfigurator>().Options;
-
-            var db = new DBConfigurator(options);
-            db.dataUser.Add(newUser);
-            db.SaveChanges();
-        }*/
+       
 
         [Test]
         public void CheckCorrectUserData_NullUser_ReturnsBadStatus()
@@ -1761,6 +1719,88 @@ namespace DataValidator.Tests
             db.SaveChanges();
 
             var result = TeamCraft.FilterLogic.DataValidator.CheckCorrectLoginData(Login1, db);
+
+            // Assert
+            Assert.That(result.statusCode, Is.EqualTo(200));
+            Assert.That(result.statusRequest, Is.EqualTo("Ok"));
+            Assert.That(result.message, Contains.Item("Correct data"));
+
+        }
+
+
+        [Test]
+        public static void BagPoiskPolzovatelyaVoobshePipec()
+        {
+            var unverifiedUser = new RegistrationForm
+            {
+                name = "aromanio",
+                sureName = "nonoomay",
+                description = "natudaral",
+                gender = "male",
+                birthday = new DateTime(1980, 5, 15),
+                contact = "romaa143321@gmail.com",
+                login = "am1krazeee",
+                password = "SPArkle228#"
+            };
+
+            var newUser1 = new RegistrationForm
+            {
+                name = "bromanio",
+                sureName = "nonomay",
+                description = "natural",
+                gender = "male",
+                birthday = new DateTime(1990, 5, 15),
+                contact = "roma141@gmail.com",
+                login = "bm1krazeee",
+                password = "SPArkle228#"
+            };
+
+            string connection = "Server=localhost;Database=TestDb;Trusted_Connection=True;TrustServerCertificate=true;";
+
+            var options = new DbContextOptionsBuilder<DBConfigurator>().UseSqlServer(connection).Options;
+            var db = new DBConfigurator(options);
+
+            var newUser2_reg = new RegistrationForm
+            {
+                name = "romanfoo",
+                sureName = "nondfay",
+                description = "natadl",
+                gender = "male",
+                birthday = new DateTime(1990, 5, 15),
+                contact = "romadae141@gmail.com",
+                login = "m1kraqee",
+                password = "SPkleeas22#"
+            };
+
+            var newUser2_reg_settings = new SettingsProfileUser(newUser2_reg);
+            var account1 = new AccountUser(newUser2_reg);
+
+            var newUser3_reg_settings = new SettingsProfileUser(unverifiedUser);
+            var account2 = new AccountUser(unverifiedUser);
+
+            var newUser4_reg_settings = new SettingsProfileUser(newUser1);
+            var account3 = new AccountUser(newUser1);
+
+            var Login1 = new LoginForm   // && users.settingsUser.login == loginForm.login
+            {
+                login = "am1krazeee", 
+                password = "SPArkle228#"
+            };
+            /*
+             var Login1 = new LoginForm{
+                login = "m1kraqee",
+                password = "SPkleeas22#" };*/
+
+            //db.dataUser.Add(newUser1);
+            db.settingsProfileUser.Add(newUser4_reg_settings);
+            db.accountsUser.Add(account3);
+            db.settingsProfileUser.Add(newUser2_reg_settings);
+            db.accountsUser.Add(account1);
+            db.settingsProfileUser.Add(newUser3_reg_settings);
+            db.accountsUser.Add(account2);
+            db.SaveChanges();
+
+            var result = TeamCraft.FilterLogic.DataValidator.CheckCorrectLoginData(Login1, db); //bm1krazeee 
 
             // Assert
             Assert.That(result.statusCode, Is.EqualTo(200));
