@@ -12,8 +12,8 @@ function Home() {
       <div className={styles.main}>
       <div className={styles.container1}>
       <div className={styles.main_text}>
-                  <a className={styles.first_text}>Добро пожаловать на <span className={styles.name}>TeamCraft</span> <br/> 
-                  <span className={styles.second_text}>Платформу для поиска команды или члена команды</span></a>
+                  <p className={styles.first_text}>Добро пожаловать на <span className={styles.name}>TeamCraft</span> <br/> 
+                  <span className={styles.second_text}>Платформу для поиска команды или члена команды</span></p>
               </div>
               <Link className={styles.btn_sign_up} to="/Signup" >Регистрация</Link>
           

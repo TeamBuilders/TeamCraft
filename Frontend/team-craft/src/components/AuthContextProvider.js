@@ -1,4 +1,5 @@
-import { useEffect, useState } from '';
+import { createContext, useEffect, useState } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -16,11 +17,30 @@ export const AuthContextProvider = (props) => {
         }
     }, []);
 
-    // Здесь вы должны отправить запрос на сервер, чтобы проверить токен
-    // Если токен правильный, то вызвать setIsAuth(true) и сохранить новый токен в localStorage
+    const checkTokenValidity = async () => {
+        try {
+            const response = await axios.post('https://a25715-5073.x.d-f.pw/api/data', { token }); // Примерный маршрут на сервере для проверки токена
+            if (response.data.success) {
+                setIsAuth(true);
+            } else {
+                setIsAuth(false);
+                setToken(''); // Очистить токен из localStorage, если он недействителен
+                localStorage.removeItem('token');
+            }
+        } catch (error) {
+            console.error('Ошибка при проверке токена:', error);
+            setIsAuth(false);
+        }
+    };
+
+    useEffect(() => {
+        if (token) {
+            checkTokenValidity();
+        }
+    }, [token]);
 
     return (
-        <AuthContext.Provider
+        <AuthContext.Provider   
             value={{
                 isAuth,
                 setIsAuth,
@@ -29,6 +49,7 @@ export const AuthContextProvider = (props) => {
             }}>
             {props.children}
         </AuthContext.Provider>
-);
+    );
 };
+
 export default AuthContext;

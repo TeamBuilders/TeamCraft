@@ -47,6 +47,7 @@
 .h_text1:hover {
     transform: scale(1.05);
     transition: all 0.1s ease-in-out;
+    text-decoration: none !important;
 }
 .h_text2{
     color: #FFF9FC;
@@ -57,6 +58,7 @@
     color: #9FC4F0;
     transform: scale(1.05);
     transition: all 0.1s ease-in-out;
+    text-decoration: none !important;
 }
 
 .header_text_r{
@@ -74,6 +76,7 @@
     color: #9FC4F0;
     transform: scale(1.05);
     transition: all 0.1s ease-in-out;
+    text-decoration: none !important;   
 }
 
 a.btn_sign_in{
@@ -98,4 +101,6 @@ a.btn_sign_in{
 a.btn_sign_in:hover{
     box-shadow: none;
     box-shadow:0 0 5px #9fc4f0;
+    text-decoration: none !important;
+
 }

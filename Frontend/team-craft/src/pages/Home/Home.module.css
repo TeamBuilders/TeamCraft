@@ -66,6 +66,7 @@ a.btn_sign_in{
 a.btn_sign_in:hover{
     box-shadow: none;
     box-shadow:0 0 5px #9fc4f0;
+    text-decoration: none !important;
 }
 
 .btn_sign_up{
@@ -88,6 +89,7 @@ a.btn_sign_in:hover{
 .btn_sign_up:hover{
     box-shadow: none;
     box-shadow:0 0 5px #9fc4f0;
+    text-decoration: none !important;
 }
 #foot_sign_up {
     margin-left: 30px;

@@ -45,7 +45,7 @@ export default function Login(){
           const token = response?.data?.jwtToken;
           // setAuth({ user, pwd, jwtToken });
           localStorage.setItem('token', token);
-          navigate("/team");
+          navigate("/profile");
         }
 
         // {"user": {

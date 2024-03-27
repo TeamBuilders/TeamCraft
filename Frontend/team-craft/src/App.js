@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
+import Profile from './pages/Profile/Profile';
 import Team from './pages/Team/Team';
 
 import './App.css';
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login/>}/>
           <Route path="/team" element={<Team/>}/>
+          <Route path="/profile" element={<Profile/>}/>
         </Routes>
       </Router> 
     </div>

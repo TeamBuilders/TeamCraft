@@ -11,6 +11,7 @@
     padding: 0;
     display: flex;
 }
+    
 
 .inf{
     margin-left: 30px;
@@ -68,4 +69,5 @@ a.btn_sign_up{
 .btn_sign_up:hover{
     box-shadow: none;
     box-shadow:0 0 5px #9fc4f0;
+    text-decoration: none !important;
 }
