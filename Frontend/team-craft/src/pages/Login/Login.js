@@ -1,11 +1,16 @@
 import React, {useRef, useState, useEffect, useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
-import { Link } from 'react-router-dom';
+import { Link, Router } from 'react-router-dom';
 import AuthContext from '../../context/AuthProvider';
 import axios from 'axios';
-const LOGIN_URL = 'https://a25581-9d46.w.d-f.pw/api/login';
+const LOGIN_URL = 'https://a25715-5073.x.d-f.pw/api/login';
 
 export default function Login(){
+
+    const navigate = useNavigate();
+    
+    const [resErr, setResErr] = useState('');
     const {setAuth} = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
@@ -20,44 +25,75 @@ export default function Login(){
 
     useEffect(() => {
       setErrMsg('');
+      setResErr('');
     }, [user,pwd])
 
     const handleSubmit = async (e) => {
       e.preventDefault();
 
       try{
-        const response = await axios.post(LOGIN_URL, 
-          JSON.stringify({login: user, password: pwd}),
-          {
-            headers: { 'Content-Type' : 'application/json'},
-            // withCredentials: true
-          });
-
+        const jsonData = JSON.stringify({
+          login: user,
+          password: pwd,
+        });
+        console.log(jsonData);
+        const response = await axios.post(LOGIN_URL, jsonData, {
+          headers: { "Content-Type": "application/json" },
+        });
         console.log(JSON.stringify(response?.data));
-        const jwtToken = response?.data?.jwtToken;
-        setAuth({ user, pwd, jwtToken });
-        setUser('');
-        setPwd('');
-        
+        if (response?.status === 200) {
+          const token = response?.data?.jwtToken;
+          // setAuth({ user, pwd, jwtToken });
+          localStorage.setItem('token', token);
+          navigate("/team");
+        }
+
+        // {"user": {
+        //   "id":3,
+        //   "dataUserId":3,
+        //   "dataUser":{
+        //     "Id":3,
+        //     "name":"alex",
+        //     "sureName":"uglov",
+        //     "descriptionUser":null,
+        //     "databirthday":"2000-12-31T00:00:00",
+        //     "gender":"male",
+        //     "hobbiesPerson":null,
+        //     "skillsPerson":null,
+        //     "goalsPerson":null,
+        //     "urlContact":"vk",
+        //     "inTeam":false
+        //   },
+        //   "settingsUserId":3,
+        //   "settingsUser":{
+        //     "id":3,
+        //     "login":"ArteFomak",
+        //     "isHiddeInResearch":false,
+        //     "isHiddenData":false}
+        //   },
+        //   "jwtToken":
+        //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBZG1pbjEiOiIxMjMxMnFXISIsImV4cCI6MTcxMTM5Mjk2NiwiaXNzIjoiTXlBdXRoU2VydmVyIiwiYXVkIjoiTXlBdXRoQ2xpZW50In0.TDzUBr-Bx1N7kX49tTFAQQOexr6mMXK2WEV1_QInLfw"
+        // }
       }catch (err){
 
-        if(!err.response){
+        console.log(err.response.data);
+        if(!err?.response){
           setErrMsg('No Server Response');
-        } else if (err.response?.status === 401) {
-          setErrMsg('Unauthorized');
+        } else if (err.response?.status === 400) {
+            if (err.response.data.message[0] === 'Inccorect password or login') {
+              setResErr('Incorrect password or login');
+            }
         } else {
             setErrMsg('Login Failed');
         }
-        errRef.current.focus();
-
+        setErrMsg(err.response.data.message);
       }
     }
-
     return(
     <div>
         <div className={styles.login}>
             <div className={styles.form}>
-                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                {/* <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p> */}
                 <h1>Вход</h1>
                 <form onSubmit={handleSubmit}>
                     <div className={styles.input_form}>
@@ -67,7 +103,9 @@ export default function Login(){
                         id='username'
                         ref={userRef}
                         autoComplete='off'
-                        onChange={(e) => setUser(e.target.value)}
+                        onChange={(e) => {
+                          setUser(e.target.value);
+                        }}
                         value={user}
                         required
                         />
@@ -79,11 +117,20 @@ export default function Login(){
                         type='password'
                         id='password'
                         ref={userRef}
-                        onChange={(e) => setPwd(e.target.value)}
+                        onChange={(e) => {
+                          setPwd(e.target.value);
+                        }}
                         value={pwd}
                         required
                         />
                     </div>
+                
+                    <p
+                      className={resErr ? styles.errmsg : styles.offscreen}
+                      aria-live="assertive"
+                    >
+                      {resErr}
+                    </p>
 
                     <div className={`${styles.input_form} ${styles.button}`}>
                         <input type="submit" value="Войти"/>

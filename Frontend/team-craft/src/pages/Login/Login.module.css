@@ -112,3 +112,15 @@
     margin-bottom: 0;
     font-size: 15px;
 }
+
+
+.offscreen {
+    display: none;
+}
+
+.errmsg {
+    margin-top: 5px;
+    font-size: 14px;
+    color: red;
+    margin-left: 5%;
+}

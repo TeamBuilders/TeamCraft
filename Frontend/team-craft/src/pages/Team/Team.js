@@ -1,9 +1,36 @@
-import React from 'react';
+import React, {useRef, useState, useEffect, useContext} from 'react';
 import styles from './Team.module.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import axios from 'axios';
+
+const TOKEN_URL = 'https://a25715-5073.x.d-f.pw/api/data';
 
 export default function Team(){
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        // Функция для загрузки данных пользователя при монтировании компонента
+        const fetchUserData = async () => {
+        try {
+            
+            const token = localStorage.getItem('token'); // Получение токена из хранилища
+            const response = await axios.get(TOKEN_URL, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            });
+            setUserData(response.data); // Установка данных пользователя в состоянии
+        } catch (error) {
+            console.error('Ошибка при загрузке данных пользователя:', error);
+        }
+        };
+
+        fetchUserData(); // Вызов функции загрузки данных пользователя
+    }, []); // Пустой массив зависимостей для вызова useEffect только один раз при монтировании
+
+
+
     return(
         <div>
             <Header/>
@@ -13,7 +40,7 @@ export default function Team(){
                     <div className={styles.team}>
                         <h2>Команда</h2>
                         <div className={styles.acc_panel}>
-                        <img src="images/csgo.ico" alt="Avatar" className={styles.avatar} />
+                        <img src="../../images/csgo.ico" alt="Avatar" className={styles.avatar} />
                         <div className={styles.initials}>
                             <p className={styles.name}>Название</p>
                             <div className={styles.state}>

@@ -14,7 +14,7 @@ const USER_REGEX = /^[a-zA-Zа-яА-Я0-9-_]{6,16}$/;
 const PWD_REGEX =
   /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,24}$/;
 const NAME_REGEX = /^[a-zA-Zа-яА-Я]{2,16}$/;
-const REGISTER_URL = "https://a25581-9d46.w.d-f.pw/api/register";
+const REGISTER_URL = "https://a25715-5073.x.d-f.pw/api/register";
 
 const Signup = () => {
   const [login, setLogin] = useState("");
@@ -61,6 +61,19 @@ const Signup = () => {
   }, [login]);
 
   useEffect(() => {
+    const result = PWD_REGEX.test(pwd);
+    setValidPwd(result);
+    console.log("Валидация пароля: ", validPwd);
+  }, [pwd]);
+
+  // Match password
+  useEffect(() => {
+    const result = matchPwd === pwd;
+    setValidMatch(result);
+  }, [matchPwd]);
+
+  
+  useEffect(() => {
     const result = NAME_REGEX.test(name);
     setValidName(result);
     console.log("Валидация имени: ", validName);
@@ -73,16 +86,6 @@ const Signup = () => {
     console.log("Валидация фамилии: ", validSurname);
     console.log(result, surname);
   }, [surname]);
-
-  useEffect(() => {
-    const result = PWD_REGEX.test(pwd);
-    console.log(result);
-    console.log(pwd);
-    console.log(matchPwd);
-    setValidPwd(result);
-    const match = pwd === matchPwd;
-    setValidMatch(match);
-  }, [pwd, matchPwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -104,6 +107,8 @@ const Signup = () => {
       console.log(response?.status);
       console.log(JSON.stringify(response?.data));
       console.log("Успешно!", response);
+      navigate("/login");
+
       // successful addition
     } catch (err) {
       // "User = null"
