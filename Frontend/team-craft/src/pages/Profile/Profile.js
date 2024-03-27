@@ -35,7 +35,7 @@ export default function Account() {
     <div>
       <Header />
       <div className={styles.bgcolor}>
-        <div className="container">
+        <div className={styles.container}>
           <div className={styles.account}>
             <div className={styles.profile}>
               <h1>Аккаунт</h1>

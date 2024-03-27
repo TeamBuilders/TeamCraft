@@ -1,7 +1,9 @@
 .header{
-    width: 90%;
+    width: 1200px;
     height: 60px;
     margin: auto;
+    padding-top: 20px;
+    padding-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,6 +23,7 @@
 
 .header_text ul{
     display: inline-block;
+    margin-bottom: 0;
 }
 
 .navbar_menu li a {

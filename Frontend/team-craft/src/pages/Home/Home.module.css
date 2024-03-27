@@ -1,6 +1,6 @@
 .main_body{
     background-color: #1D2125;
-    background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url("../../images/bg.jpg");
+    background-image: url("../../images/bg.jpg");
     /* background-image: url("images/bg.jpg");  */
     background-size: 100% 1024px;
     background-repeat: no-repeat;
@@ -32,6 +32,10 @@
 .first_text{
     font-size: 33px;
     font-weight: 500;
+    line-height: normal;
+}
+p {
+    line-height: normal;
 }
 
 .name{
@@ -113,8 +117,8 @@ a.btn_sign_in:hover{
 }
 
 .text_cont2{
-    width: 420px;
-    height: 310px;
+    width: 475px;
+    height: 350px;
     border-radius: 20px;
     border: 3px solid #9FC4F0;
     font-size: 25px;
@@ -138,8 +142,8 @@ a.btn_sign_in:hover{
 }
 
 .text_cont3{
-    width: 420px;
-    height: 310px;
+    width: 475px;
+    height: 350px;
     border-radius: 20px;
     border: 3px solid #9FC4F0;
     font-size: 25px;
