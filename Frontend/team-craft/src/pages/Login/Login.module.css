@@ -1,5 +1,5 @@
 .login {
-     background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url(../../images/bg.jpg); 
+     background: url(../../images/bg.jpg); 
      background-size: cover;
      display: flex; /* Используем flex-контейнер для центрирования по вертикали и горизонтали */
      justify-content: center;
@@ -52,7 +52,7 @@
 
 /* поля ввода */
 
-.input_form input {
+.input_form .username, .input_form .input_form_password {
     font-family: 'Noto Sans', sans-serif;
     padding: 10px; /* Внутренний отступ вокруг текста в поле ввода */
     width: 90%; /* Занимает 90% доступной ширины */
@@ -65,12 +65,38 @@
     margin-left: 5%;
 }
 
+.input_form_password input, .focus_input_form_password input{
+    background-color: #1D2125;
+    outline: none;
+    box-sizing: border-box;
+    color: #FFF9FC;
+    width: 90%;
+    border: none;
+}
+
+.focus_input_form_password {
+    font-family: 'Noto Sans', sans-serif;
+    padding: 10px; /* Внутренний отступ вокруг текста в поле ввода */
+    width: 90%; /* Занимает 90% доступной ширины */
+    outline: none; /* Убираем контур фокуса на полях ввода */
+    box-sizing: border-box; /* Учитываем границу в расчетах ширины */
+    background-color: #1D2125; /* Цвет фона полей ввода */
+    color: #FFF9FC; /* Цвет текста в полях ввода */
+    border-radius: 5px; /* Скругление углов полей ввода */
+    border: 1px solid #4361EE; /* Границы */
+    margin-left: 5%;
+}
+
+.icon{
+    margin-left: 2%;
+}
+
 /* Определение стилей для фокусировки на полях ввода */
 
-.input_form input[type="text"]:focus,
-.input_form input[type="password"]:focus {
+.input_form .username:focus {
     border: 1px solid #4361EE; /* Изменение цвета границы при фокусировке */
 }
+
 
 /* кнопка */
 

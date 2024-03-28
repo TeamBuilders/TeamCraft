@@ -4,6 +4,10 @@ import styles from './Login.module.css';
 import { Link, Router } from 'react-router-dom';
 import AuthContext from '../../context/AuthProvider';
 import axios from 'axios';
+import {Icon} from 'react-icons-kit';
+import {eyeOff} from 'react-icons-kit/feather/eyeOff';
+import {eye} from 'react-icons-kit/feather/eye'
+
 const LOGIN_URL = 'https://a25715-5073.x.d-f.pw/api/login';
 
 export default function Login(){
@@ -18,6 +22,22 @@ export default function Login(){
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
+
+    const [type, setType] = useState('password');
+    //states for the eye icon
+    const [icon, setIcon] = useState(eyeOff);
+    const [isFocused, setIsFocused] = useState(false);
+
+    //function for changing the type of password input field
+    const handleToggle = () => {
+      if (type==='password'){
+         setIcon(eye);
+         setType('text')
+      } else {
+         setIcon(eyeOff)
+         setType('password')
+      }
+   }
 
     useEffect(() => {
       userRef.current.focus();
@@ -100,7 +120,7 @@ export default function Login(){
                         <label htmlFor="username">логин</label>
                         <input
                         type='text'
-                        id='username'
+                        className={styles.username}
                         ref={userRef}
                         autoComplete='off'
                         onChange={(e) => {
@@ -113,16 +133,23 @@ export default function Login(){
 
                     <div className={styles.input_form}>
                         <label htmlFor="password">пароль</label>
-                        <input
-                        type='password'
-                        id='password'
-                        ref={userRef}
-                        onChange={(e) => {
-                          setPwd(e.target.value);
-                        }}
-                        value={pwd}
-                        required
-                        />
+                        <div className={isFocused ? styles.focus_input_form_password : styles.input_form_password }>
+                          <input
+                          type={type}
+                          id='password'
+                          ref={userRef}
+                          onChange={(e) => {
+                            setPwd(e.target.value);
+                          }}
+                          value={pwd}
+                          onFocus={() => setIsFocused(true)}
+                          onBlur={() => setIsFocused(false)}
+                          required
+                          />
+                          <span className={styles.icon} onClick={handleToggle}>
+                            <Icon icon={icon} size={20} />
+                          </span>
+                        </div>
                     </div>
                 
                     <p
