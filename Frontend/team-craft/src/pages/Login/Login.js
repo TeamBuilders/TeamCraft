@@ -11,7 +11,7 @@ export default function Login(){
     const navigate = useNavigate();
     
     const [resErr, setResErr] = useState('');
-    const {setAuth} = useContext(AuthContext);
+    const {setIsAuth } = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
 
@@ -30,65 +30,71 @@ export default function Login(){
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-
-      try{
+    
+      try {
         const jsonData = JSON.stringify({
           login: user,
           password: pwd,
         });
-        console.log(jsonData);
+    
         const response = await axios.post(LOGIN_URL, jsonData, {
           headers: { "Content-Type": "application/json" },
         });
-        console.log(JSON.stringify(response?.data));
-        if (response?.status === 200) {
-          const token = response?.data?.jwtToken;
-          // setAuth({ user, pwd, jwtToken });
+    
+        if (response.status === 200) {
+          const userData = response.data?.user?.dataUser;
+          const token = response.data?.jwtToken;
+    
+          localStorage.setItem('userData', JSON.stringify(userData));
           localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(user));
+          setIsAuth(token);
+    
+          // Переходим на страницу профиля
           navigate("/profile");
         }
-
-        // {"user": {
-        //   "id":3,
-        //   "dataUserId":3,
-        //   "dataUser":{
-        //     "Id":3,
-        //     "name":"alex",
-        //     "sureName":"uglov",
-        //     "descriptionUser":null,
-        //     "databirthday":"2000-12-31T00:00:00",
-        //     "gender":"male",
-        //     "hobbiesPerson":null,
-        //     "skillsPerson":null,
-        //     "goalsPerson":null,
-        //     "urlContact":"vk",
-        //     "inTeam":false
-        //   },
-        //   "settingsUserId":3,
-        //   "settingsUser":{
-        //     "id":3,
-        //     "login":"ArteFomak",
-        //     "isHiddeInResearch":false,
-        //     "isHiddenData":false}
-        //   },
-        //   "jwtToken":
-        //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBZG1pbjEiOiIxMjMxMnFXISIsImV4cCI6MTcxMTM5Mjk2NiwiaXNzIjoiTXlBdXRoU2VydmVyIiwiYXVkIjoiTXlBdXRoQ2xpZW50In0.TDzUBr-Bx1N7kX49tTFAQQOexr6mMXK2WEV1_QInLfw"
-        // }
-      }catch (err){
-
-        console.log(err.response.data);
-        if(!err?.response){
-          setErrMsg('No Server Response');
-        } else if (err.response?.status === 400) {
+      } catch (err) {
+        console.error('Ошибка при отправке запроса:', err);
+    
+        if (err.response) {
+          if (err.response.status === 400) {
             if (err.response.data.message[0] === 'Inccorect password or login') {
-              setResErr('Incorrect password or login');
+              setResErr('Неправильный пароль или логин');
             }
+          } else {
+            setErrMsg('Ошибка входа');
+          }
         } else {
-            setErrMsg('Login Failed');
+          setErrMsg('Нет ответа от сервера');
         }
-        setErrMsg(err.response.data.message);
       }
     }
+            // {"user": {
+            //   "id":3,
+            //   "dataUserId":3,
+            //   "dataUser":{
+            //     "Id":3,
+            //     "name":"alex",
+            //     "sureName":"uglov",
+            //     "descriptionUser":null,
+            //     "databirthday":"2000-12-31T00:00:00",
+            //     "gender":"male",
+            //     "hobbiesPerson":null,
+            //     "skillsPerson":null,
+            //     "goalsPerson":null,
+            //     "urlContact":"vk",
+            //     "inTeam":false
+            //   },
+            //   "settingsUserId":3,
+            //   "settingsUser":{
+            //     "id":3,
+            //     "login":"ArteFomak",
+            //     "isHiddeInResearch":false,
+            //     "isHiddenData":false}
+            //   },
+            //   "jwtToken":
+            //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBZG1pbjEiOiIxMjMxMnFXISIsImV4cCI6MTcxMTM5Mjk2NiwiaXNzIjoiTXlBdXRoU2VydmVyIiwiYXVkIjoiTXlBdXRoQ2xpZW50In0.TDzUBr-Bx1N7kX49tTFAQQOexr6mMXK2WEV1_QInLfw"
+            // }
     return(
     <div>
         <div className={styles.login}>
