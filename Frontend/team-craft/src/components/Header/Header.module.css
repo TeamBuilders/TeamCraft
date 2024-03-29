@@ -2,11 +2,12 @@
     width: 1200px;
     height: 60px;
     margin: auto;
-    padding-top: 20px;
+    padding: 10px;
+    padding-top: 10px;
     padding-bottom: 10px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center;  
 }
 
 .header_text{
@@ -66,13 +67,14 @@
 
 .header_text_r{
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .h_text3{
     color: #FFF9FC;
     text-decoration: none;
-    margin-top: 10px;
-    margin-right: 40px;
+    margin-right: 30px;
 }
 
 .h_text3:hover{

@@ -1,12 +1,15 @@
-import React from 'react';
+import {React, useContext} from 'react';
 import styles from './Footer.module.css';
 import { Link } from 'react-router-dom';
+import AuthProvider from '../../context/AuthProvider';
 
 function Footer() {
+  const {isAuth} = useContext(AuthProvider);
+
   return (
     <footer className={styles.Footer}>
     <footer className={styles.foot}>
-        <Link className={styles.btn_sign_up} to="/Signup" >Регистрация</Link>
+        {!isAuth && <Link className={styles.btn_sign_up} to="/Signup" >Регистрация</Link>}
 
         <div className={styles.footer_text}>
             <div className={styles.soc}>
