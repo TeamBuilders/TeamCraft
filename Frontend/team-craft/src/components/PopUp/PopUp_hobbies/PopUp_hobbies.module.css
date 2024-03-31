@@ -1,0 +1,21 @@
+.modal {
+  width: 80%;
+  position: relative;
+  display: grid;
+}
+  
+.content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  /* border: 2px solid #9fc4f0; */
+  background-color: #4361EE;
+  margin-bottom: 3%;
+  border-radius: 10px;
+}
+
+.content p{
+  margin: 0;
+  padding: 0;
+}

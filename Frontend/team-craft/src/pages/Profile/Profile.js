@@ -3,11 +3,11 @@ import React, {useRef, useState, useEffect, useContext} from 'react';
 import styles from './Profile.module.css'; // Подключите файл стилей
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
+import AuthProvider from '../../context/AuthProvider';
 import { Link } from 'react-router-dom'; // Предполагается, что вы используете React Router
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import PopUp_hobbies from '../../components/PopUp/PopUp_hobbies/PopUp_hobbies';
 
 const TOKEN_URL = 'https://a25715-5073.x.d-f.pw/api/data';
 
@@ -94,25 +94,7 @@ export default function Account() {
             <button onClick={handleLogout}>Выйти из аккаунта</button>
               {/* Добавьте ссылку на страницу редактирования профиля */}
             {/* <button onClick={toggleModal} >Рассказать о себе</button> */}
-            <Popup trigger=
-                {<button> Рассказать о себе </button>} 
-                modal nested>
-                {
-                    close => (
-                        <div className={styles.modal}>
-                            <div className={styles.content}>
-                                Welcome to GFG!!!
-                            </div>
-                            <div>
-                                <button onClick=
-                                    {() => close()}>
-                                        Close modal
-                                </button>
-                            </div>
-                        </div>
-                    )
-                }
-            </Popup>
+            <PopUp_hobbies/>
             </div>
           </div>
           <div className={styles.teams}>
