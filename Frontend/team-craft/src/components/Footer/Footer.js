@@ -9,7 +9,7 @@ function Footer() {
   return (
     <footer className={styles.Footer}>
     <footer className={styles.foot}>
-        {!isAuth && <Link className={styles.btn_sign_up} to="/Signup" >Регистрация</Link>}
+        {isAuth && <Link className={styles.btn_sign_up} to="/Signup" >Регистрация</Link>}
 
         <div className={styles.footer_text}>
             <div className={styles.soc}>
