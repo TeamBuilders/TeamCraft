@@ -5,6 +5,7 @@ import Footer from '../../components/Footer/Footer';
 import AuthContext from '../../context/AuthProvider';
 import { Link } from 'react-router-dom'; // Предполагается, что вы используете React Router
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const TOKEN_URL = 'https://a25715-5073.x.d-f.pw/api/data';
 
@@ -29,6 +30,15 @@ export default function Account() {
 // Объединяем данные календаря в строку
 const dateString = `${year} ${month} ${day}`;
 
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Очищаем локальное хранилище
+    localStorage.clear();
+    // Перенаправляем пользователя на страницу "/home"
+    navigate('/');
+  };
   return (
     <div className={styles.body}>
       <Header />
@@ -79,6 +89,7 @@ const dateString = `${year} ${month} ${day}`;
             </div>
 
             <div className={styles.edit}>
+            <button onClick={handleLogout}>Выйти из аккаунта</button>
               {/* Добавьте ссылку на страницу редактирования профиля */}
             </div>
           </div>
