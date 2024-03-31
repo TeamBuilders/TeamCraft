@@ -20,8 +20,7 @@ function Header() {
              </div>
             <div className={styles.header_text_r} >
                 <a className={styles.h_text3} href="#">FAQ</a>
-                {isAuth ? <Link to="/login"  className={styles.btn_sign_in}>Войти</Link> 
-                : <Link to="/profile"  className={styles.btn_sign_in}>Профиль</Link>}
+                <Link to={isAuth ? "/profile" : "/login" }  className={styles.btn_sign_in}>{isAuth ? <p className={styles.header_button}>Профиль</p> : <p className={styles.header_button}>Войти</p>}</Link> 
             </div>
         </div>
     </header>
