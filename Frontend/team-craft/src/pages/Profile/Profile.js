@@ -2,7 +2,7 @@ import React, {useRef, useState, useEffect, useContext} from 'react';
 import styles from './Profile.module.css'; // Подключите файл стилей
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import AuthContext from '../../context/AuthProvider';
+import AuthProvider from '../../context/AuthProvider';
 import { Link } from 'react-router-dom'; // Предполагается, что вы используете React Router
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ const TOKEN_URL = 'https://a25715-5073.x.d-f.pw/api/data';
 export default function Account() {
 
   // Проверка аутентификации пользователя
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { isAuth, setIsAuth } = useContext(AuthProvider);
 
   // Получение данных пользователя из локального хранилища
   const userData = JSON.parse(localStorage.getItem('userData'));
@@ -27,13 +27,14 @@ export default function Account() {
   const month = dataString.getMonth() + 1; // Прибавляем 1, так как месяцы нумеруются с 0
   const day = dataString.getDate();
 
-// Объединяем данные календаря в строку
-const dateString = `${year} ${month} ${day}`;
+  // Объединяем данные календаря в строку
+  const dateString = `${year} ${month} ${day}`;
 
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    setIsAuth(false);
     // Очищаем локальное хранилище
     localStorage.clear();
     // Перенаправляем пользователя на страницу "/home"
