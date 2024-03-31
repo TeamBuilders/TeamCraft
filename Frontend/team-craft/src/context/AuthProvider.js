@@ -41,7 +41,13 @@ export const AuthProvider = ({ children }) => {
   // Возвращаем контекст вместе с токеном
   return (
     <AuthContext.Provider value={{ isAuth, setIsAuth, token, setToken }}> 
-      {loading ? <div>Loading...</div> : children}
+      {loading ? (
+      <div style={{ backgroundColor: '#1d2125', color: 'white', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      Loading...
+    </div>
+    ) : (
+      children
+    )}
     </AuthContext.Provider>
   );
 };
