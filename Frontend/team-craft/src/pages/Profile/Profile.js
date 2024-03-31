@@ -3,6 +3,8 @@ import styles from './Profile.module.css'; // Подключите файл ст
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AuthProvider from '../../context/AuthProvider';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import { Link } from 'react-router-dom'; // Предполагается, что вы используете React Router
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -40,6 +42,7 @@ export default function Account() {
     // Перенаправляем пользователя на страницу "/home"
     navigate('/');
   };
+
   return (
     <div className={styles.body}>
       <Header />
@@ -92,12 +95,33 @@ export default function Account() {
             <div className={styles.edit}>
             <button onClick={handleLogout}>Выйти из аккаунта</button>
               {/* Добавьте ссылку на страницу редактирования профиля */}
+            {/* <button onClick={toggleModal} >Рассказать о себе</button> */}
+            <Popup trigger=
+                {<button> Рассказать о себе </button>} 
+                modal nested>
+                {
+                    close => (
+                        <div className={styles.modal}>
+                            <div className={styles.content}>
+                                Welcome to GFG!!!
+                            </div>
+                            <div>
+                                <button onClick=
+                                    {() => close()}>
+                                        Close modal
+                                </button>
+                            </div>
+                        </div>
+                    )
+                }
+            </Popup>
             </div>
           </div>
           <div className={styles.teams}>
             <h2>Команды</h2>
             {/* Добавьте отображение команд пользователя */}
           </div>
+          
         </div>
       </div>
     </div>
