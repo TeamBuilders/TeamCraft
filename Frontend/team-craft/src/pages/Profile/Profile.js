@@ -1,8 +1,8 @@
+import AuthContext from '../../context/AuthProvider';
 import React, {useRef, useState, useEffect, useContext} from 'react';
 import styles from './Profile.module.css'; // Подключите файл стилей
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import AuthProvider from '../../context/AuthProvider';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { Link } from 'react-router-dom'; // Предполагается, что вы используете React Router
@@ -14,13 +14,11 @@ const TOKEN_URL = 'https://a25715-5073.x.d-f.pw/api/data';
 export default function Account() {
 
   // Проверка аутентификации пользователя
-  const { isAuth, setIsAuth } = useContext(AuthProvider);
+  const {isAuth, setIsAuth} = useContext(AuthContext);
 
   // Получение данных пользователя из локального хранилища
   const userData = JSON.parse(localStorage.getItem('userData'));
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(userData);
-  console.log(localStorage.getItem('user'));
   
   const dataString = new Date(userData.databirthday);
 

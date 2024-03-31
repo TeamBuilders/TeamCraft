@@ -15,7 +15,7 @@ export default function Login(){
     const navigate = useNavigate();
     
     const [resErr, setResErr] = useState('');
-    const {setIsAuth } = useContext(AuthContext);
+    const {setIsAuth, setToken} = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
 
@@ -63,14 +63,13 @@ export default function Login(){
     
         if (response.status === 200) {
           const userData = response.data?.user?.dataUser;
-          const token = response.data?.jwtToken;
-    
+          
           localStorage.setItem('userData', JSON.stringify(userData));
-          localStorage.setItem('token', token);
+          localStorage.setItem('token', response.data?.jwtToken);
           localStorage.setItem('user', JSON.stringify(user));
-          setIsAuth(token);
-    
           // Переходим на страницу профиля
+
+          setToken(response.data?.jwtToken);
           navigate("/profile");
         }
       } catch (err) {

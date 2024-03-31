@@ -1,11 +1,11 @@
 import {React, useContext} from 'react';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
-import AuthProvider from '../../context/AuthProvider';
+import AuthContext  from '../../context/AuthProvider';
 
 function Header() {
-  const {isAuth} = useContext(AuthProvider);
-
+  const {isAuth} = useContext(AuthContext);
+  console.log(isAuth);  
 
   return (
     <header>      
