@@ -9,7 +9,7 @@
     align-items: center;
 }
 .form {
-    width: 37%;
+    width: 40%;
     margin: 20px auto;
     display: block;
     font-family: 'Noto Sans', sans-serif; /* Выбор шрифта для текста в форме */
@@ -44,7 +44,7 @@ h1 {
     margin-bottom: 5px; /* Отступ снизу метки */
     display: block; /* Размещаем метку на новой строке */
 }
-Галочки
+
 .valid {
 color: green; /* Цвет для галочки */   
 }

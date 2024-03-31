@@ -1,4 +1,10 @@
 .search_page{
+  background-image: url(../../images/bg.jpg);
+  background-size: cover;
+}
+.search_page{
+  background-image: url(../../images/bg.jpg);
+  background-size: cover;
   position: relative;
   line-height: 1.4;
   color: #000;

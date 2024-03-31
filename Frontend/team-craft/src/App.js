@@ -8,6 +8,7 @@ import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
 import Profile from './pages/Profile/Profile';
 import Team from './pages/Team/Team';
+import Search from './pages/Search/Search';
 
 import './App.css';
 
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/team" element={<Team/>}/>
           <Route path="/profile" element={<Profile/>}/>
+          <Route path="/Search" element={<Search/>}/>
         </Routes>
       </Router> 
     </div>

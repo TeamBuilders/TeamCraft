@@ -32,7 +32,7 @@ export default function Team(){
 
 
     return(
-        <div>
+        <div className={styles.team_page}>
             <Header/>
             <div className={styles.bgcolor}>
                 <div className={styles.description}>

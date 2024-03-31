@@ -18,9 +18,19 @@ export default function Account() {
   const user = JSON.parse(localStorage.getItem('user'));
   console.log(userData);
   console.log(localStorage.getItem('user'));
+  
+  const dataString = new Date(userData.databirthday);
+
+  // Используйте вызовы методов, чтобы получить год, месяц и день
+  const year = dataString.getFullYear();
+  const month = dataString.getMonth() + 1; // Прибавляем 1, так как месяцы нумеруются с 0
+  const day = dataString.getDate();
+
+// Объединяем данные календаря в строку
+const dateString = `${year} ${month} ${day}`;
 
   return (
-    <div>
+    <div className={styles.body}>
       <Header />
       <div className={styles.bgcolor}>
       <div className={styles.container}>
@@ -30,7 +40,7 @@ export default function Account() {
           </div>
 
           <div className={styles.acc_panel}>
-            <img src="../../images/avatar.jpg" alt="Аватар" className={styles.avatar} />
+            <img className={styles.avatar}  src={userData.avatar} />
 
             <div className={styles.initials}>
               <p className={styles.nick}>{user}</p> 
@@ -52,7 +62,7 @@ export default function Account() {
               </div>
               <div className={styles.field}>
                 <h6>ДАТА РОЖДЕНИЯ</h6>
-                <p>{userData.databirthday}</p> {/* Предполагается, что у вас есть эта информация в формате, который можно отобразить */}
+                <p>{dateString}</p>
               </div>
               <div className={styles.field}>
                 <h6>ПОЛ</h6>
