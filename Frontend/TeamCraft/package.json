@@ -1,7 +1,7 @@
 {
-  "name": "teamcraft",
+  "name": "team-craft",
   "version": "0.1.0",
-  "homepage": "https://teambuilders.github.io/teamcraft",
+  "homepage": "https://teambuilders.github.io/team-craft",
   "private": false,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
