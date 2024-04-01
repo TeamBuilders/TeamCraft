@@ -9,36 +9,53 @@ export default function PopUp_category(props) {
     const [category, setCategory] = useState("");
     const [isOpen, setIsOpen] = useState(false);
 
-    const Development = [
-        "Mobile app development",
-        "Web development",
-        "Game development",
-        "Cyber security",
-        "Data science",
-        "Blockchain development",
-        "Desktop app development",
-        "Embedded systems development"
-    ]
+    const [userSkills, setUserSkills] = useState(props.value);
+    const [selectedItems, setSelectedItems] = useState(props.value.skillsPerson[props.text]);
+   
+
+
+    const categories = {
+        "Разработка": [
+            "Mobile app development",
+            "Web development",
+            "Game development",
+            "Cyber security",
+            "Data science",
+            "Blockchain development",
+            "Desktop app development",
+            "Embedded systems development"
+        ],
+        "Музыка": ["dafdfdg", "dfgdfgd", "dfgdfsg"],
+        "Анимации": [],
+        "Гейминг": [],
+        "Социальные развлечения": [],
+        "Научные разработки": [],
+        "Активный отдых": []
+    };
+
 
     const handleOpen = () => {
         setIsOpen(true);
         setCategory(props.text);
     };
 
+    useEffect(() => {
+        handleOpen();
+    }, []);
+
+
     const handleClose = () => {
         setIsOpen(false);
+        userSkills.skillsPerson[props.text] = selectedItems;
+        userSkills.hobbiesPerson = userSkills.hobbiesPerson.includes(props.text) ? [...userSkills.hobbiesPerson]: [...userSkills.hobbiesPerson, props.text];
+        localStorage.setItem('userData', JSON.stringify(userSkills));
     };
 
-    // Создаем состояние для хранения выбранных элементов
-    const [selectedItems, setSelectedItems] = useState([]);
 
-    // Функция для обработки клика по элементу списка
+
     const handleItemClick = (item) => {
-        // Проверяем, есть ли уже элемент в выбранных
-        const isSelected = selectedItems.includes(item);
+        const isSelected = selectedItems.length === 0 ? false : selectedItems.includes(item);
 
-        // Если элемент уже выбран, удаляем его из массива выбранных
-        // Иначе добавляем его в массив выбранных
         if (isSelected) {
             setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
         } else {
@@ -59,9 +76,10 @@ export default function PopUp_category(props) {
                 display: 'flex',
                 justifyContent: 'center'
             }} 
-            trigger={<button className={styles.button_trigger} onClick={handleOpen}>{props.text}</button>} 
+            trigger={<button className={styles.button_trigger}>{props.text}</button>} 
             modal 
             nested
+            closeOnDocumentClick
         >
             {
                 close => (
@@ -69,7 +87,7 @@ export default function PopUp_category(props) {
                         <div>
                             <h2>{props.text}</h2>
                             <ul className={styles.ul_list}>
-                                    {Development.map((item, index) => (
+                                    {categories[props.text].map((item, index) => (
                                         <li
                                             className={styles.li_item}
                                             key={index}

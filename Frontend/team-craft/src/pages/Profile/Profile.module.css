@@ -67,17 +67,7 @@ p.nick {
 p.init {
   font-size: 18px;
 }
-div.edit {
-  max-width: 400px;
-  margin-bottom: 30px;
-  margin-top: 20px;
-}
-div.edit a {
-  text-decoration: none;
-}
-a:hover {
-  text-decoration-line: underline;
-}
+
 .description {
   overflow: hidden;
   display: flex;
@@ -248,61 +238,29 @@ p.fullness {
     background-color: #4361ee;
 }
 
-.navbar-menu {
-  list-style-type: none;
-  padding-left: 0;
-  margin-bottom: 0;
-  margin-right: auto;
-  margin-left: 2%;
-}
-
-.navbar-menu li {
-  display: inline-block;
-}
-
-.navbar-menu li a {
-  display: inline-block;
-  color: #fff;
-  opacity: 0.8;
-  text-decoration: none;
-  padding: 10px;
-}
-.navbar-menu li a:hover {
-  opacity: 1;
-  transform: scale(1.05);
-  transition: all 0.1s ease-in-out;
-}
-
-.navbar-wrap {
+.edit{
+  height: 60px;
   display: flex;
-  flex-flow: row nowrap;
+  justify-content: space-between;
 }
 
-.faq {
-  padding: 10px;
-  border-radius: 100px;
-  color: #fff;
+.button_exit{
   text-decoration: none;
-  opacity: 0.8;
+  width: 140px;
+  height: 45px;
+  color: #fff;
+  background-color: #4361EE;
+  box-shadow: 0 5px 5px rgba(0,0,0,1);
+  border-radius: 5px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.faq:hover {
-  color: #fff;
-  text-decoration: none;
-  opacity: 1;
-  transform: scale(1.05);
-  transition: all 0.1s ease-in-out;
-}
-.navbar-brand {
-  font-weight: 700;
-  font-size: 35px;
-  text-decoration: none;
-  font-style: bold;
-  color: #fff;
-}
-.navbar-brand:hover {
-  color: #fff;
-  text-decoration: none;
-  transition: all 0.1s ease-in-out;
+.button_exit:hover{
+  box-shadow: none;
+  box-shadow:0 0 5px #9fc4f0;
+  text-decoration: none !important;
 }
 
 @media (max-width: 750px){

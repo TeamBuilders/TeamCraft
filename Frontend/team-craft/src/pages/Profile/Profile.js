@@ -83,6 +83,7 @@ export default function Account() {
               <div className={styles.field}>
                 <h6>О СЕБЕ</h6>
                 <p>{userData.descriptionUser}</p>
+                <p>{userData.descriptionUser}</p>
               </div>
               <div className={styles.field}>
                 <h6>КОНТАКТЫ</h6>
@@ -91,7 +92,7 @@ export default function Account() {
             </div>
 
             <div className={styles.edit}>
-            <button onClick={handleLogout}>Выйти из аккаунта</button>
+            <button className={styles.button_exit} onClick={handleLogout}>Выйти из аккаунта</button>
               {/* Добавьте ссылку на страницу редактирования профиля */}
             {/* <button onClick={toggleModal} >Рассказать о себе</button> */}
             <PopUp_hobbies/>
