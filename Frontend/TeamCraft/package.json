@@ -1,7 +1,7 @@
 {
-  "name": "TeamCraft",
+  "name": "teamcraft",
   "version": "0.1.0",
-  "homepage": "https://teambuilders.github.io/TeamCraft",
+  "homepage": "https://teambuilders.github.io/teamcraft",
   "private": false,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -13,6 +13,7 @@
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "feather-icons": "^4.29.1",
+    "gh-pages": "^6.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons-kit": "^2.0.0",
@@ -22,6 +23,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
