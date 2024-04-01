@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/team-craft/static/css/main.e2bec134.css",
-    "main.js": "/team-craft/static/js/main.c0865f55.js",
-    "static/js/453.222a7f06.chunk.js": "/team-craft/static/js/453.222a7f06.chunk.js",
-    "static/media/main_bg.jpg": "/team-craft/static/media/main_bg.6b171155d621a4bd9751.jpg",
-    "static/media/bg.jpg": "/team-craft/static/media/bg.4e65bd45d2262db3534b.jpg",
-    "static/media/avatar.jpg": "/team-craft/static/media/avatar.ad68fd62ce67cf89721c.jpg",
-    "index.html": "/team-craft/index.html",
-    "main.e2bec134.css.map": "/team-craft/static/css/main.e2bec134.css.map",
-    "main.c0865f55.js.map": "/team-craft/static/js/main.c0865f55.js.map",
-    "453.222a7f06.chunk.js.map": "/team-craft/static/js/453.222a7f06.chunk.js.map"
+    "main.css": "/TeamCraft/static/css/main.8b819730.css",
+    "main.js": "/TeamCraft/static/js/main.e4639881.js",
+    "static/js/453.db5f1709.chunk.js": "/TeamCraft/static/js/453.db5f1709.chunk.js",
+    "static/media/main_bg.jpg": "/TeamCraft/static/media/main_bg.6b171155d621a4bd9751.jpg",
+    "static/media/bg.jpg": "/TeamCraft/static/media/bg.4e65bd45d2262db3534b.jpg",
+    "static/media/avatar.jpg": "/TeamCraft/static/media/avatar.ad68fd62ce67cf89721c.jpg",
+    "index.html": "/TeamCraft/index.html",
+    "main.8b819730.css.map": "/TeamCraft/static/css/main.8b819730.css.map",
+    "main.e4639881.js.map": "/TeamCraft/static/js/main.e4639881.js.map",
+    "453.db5f1709.chunk.js.map": "/TeamCraft/static/js/453.db5f1709.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e2bec134.css",
-    "static/js/main.c0865f55.js"
+    "static/css/main.8b819730.css",
+    "static/js/main.e4639881.js"
   ]
 }
