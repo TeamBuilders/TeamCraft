@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.App{
+  font-family: 'Noto Sans', sans-serif;
+  color: #FFF9FC;
+  background-color: #131619;
+  /* background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url("images/bg.jpg"); */
+  /* background-image: url("images/bg.jpg");  */
+  background-size: 100% 1024px;
+  background-repeat: no-repeat;
+}

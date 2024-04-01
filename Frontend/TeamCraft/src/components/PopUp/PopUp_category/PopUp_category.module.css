@@ -1,0 +1,75 @@
+.modal {
+    width: 80%;
+    position: relative;
+    color: #fff;
+}
+
+.modal h2{
+    text-align: center;
+}
+
+.ul_list{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.li_item{
+    display: flex;
+    width: 100%;
+    color: #fff;
+    background-color: #4361EE;
+    margin-bottom: 3%;
+    border-radius: 10px;
+    padding: 2%;
+    color: #fff;
+}
+
+.checkbox{
+    margin-left: auto;
+}
+
+.content p{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+
+}
+
+.button_trigger{
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    background-color: #4361EE;
+    border: none;
+    border-radius: 10px;
+}
+
+.button_trigger:hover{
+    box-shadow: none;
+    box-shadow:0 0 5px #9fc4f0;
+    text-decoration: none !important;
+}
+
+.button_close{
+    text-decoration: none;
+    width: 30%;
+    height: 100%;
+    color: #000;
+    background-color: #8BE3FF;
+    border: none;
+    border-radius: 10px;
+}
+
+.button_close:hover{
+    box-shadow: none;
+    box-shadow:0 0 5px #9fc4f0;
+    text-decoration: none !important;
+}
+
+.buttons{
+    height: 7%;
+    display: flex;
+    justify-content: center;
+}

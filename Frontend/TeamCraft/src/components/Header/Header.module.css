@@ -1,0 +1,115 @@
+.header{
+    width: 1200px;
+    height: 60px;
+    margin: auto;
+    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  
+}
+
+.header_text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_text .navbar_menu{
+    list-style-type: none;
+    padding-left: 0;
+    display: flex;
+}
+
+.header_text ul{
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.navbar_menu li a {
+    display: inline-block;
+    color: #FFF9FC;
+    text-decoration: none;
+    padding: 10px;
+    margin-left: 15px;
+}
+
+.navbar_menu li a:hover {
+    transform: scale(1.05);
+    transition: all 0.1s ease-in-out;
+}
+
+.h_text1{
+    float: left;
+    font-weight: 700;
+    font-style: bold;
+    font-size: 35px;
+    color: #FFF9FC;
+    text-decoration: none;
+}
+.h_text1:hover {
+    transform: scale(1.05);
+    transition: all 0.1s ease-in-out;
+    text-decoration: none !important;
+}
+.h_text2{
+    color: #FFF9FC;
+    text-decoration: none;
+}
+
+.navbar_menu a:hover{
+    color: #9FC4F0;
+    transform: scale(1.05);
+    transition: all 0.1s ease-in-out;
+    text-decoration: none !important;
+}
+
+.header_text_r{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.h_text3{
+    color: #FFF9FC;
+    text-decoration: none;
+    margin-right: 30px;
+}
+
+.h_text3:hover{
+    color: #9FC4F0;
+    transform: scale(1.05);
+    transition: all 0.1s ease-in-out;
+    text-decoration: none !important;   
+}
+
+a.btn_sign_in{
+    text-decoration: none;
+    color: #FFF9FC;
+    padding: auto;
+    float: right;
+    width: 95px;
+    height: 35px;
+    border-radius: 5px;
+    border-style: none;
+    cursor: pointer;
+    background-color: #4361EE;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.6);
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a.btn_sign_in:hover{
+    box-shadow: none;
+    box-shadow:0 0 5px #9fc4f0;
+    text-decoration: none !important;
+
+}
+
+.header_button{
+    margin: 0 !important;
+}

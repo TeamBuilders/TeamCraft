@@ -1,0 +1,258 @@
+.signup_body  {
+    background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url(../../images/main_bg.jpg);
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form {
+    width: 40%;
+    margin: 20px auto;
+    display: block;
+    font-family: 'Noto Sans', sans-serif; /* Выбор шрифта для текста в форме */
+    padding: 10px 100px;
+    background-color: #313338; /* Цвет фона формы */
+    border-radius: 5px; /* Скругление углов формы */
+    border: 2px solid #9FC4F0; /* Обводка формы */
+    box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+}
+
+/* надпись вход */
+
+h1 {
+    margin: 15px;
+    padding: 0;
+    text-align: center; /* Центрирование текста заголовка */
+    color: #FFF9FC; /* Цвет текста заголовка */
+    font-size: 30pt;
+}
+
+/* блоки ввода */
+
+.field {
+    margin: 15px 0; /* Внешний отступ сверху и снизу блока ввода */
+}
+
+/* надписи логин и пароль */
+
+.field label {
+    
+    color: #ffffffcd; /* Цвет текста метки */
+    margin-bottom: 5px; /* Отступ снизу метки */
+    display: block; /* Размещаем метку на новой строке */
+}
+
+.valid {
+color: green; /* Цвет для галочки */   
+}
+
+.invalid {
+color: red; /* Цвет для крестика */
+}
+
+.hide {
+display: none; /* Скрываем элемент */
+}
+
+/* Стили для подсказки под полем ввода */
+.instrucions {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+.offscreen {
+    display: none;
+}
+
+/* Стили для отображения ошибки */
+.errmsg {
+margin-top: 5px;
+font-size: 14px;
+color: red;
+}
+
+/* поля ввода */
+
+.field input {
+    font-family: 'Noto Sans', sans-serif;
+    padding: 10px; /* Внутренний отступ вокруг текста в поле ввода */
+    width: 60%;
+    outline: none; /* Убираем контур фокуса на полях ввода */
+    box-sizing: border-box; /* Учитываем границу в расчетах ширины */
+    background-color: #1D2125; /* Цвет фона полей ввода */
+    color: #FFF9FC; /* Цвет текста в полях ввода */
+    border-radius: 5px; /* Скругление углов полей ввода */
+    border: 1px solid #1D2125; /* Границы */
+}
+
+/* Определение стилей для фокусировки на полях ввода */
+
+.field input[type="text"]:focus,
+.field input[type="password"]:focus {
+    border: 1px solid #4361EE; /* Изменение цвета границы при фокусировке */
+}
+/* Контейнер для кнопок */
+.btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px; /*Внешний отступ сверху кнопок */
+}
+
+#passwordMatch {
+    margin-left: 20%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btns .confirm {
+    background-color: #4361EE; /* Цвет фона кнопки */
+    color: white; /* Цвет текста на кнопке */
+    border: none; /* Убираем границу кнопки */
+    padding: 10px; /* Внутренний отступ вокруг текста на кнопке */
+    cursor: pointer; /* Указатель при наведении на кнопку */
+    border-radius: 4px; /* Скругление углов кнопки */
+    width: 45%;
+    max-width: 180px;
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+}
+
+/* Определение стилей для наведения на кнопку */
+
+.confirm:hover {
+    background-color: #3349C0; /* Изменение цвета фона при наведении на кнопку */
+}
+
+/* Кнопка отмена*/
+
+.cancel {
+    background-color: #8BE3FF; /* Цвет фона кнопки */
+    color: black; /* Цвет текста на кнопке */
+    border: none; /* Убираем границу кнопки */
+    padding: 10px; /* Внутренний отступ вокруг текста на кнопке */
+    cursor: pointer; /* Указатель при наведении на кнопку */
+    border-radius: 4px; /* Скругление углов кнопки */
+    width: 45%;
+    max-width: 180px;
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+}
+
+.cancel:hover {
+    background-color:#5fb8d3;
+}
+
+/* Стили для выпадающего списка */
+
+.select_container select {
+    font-family: 'Noto Sans', sans-serif;
+    padding: 10px; /* Внутренний отступ вокруг текста в поле ввода */
+    width: 60%;
+    outline: none; /* Убираем контур фокуса на полях ввода */
+    box-sizing: border-box; /* Учитываем границу в расчетах ширины */
+    background-color: #1D2125; /* Цвет фона полей ввода */
+    color: #FFF9FC; /* Цвет текста в полях ввода */
+    border-radius: 5px; /* Скругление углов полей ввода */
+    border: 1px solid #1D2125; /* Границы */
+
+}
+
+.field_dropdown select:focus {
+    border: 1px solid #4361EE; /* Изменение цвета границы при фокусировке */
+}
+
+.field_dropdown option {
+    background-color: #1D2125; /* Цвет фона опции в списке */
+    color: #FFF9FC; /* Цвет текста опции в списке */
+
+}
+
+/* Определение стилей для наведения на кнопку "Продолжить" */
+
+.input_form_continue input[type="submit"]:hover {
+    background-color: #3349C0; /* Изменение цвета фона при наведении на кнопку "Продолжить" */
+}
+
+.field_dropdown {
+    margin: 15px 0;
+}
+
+.field_dropdown label {
+    color: #ffffffcd;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.select_container {
+    position: relative;
+}
+
+.field_dropdown select {
+    font-family: 'Noto Sans', sans-serif;
+    padding: 10px;
+    outline: none;
+    box-sizing: border-box;
+    background-color: #1D2125;
+    color: #FFF9FC;
+    border-radius: 5px;
+    border: 1px solid #1D2125; /* Границы */
+
+    
+}
+
+.field_dropdown select:focus {
+    border: 1px solid #4361EE;
+}
+
+/* стили для многострочного текстового поля */
+
+.field_textarea textarea {
+    font-family: 'Noto Sans', sans-serif;
+    padding: 10px; /* Внутренний отступ вокруг текста в многострочном поле */
+    outline: none; /* Убираем контур фокуса на многострочном поле */
+    box-sizing: border-box; /* Учитываем границу в расчетах ширины */
+    background-color: #1D2125; /* Цвет фона многострочного поля */
+    color: #FFF9FC; /* Цвет текста в многострочном поле */
+    border-radius: 5px; /* Скругление углов многострочного поля */
+    border: 1px solid #1D2125; /* Границы */
+    resize: none; /* Запрещаем изменение размера многострочного поля */
+    width: 60%;
+
+}
+
+.field_textarea textarea:focus {
+    border: 1px solid #4361EE; /* Изменение цвета границы при фокусировке на многострочном поле */
+}
+
+.field_textarea label {
+    color: #ffffffcd; /* Цвет текста метки */
+    margin-bottom: 5px; /* Отступ снизу метки */
+    display: block; /* Размещаем метку на новой строке */
+}
+
+.text{
+    text-align: center;
+    margin-top: 20px;
+    color: #FFFFFF;
+    font-weight: 300;
+    margin-bottom: 0;
+    font-size: 15px;
+}
+
+.log_button{
+    text-decoration: none;
+    color:#4361EE;
+}
+
+.log_button:hover{
+    color:#3349C0;
+}
