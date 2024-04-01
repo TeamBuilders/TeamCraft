@@ -13,8 +13,8 @@ function Header() {
             <div className={styles.header_text}>
                 <Link to="/" className={styles.h_text1}>TeamCraft</Link>
                 <ul className={styles.navbar_menu}>
-                    <li><Link to="/search" className={styles.h_text2} href="#">Найти команду</Link></li>
-                    <li><Link to="/create_team" className={styles.h_text2} href="#">Создать команду</Link></li>
+                    <li><Link to={isAuth ? "/search" : "/login" }  className={styles.h_text2} href="#">Найти команду</Link></li>
+                    <li><Link to={isAuth ? "/create_team" : "/login" } className={styles.h_text2} href="#">Создать команду</Link></li>
                     <li><Link to=""className={styles.h_text2} href="#">Блог</Link></li>
                 </ul>
              </div>
