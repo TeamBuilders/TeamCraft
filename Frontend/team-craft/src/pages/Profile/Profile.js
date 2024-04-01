@@ -13,11 +13,12 @@ const TOKEN_URL = 'https://a25715-5073.x.d-f.pw/api/data';
 
 export default function Account() {
 
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')));
+
   // Проверка аутентификации пользователя
   const {isAuth, setIsAuth} = useContext(AuthContext);
 
   // Получение данных пользователя из локального хранилища
-  const userData = JSON.parse(localStorage.getItem('userData'));
   const user = JSON.parse(localStorage.getItem('user'));
   
   const dataString = new Date(userData.databirthday);
@@ -32,6 +33,12 @@ export default function Account() {
 
 
   const navigate = useNavigate();
+
+  const toggleModal = () => {
+    // window.location.reload();
+    setUserData(JSON.parse(localStorage.getItem('userData')));
+    
+  };
 
   const handleLogout = () => {
     setIsAuth(false);
@@ -83,7 +90,9 @@ export default function Account() {
               <div className={styles.field}>
                 <h6>О СЕБЕ</h6>
                 <p>{userData.descriptionUser}</p>
-                <p>{userData.descriptionUser}</p>
+                {userData.hobbiesPerson && userData.hobbiesPerson.length > 0 && userData.hobbiesPerson.map((hobby, index) => (
+                    <p key={index}>{hobby}</p>
+                ))}
               </div>
               <div className={styles.field}>
                 <h6>КОНТАКТЫ</h6>
@@ -93,7 +102,7 @@ export default function Account() {
 
             <div className={styles.edit}>
             {/* <button onClick={toggleModal} >Рассказать о себе</button> */}
-            <PopUp_hobbies/>
+            <PopUp_hobbies onClose={toggleModal}/>
             </div>
           </div>
           <div className={styles.teams}>
@@ -102,7 +111,6 @@ export default function Account() {
           </div>
             <div className={styles.exit}>
               <button className={styles.button_exit} onClick={handleLogout}>Выйти</button>
-
             </div>
         </div>
       </div>

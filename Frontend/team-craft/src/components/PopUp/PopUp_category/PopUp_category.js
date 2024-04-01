@@ -8,6 +8,7 @@ import 'reactjs-popup/dist/index.css';
 export default function PopUp_category(props) {
     const [category, setCategory] = useState("");
     const [isOpen, setIsOpen] = useState(false);
+    const[isSelected, setIsSelected] = useState(false);
 
     const [userSkills, setUserSkills] = useState(props.value);
     const [selectedItems, setSelectedItems] = useState(props.value.skillsPerson[props.text]);
@@ -47,7 +48,12 @@ export default function PopUp_category(props) {
     const handleClose = () => {
         setIsOpen(false);
         userSkills.skillsPerson[props.text] = selectedItems;
-        userSkills.hobbiesPerson = userSkills.hobbiesPerson.includes(props.text) ? [...userSkills.hobbiesPerson]: [...userSkills.hobbiesPerson, props.text];
+        if (selectedItems.length > 0) {
+            userSkills.hobbiesPerson = userSkills.hobbiesPerson.includes(props.text) ? [...userSkills.hobbiesPerson]: [...userSkills.hobbiesPerson, props.text];
+        }
+        else{
+            userSkills.hobbiesPerson = userSkills.hobbiesPerson.filter(hobby => hobby !== props.text);
+        }
         localStorage.setItem('userData', JSON.stringify(userSkills));
     };
 

@@ -5,7 +5,7 @@ import 'reactjs-popup/dist/index.css';
 import PopUp_category from '../PopUp_category/PopUp_category';
 
 
-export default function PopUp_hobbies() {
+export default function PopUp_hobbies({onClose}) {
     const hobbies = [
         { text: "Разработка" },
         { text: "Музыка" },
@@ -47,6 +47,11 @@ export default function PopUp_hobbies() {
         handleOpen2();
     }, []);
 
+    const handlePopupClose = () => {
+        console.log("Popup closed");
+        onClose(); // Вызываем переданную функцию после закрытия Popup
+    };
+
   return (<Popup contentStyle={{
     width: '500px', 
     height: '600px', 
@@ -59,7 +64,7 @@ export default function PopUp_hobbies() {
     justifyContent: 'center'
   }} trigger=
   {<button className={styles.button_trigger}> Рассказать о себе </button>}
-  modal nested closeOnDocumentClick>
+  modal nested closeOnDocumentClick  onClose={handlePopupClose}>
   {
       close => (
         <div className={styles.modal}>
