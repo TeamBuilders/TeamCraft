@@ -9,6 +9,7 @@ import Login from './pages/Login/Login';
 import Profile from './pages/Profile/Profile';
 import Team from './pages/Team/Team';
 import Search from './pages/Search/Search';
+import CreateTeam from './pages/Create team/Create_team';
 import './App.css';
 
 export default function App() {
@@ -16,10 +17,12 @@ export default function App() {
     <div className="App">
         <Router>
           <Routes>
+            <Route path="/create_team" element={<CreateTeam />} />
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login/>}/>
             <Route path="/team" element={<Team/>}/>
+            <Route path="/team/:teamName" element={<Team/>}/>
             <Route path="/profile" element={<Profile/>}/>
             <Route path="/Search" element={<Search/>}/>
           </Routes>
