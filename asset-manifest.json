@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/teamcraft/static/css/main.5dff3c65.css",
+    "main.js": "/teamcraft/static/js/main.fe33b44d.js",
+    "static/js/453.db137fd3.chunk.js": "/teamcraft/static/js/453.db137fd3.chunk.js",
+    "static/media/main_bg.jpg": "/teamcraft/static/media/main_bg.6b171155d621a4bd9751.jpg",
+    "static/media/bg.jpg": "/teamcraft/static/media/bg.4e65bd45d2262db3534b.jpg",
+    "static/media/avatar.jpg": "/teamcraft/static/media/avatar.ad68fd62ce67cf89721c.jpg",
+    "index.html": "/teamcraft/index.html",
+    "main.5dff3c65.css.map": "/teamcraft/static/css/main.5dff3c65.css.map",
+    "main.fe33b44d.js.map": "/teamcraft/static/js/main.fe33b44d.js.map",
+    "453.db137fd3.chunk.js.map": "/teamcraft/static/js/453.db137fd3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5dff3c65.css",
+    "static/js/main.fe33b44d.js"
+  ]
+}
