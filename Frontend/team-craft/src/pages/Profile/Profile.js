@@ -92,17 +92,18 @@ export default function Account() {
             </div>
 
             <div className={styles.edit}>
-            <button className={styles.button_exit} onClick={handleLogout}>Выйти из аккаунта</button>
-              {/* Добавьте ссылку на страницу редактирования профиля */}
             {/* <button onClick={toggleModal} >Рассказать о себе</button> */}
             <PopUp_hobbies/>
             </div>
           </div>
           <div className={styles.teams}>
             <h2>Команды</h2>
-            {/* Добавьте отображение команд пользователя */}
+            {/* Добавить отображение команд пользователя */}
           </div>
-          
+            <div className={styles.exit}>
+              <button className={styles.button_exit} onClick={handleLogout}>Выйти</button>
+
+            </div>
         </div>
       </div>
     </div>

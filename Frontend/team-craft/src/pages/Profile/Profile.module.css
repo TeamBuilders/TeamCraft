@@ -82,7 +82,10 @@ p.init {
   font-size: 15px;
   font-weight: bold;
 }
-/* .personal {} */
+.personal {
+  flex-basis: 45%;
+}
+
 .personal .field p {
   max-width: 400px;
   min-height: 30px;
@@ -112,55 +115,8 @@ p.init {
   box-shadow: none;
   box-shadow:0 0 5px #9fc4f0;
 }
-
-footer {
-  display: flex;
-  justify-content: space-around;
-}
-footer .footcont {
-  max-width: 1200px;
-  width: 100%;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  height: 130px;
-  display: flex;
-  align-items: start;
-  flex-direction: row-reverse;
-
-}
-.footcont div {
-  display: flex;
-  width: min-content;
-  flex-wrap: wrap;
-  margin: 12px;
-}
-.footcont div a {
-  text-decoration: none;
-  width: max-content;
-  min-width: 90px;
-  color: #fff;
-}
-.footcont div a.header {
-  color:#4361ee;
-  font-weight: bold;
-}
-.footcont div a:hover {
-  text-decoration-line: underline;
-  opacity: 0.8;
-}
-.navbar {
-  width: 100%;
-  min-height: 60px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-image: url(../../images/main_bg.jpg);
-  background-position-y: 2530px;
-  background-position-x: 2890px;
-}
-.navbar .container {
-  min-height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.teams {
+  flex-basis: 45%;
 }
 .teams .block_team {
     margin: 20px 0px;
@@ -241,26 +197,36 @@ p.fullness {
   justify-content: space-between;
 }
 
+.exit {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  flex-wrap: wrap;
+  padding: 5px;
+}
 .button_exit{
   text-decoration: none;
-  width: 140px;
-  height: 45px;
+  width: 120px;
+  height: 35px;
   color: #fff;
-  background-color: #4361EE;
+  background-color: #bb2929;;
   box-shadow: 0 5px 5px rgba(0,0,0,1);
   border-radius: 5px;
   border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .button_exit:hover{
   box-shadow: none;
-  box-shadow:0 0 5px #9fc4f0;
+  box-shadow:0 0 5px #bb2929;
   text-decoration: none !important;
 }
 
 @media (max-width: 750px){
+    .personal {
+      flex-basis: 100%;
+    }
+    .teams {
+      flex-basis: 100%;
+    }
     .navbar .container{
         /* Изменяем направление оси в шапке на вертикальное */
         flex-direction: column;
@@ -270,6 +236,12 @@ p.fullness {
     }
 }
 @media (max-width: 460px){
+  .personal {
+    flex-basis: 100%;
+  }
+  .teams {
+    flex-basis: 100%;
+  }
     .navbar .navbar-menu{
         /* Изменяем направление оси в шапке на вертикальное */
         flex-direction: column;

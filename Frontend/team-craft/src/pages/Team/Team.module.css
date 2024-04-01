@@ -195,7 +195,7 @@ p.fullness {
 }
 .confirm:hover{
   box-shadow: none;
-  box-shadow:0 0 5px #65c732;
+  box-shadow: 0 0 5px #65c732;
   text-decoration: none !important;
 }
 .cancel{
@@ -212,7 +212,7 @@ p.fullness {
 
 .cancel:hover{
   box-shadow: none;
-  box-shadow:0 0 5px #9fc4f0;
+  box-shadow:0 0 5px #bb2929;
   text-decoration: none !important;
 }
 
