@@ -86,7 +86,26 @@ export default function Team(){
                     </div>
                     <div className={styles.player}>
                         <h2>Участники</h2>
-                        {/* Остальные элементы */}
+                        <div className={styles.blocks_players}>
+                        <div className={styles.block_player}>
+                            <img src="images/avatar.jpg" alt="player_icon" className={styles.player_icon}/>
+                            <div className={styles.desc}>
+                            <p className={styles.player_title}>{JSON.parse(localStorage.getItem('userData')).name}</p>
+                            <div className={styles.state}>
+                                <p className={styles.fullness}>Создатель</p>
+                            </div>
+                            </div>
+                        </div>
+                        <div className={styles.block_player}>
+                            <img src="images/avatar.jpg" alt="player_icon" className={styles.player_icon}/>
+                            <div className={styles.desc}>
+                            <p className={styles.player_title}>Никнейм</p>
+                            <div className={styles.state}>
+                                <p className={styles.fullness}>Роль</p>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                 </div>
                 <div className={styles.info_team}>
