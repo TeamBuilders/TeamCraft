@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System;
+using TeamCraft.Model.TeamsArchitecture;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -138,6 +140,65 @@ app.MapPost("/api/profile/restoration/end", async delegate (HttpContext context,
 
 });
 
+app.MapPost("/api/teams", async delegate (HttpContext context, DBConfigurator db)
+{
+    List<Team> teams = db.Teams.ToList();
+    return JsonConvert.SerializeObject(teams);
+
+});
+
+app.MapPost("/api/teams/edit", async delegate (HttpContext context, DBConfigurator db)
+{
+    Team team = await context.Request.ReadFromJsonAsync<Team>();
+    List<MemberTeam> newmemb = team.MemberTeam;
+    string team_lead = team.team_lead;
+    Team oldteam = db.Teams.FirstOrDefault(x => x.team_lead == team_lead);
+
+    List<MemberTeam> oldmemb = oldteam.MemberTeam;
+    int id=0;
+    if (oldmemb.Last().Id > newmemb.Last().Id)
+    {
+        
+        int f = 0;
+        for (int i= 0;i<=newmemb.Last().Id;i++)
+        {
+            if (oldmemb[i+f].Id != newmemb[i].Id)
+            {
+                id = oldmemb[i].dataMemberUser.Id;
+                f++;
+            }
+            if (f == 0)
+            {
+                id = oldmemb[i+1].dataMemberUser.Id;
+
+            }
+        }
+        DataUser user = db.dataUser.FirstOrDefault(x => x.Id == id);
+        user.inTeam = false;
+    }
+    else
+    {
+        int f = 0;
+        for (int i = 0; i <= oldmemb.Last().Id; i++)
+        {
+            if (oldmemb[i].Id != newmemb[i+f].Id)
+            {
+                id = newmemb[i].dataMemberUser.Id;
+                f++;
+            }
+            if (f == 0)
+            {
+                id = newmemb[i + 1].dataMemberUser.Id;
+
+            }
+        }
+        DataUser user = db.dataUser.FirstOrDefault(x => x.Id == id);
+        user.inTeam = true;
+    }
+    oldteam.MemberTeam = team.MemberTeam;
+    db.SaveChangesAsync();
+
+});
 
 app.MapPost("/api/register", async delegate (HttpContext context, DBConfigurator db)
 {

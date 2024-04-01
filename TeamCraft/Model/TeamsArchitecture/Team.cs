@@ -21,7 +21,10 @@ namespace TeamCraft.Model.TeamsArchitecture
 
         public string teamGoal { get; set; }
 
+        public string team_lead { get; set; }
+
         public string? teamDescription { get; set; }
+
 
         public List<MemberTeam>? MemberTeam { get; set; } = new();
 

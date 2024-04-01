@@ -2584,11 +2584,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kirill\\Documents\\TeamCraft\\TeamCraft\\TeamCraft.csproj",
+      "projectUniqueName": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\TeamCraft.csproj",
       "projectName": "TeamCraft",
-      "projectPath": "C:\\Users\\Kirill\\Documents\\TeamCraft\\TeamCraft\\TeamCraft.csproj",
+      "projectPath": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\TeamCraft.csproj",
       "packagesPath": "C:\\Users\\Kirill\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kirill\\Documents\\TeamCraft\\TeamCraft\\obj\\",
+      "outputPath": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Kirill\\AppData\\Roaming\\NuGet\\NuGet.Config",

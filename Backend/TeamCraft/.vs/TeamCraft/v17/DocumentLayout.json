@@ -7,6 +7,22 @@
       "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\model\\categoryhobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\categoryhobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\model\\autorizationdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\autorizationdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\model\\skillperson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\skillperson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\model\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\exeption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\exeption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,35 +31,19 @@
       "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\emaildata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\model\\skillperson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\skillperson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\filterlogic\\helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\filterlogic\\helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\authoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\authoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\model\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\filterlogic\\helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\filterlogic\\helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Kirill\\AppData\\Local\\SourceServer\\e4066b8094afc6e9731b064b440c7464987f0e1cf15cc46e8d245f9cd46ff63a\\Backend\\TeamCraft\\TeamCraft\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\authoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\authoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\model\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\model\\autorizationdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\autorizationdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\model\\categoryhobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\categoryhobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\backend\\teamcraft\\teamcraft\\databasecontroller\\dbconfigurator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -73,7 +73,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "EmailData.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\EmailData.cs",
               "RelativeDocumentMoniker": "TeamCraft\\EmailData.cs",
@@ -81,11 +81,12 @@
               "RelativeToolTip": "TeamCraft\\EmailData.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-11-22T14:42:54.639Z"
+              "WhenOpened": "2023-11-22T14:42:54.639Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "Exeption.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\Exeption.cs",
               "RelativeDocumentMoniker": "TeamCraft\\Exeption.cs",
@@ -93,19 +94,21 @@
               "RelativeToolTip": "TeamCraft\\Exeption.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-11-03T08:38:46.476Z"
+              "WhenOpened": "2023-11-03T08:38:46.476Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 4,
               "Title": "Person.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\Model\\Person.cs",
               "RelativeDocumentMoniker": "TeamCraft\\Model\\Person.cs",
               "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\Model\\Person.cs",
               "RelativeToolTip": "TeamCraft\\Model\\Person.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAAAdAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-10-17T10:03:30.538Z"
+              "WhenOpened": "2023-10-17T10:03:30.538Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -130,7 +133,8 @@
               "RelativeToolTip": "TeamCraft\\Model\\SkillPerson.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-11-03T08:04:19.102Z"
+              "WhenOpened": "2023-11-03T08:04:19.102Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -142,11 +146,25 @@
               "RelativeToolTip": "TeamCraft\\AuthOptions.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-11-03T07:53:04.663Z"
+              "WhenOpened": "2023-11-03T07:53:04.663Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 2,
+              "Title": "AutorizationData.cs",
+              "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\Model\\AutorizationData.cs",
+              "RelativeDocumentMoniker": "TeamCraft\\Model\\AutorizationData.cs",
+              "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\Model\\AutorizationData.cs",
+              "RelativeToolTip": "TeamCraft\\Model\\AutorizationData.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-03T08:03:48.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "CategoryHobby.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\Model\\CategoryHobby.cs",
               "RelativeDocumentMoniker": "TeamCraft\\Model\\CategoryHobby.cs",
@@ -154,23 +172,25 @@
               "RelativeToolTip": "TeamCraft\\Model\\CategoryHobby.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-11-03T08:04:02.643Z"
+              "WhenOpened": "2023-11-03T08:04:02.643Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "Team.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\Model\\Team.cs",
               "RelativeDocumentMoniker": "TeamCraft\\Model\\Team.cs",
               "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\Model\\Team.cs",
               "RelativeToolTip": "TeamCraft\\Model\\Team.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAwAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-11-03T08:04:18.04Z"
+              "WhenOpened": "2023-11-03T08:04:18.04Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "Helper.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\FilterLogic\\Helper.cs",
               "RelativeDocumentMoniker": "TeamCraft\\FilterLogic\\Helper.cs",
@@ -182,7 +202,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\AppData\\Local\\SourceServer\\e4066b8094afc6e9731b064b440c7464987f0e1cf15cc46e8d245f9cd46ff63a\\Backend\\TeamCraft\\TeamCraft\\Program.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\AppData\\Local\\SourceServer\\e4066b8094afc6e9731b064b440c7464987f0e1cf15cc46e8d245f9cd46ff63a\\Backend\\TeamCraft\\TeamCraft\\Program.cs",
@@ -192,18 +212,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2023-11-28T11:27:37.003Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "AutorizationData.cs",
-              "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\Model\\AutorizationData.cs",
-              "RelativeDocumentMoniker": "TeamCraft\\Model\\AutorizationData.cs",
-              "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\Model\\AutorizationData.cs",
-              "RelativeToolTip": "TeamCraft\\Model\\AutorizationData.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-11-03T08:03:48.088Z"
             },
             {
               "$type": "Document",
