@@ -1,7 +1,7 @@
 {
   "name": "TeamCraft",
   "version": "0.1.0",
-  "homepage": "https://apogore.github.io/TeamCraft",
+  "homepage": "https://teambuilders.github.io/TeamCraft",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
