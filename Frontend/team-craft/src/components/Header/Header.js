@@ -5,7 +5,6 @@ import AuthContext  from '../../context/AuthProvider';
 
 function Header() {
   const {isAuth} = useContext(AuthContext);
-  console.log(isAuth);  
 
   return (
     <header>      

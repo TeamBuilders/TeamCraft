@@ -55,15 +55,12 @@ const Signup = () => {
 
   useEffect(() => {
     const result = USER_REGEX.test(login);
-    console.log(result, login);
     setValidLogin(result);
-    console.log("Валидация логина: ", validLogin);
   }, [login]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
     setValidPwd(result);
-    console.log("Валидация пароля: ", validPwd);
   }, [pwd]);
 
   // Match password
@@ -76,15 +73,11 @@ const Signup = () => {
   useEffect(() => {
     const result = NAME_REGEX.test(name);
     setValidName(result);
-    console.log("Валидация имени: ", validName);
-    console.log(result, name);
   }, [name]);
 
   useEffect(() => {
     const result = NAME_REGEX.test(surname);
     setValidSurname(result);
-    console.log("Валидация фамилии: ", validSurname);
-    console.log(result, surname);
   }, [surname]);
 
   const handleSubmit = async (e) => {
@@ -99,14 +92,10 @@ const Signup = () => {
         birthday: birth_date,
         contact: user_contacts,
       });
-      console.log(jsonData);
       const response = await axios.post(REGISTER_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
         withCredentials: false,
       });
-      console.log(response?.status);
-      console.log(JSON.stringify(response?.data));
-      console.log("Успешно!", response);
       navigate("/login");
 
       // successful addition
@@ -122,7 +111,6 @@ const Signup = () => {
 
       // setErrMsg(err.response?.data.message);
 
-      console.log(err.response);
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {

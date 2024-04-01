@@ -5,7 +5,6 @@ import AuthContext  from '../../context/AuthProvider';
 
 function Footer() {
   const {isAuth} = useContext(AuthContext );
-  console.log(isAuth);  
 
   return (
     <footer className={styles.Footer}>
