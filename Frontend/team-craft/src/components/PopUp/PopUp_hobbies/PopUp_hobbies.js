@@ -2,15 +2,25 @@ import React from 'react';
 import styles from './PopUp_hobbies.module.css';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import PopUp_category from '../PopUp_category/PopUp_category';
 
 
 export default function PopUp_hobbies() {
+    const categories = [
+        { text: "Разработка" },
+        { text: "Музыка" },
+        { text: "Анимации" },
+        { text: "Гейминг" },
+        { text: "Социальные развлечения" },
+        { text: "Научные разработки" },
+        { text: "Активный отдых" }
+      ];
+
   return (<Popup contentStyle={{
     width: '500px', 
     height: '500px', 
     backgroundColor: '#1d2125',
     color: '#333', 
-    // border: '2px solid #9fc4f0', 
     border: 'none',
     borderRadius: '10px', 
     padding: '20px',
@@ -21,29 +31,13 @@ export default function PopUp_hobbies() {
   modal nested>
   {
       close => (
-          <div className={styles.modal}>
-              <div className={styles.content}>
-                  <p>Разработка</p>
-              </div>
-              <div className={styles.content}>
-                  <p>Музыка</p>
-              </div>
-              <div className={styles.content}>
-                  <p>Анимации</p>
-              </div>
-              <div className={styles.content}>
-                  <p>Гейминг</p>
-              </div>
-              <div className={styles.content}>
-                  <p>Социальные развлечения</p>
-              </div>
-              <div className={styles.content}>
-                  <p>Научные разработки</p>
-              </div>
-              <div className={styles.content}>
-                  <p>Активный отдых</p>
-              </div>
-          </div>
+        <div className={styles.modal}>
+            {categories.map((category, index) => (
+                <div className={styles.content} key={index}>
+                    <PopUp_category text={category.text} />
+                </div>
+            ))}
+        </div>
         )
     }
     </Popup>);
