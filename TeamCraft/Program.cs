@@ -147,13 +147,24 @@ app.MapPost("/api/teams", async delegate (HttpContext context, DBConfigurator db
 
 });
 
+app.MapPost("/api/teams/create", async delegate (HttpContext context, DBConfigurator db)
+{
+    Team team = await context.Request.ReadFromJsonAsync<Team>();
+    
+    db.Teams.Add(team);
+    db.SaveChangesAsync();
+
+});
+
 app.MapPost("/api/teams/edit", async delegate (HttpContext context, DBConfigurator db)
 {
     Team team = await context.Request.ReadFromJsonAsync<Team>();
     List<MemberTeam> newmemb = team.MemberTeam;
     string team_lead = team.team_lead;
     Team oldteam = db.Teams.FirstOrDefault(x => x.team_lead == team_lead);
-
+    oldteam.teamName = team.teamName;
+    oldteam.teamDescription = team.teamDescription;
+    oldteam.teamGoal = team.teamGoal;
     List<MemberTeam> oldmemb = oldteam.MemberTeam;
     int id=0;
     if (oldmemb.Last().Id > newmemb.Last().Id)

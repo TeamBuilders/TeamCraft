@@ -7,32 +7,20 @@
       "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\databasecontroller\\dbconfigurator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\databasecontroller\\dbconfigurator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\model\\requeststatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\requeststatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\model\\useracrhitecture\\memberteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\useracrhitecture\\memberteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\model\\teamsarchitecture\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\teamsarchitecture\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\model\\useracrhitecture\\datauser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\useracrhitecture\\datauser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\model\\teamsarchitecture\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\teamsarchitecture\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\databasecontroller\\dbconfigurator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\databasecontroller\\dbconfigurator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\filterlogic\\skillperson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\filterlogic\\skillperson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\jsonparsersclasses\\registrationform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\jsonparsersclasses\\registrationform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\model\\useracrhitecture\\memberteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\useracrhitecture\\memberteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\model\\useracrhitecture\\accountuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -41,6 +29,18 @@
     {
       "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\jwtdata\\emaildata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\jwtdata\\emaildata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\model\\requeststatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\model\\requeststatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\filterlogic\\skillperson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\filterlogic\\skillperson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\jsonparsersclasses\\registrationform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|solutionrelative:teamcraft\\jsonparsersclasses\\registrationform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DDF30E77-2B77-4859-9391-EAE9EB00480B}|TeamCraft\\TeamCraft.csproj|c:\\users\\kirill\\documents\\github\\teamcraft\\teamcraft\\model\\useracrhitecture\\settingsprofileuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -88,91 +88,53 @@
               "RelativeDocumentMoniker": "TeamCraft\\Program.cs",
               "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Program.cs",
               "RelativeToolTip": "TeamCraft\\Program.cs",
-              "ViewState": "AQIAAK4AAAAAAAAAAAAAAMMAAAAaAAAA",
+              "ViewState": "AQIAAJMAAAAAAAAAAAAAAKUAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2023-11-29T17:28:41.953Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "MemberTeam.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Model\\UserAcrhitecture\\MemberTeam.cs",
               "RelativeDocumentMoniker": "TeamCraft\\Model\\UserAcrhitecture\\MemberTeam.cs",
               "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Model\\UserAcrhitecture\\MemberTeam.cs",
               "RelativeToolTip": "TeamCraft\\Model\\UserAcrhitecture\\MemberTeam.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAXAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-13T11:30:41.945Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AccountUser.cs",
-              "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Model\\UserAcrhitecture\\AccountUser.cs",
-              "RelativeDocumentMoniker": "TeamCraft\\Model\\UserAcrhitecture\\AccountUser.cs",
-              "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Model\\UserAcrhitecture\\AccountUser.cs",
-              "RelativeToolTip": "TeamCraft\\Model\\UserAcrhitecture\\AccountUser.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABsAAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-06T15:32:32.224Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Team.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Model\\TeamsArchitecture\\Team.cs",
               "RelativeDocumentMoniker": "TeamCraft\\Model\\TeamsArchitecture\\Team.cs",
               "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Model\\TeamsArchitecture\\Team.cs",
               "RelativeToolTip": "TeamCraft\\Model\\TeamsArchitecture\\Team.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAB4AAAArAAAA",
+              "ViewState": "AQIAABoAAAAAAAAAAAAAACcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-08T08:48:34.067Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "DataUser.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Model\\UserAcrhitecture\\DataUser.cs",
               "RelativeDocumentMoniker": "TeamCraft\\Model\\UserAcrhitecture\\DataUser.cs",
               "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Model\\UserAcrhitecture\\DataUser.cs",
               "RelativeToolTip": "TeamCraft\\Model\\UserAcrhitecture\\DataUser.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAAAUAAAAZAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-06T15:46:02.092Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DBConfigurator.cs",
-              "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\DataBaseController\\DBConfigurator.cs",
-              "RelativeDocumentMoniker": "TeamCraft\\DataBaseController\\DBConfigurator.cs",
-              "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\DataBaseController\\DBConfigurator.cs",
-              "RelativeToolTip": "TeamCraft\\DataBaseController\\DBConfigurator.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-11-29T17:28:41.955Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "SkillPerson.cs",
-              "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\FilterLogic\\SkillPerson.cs",
-              "RelativeDocumentMoniker": "TeamCraft\\FilterLogic\\SkillPerson.cs",
-              "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\FilterLogic\\SkillPerson.cs",
-              "RelativeToolTip": "TeamCraft\\FilterLogic\\SkillPerson.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAADYAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T07:15:34.853Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "RequestStatus.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Model\\RequestStatus.cs",
               "RelativeDocumentMoniker": "TeamCraft\\Model\\RequestStatus.cs",
@@ -185,7 +147,58 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
+              "Title": "EmailData.cs",
+              "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\JwtData\\EmailData.cs",
+              "RelativeDocumentMoniker": "TeamCraft\\JwtData\\EmailData.cs",
+              "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\JwtData\\EmailData.cs",
+              "RelativeToolTip": "TeamCraft\\JwtData\\EmailData.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-29T17:28:41.95Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AccountUser.cs",
+              "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Model\\UserAcrhitecture\\AccountUser.cs",
+              "RelativeDocumentMoniker": "TeamCraft\\Model\\UserAcrhitecture\\AccountUser.cs",
+              "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\Model\\UserAcrhitecture\\AccountUser.cs",
+              "RelativeToolTip": "TeamCraft\\Model\\UserAcrhitecture\\AccountUser.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABsAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T15:32:32.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DBConfigurator.cs",
+              "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\DataBaseController\\DBConfigurator.cs",
+              "RelativeDocumentMoniker": "TeamCraft\\DataBaseController\\DBConfigurator.cs",
+              "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\DataBaseController\\DBConfigurator.cs",
+              "RelativeToolTip": "TeamCraft\\DataBaseController\\DBConfigurator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-29T17:28:41.955Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SkillPerson.cs",
+              "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\FilterLogic\\SkillPerson.cs",
+              "RelativeDocumentMoniker": "TeamCraft\\FilterLogic\\SkillPerson.cs",
+              "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\FilterLogic\\SkillPerson.cs",
+              "RelativeToolTip": "TeamCraft\\FilterLogic\\SkillPerson.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAADYAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-23T07:15:34.853Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "RegistrationForm.cs",
               "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\JsonParsersClasses\\RegistrationForm.cs",
               "RelativeDocumentMoniker": "TeamCraft\\JsonParsersClasses\\RegistrationForm.cs",
@@ -206,18 +219,6 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2023-11-29T17:28:41.934Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "EmailData.cs",
-              "DocumentMoniker": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\JwtData\\EmailData.cs",
-              "RelativeDocumentMoniker": "TeamCraft\\JwtData\\EmailData.cs",
-              "ToolTip": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\TeamCraft\\JwtData\\EmailData.cs",
-              "RelativeToolTip": "TeamCraft\\JwtData\\EmailData.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-11-29T17:28:41.95Z"
             },
             {
               "$type": "Document",
