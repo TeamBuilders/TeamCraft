@@ -1,6 +1,6 @@
 .header{
-    width: 1200px;
-    height: 60px;
+    max-width: 1200px;
+    /* height: 60px; */
     margin: auto;
     padding: 10px;
     padding-top: 10px;
@@ -8,6 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;  
+    flex-wrap: wrap;
 }
 
 .header_text{

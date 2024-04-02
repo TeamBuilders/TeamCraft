@@ -1,20 +1,22 @@
 .foot{
-    width: 1200px;
+    max-width: 1200px;
     height: 120px;
     display: flex;
     margin-top: 2%;
     position: relative;
+    justify-content: space-between;
     margin-left: auto;
     margin-right: auto;
+    flex-wrap: wrap;
 }
-
-.footer_text{
+.forflex {
+    display: flex;
+}
+.footer_text{   
     margin: 0;
     padding: 0;
     display: flex;
     margin-right: 0px;
-    position: absolute;
-    right: 0;
 }
     
 
@@ -70,8 +72,6 @@ a.btn_sign_up{
     display: flex;  
     justify-content: center;
     align-items: center;
-    position: absolute;
-    left: 0;
 }
 .btn_sign_up:hover{
     box-shadow: none;
