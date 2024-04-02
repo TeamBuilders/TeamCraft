@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "d3/MfBcPhqW57aYBjgpC1LSGXe4CLCISjxn7GdGBcWbfR+q+axr7WMl5sBgN3thbEZW3xaQvSuOWcuTcFbuvrA==",
+  "dgSpecHash": "yrYgY9C/QZz30EjbUFWN0Yz0qAXun4+wb/N/pyu0B/YlLHatl89vEhBTJyWkQOZuAmd9ODz1YiM3zayb1AyBww==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kirill\\Documents\\TeamCraft\\TeamCraft\\TeamCraft.csproj",
+  "projectFilePath": "C:\\Users\\Kirill\\Documents\\GitHub\\TeamCraft\\Backend\\TeamCraft\\TeamCraft\\TeamCraft.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kirill\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Kirill\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

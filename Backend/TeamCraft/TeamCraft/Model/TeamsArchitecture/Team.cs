@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace TeamCraft.Model.TeamsArchitecture
 {
-    public class Team 
+    public class Team
     {
         public Team() { }
 
@@ -21,9 +21,14 @@ namespace TeamCraft.Model.TeamsArchitecture
 
         public string teamGoal { get; set; }
 
+        public string team_lead { get; set; }
+
         public string? teamDescription { get; set; }
 
+
         public List<MemberTeam>? MemberTeam { get; set; } = new();
+
+        public List<MemberTeam>? Jion_means { get; set; } = new();
 
         public void AddPersonInTeam(MemberTeam user)
         {

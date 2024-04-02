@@ -148,14 +148,6 @@ app.MapPost("/api/teams", async delegate (HttpContext context, DBConfigurator db
 
 });
 
-app.MapPost("/api/teams/create", async delegate (HttpContext context, DBConfigurator db)
-{
-    Team team = await context.Request.ReadFromJsonAsync<Team>();
-    
-    db.Teams.Add(team);
-    db.SaveChangesAsync();
-
-});
 app.MapPost("/api/teams/join", async delegate (HttpContext context, DBConfigurator db)
 {
     Team team = await context.Request.ReadFromJsonAsync<Team>();
