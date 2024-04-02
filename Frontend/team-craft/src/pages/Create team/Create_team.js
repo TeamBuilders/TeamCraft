@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./Create_team.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
+import PopUp_hobby from '../../components/PopUp_Team/PopUp_hobby/PopUp_hobby';
 
 const CREATE_TEAM_URL = "https://a25913-16e5.w.d-f.pw/api/teams/create";
 const CreateTeamForm = () => {
@@ -9,6 +10,7 @@ const CreateTeamForm = () => {
   const [teamName, setTeamName] = useState("");
   const [teamGoal, setteamGoal] = useState("");
   const [teamDescription, setTeamDescription] = useState("");
+  const [teamStack, setTeamStack] = useState([]);
   const [resErr, setResErr] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
@@ -134,6 +136,10 @@ const CreateTeamForm = () => {
                 value={teamDescription}
                 onChange={(e) => setTeamDescription(e.target.value)}
               />
+            </div>
+            <div className={styles.field}>
+              <label htmlFor="teamGoal">Навыки команды:</label>
+              <PopUp_hobby  />
             </div>
             {/* <div className={styles.field}>
                             <label htmlFor="team_lead">Теги команды:</label>
