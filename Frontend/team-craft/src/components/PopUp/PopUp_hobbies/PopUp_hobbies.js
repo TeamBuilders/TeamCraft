@@ -40,22 +40,22 @@ export default function PopUp_hobbies({onClose}) {
 
     const handleOpen2 = () => {
 
-        // if (userData.hobbiesPerson === null) {
-        //     userData.hobbiesPerson = [];
-        //     localStorage.setItem('userData', JSON.stringify(userData));
-        // }
-        // if (userData.skillsPerson === null) {
-        //     userData.skillsPerson = {
-        //         "Разработка": [],
-        //         "Музыка": [],
-        //         "Анимации": [],
-        //         "Гейминг": [],
-        //         "Социальные развлечения": [],
-        //         "Научные разработки": [],
-        //         "Активный отдых": []
-        //     };
-        //     localStorage.setItem('userData', JSON.stringify(userData));
-        // }
+        if (userData.hobbiesPerson === null) {
+            userData.hobbiesPerson = [];
+            localStorage.setItem('userData', JSON.stringify(userData));
+        }
+        if (userData.skillsPerson === null) {
+            userData.skillsPerson = {
+                'Разработка': [],
+                "Музыка": [],
+                "Анимации": [],
+                "Гейминг": [],
+                "Социальные развлечения": [],
+                "Научные разработки": [],
+                "Активный отдых": []
+            };
+            localStorage.setItem('userData', JSON.stringify(userData));
+        }
     };
 
     const handleClose2 = () => {
@@ -89,7 +89,7 @@ export default function PopUp_hobbies({onClose}) {
         <div className={styles.modal}>
             {hobby.map((hobbies, index) => (
                 <div className={styles.content} key={index}>
-                    <PopUp_category text={hobbies.nameHobby} value={hobbies.skillPeople} />
+                    <PopUp_category text={hobbies.nameHobby} value={hobbies.skillPeople} value2={userData} />
                 </div>
             ))}
             <div className={styles.buttons}>
