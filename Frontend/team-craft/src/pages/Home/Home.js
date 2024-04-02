@@ -2,11 +2,35 @@ import React from "react";
 import styles from "./Home.module.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 function Home() {
+  const [pageHeight, setPageHeight] = useState('100vh'); // Используем 100vh по умолчанию
+
+  useEffect(() => {
+    // Функция для вычисления высоты страницы
+    const calculatePageHeight = () => {
+      const body = document.body;
+      const html = document.documentElement;
+      const height = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.clientHeight
+      );
+      setPageHeight(height + 'px');
+    };
+    calculatePageHeight();
+    window.addEventListener('resize', calculatePageHeight);
+
+    // Удаляем обработчик изменения размера окна при размонтировании компонента
+    return () => {
+      window.removeEventListener('resize', calculatePageHeight);
+    };
+  }, []);
+
   return (
-    <div className={styles.main_body}>
+    <div className={styles.main_body} style={{ height: pageHeight }}>
       <Header />
         <div className={styles.main}>
           <div className={styles.container1}>
