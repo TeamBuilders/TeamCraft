@@ -28,6 +28,8 @@ namespace TeamCraft.Model.TeamsArchitecture
 
         public List<MemberTeam>? MemberTeam { get; set; } = new();
 
+        public List<MemberTeam>? Jion_means { get; set; } = new();
+
         public void AddPersonInTeam(MemberTeam user)
         {
             MemberTeam.Add(user);

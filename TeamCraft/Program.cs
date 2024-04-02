@@ -17,6 +17,7 @@ using System.Security.Claims;
 using System;
 using TeamCraft.Model.TeamsArchitecture;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -155,7 +156,24 @@ app.MapPost("/api/teams/create", async delegate (HttpContext context, DBConfigur
     db.SaveChangesAsync();
 
 });
+app.MapPost("/api/teams/join", async delegate (HttpContext context, DBConfigurator db)
+{
+    Team team = await context.Request.ReadFromJsonAsync<Team>();
+    Team oldteam = db.Teams.FirstOrDefault(x => x.team_lead == team.team_lead);
+    oldteam.Jion_means = team.Jion_means;
+    db.SaveChangesAsync();
 
+});
+
+
+app.MapPost("/api/teams/create", async delegate (HttpContext context, DBConfigurator db)
+{
+    Team team = await context.Request.ReadFromJsonAsync<Team>();
+    
+    db.Teams.Add(team);
+    db.SaveChangesAsync();
+
+});
 app.MapPost("/api/teams/edit", async delegate (HttpContext context, DBConfigurator db)
 {
     Team team = await context.Request.ReadFromJsonAsync<Team>();

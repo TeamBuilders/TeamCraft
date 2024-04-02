@@ -33,8 +33,8 @@ namespace TeamCraft.Model.UserAcrhitecture
         public string? gender { get; set; }
         
 
-        public List<CategoryHobby> hobbiesPerson { get; set; }
-        public List<SkillPerson> skillsPerson { get; set; }
+        public List<CategoryHobby>? hobbiesPerson { get; set; }
+        public List<SkillPerson>? skillsPerson { get; set; }
         public string? goalsPerson { get; set; }
         public string urlContact { get; set; }
         public bool inTeam { get; set; } = false;
