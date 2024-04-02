@@ -3,11 +3,12 @@ import styles from "./Create_team.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 
-const CREATE_TEAM_URL = "https://a25911-de43.w.d-f.pw/api/teams/create";
+const CREATE_TEAM_URL = "https://a25913-16e5.w.d-f.pw/api/teams/create";
 const CreateTeamForm = () => {
   const navigate = useNavigate();
   const [teamName, setTeamName] = useState("");
   const [teamGoal, setteamGoal] = useState("");
+  const [teamDescription, setTeamDescription] = useState("");
   const [resErr, setResErr] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
@@ -39,7 +40,7 @@ const CreateTeamForm = () => {
     //             "urlContact":"vk",
     //             "inTeam":false
     //             },
-    //         "roleMember" : "wtf"
+    //         "roleMember" : "Тимлид"
     //     }
     //     ]
     // }
@@ -51,34 +52,37 @@ const CreateTeamForm = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const team_lead = user;
     const userData = JSON.parse(localStorage.getItem("userData"));
-    const memberTeam = [
+    const MemberTeam = [
       {
         dataMemberUser: userData, 
         roleMember: "Тимлид",
       },
     ];
+    console.log("userData: ", userData);
 
     // Формируем итоговый объект JSON
     const jsonData = JSON.stringify({
       teamName: teamName,
       teamGoal: teamGoal,
       team_lead: team_lead,
-      MemberTeam: memberTeam,
+      teamDescription: teamDescription,
+      MemberTeam: MemberTeam,
     });
 
-    console.log("Данные команды:", jsonData);
     localStorage.setItem("teamName", teamName);
     localStorage.setItem("teamGoal", teamGoal);
-    localStorage.setItem("MemberTeam", JSON.stringify(memberTeam));
+    localStorage.setItem("teamDescription", teamDescription);
+    localStorage.setItem("MemberTeam", JSON.stringify(MemberTeam));
+    
+    console.log("Данные команды:", jsonData);
     try {
       const response = await axios.post(CREATE_TEAM_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
+        withCredentials: false,
       });
 
       if (response.status === 200) {
-        // Сам напишу
-        // Переходим на страницу команды
-
+        console.log("Сохранено");
         navigate("/team/" + teamName);
       }
     } catch (err) {
@@ -121,6 +125,14 @@ const CreateTeamForm = () => {
                 value={teamGoal}
                 onChange={(e) => setteamGoal(e.target.value)}
                 required
+              />
+            </div>
+            <div className={styles.field}>
+              <label htmlFor="teamGoal">Описание команды:</label>
+              <textarea
+                id="teamGoal"
+                value={teamDescription}
+                onChange={(e) => setTeamDescription(e.target.value)}
               />
             </div>
             {/* <div className={styles.field}>
