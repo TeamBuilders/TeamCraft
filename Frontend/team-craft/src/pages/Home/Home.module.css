@@ -32,8 +32,8 @@
     text-align: center;
     vertical-align: middle;
     opacity: 0; 
-    transform: translateY(-100%); 
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(-30%); 
+    transition: opacity 1s ease, transform 1s ease;
 }
 
 .main_text.visible{
@@ -165,8 +165,8 @@ a.btn_sign_in:hover{
     padding: 25px;
     margin-top: 300px;
     opacity: 0; 
-    transform: translateX(100%); 
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateX(15%); 
+    transition: opacity 1s ease, transform 1s ease;
 }
 
 .text_cont2.visible{
@@ -181,8 +181,8 @@ a.btn_sign_in:hover{
     border: 3px solid #9FC4F0;
     margin-left: 0px;
     opacity: 0; 
-    transform: translateX(-100%); 
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateX(-15%); 
+    transition: opacity 1s ease, transform 1s ease;
 
      /* margin-right: 250px; */
     /* margin-top: 340px; */
@@ -205,8 +205,8 @@ a.btn_sign_in:hover{
     padding: 25px;
 
     opacity: 0; 
-    transform: translateX(-100%); 
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateX(-15%); 
+    transition: opacity 1s ease, transform 1s ease;
 }
 
 .text_cont3.visible{
@@ -221,8 +221,8 @@ a.btn_sign_in:hover{
     border: 3px solid #9FC4F0;
 
     opacity: 0; 
-    transform: translateX(100%); 
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateX(15%); 
+    transition: opacity 1s ease, transform 1s ease;
 }
 
 .img_cont3.visible{

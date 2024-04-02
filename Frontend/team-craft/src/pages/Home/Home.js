@@ -9,34 +9,36 @@ function Home() {
   const [visibilityStates, setVisibilityStates] = useState([]);
 
   useEffect(() => {
-    const observers = []; // Массив для хранения экземпляров IntersectionObserver
-
-    // Создание нового экземпляра IntersectionObserver для каждого целевого элемента
+    const observers = [];
+  
     targetRefs.current.forEach((targetRef, index) => {
-        if (targetRef) { // Проверяем, что ref не равен undefined
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                  setVisibilityStates(prevStates => {
-                    const newStates = [...prevStates];
-                    newStates[index] = entry.isIntersecting;
-                    console.log(newStates);
-                    return newStates;
-                  });
-                });
-            });
-
-            // Начало отслеживания изменений видимости для текущего целевого элемента
-            observer.observe(targetRef);
-
-            observers.push(observer); // Добавление экземпляра IntersectionObserver в массив
-        }
+      if (targetRef) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const isVisible = entry.isIntersecting;
+            if (isVisible && !visibilityStates[index]) {
+              setVisibilityStates(prevStates => {
+                const newStates = [...prevStates];
+                newStates[index] = true;
+                return newStates;
+              });
+  
+              // Отключаем отслеживание после того, как элемент станет видимым
+              observer.disconnect();
+            }
+          });
+        });
+  
+        observer.observe(targetRef);
+        observers.push(observer);
+      }
     });
-
-    // Очистка всех экземпляров IntersectionObserver при размонтировании компонента
+  
     return () => {
-        observers.forEach(observer => observer.disconnect());
+      observers.forEach(observer => observer.disconnect());
     };
-}, [targetRefs]);
+  }, [targetRefs, visibilityStates]);
+  
 
   const [pageHeight, setPageHeight] = useState('100vh'); // Используем 100vh по умолчанию
 
