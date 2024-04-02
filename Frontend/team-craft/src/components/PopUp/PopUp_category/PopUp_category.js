@@ -81,7 +81,7 @@ export default function PopUp_category(props) {
                 borderRadius: '10px', 
                 padding: '20px',
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
             }} 
             trigger={<button className={styles.button_trigger}>{props.text}</button>} 
             modal 
