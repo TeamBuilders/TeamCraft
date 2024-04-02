@@ -3,39 +3,59 @@ import styles from './PopUp_hobbies.module.css';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import PopUp_category from '../PopUp_category/PopUp_category';
+import axios from 'axios';
+
+const HOBBY_URL = 'https://a25715-5073.x.d-f.pw/api/hobby';
 
 
 export default function PopUp_hobbies({onClose}) {
-    const hobbies = [
-        { text: "Разработка" },
-        { text: "Музыка" },
-        { text: "Анимации" },
-        { text: "Гейминг" },
-        { text: "Социальные развлечения" },
-        { text: "Научные разработки" },
-        { text: "Активный отдых" }
-      ];
+    
+    const [hobby, setHobby] = useState([]);
+
+    
+    const handleSubmit = async (e) => {
+        try{
+
+        }
+        catch(err){
+            console.log(err);
+       
+        }
+        
+        axios.get(HOBBY_URL)
+        .then((response) => {
+            setHobby(response.data);
+        })    
+        .catch((error) => {
+        console.error(error); // обработка ошибок
+        });
+    }
+
+    useEffect(() => {
+        handleSubmit();
+    }, []);
+
 
     let userData = JSON.parse(localStorage.getItem('userData'));
 
     const handleOpen2 = () => {
 
-        if (userData.hobbiesPerson === null) {
-            userData.hobbiesPerson = [];
-            localStorage.setItem('userData', JSON.stringify(userData));
-        }
-        if (userData.skillsPerson === null) {
-            userData.skillsPerson = {
-                "Разработка": [],
-                "Музыка": [],
-                "Анимации": [],
-                "Гейминг": [],
-                "Социальные развлечения": [],
-                "Научные разработки": [],
-                "Активный отдых": []
-            };
-            localStorage.setItem('userData', JSON.stringify(userData));
-        }
+        // if (userData.hobbiesPerson === null) {
+        //     userData.hobbiesPerson = [];
+        //     localStorage.setItem('userData', JSON.stringify(userData));
+        // }
+        // if (userData.skillsPerson === null) {
+        //     userData.skillsPerson = {
+        //         "Разработка": [],
+        //         "Музыка": [],
+        //         "Анимации": [],
+        //         "Гейминг": [],
+        //         "Социальные развлечения": [],
+        //         "Научные разработки": [],
+        //         "Активный отдых": []
+        //     };
+        //     localStorage.setItem('userData', JSON.stringify(userData));
+        // }
     };
 
     const handleClose2 = () => {
@@ -48,7 +68,6 @@ export default function PopUp_hobbies({onClose}) {
     }, []);
 
     const handlePopupClose = () => {
-        console.log("Popup closed");
         onClose(); // Вызываем переданную функцию после закрытия Popup
     };
 
@@ -68,9 +87,9 @@ export default function PopUp_hobbies({onClose}) {
   {
       close => (
         <div className={styles.modal}>
-            {hobbies.map((hobby, index) => (
+            {hobby.map((hobbies, index) => (
                 <div className={styles.content} key={index}>
-                    <PopUp_category text={hobby.text} value={userData} />
+                    <PopUp_category text={hobbies.nameHobby} value={hobbies.skillPeople} />
                 </div>
             ))}
             <div className={styles.buttons}>

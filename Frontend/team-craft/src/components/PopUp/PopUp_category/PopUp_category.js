@@ -6,12 +6,12 @@ import 'reactjs-popup/dist/index.css';
 
 
 export default function PopUp_category(props) {
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState(props.value);
     const [isOpen, setIsOpen] = useState(false);
     const[isSelected, setIsSelected] = useState(false);
 
     const [userSkills, setUserSkills] = useState(props.value);
-    const [selectedItems, setSelectedItems] = useState(props.value.skillsPerson[props.text]);
+    const [selectedItems, setSelectedItems] = useState(props.value.skillsPerson);
    
 
 
@@ -37,7 +37,8 @@ export default function PopUp_category(props) {
 
     const handleOpen = () => {
         setIsOpen(true);
-        setCategory(props.text);
+        setCategory(props.value);
+        console.log(props.value);
     };
 
     useEffect(() => {
@@ -59,15 +60,15 @@ export default function PopUp_category(props) {
 
 
 
-    const handleItemClick = (item) => {
-        const isSelected = selectedItems.length === 0 ? false : selectedItems.includes(item);
+    // const handleItemClick = (item) => {
+    //     const isSelected = selectedItems.length === 0 ? false : selectedItems.includes(item.nameSkill);
 
-        if (isSelected) {
-            setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
-        } else {
-            setSelectedItems([...selectedItems, item]);
-        }
-    };
+    //     if (isSelected) {
+    //         setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
+    //     } else {
+    //         setSelectedItems([...selectedItems, item]);
+    //     }
+    // };
 
     return (
         <Popup 
@@ -93,14 +94,14 @@ export default function PopUp_category(props) {
                         <div>
                             <h2>{props.text}</h2>
                             <ul className={styles.ul_list}>
-                                    {categories[props.text].map((item, index) => (
+                                    {category.map((item, index) => (
                                         <li
                                             className={styles.li_item}
                                             key={index}
-                                            onClick={() => handleItemClick(item)}
-                                            style={{ backgroundColor: selectedItems.includes(item) ? '#1c2e7b' : '#4361EE' }}
+                                            // onClick={() => handleItemClick(item.nameSkill)}
+                                            // style={{ backgroundColor: selectedItems.includes(item) ? '#1c2e7b' : '#4361EE' }}
                                         >
-                                            {item}
+                                            {item.nameSkill}
                                         </li>
                                     ))}
                             </ul>
