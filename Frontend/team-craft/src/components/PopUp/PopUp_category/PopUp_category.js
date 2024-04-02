@@ -10,8 +10,8 @@ export default function PopUp_category(props) {
     const [isOpen, setIsOpen] = useState(false);
     const[isSelected, setIsSelected] = useState(false);
 
-    const [userSkills, setUserSkills] = useState(props.value);
-    const [selectedItems, setSelectedItems] = useState(props.value.skillsPerson);
+    const [userSkills, setUserSkills] = useState(props.value2);
+    const [selectedItems, setSelectedItems] = useState(userSkills.skillsPerson[props.text]);
    
 
 
@@ -38,7 +38,6 @@ export default function PopUp_category(props) {
     const handleOpen = () => {
         setIsOpen(true);
         setCategory(props.value);
-        console.log(props.value);
     };
 
     useEffect(() => {
@@ -60,15 +59,15 @@ export default function PopUp_category(props) {
 
 
 
-    // const handleItemClick = (item) => {
-    //     const isSelected = selectedItems.length === 0 ? false : selectedItems.includes(item.nameSkill);
+    const handleItemClick = (item) => {
+        const isSelected = selectedItems.length === 0 ? false : selectedItems.includes(item);
 
-    //     if (isSelected) {
-    //         setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
-    //     } else {
-    //         setSelectedItems([...selectedItems, item]);
-    //     }
-    // };
+        if (isSelected) {
+            setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
+        } else {
+            setSelectedItems([...selectedItems, item]);
+        }
+    };
 
     return (
         <Popup 
@@ -81,7 +80,7 @@ export default function PopUp_category(props) {
                 borderRadius: '10px', 
                 padding: '20px',
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: 'center'
             }} 
             trigger={<button className={styles.button_trigger}>{props.text}</button>} 
             modal 
@@ -98,8 +97,8 @@ export default function PopUp_category(props) {
                                         <li
                                             className={styles.li_item}
                                             key={index}
-                                            // onClick={() => handleItemClick(item.nameSkill)}
-                                            // style={{ backgroundColor: selectedItems.includes(item) ? '#1c2e7b' : '#4361EE' }}
+                                            onClick={() => handleItemClick(item.nameSkill)}
+                                            style={{ backgroundColor: selectedItems.includes(item.nameSkill) ? '#1c2e7b' : '#4361EE' }}
                                         >
                                             {item.nameSkill}
                                         </li>
