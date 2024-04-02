@@ -19,7 +19,6 @@ function Home() {
                   setVisibilityStates(prevStates => {
                     const newStates = [...prevStates];
                     newStates[index] = entry.isIntersecting;
-                    console.log(newStates);
                     return newStates;
                   });
                 });
