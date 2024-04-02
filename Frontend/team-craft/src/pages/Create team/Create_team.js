@@ -69,7 +69,7 @@ const CreateTeamForm = () => {
     console.log("Данные команды:", jsonData);
     localStorage.setItem("teamName", teamName);
     localStorage.setItem("teamGoal", teamGoal);
-
+    localStorage.setItem("MemberTeam", JSON.stringify(memberTeam));
     try {
       const response = await axios.post(CREATE_TEAM_URL, jsonData, {
         headers: { "Content-Type": "application/json" },

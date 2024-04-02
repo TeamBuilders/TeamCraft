@@ -3,15 +3,21 @@ import styles from './Team.module.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
+const EDIT_URL = "https://a25896-d271.w.d-f.pw/api/teams/edit";
 
 export default function Team(){
+    const navigate = useNavigate();
+
     const [userData, setUserData] = useState(null);
 
     const [isEditing, setIsEditing] = useState(false);
     const [teamName, setTeamName] = useState(localStorage.getItem('teamName') || '');
-    const [teamGoals, setteamGoals] = useState(localStorage.getItem('teamGoals') || '');
+    const [teamGoal, setTeamGoal] = useState(localStorage.getItem('teamGoal') || '');
     const [teamMembers, setTeamMembers] = useState(localStorage.getItem('MemberTeam') || '');
+    const [numberOfmembers, setNumberOfmembers] = useState(JSON.parse(teamMembers).length);  
+    const [errMsg, setErrMsg] = useState('');
     const [error, setError] = useState('');
 
     const handleEditClick = () => {
@@ -21,18 +27,96 @@ export default function Team(){
     const handleCancelClick = () => {
         setIsEditing(false);
         setTeamName(localStorage.getItem('teamName') || '');
-        setteamGoals(localStorage.getItem('teamGoals') || '');
+        setTeamGoal(localStorage.getItem('teamGoal') || '');
+
         setError('');
     };
 
-    const handleSaveClick = () => {
-        if (!teamName.trim() || !teamGoals.trim()) {
+    const handleSaveClick = async (e) => {
+        if (!teamName.trim() || !teamGoal.trim()) {
             setError('Пожалуйста, заполните все поля');
             return;
         }
-        // Сохранение данных в localStorage
-        localStorage.setItem('teamName', teamName);
-        localStorage.setItem('teamGoals', teamGoals);
+            //   localStorage.setItem('userData', JSON.stringify(userData));
+            //   localStorage.setItem('token', response.data?.jwtToken);
+            //   localStorage.setItem('user', JSON.stringify(user));
+            // {
+            //     "teamName": "Огурцы",
+            //     "teamGoal": "Молодцы",
+            //     "team_lead" : "Admin1",
+            //     "MemberTeam" :
+            //     [
+            //     {
+            //         "dataMemberUser" :
+            //            {
+            //             "name":"alex",
+            //             "sureName":"uglov",
+            //             "descriptionUser":null,
+            //             "databirthday":"2000-12-31T00:00:00",
+            //             "gender":"male",
+            //             "hobbiesPerson":null,
+            //             "skillsPerson":null,
+            //             "goalsPerson":null,
+            //             "urlContact":"vk",
+            //             "inTeam":false
+            //             },
+            //         "roleMember" : "wtf"
+            //     }
+            //     ]
+            // }
+            // team_lead это значение user
+            e.preventDefault();
+        
+            // Формируем объект для team_lead на основе значения user
+        
+            const user = JSON.parse(localStorage.getItem("user"));
+            const team_lead = user;
+            const userData = JSON.parse(localStorage.getItem("userData"));
+            // const memberTeam = [
+            //   {
+            //     dataMemberUser: userData, 
+            //     roleMember: "Тимлид",
+            //   },
+            // ];
+        
+            // Формируем итоговый объект JSON
+            const jsonData = JSON.stringify({
+              teamName: teamName,
+              teamGoal: teamGoal,
+              team_lead: team_lead,
+              MemberTeam: JSON.parse(teamMembers), 
+            });
+        
+            console.log("Данные команды:", jsonData);
+            localStorage.setItem("teamName", teamName);
+            localStorage.setItem("teamGoal", teamGoal);
+            localStorage.setItem("MemberTeam", teamMembers);
+            try {
+              const response = await axios.post(EDIT_URL, jsonData, {
+                headers: { "Content-Type": "application/json" },
+              });
+        
+              if (response.status === 200) {
+                // Сам напишу
+                // Переходим на страницу команды
+        
+                navigate("/team/" + teamName);
+              }
+            } catch (err) {
+              console.error("Ошибка при отправке запроса:", err);
+        
+              if (err.response) {
+                if (err.response.status === 502) {
+                  if (err.response.data.message[0] === "Bad Gateway") {
+                    setErrMsg("Опять че то с сервером");
+                  }
+                } else {
+                  setErrMsg("Ошибка создания команды");
+                }
+              } else {
+                setErrMsg("Нет ответа от сервера");
+              }
+            }
         setIsEditing(false);
     };
 
@@ -59,7 +143,7 @@ export default function Team(){
                                 )}
                                 <div className={styles.state}>
                                     <div className={styles.circle} id="1"></div>
-                                    <p className={styles.fullness}>Количество участников: 1</p>
+                                    <p className={styles.fullness}>Количество участников: {numberOfmembers}</p>
                                 </div>
                             </div>
                         </div>
@@ -93,9 +177,9 @@ export default function Team(){
                         <p>Теги</p>
                         <div className={styles.tag_field}>
                             <textarea
-                                value={teamGoals}
+                                value={teamGoal}
                                 className={styles.tags}
-                                onChange={(e) => setteamGoals(e.target.value)}
+                                onChange={(e) => setTeamGoal(e.target.value)}
                                 name="tags"
                                 style={{ fontSize: '15pt' }}
                                 rows="3"
