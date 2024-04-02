@@ -1,6 +1,6 @@
 .signup_body  {
     background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url(../../images/main_bg.jpg);
-    background-size: cover;
+    background-size: contain;
     background-repeat: repeat-y;
 }
 
@@ -255,4 +255,21 @@ color: red;
 
 .log_button:hover{
     color:#3349C0;
+}
+
+@media (max-width: 1200px){
+    .form {
+        min-width: 600px;
+
+    }
+}
+@media (max-width: 700px){
+    .form {
+        min-width: 400px;
+        width: 100%;
+        padding: 10px 50px
+    }
+    .field input {
+        width: 100%;
+    }
 }
