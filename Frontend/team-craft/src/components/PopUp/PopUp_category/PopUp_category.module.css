@@ -32,7 +32,7 @@
     border-radius: 10px;
     padding: 2%;
 }
-li:hover{
+.modal li:hover{
     box-shadow: none;
     box-shadow:0 0 5px #9fc4f0;
     text-decoration: none !important;

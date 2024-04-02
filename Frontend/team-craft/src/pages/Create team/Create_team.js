@@ -3,7 +3,7 @@ import styles from "./Create_team.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 
-const CREATE_TEAM_URL = "https://a25715-5073.x.d-f.pw/api/teams/create";
+const CREATE_TEAM_URL = "https://a25911-de43.w.d-f.pw/api/teams/create";
 const CreateTeamForm = () => {
   const navigate = useNavigate();
   const [teamName, setTeamName] = useState("");
