@@ -1,6 +1,7 @@
 .login {
-     background: url(../../images/bg.jpg); 
-     background-size: cover;
+     /* background: url(../../images/bg.jpg); */
+     /* background-size: cover; */
+     /* background-repeat: repeat; */
      display: flex; /* Используем flex-контейнер для центрирования по вертикали и горизонтали */
      justify-content: center;
      align-items: center;

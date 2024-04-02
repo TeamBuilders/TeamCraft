@@ -11,9 +11,11 @@
   background-color: #131619;
   /* background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url("images/bg.jpg"); */
   /* background-image: url("images/bg.jpg");  */
-  background-size: 100% 1024px;
-  background-repeat: no-repeat;
-  
+  /* background-size: 100% 1024px; */
+  /* background-repeat: no-repeat; */
+  background: url(images/bg.jpg); 
+  background-size: cover;
+  background-repeat: repeat;
 
 }
 
