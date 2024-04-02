@@ -4,6 +4,8 @@ import Footer from '../../components/Footer/Footer';
 import styles from '../Search/Search.module.css';
 
 export default function Search(){
+  
+
 
     return(
         <div className={styles.search_page}>

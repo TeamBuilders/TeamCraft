@@ -11,6 +11,7 @@ export default function Team(){
     const [isEditing, setIsEditing] = useState(false);
     const [teamName, setTeamName] = useState(localStorage.getItem('teamName') || '');
     const [teamGoals, setteamGoals] = useState(localStorage.getItem('teamGoals') || '');
+    const [teamMembers, setTeamMembers] = useState(localStorage.getItem('MemberTeam') || '');
     const [error, setError] = useState('');
 
     const handleEditClick = () => {
