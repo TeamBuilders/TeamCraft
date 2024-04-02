@@ -1,9 +1,3 @@
-.signup_body  {
-    /* background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url(../../images/main_bg.jpg);
-    background-size: contain;
-    background-repeat: repeat-y; */
-}
-
 .wrapper {
     display: flex;
     justify-content: center;
