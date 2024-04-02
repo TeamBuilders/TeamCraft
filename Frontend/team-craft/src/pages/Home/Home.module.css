@@ -1,8 +1,11 @@
 .main_body{
     background-color: #1D2125;
     background-image: url("../../images/bg.jpg");
+    background-position: 0px 0px;
+    background-size: contain;
+    
     /* background-image: url("images/bg.jpg");  */
-    background-size: 100% 1024px;
+    /* background-size: 100% 1024px; */
     background-repeat: no-repeat;
 }
 
