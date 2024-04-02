@@ -10,9 +10,7 @@ export default function Team(){
 
     const [isEditing, setIsEditing] = useState(false);
     const [teamName, setTeamName] = useState(localStorage.getItem('teamName') || '');
-    const [numberOfMembers, setNumberOfMembers] = useState(localStorage.getItem('numberOfMembers') || '');
-    const [teamTags, setTeamTags] = useState(localStorage.getItem('teamTags') || '');
-    const [teamDescription, setTeamDescription] = useState(localStorage.getItem('teamDescription') || '');
+    const [teamGoals, setteamGoals] = useState(localStorage.getItem('teamGoals') || '');
     const [error, setError] = useState('');
 
     const handleEditClick = () => {
@@ -22,30 +20,18 @@ export default function Team(){
     const handleCancelClick = () => {
         setIsEditing(false);
         setTeamName(localStorage.getItem('teamName') || '');
-        setNumberOfMembers(localStorage.getItem('numberOfMembers') || '');
-        setTeamTags(localStorage.getItem('teamTags') || '');
-        setTeamDescription(localStorage.getItem('teamDescription') || '');
+        setteamGoals(localStorage.getItem('teamGoals') || '');
         setError('');
     };
 
     const handleSaveClick = () => {
-        if (!teamName.trim() || !numberOfMembers.trim() || !teamTags.trim() || !teamDescription.trim()) {
+        if (!teamName.trim() || !teamGoals.trim()) {
             setError('Пожалуйста, заполните все поля');
-            return;
-        }
-        if (numberOfMembers < 2) {
-            setError('Количество участников должно быть больше 2');
-            return;
-        }
-        if (numberOfMembers > 10) {
-            setError('Количество участников должно быть меньше 10');
             return;
         }
         // Сохранение данных в localStorage
         localStorage.setItem('teamName', teamName);
-        localStorage.setItem('numberOfMembers', numberOfMembers);
-        localStorage.setItem('teamTags', teamTags);
-        localStorage.setItem('teamDescription', teamDescription);
+        localStorage.setItem('teamGoals', teamGoals);
         setIsEditing(false);
     };
 
@@ -72,14 +58,7 @@ export default function Team(){
                                 )}
                                 <div className={styles.state}>
                                     <div className={styles.circle} id="1"></div>
-                                    <p className={styles.fullness}>1 из {isEditing 
-                                    ? <input type="number" 
-                                    value={numberOfMembers} 
-                                    onChange={(e) => setNumberOfMembers(e.target.value)}
-                                    min={2}
-                                    max={10} 
-                                    required/> 
-                                    : numberOfMembers}</p>
+                                    <p className={styles.fullness}>Количество участников: 1</p>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +71,7 @@ export default function Team(){
                             <div className={styles.desc}>
                             <p className={styles.player_title}>{JSON.parse(localStorage.getItem('userData')).name}</p>
                             <div className={styles.state}>
-                                <p className={styles.fullness}>Создатель</p>
+                                <p className={styles.fullness}>Тимлид</p>
                             </div>
                             </div>
                         </div>
@@ -113,9 +92,9 @@ export default function Team(){
                         <p>Теги</p>
                         <div className={styles.tag_field}>
                             <textarea
-                                value={teamTags}
+                                value={teamGoals}
                                 className={styles.tags}
-                                onChange={(e) => setTeamTags(e.target.value)}
+                                onChange={(e) => setteamGoals(e.target.value)}
                                 name="tags"
                                 style={{ fontSize: '15pt' }}
                                 rows="3"
@@ -127,9 +106,8 @@ export default function Team(){
                         <div className={styles.info_panel}>
                             <p className={styles.inf_title}>Информация о команде</p>
                             <textarea
-                                value={teamDescription}
+                                value={"Какое-то описание (его нет)"}
                                 className={styles.inf_p}
-                                onChange={(e) => setTeamDescription(e.target.value)}
                                 name="inf-p"
                                 style={{ fontSize: '13pt' }}    
                                 rows="10"
