@@ -21,6 +21,7 @@ export default function Team(){
     const [teamSkills, setTeamSkills] = useState(localStorage.getItem('teamSkills') || '');
     const [errMsg, setErrMsg] = useState('');
     const [error, setError] = useState('');
+    const [isTeamLeader, setIsTeamLeader] = useState(false);
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -176,6 +177,30 @@ export default function Team(){
                     <div className={styles.applic_member}>
                         <h2>Заявки на вступление</h2>
                         <div className={styles.applic_member_teams}>
+                            <div className={styles.block_player}>
+                                <img src="images/avatar.jpg" alt="player_icon" className={styles.player_icon}/>
+                                <div className={styles.desc}>
+                                <p className={styles.player_title}>Никнейм</p>
+                                <div className={styles.state}>
+                                </div>
+                                </div>
+                                <div className={styles.buttons}>
+                                <button className={styles.button_add} >Добавить</button>
+                                <button className={styles.button_remove} >Отклонить</button>
+                                </div>
+                            </div>
+                            <div className={styles.block_player}>
+                                <img src="images/avatar.jpg" alt="player_icon" className={styles.player_icon}/>
+                                <div className={styles.desc}>
+                                <p className={styles.player_title}>Никнейм</p>
+                                <div className={styles.state}>
+                                </div>
+                                </div>
+                                <div className={styles.buttons}>
+                                <button className={styles.button_add} >Добавить</button>
+                                <button className={styles.button_remove} >Отклонить</button>
+                                </div>
+                            </div>
                             <div className={styles.block_player}>
                                 <img src="images/avatar.jpg" alt="player_icon" className={styles.player_icon}/>
                                 <div className={styles.desc}>

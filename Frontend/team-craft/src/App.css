@@ -22,5 +22,18 @@
 
 html {
   scrollbar-color: #9fc4f0 #1D2125;
-  scrollbar-width: thin;
+  scrollbar-width: 8px;
 }
+
+
+body::-webkit-scrollbar {
+  width: 8px;              
+}
+body::-webkit-scrollbar-track {
+  background: #1D2125;       
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #9fc4f0;    
+  border-radius: 20px;       
+}
+

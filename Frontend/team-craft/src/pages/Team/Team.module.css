@@ -1,7 +1,18 @@
+.team_page {
+  position: relative;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #000000;
+  min-width: 320px;
+  overflow-x: hidden;
+  height: 100vh;
+  width: 100%;
+}
+
 .bgcolor {
   max-width: 1200px;
   width: 90%;
-  height: 100vh;
   background-color: #1d2125;
   margin: auto;
   padding: 1em;
@@ -210,6 +221,12 @@ p.fullness {
   box-shadow: none;
   box-shadow:0 0 5px #bb2929;
   text-decoration: none !important;
+}
+
+.applic_member_teams{
+  height: 300px; 
+  overflow-y: auto; 
+  margin-bottom: 10px;
 }
 
 .applic_member .block_player {
