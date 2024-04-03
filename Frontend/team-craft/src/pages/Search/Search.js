@@ -4,9 +4,10 @@ import Footer from "../../components/Footer/Footer";
 import styles from "../Search/Search.module.css";
 import axios from "axios";
 import PopUp_hobbies from "../../components/PopUp/PopUp_hobbies/PopUp_hobbies";
+import { API_URL } from '../../api/apiConfig';
 
-const FILTER_URL = "https://a25917-4be6.w.d-f.pw/api/teams/filter";
-const SKILL_URL = "https://a25917-4be6.w.d-f.pw/api/skill/1";
+const FILTER_URL = API_URL + '/teams/filter';
+const SKILL_URL = API_URL + '/skill/1';
 
 export default function Search() {
   const formRef = useRef(null);

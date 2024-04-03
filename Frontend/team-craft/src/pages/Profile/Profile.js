@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom'; // Предполагается, что
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PopUp_hobbies from '../../components/PopUp/PopUp_hobbies/PopUp_hobbies';
+import { API_URL } from '../../api/apiConfig';
 
-const TOKEN_URL = 'https://a25917-4be6.w.d-f.pw/api/data';
+const TOKEN_URL = API_URL + '/data';
 
 export default function Account() {
 
@@ -106,6 +107,10 @@ export default function Account() {
               <div className={styles.field}>
                 <h6>КОНТАКТЫ</h6>
                 <p>{userData.urlContact}</p>
+              </div>
+              <div className={styles.field}>
+                <h6>ПОЧТА</h6>
+                <p>{userData.email}</p>
               </div>
             </div>
 

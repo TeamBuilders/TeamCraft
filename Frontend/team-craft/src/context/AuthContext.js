@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { API_URL } from '../api/apiConfig';
+const DATA_URL = API_URL + '/data';
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -17,7 +18,7 @@ export const AuthProvider = ({ children }) => {
     const checkTokenValidity = async () => {
       try {
         if (token) {
-          const response = await axios.post('https://a25715-5073.x.d-f.pw/api/data', { token });
+          const response = await axios.post(DATA_URL, { token });
           if (response.data.success) {
             setAuth({ token });
           } else {

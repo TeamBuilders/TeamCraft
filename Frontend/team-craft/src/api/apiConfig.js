@@ -1,0 +1,1 @@
+export const API_URL = 'https://a25918-25c0.w.d-f.pw/api';

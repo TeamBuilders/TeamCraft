@@ -7,8 +7,9 @@ import axios from 'axios';
 import {Icon} from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye'
+import { API_URL } from '../../api/apiConfig';
 
-const LOGIN_URL = 'https://a25917-4be6.w.d-f.pw/api/login';
+const LOGIN_URL = API_URL + '/login';
 
 export default function Login(){
 
@@ -56,13 +57,15 @@ export default function Login(){
           login: user,
           password: pwd,
         });
-    
+        console.log(jsonData);
         const response = await axios.post(LOGIN_URL, jsonData, {
           headers: { "Content-Type": "application/json" },
         });
-    
+        console.log(response.data.message);
+
         if (response.status === 200) {
           const userData = response.data?.user?.dataUser;
+          console.log(userData);
           delete userData.Id; // Удаляем Id из userData
           localStorage.setItem('userData', JSON.stringify(userData));
           localStorage.setItem('token', response.data?.jwtToken);
@@ -73,7 +76,8 @@ export default function Login(){
           navigate("/profile");
         }
       } catch (err) {
-        console.error('Ошибка при отправке запроса:', err);
+        console.error(err);
+        console.error('Ошибка при отправке запроса:', err.response?.data.message);
     
         if (err.response) {
           if (err.response.status === 400) {

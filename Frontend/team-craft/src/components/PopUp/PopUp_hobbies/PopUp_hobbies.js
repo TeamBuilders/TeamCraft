@@ -4,8 +4,9 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import PopUp_category from '../PopUp_category/PopUp_category';
 import axios from 'axios';
+import { API_URL } from '../../../api/apiConfig';
 
-const HOBBY_URL = 'https://a25715-5073.x.d-f.pw/api/hobby';
+const HOBBY_URL = API_URL + '/hobby';
 
 
 export default function PopUp_hobbies({onClose}) {

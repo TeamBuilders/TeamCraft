@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { API_URL } from '../api/apiConfig';
+const DATA_URL = API_URL + '/data';
 
 const AuthContext = createContext({});
 
@@ -11,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkTokenValidity = async (token) => {
       try {
-        const response = await axios.get('https://a25715-5073.x.d-f.pw/api/data', {
+        const response = await axios.get(DATA_URL, {
           headers: {
             Authorization: `Bearer ${token}`
           }
