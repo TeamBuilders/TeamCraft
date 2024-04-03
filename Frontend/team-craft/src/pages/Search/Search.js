@@ -4,10 +4,10 @@ import Footer from "../../components/Footer/Footer";
 import styles from "../Search/Search.module.css";
 import axios from "axios";
 import PopUp_hobbies from "../../components/PopUp/PopUp_hobbies/PopUp_hobbies";
-import { API_URL } from '../../api/apiConfig';
+import { API_URL } from "../../api/apiConfig";
 
-const FILTER_URL = API_URL + '/teams/filter';
-const SKILL_URL = API_URL + '/skill/1';
+const FILTER_URL = API_URL + "/teams/filter";
+const SKILL_URL = API_URL + "/skill/1";
 
 export default function Search() {
   const formRef = useRef(null);
@@ -46,6 +46,7 @@ export default function Search() {
       });
 
       if (response.status === 200) {
+        console.log(response.data);
         const foundTeams = response.data;
         console.log(foundTeams);
         localStorage.setItem("foundTeams", JSON.stringify(foundTeams));
@@ -74,7 +75,11 @@ export default function Search() {
   useEffect(() => {
     takeSkills();
   }, []);
-
+  localStorage.setItem(
+    "team_stack",
+    JSON.stringify(["Asp Net Core","CSS","JavaScript","Python","MySql"])
+  );
+  const team_stack = JSON.parse(localStorage.getItem("team_stack"));
   return (
     <div className={styles.search_page}>
       <Header />
@@ -145,20 +150,36 @@ export default function Search() {
             </div>
             <div className={styles.cards}>
               <div className={styles.card}>
-                <div className={styles.picture}>
-                  <img
-                    src="../../images/avatar.jpg"
-                    alt="Avatar"
-                    className={styles.avatar}
-                  />
+                <div className={styles.card_block}>
+                  <div className={styles.picture}>
+                    <img className={styles.avatar} />
+                  </div>
+                  <div className={styles.description2}>
+                    <div className={styles.team_name}>
+                      <p className={styles.team_name_text}>
+                        {/*foundTeams[0].teamName*/}Название команды
+                      </p>
+                    </div>
+                    <div className={styles.team_goal}>
+                      <p className={styles.team_goal_text}>
+                        <span>Цель</span>: {/*foundTeams[0].teamGoal*/} Цель
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className={styles.description2}>
-                  <div className={styles.team_name}>
-                    <p className={styles.team_name_text}>{/*foundTeams[0].teamName*/}Название команды</p>
-                  </div>
-                  <div className={styles.team_goal}>
-                    <p className={styles.team_goal_text}><span>Цель</span>: {/*foundTeams[0].teamGoal*/}Цель команды</p>
-                  </div>
+                <div className={styles.team_stack}>
+                  {team_stack.map((skill, index) => (
+                    <div
+                      key={index}
+                      className={`${styles.skill} ${
+                        selectedSkills.map((s) => s.nameSkill).includes(skill)
+                          ? styles.match
+                          : ""
+                      }`}
+                    >
+                      <p>{skill}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

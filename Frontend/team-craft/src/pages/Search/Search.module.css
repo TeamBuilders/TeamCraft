@@ -176,51 +176,59 @@ input[type="search"] {
 
 /*Cards*/
 .cards {
-  width: 90%;
-  height: 100%;
+  display: flex;
+  flex-wrap: wrap;  
 }
 
 .card {
-  width: 100%;
-  height: 10%;
+  width: min-content;
+  height: auto;
+  max-width: 500px;
   border: 2px solid #9fc4f0;
   border-radius: 15px;
-  padding: 2% 2%;
+  padding: 1% 0%;
   display: flex;
+  flex-direction: column;
+  box-shadow: #000 0px 0px 5px;
+}
+.card:hover {
+  box-shadow: #000 0px 0px 10px;
+}
+.picture {
+  width: fit-content;
+  height: fit-content;
+}
+.avatar {
+  background-image: url(../../images/team_icon.jpg);
+  background-size: 122%;
+  background-position: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+}
+
+.card_block {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-
-.picture {
-  padding: auto;
-}
-
-.avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 6%;
-  margin: 8px 15px;
-}
-
-.state {
-  display: flex;
-  margin-top: 10px;
+.card_block div {
+  margin: 5px;
 }
 
 .description2 {
-  width: 380px;
-  height: 100px;
-  border-radius: 5px;
-  box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
-  /* background: #503c5f; */
+  width: fit-content;
+  height: min-content;
 }
 
 .description2 p {
   margin-bottom: 5px;
+  max-width: 300px;
 }
+
 .team_name_text {
   width: fit-content;
-  margin-left: 6px;
   padding: 2px 4px;
   font-size: 20px;
   font-family: "Noto Sans", sans-serif;
@@ -230,6 +238,10 @@ input[type="search"] {
   border-radius: 5px; /* Скругление углов полей ввода */
   border: 2px solid #9fc4f0;
 }
+.team_name_text {
+  white-space: nowrap; /* Предотвращает перенос текста на новую строку */
+}
+
 
 .team_goal_text {
   font-size: 16px;
@@ -240,9 +252,40 @@ input[type="search"] {
   color: #fff9fc; /* Цвет текста в полях ввода */
   border-radius: 5px; /* Скругление углов полей ввода */
   border: 1px solid #1d2125; /* Границы */
-  margin-left: 6px;
 }
 
 .team_goal_text span {
   border-bottom: 2px solid #9fc4f0;
+}
+
+.team_stack {
+  max-width: 100%;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.skill {
+  height: min-content;
+  width: fit-content;
+  cursor: default;
+  padding: 1px 10px;
+  line-height: 30px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+  margin: 2px;
+
+  display: flex;
+  align-items: center;
+
+}
+.skill p {
+  margin: 2px;
+}
+.match {
+  color: #8be3ff;
 }
