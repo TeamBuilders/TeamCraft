@@ -12,21 +12,6 @@ const SKILL_URL = API_URL + "/skill/1";
 export default function Search() {
 const [teams, setTeams] = useState([]);
 
-  const takeTeams = async (e) => {
-    try {
-      axios
-        .get(TEAMS_URL)
-        .then((response) => {
-          setTeams(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error(error); // обработка ошибок
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const formRef = useRef(null);
   const handleCancel = () => {
@@ -68,32 +53,32 @@ const [teams, setTeams] = useState([]);
       console.error("Ошибка при отправке запроса:", err);
     }
   };
+  const takeTeams = async () => {
+    const response = await axios.get(TEAMS_URL);
+    return response.data;
+  };
 
-  const takeSkills = async (e) => {
-    try {
-      axios
-        .get(SKILL_URL)
-        .then((response) => {
-          setListSkills(response.data);
-        })
-        .catch((error) => {
-          console.error(error); // обработка ошибок
-        });
-    } catch (err) {
-      console.log(err);
-    }
+  const takeSkills = async () => {
+    const response = await axios.get(SKILL_URL);
+    return response.data;
   };
 
   useEffect(() => {
-    takeSkills();
-    takeTeams();
-    setFoundTeams(teams);
-  }, []);
-  localStorage.setItem(
-    "team_stack",
-    JSON.stringify(["Asp Net Core", "CSS", "JavaScript", "Python", "MySql"])
-  );
-  const team_stack = JSON.parse(localStorage.getItem("team_stack"));
+    const fetchData = async () => {
+        try {
+            const teamsData = await takeTeams();
+            setTeams(teamsData);
+            setFoundTeams(teamsData);
+
+            const dataSkills = await takeSkills();
+            setListSkills(dataSkills);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    fetchData();
+}, []);
   return (
     <div className={styles.search_page}>
       <Header />
