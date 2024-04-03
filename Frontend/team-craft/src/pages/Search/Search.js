@@ -5,29 +5,27 @@ import styles from "../Search/Search.module.css";
 import axios from "axios";
 import { API_URL } from "../../api/apiConfig";
 
-const TEAMS_URL = API_URL + '/teams';
+const TEAMS_URL = API_URL + "/teams";
 const FILTER_URL = API_URL + "/teams/filter";
 const SKILL_URL = API_URL + "/skill/1";
 
 export default function Search() {
-
   const [teams, setTeams] = useState([]);
 
   const takeTeams = async (e) => {
     try {
+      axios
+        .get(TEAMS_URL)
+        .then((response) => {
+          setTeams(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error); // обработка ошибок
+        });
     } catch (err) {
       console.log(err);
     }
-
-    axios
-      .get(TEAMS_URL)
-      .then((response) => {
-        setTeams(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error); // обработка ошибок
-      });
   };
 
   useEffect(() => {
@@ -49,13 +47,13 @@ export default function Search() {
 
   const [listSkills, setListSkills] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [foundTeams, setFoundTeams] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Выбранные имена скилов: ", selectedSkills);
-    
+
     try {
-      const jsonData = JSON.stringify(selectedSkills); 
+      const jsonData = JSON.stringify(selectedSkills);
       console.log("Запрос: ", jsonData);
 
       const response = await axios.post(FILTER_URL, jsonData, {
@@ -64,9 +62,10 @@ export default function Search() {
 
       if (response.status === 200) {
         console.log(response.data);
+        setFoundTeams(response.data);
         const foundTeams = response.data;
         console.log(foundTeams);
-        localStorage.setItem("foundTeams", JSON.stringify(foundTeams));
+        // localStorage.setItem("foundTeams", JSON.stringify(foundTeams));
       }
     } catch (err) {
       console.error("Ошибка при отправке запроса:", err);
@@ -76,20 +75,16 @@ export default function Search() {
   const takeSkills = async (e) => {
     try {
       axios
-      .get(SKILL_URL)
-      .then((response) => {
-        setListSkills(response.data);
-        console.log("Один элемент JSON: ", listSkills[0]);
-        console.log("Взяли список скилов: ", listSkills.map(s => JSON.stringify (s)));
-      })
-      .catch((error) => {
-        console.error(error); // обработка ошибок
-      });
+        .get(SKILL_URL)
+        .then((response) => {
+          setListSkills(response.data);
+        })
+        .catch((error) => {
+          console.error(error); // обработка ошибок
+        });
     } catch (err) {
       console.log(err);
     }
-
-    
   };
 
   useEffect(() => {
@@ -97,7 +92,7 @@ export default function Search() {
   }, []);
   localStorage.setItem(
     "team_stack",
-    JSON.stringify(["Asp Net Core","CSS","JavaScript","Python","MySql"])
+    JSON.stringify(["Asp Net Core", "CSS", "JavaScript", "Python", "MySql"])
   );
   const team_stack = JSON.parse(localStorage.getItem("team_stack"));
   return (
@@ -166,45 +161,45 @@ export default function Search() {
                 value={selectedSkills
                   .map((skill) => skill.nameSkill)
                   .join(", ")}
+                readOnly
               />
             </div>
             <div className={styles.cards}>
-              <div className={styles.card}>
-                
-              <div style={{ width: 'min-content'}}>
-                <div className={styles.card_block}>
-                  <div className={styles.picture}>
-                    <img className={styles.avatar} />
+            {foundTeams.map((team, index) => (
+              <div key={index} className={styles.card}>
+                <div style={{ width: "min-content" }}>
+                  <div className={styles.card_block}>
+                    <div className={styles.picture}>
+                      <img className={styles.avatar} />
+                    </div>
+                    <div className={styles.description2}>
+                      <div className={styles.team_name}>
+                        <p className={styles.team_name_text}>{team.teamName}</p>
+                      </div>
+                      <div className={styles.team_goal}>
+                        <p className={styles.team_goal_text}>
+                          <span>Цель</span>: {team.teamGoal}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className={styles.description2}>
-                    <div className={styles.team_name}>
-                      <p className={styles.team_name_text}>
-                        {/*foundTeams[0].teamName*/}Название команды
-                      </p>
-                    </div>
-                    <div className={styles.team_goal}>
-                      <p className={styles.team_goal_text}>
-                        <span>Цель</span>: {/*foundTeams[0].teamGoal*/} Цель команды и всё такое 
-                      </p>
-                    </div>
+                  <div className={styles.team_stack}>
+                    {team.team_stack.map((skill, index) => (
+                      <div
+                        key={index}
+                        className={`${styles.skill} ${
+                          selectedSkills.map((s) => s.nameSkill).includes(skill)
+                            ? styles.match
+                            : ""
+                        }`}
+                      >
+                        <p>{skill.nameSkill}</p>
+                      </div>
+                    ))}
                   </div>
-                </div>
-                <div className={styles.team_stack}>
-                  {team_stack.map((skill, index) => (
-                    <div
-                      key={index}
-                      className={`${styles.skill} ${
-                        selectedSkills.map((s) => s.nameSkill).includes(skill)
-                          ? styles.match
-                          : ""
-                      }`}
-                    >
-                      <p>{skill}</p>
-                    </div>
-                  ))}
-                </div>
                 </div>
               </div>
+            ))}
             </div>
           </div>
         </div>

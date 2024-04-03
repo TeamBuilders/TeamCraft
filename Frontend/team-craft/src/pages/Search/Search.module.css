@@ -1,7 +1,4 @@
 .search_page {
-  /* background-image: url(../../images/bg.jpg);
-  background-size: cover; */
-  /* background-color: #131619; */
   position: relative;
   line-height: 1.4;
   color: #000;
@@ -23,26 +20,22 @@
 
 .description {
   max-width: 1200px;
-  width: 85%;
-  margin-bottom: 20px;
-  padding-left: 1em;
-  padding-right: 1em;
+  width: 100%;
   overflow: hidden;
   display: flex;
   color: #fff;
-  justify-content: space-between;
   flex-wrap: wrap;
 }
 
 /**/
 .filter {
-  height: 600px;
-  width: 250px;
+  height: 700px;
+  width: 230px;
   border: 3px solid #9fc4f0;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: wrap
 }
 
 .form {
@@ -70,6 +63,7 @@
   border-radius: 4px;
   transition: background 0.2s ease;
   margin: 2px;
+  font-size: 10pt;
 }
 
 /* Checked */
@@ -97,24 +91,19 @@
 .btns {
   display: flex;
   justify-content: space-between;
-  margin-top: 50px; /*Внешний отступ сверху кнопок */
 }
 
 .btns button {
   margin: 5px;
 }
 .confirm {
-  background-color: #4361ee; /* Цвет фона кнопки */
-  color: white; /* Цвет текста на кнопке */
-  border: none; /* Убираем границу кнопки */
-  padding: 10px; /* Внутренний отступ вокруг текста на кнопке */
-  cursor: pointer; /* Указатель при наведении на кнопку */
-  border-radius: 4px; /* Скругление углов кнопки */
-  width: 45%;
-  max-width: 180px;
-  font-size: 17px;
-  font-weight: 400;
-  margin-bottom: 10px;
+  background-color: #4361ee;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 55%;
+  max-width: 100px;
+  font-size: 10pt;
   box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
 }
 
@@ -127,17 +116,15 @@
 /* Кнопка отмена*/
 
 .cancel {
-  background-color: #8be3ff; /* Цвет фона кнопки */
-  color: black; /* Цвет текста на кнопке */
-  border: none; /* Убираем границу кнопки */
-  padding: 10px; /* Внутренний отступ вокруг текста на кнопке */
-  cursor: pointer; /* Указатель при наведении на кнопку */
-  border-radius: 4px; /* Скругление углов кнопки */
-  width: 45%;
+  background-color: #8be3ff;
+  color: black;
+  border: none;
+  padding: 7px;
+  border-radius: 4px;
+  width: 40%;
   max-width: 180px;
-  font-size: 17px;
+  font-size: 10pt;
   font-weight: 400;
-  margin-bottom: 10px;
   box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
 }
 
@@ -151,18 +138,17 @@
   max-height: 55px;
   width: 80%;
   padding: 1px;
-  margin-bottom: 40px;
+  margin: 10px;
 }
 
 .search_card {
-  width: 70%;
+  width: fit-content;
   height: 100%;
 }
 
 .search {
   width: 100%;
   height: 100%;
-  /* border: 2px solid #9fc4f0; */
   border-radius: 15px;
   background-color: #1d2125;
   border: none;
@@ -178,14 +164,19 @@ input[type="search"] {
 .cards {
   display: flex;
   flex-wrap: wrap;  
+  width: 100%;
 }
 
 .card {
+  width: fit-content;
+  background-color: #1d2125;
   border: 2px solid #9fc4f0;
   border-radius: 15px;
   padding: 1% 1%;
   box-shadow: #000 0px 0px 5px;
-
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 8pt;
 }
 .card:hover {
   box-shadow: #000 0px 0px 10px;
@@ -198,9 +189,9 @@ input[type="search"] {
   background-image: url(../../images/team_icon.jpg);
   background-size: 122%;
   background-position: center;
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%
 }
 
 .card_block {
@@ -220,7 +211,8 @@ input[type="search"] {
 
 .description2 p {
   margin-bottom: 5px;
-  max-width: 300px;
+  max-width: 160px;
+  width: fit-content;
 }
 
 .team_name_text {
@@ -235,20 +227,19 @@ input[type="search"] {
   border: 2px solid #9fc4f0;
 }
 .team_name_text {
-  white-space: nowrap; /* Предотвращает перенос текста на новую строку */
+  white-space: nowrap;
+  font-size: 11pt; /* Предотвращает перенос текста на новую строку */
 }
 
 
 .team_goal_text {
-  font-size: 16px;
-  font-family: "Noto Sans", sans-serif;
-  /* padding: 10px; Внутренний отступ вокруг текста в поле ввода */
-  box-sizing: border-box; /* Учитываем границу в расчетах ширины */
-  background-color: #1d2125; /* Цвет фона полей ввода */
-  color: #fff9fc; /* Цвет текста в полях ввода */
-  border-radius: 5px; /* Скругление углов полей ввода */
-
-  max-height: 67px;
+  box-sizing: border-box;
+  background-color: #1d2125;
+  color: #fff9fc;
+  border-radius: 5px;
+  max-height: 60px;
+  font-size: 8pt;
+  overflow-x: clip;
 }
 
 .team_goal_text span {
@@ -256,9 +247,7 @@ input[type="search"] {
 }
 
 .team_stack {
-  grid-row: 2; /* Определяем, что элемент team_stack находится на второй строке */
-
-  /* max-width: 100%; */
+  max-width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -268,6 +257,7 @@ input[type="search"] {
 }
 .skill {
   height: min-content;
+  width: -moz-fit-content;
   width: fit-content;
   cursor: default;
   padding: 1px 10px;
@@ -276,7 +266,6 @@ input[type="search"] {
   border-radius: 4px;
   transition: background 0.2s ease;
   margin: 2px;
-
   display: flex;
   align-items: center;
 
