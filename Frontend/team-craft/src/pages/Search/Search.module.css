@@ -48,14 +48,7 @@
   flex-wrap: wrap;
 }
 
-/* .td{
-  border: 2px solid #9fc4f0;
-  border-radius: 15px;
-  max-height: 55px;
-  width: 80%;
-  padding: 1px;
-  margin-bottom: 40px;
-} */
+
 .form {
   padding: 10px;
 }
@@ -73,7 +66,7 @@
 	height: 0;
 }
 .checkbox_btn span {
-	display: inline-block;
+  display: inline-block;
 	cursor: pointer;
 	padding: 0px 10px;
 	line-height: 30px;
@@ -88,7 +81,7 @@
 	background: #8BE3FF;
   color: #000;
 }
- 
+
 /* Focus */
 .focused span {
 	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
@@ -111,6 +104,9 @@
   margin-top: 50px; /*Внешний отступ сверху кнопок */
 }
 
+.btns button{
+  margin:5px;
+}
 .confirm {
   background-color: #4361EE; /* Цвет фона кнопки */
   color: white; /* Цвет текста на кнопке */
@@ -153,10 +149,18 @@
   background-color:#5fb8d3;
 }
 
+.td{
+  border: 2px solid #9fc4f0;
+  border-radius: 15px;
+  max-height: 55px;
+  width: 80%;
+  padding: 1px;
+  margin-bottom: 40px;
+}
+
 .search_card{
   width: 70%;
   height: 100%;
-  
 }
 
 .search{
