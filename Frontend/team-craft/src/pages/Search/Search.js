@@ -3,13 +3,37 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import styles from "../Search/Search.module.css";
 import axios from "axios";
-import PopUp_hobbies from "../../components/PopUp/PopUp_hobbies/PopUp_hobbies";
 import { API_URL } from "../../api/apiConfig";
 
+const TEAMS_URL = API_URL + '/teams';
 const FILTER_URL = API_URL + "/teams/filter";
 const SKILL_URL = API_URL + "/skill/1";
 
 export default function Search() {
+
+  const [teams, setTeams] = useState([]);
+
+  const takeTeams = async (e) => {
+    try {
+    } catch (err) {
+      console.log(err);
+    }
+
+    axios
+      .get(TEAMS_URL)
+      .then((response) => {
+        setTeams(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error); // обработка ошибок
+      });
+  };
+
+  useEffect(() => {
+    takeTeams();
+  }, []);
+
   const formRef = useRef(null);
   const handleCancel = () => {
     formRef.current.reset();
@@ -28,18 +52,11 @@ export default function Search() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const selectedSkillNames = selectedSkills.map((skill) => skill.nameSkill);
-    console.log(selectedSkillNames);
-    console.log(
-      JSON.stringify({
-        skills: selectedSkillNames,
-      })
-    );
+    console.log("Выбранные имена скилов: ", selectedSkills);
+    
     try {
-      const jsonData = JSON.stringify({
-        skills: selectedSkillNames,
-      });
+      const jsonData = JSON.stringify(selectedSkills); 
+      console.log("Запрос: ", jsonData);
 
       const response = await axios.post(FILTER_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
@@ -58,18 +75,21 @@ export default function Search() {
 
   const takeSkills = async (e) => {
     try {
-    } catch (err) {
-      console.log(err);
-    }
-
-    axios
+      axios
       .get(SKILL_URL)
       .then((response) => {
         setListSkills(response.data);
+        console.log("Один элемент JSON: ", listSkills[0]);
+        console.log("Взяли список скилов: ", listSkills.map(s => JSON.stringify (s)));
       })
       .catch((error) => {
         console.error(error); // обработка ошибок
       });
+    } catch (err) {
+      console.log(err);
+    }
+
+    
   };
 
   useEffect(() => {
