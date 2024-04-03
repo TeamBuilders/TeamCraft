@@ -16,7 +16,7 @@
   background: url(images/bg.jpg); 
   background-size: cover;
   background-repeat: repeat;
-
+  background-attachment: fixed;
 }
 
 
