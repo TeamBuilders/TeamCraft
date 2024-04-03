@@ -23,57 +23,156 @@
 
 
 
-  .description {
-    max-width: 1200px;
-    width: 85%;
-    margin-bottom: 20px;
-    padding-left: 1em;
-    padding-right: 1em;
-    overflow: hidden;
-    display: flex;
-    color: #fff;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
+.description {
+  max-width: 1200px;
+  width: 85%;
+  margin-bottom: 20px;
+  padding-left: 1em;
+  padding-right: 1em;
+  overflow: hidden;
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
 
-  /**/
-  .filter{
-    height: 600px;
-    width: 250px;
-    border: 3px solid #9fc4f0;
-    border-radius: 10px;
-  }
+/**/
+.filter{
+  height: 600px;
+  width: 250px;
+  border: 3px solid #9fc4f0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
-   .td{
-    border: 2px solid #9fc4f0;
-    border-radius: 15px;
-    max-height: 55px;
-    width: 80%;
-    padding: 1px;
-    margin-bottom: 40px;
-  }
+/* .td{
+  border: 2px solid #9fc4f0;
+  border-radius: 15px;
+  max-height: 55px;
+  width: 80%;
+  padding: 1px;
+  margin-bottom: 40px;
+} */
+.form {
+  padding: 10px;
+}
+.checkbox_btn{
+	display: inline-block;
+	margin: 0 5px 0 0;
+	user-select: none;
+	position: relative;
+}
+.checkbox_btn input[type=checkbox] {
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+}
+.checkbox_btn span {
+	display: inline-block;
+	cursor: pointer;
+	padding: 0px 10px;
+	line-height: 30px;
+	border: 1px solid #999;
+	border-radius: 4px;
+	transition: background 0.2s ease;
+  margin: 2px;
+}
+ 
+/* Checked */
+.checkbox_btn input[type=checkbox]:checked + span {
+	background: #8BE3FF;
+  color: #000;
+}
+ 
+/* Focus */
+.focused span {
+	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+ 
+/* Hover */
+.checkbox_btn:hover {
+	color: #666;
+}
+ 
+/* Active */
+.checkbox_btn input[type=checkbox]:active:not(:disabled) + span {
+	background: #4361EE;
+	color: #000;
+}
 
-  .search_card{
-    width: 70%;
-    height: 100%;
-    
-  }
+.btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px; /*Внешний отступ сверху кнопок */
+}
 
-  .search{
-    width: 100%;
-    height: 100%;
-    /* border: 2px solid #9fc4f0; */
-    border-radius: 15px;
-    background-color: #1d2125;
-    border: none;
-    padding: 10px;
-    outline: none;  
-  }
+.confirm {
+  background-color: #4361EE; /* Цвет фона кнопки */
+  color: white; /* Цвет текста на кнопке */
+  border: none; /* Убираем границу кнопки */
+  padding: 10px; /* Внутренний отступ вокруг текста на кнопке */
+  cursor: pointer; /* Указатель при наведении на кнопку */
+  border-radius: 4px; /* Скругление углов кнопки */
+  width: 45%;
+  max-width: 180px;
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+}
 
-  input[type="search"] {
-    color:#fff;
-  } 
+/* Определение стилей для наведения на кнопку */
+
+.confirm:hover {
+  background-color: #3349C0; /* Изменение цвета фона при наведении на кнопку */
+}
+
+/* Кнопка отмена*/
+
+.cancel {
+  background-color: #8BE3FF; /* Цвет фона кнопки */
+  color: black; /* Цвет текста на кнопке */
+  border: none; /* Убираем границу кнопки */
+  padding: 10px; /* Внутренний отступ вокруг текста на кнопке */
+  cursor: pointer; /* Указатель при наведении на кнопку */
+  border-radius: 4px; /* Скругление углов кнопки */
+  width: 45%;
+  max-width: 180px;
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+}
+
+.cancel:hover {
+  background-color:#5fb8d3;
+}
+
+.search_card{
+  width: 70%;
+  height: 100%;
+  
+}
+
+.search{
+  width: 100%;
+  height: 100%;
+  /* border: 2px solid #9fc4f0; */
+  border-radius: 15px;
+  background-color: #1d2125;
+  border: none;
+  padding: 10px;
+  outline: none;  
+}
+
+input[type="search"] {
+  color:#fff;
+} 
 
 
 
