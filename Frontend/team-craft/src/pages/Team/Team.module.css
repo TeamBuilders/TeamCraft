@@ -212,3 +212,52 @@ p.fullness {
   text-decoration: none !important;
 }
 
+.applic_member{
+  width: calc(10% + 350px);
+  margin-right: 5px;
+  margin-top: 1em;
+}
+
+.applic_member_title{
+  display: flex;
+  align-items: center;
+}
+
+.count_applic{
+  font-size: 20px;
+  margin-left: 20px;
+  margin-bottom: 0;
+  border: 2px solid #9fc4f0;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.applic_member h2{
+  font-size: 27px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  transition: background 0.5s;
+  display: block;
+  outline: 0;
+}
+
+.dropdown_content {
+  min-width: max-content;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 1s;
+}
+
+.applic_member ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+
+.applic_member h2:hover,
+.applic_member li:focus-within > h2 {
+  background: #245975;
+  cursor: pointer;
+}

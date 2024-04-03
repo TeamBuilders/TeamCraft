@@ -17,8 +17,10 @@ export default function Team(){
     const [teamGoal, setTeamGoal] = useState(localStorage.getItem('teamGoal') || '');
     const [teamMembers, setTeamMembers] = useState(localStorage.getItem('MemberTeam') || '');
     const [numberOfmembers, setNumberOfmembers] = useState(JSON.parse(teamMembers).length);  
+    const [teamSkills, setTeamSkills] = useState(localStorage.getItem('teamSkills') || '');
     const [errMsg, setErrMsg] = useState('');
     const [error, setError] = useState('');
+
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -148,6 +150,36 @@ export default function Team(){
                             </div>
                         </div>
                     </div>
+                    {/* <div className={styles.applic_member}>
+                        <div className={styles.applic_member_title}>
+                            <h2>Заявки на вступление</h2>
+                            <p className={styles.count_applic}>2</p>
+                        </div>
+                        <ul className={styles.dropdown_content}>
+                            <li>
+                                    <div className={styles.block_player}>
+                                <img src="images/avatar.jpg" alt="player_icon" className={styles.player_icon}/>
+                                <div className={styles.desc}>
+                                <p className={styles.player_title}>{JSON.parse(localStorage.getItem('userData')).name}</p>
+                                <div className={styles.state}>
+                                    <p className={styles.fullness}>Тимлид</p>
+                                </div>
+                                </div>
+                                </div>
+                            </li>
+                            <li>
+                                    <div className={styles.block_player}>
+                                <img src="images/avatar.jpg" alt="player_icon" className={styles.player_icon}/>
+                                <div className={styles.desc}>
+                                <p className={styles.player_title}>{JSON.parse(localStorage.getItem('userData')).name}</p>
+                                <div className={styles.state}>
+                                    <p className={styles.fullness}>Тимлид</p>
+                                </div>
+                                </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div> */}
                     <div className={styles.player}>
                         <h2>Участники</h2>
                         <div className={styles.blocks_players}>
@@ -199,6 +231,23 @@ export default function Team(){
                                 cols="40"
                                 readOnly={!isEditing}
                                 required></textarea>
+                        </div>
+                    </div>
+                    <div className={styles.info}>
+                        <div className={styles.info_panel}>
+                            <p className={styles.inf_title}>Навыки команды:</p>
+                            {/* <div className={styles.hobbies}>
+                                {teamSkills && teamSkills.map((hobby, index) => (
+                                    <div className={styles.hobbyWrapper} key={index}>
+                                        <p className={styles.p_hobby}>{hobby}</p>
+                                        <ul className={styles.ul_list}>
+                                            {userData.skillsPerson && userData.skillsPerson[hobby] && userData.skillsPerson[hobby].map((skill, skillIndex) => (
+                                            <li className={styles.li_item} key={skillIndex}>{skill}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                 ))}
+                            </div> */}
                         </div>
                     </div>
                 </div>
