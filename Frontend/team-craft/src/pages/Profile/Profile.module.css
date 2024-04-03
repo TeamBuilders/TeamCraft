@@ -94,6 +94,44 @@ p.init {
   padding: 3px 15px;
 }
 
+.hobbies{
+  max-width: 400px;
+  min-height: 30px;
+  background-color: #313338;
+  border: 1px solid #000;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 3px 15px;
+  margin-bottom: 16px;
+}
+
+.hobbyWrapper{
+  margin-bottom: 20px;
+}
+
+.ul_list{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.li_item{
+  width: fit-content;
+  height: fit-content;
+  margin: 7px;
+  padding: 7px;
+  border: 2px solid #9fc4f0;
+  border-radius: 10px;
+  display: flex;
+  color: #fff;
+  background-color: #4361EE;
+  margin-bottom: 3%;
+  border-radius: 10px;
+  padding: 2%;
+}
+
 .edit a {
   display: block;
   height: 40px;

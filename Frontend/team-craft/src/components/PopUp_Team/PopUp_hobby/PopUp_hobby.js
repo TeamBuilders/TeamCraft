@@ -1,8 +1,8 @@
 import {React,useState, useEffect} from 'react';
-import styles from './PopUp_hobbies.module.css';
+import styles from './PopUp_hobby.module.css';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import PopUp_category from '../PopUp_category/PopUp_category';
+import PopUp_skill from '../PopUp_skill/PopUp_skill';
 import axios from 'axios';
 
 const HOBBY_URL = 'https://a25715-5073.x.d-f.pw/api/hobby';
@@ -28,35 +28,24 @@ export default function PopUp_hobbies({onClose}) {
     }, []);
 
 
-    let userData = JSON.parse(localStorage.getItem('userData'));
+    // let teamStack = localStorage.getItem(teamStack);
 
-    const handleOpen2 = () => {
 
-        if (userData.hobbiesPerson === null) {
-            userData.hobbiesPerson = [];
-            localStorage.setItem('userData', JSON.stringify(userData));
-        }
-        if (userData.skillsPerson === null) {
-            userData.skillsPerson = {
-                'Разработка': [],
-                "Музыка": [],
-                "Анимации": [],
-                "Гейминг": [],
-                "Социальные развлечения": [],
-                "Научные разработки": [],
-                "Активный отдых": []
-            };
-            localStorage.setItem('userData', JSON.stringify(userData));
-        }
+    const handleOpen = () => {
+
+        // if (teamStack === null) {
+        //     teamStack = [];
+        //      localStorage.setItem(teamStack, JSON.stringify(teamStack));
+        // }
     };
 
     const handleClose2 = () => {
-        userData = JSON.parse(localStorage.getItem('userData'));
+        // teamStack = JSON.parse(localStorage.getItem('teamStack'));
     };
 
 
     useEffect(() => {
-        handleOpen2();
+        handleOpen();
     }, []);
 
     const handlePopupClose = () => {
@@ -74,14 +63,14 @@ export default function PopUp_hobbies({onClose}) {
     display: 'flex',
     justifyContent: 'center'
   }} trigger=
-  {<button className={styles.button_trigger}> Рассказать о себе </button>}
+  {<button className={styles.button_trigger} disabled> Добавить навыки </button>}
   modal nested closeOnDocumentClick  onClose={handlePopupClose}>
   {
       close => (
         <div className={styles.modal}>
             {hobby.map((hobbies, index) => (
                 <div className={styles.content} key={index}>
-                    <PopUp_category text={hobbies.nameHobby} value={hobbies.skillPeople} value2={userData} />
+                    <PopUp_skill text={hobbies.nameHobby} value={hobbies.skillPeople}  />
                 </div>
             ))}
             <div className={styles.buttons}>

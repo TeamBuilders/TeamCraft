@@ -90,8 +90,17 @@ export default function Account() {
               <div className={styles.field}>
                 <h6>О СЕБЕ</h6>
                 <p>{userData.descriptionUser}</p>
-                {userData.hobbiesPerson && userData.hobbiesPerson.length > 0 && userData.hobbiesPerson.map((hobby, index) => (
-                    <p key={index}>{hobby}</p>
+              </div>
+              <div className={styles.hobbies}>
+                {userData.hobbiesPerson && userData.hobbiesPerson.map((hobby, index) => (
+                  <div className={styles.hobbyWrapper} key={index}>
+                    <p className={styles.p_hobby}>{hobby}</p>
+                    <ul className={styles.ul_list}>
+                      {userData.skillsPerson && userData.skillsPerson[hobby] && userData.skillsPerson[hobby].map((skill, skillIndex) => (
+                      <li className={styles.li_item} key={skillIndex}>{skill}</li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
               </div>
               <div className={styles.field}>
