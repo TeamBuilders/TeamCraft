@@ -72,14 +72,19 @@ const CreateTeamForm = () => {
       team_stack: teamStack,
       MemberTeam: MemberTeam,
     });
+    
+    //Команда не создается потому,что в jsonData -> dataMemberUser -> skillsPerson должен быть массивом а не словарем
 
     localStorage.setItem("teamName", teamName);
     localStorage.setItem("teamGoal", teamGoal);
     localStorage.setItem("teamDescription", teamDescription);
     localStorage.setItem("MemberTeam", JSON.stringify(MemberTeam));
-    localStorage.setItem("team_stack", JSON.stringify(teamStack));
+    localStorage.setItem("team_stack", teamStack);
 
+    console.log("Данные команды:", JSON.parse(jsonData));
     console.log("Данные команды:", jsonData);
+
+    
     try {
       const response = await axios.post(CREATE_TEAM_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
@@ -153,7 +158,7 @@ const CreateTeamForm = () => {
               <ul className={styles.ul_list}>
 
                 {teamStack && teamStack.length > 0 &&teamStack.map((skill, index) => (
-                  <li className={styles.li_item} key={index}>{skill}</li>
+                  <li className={styles.li_item} key={index}>{skill.nameSkill}</li>
                 ))}
               </ul>
             </div>
