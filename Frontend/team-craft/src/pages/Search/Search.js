@@ -12,12 +12,19 @@ export default function Search() {
   const formRef = useRef(null);
   const handleCancel = () => {
     formRef.current.reset();
+    setSelectedSkills([]);
+    
+    const checkboxes = formRef.current.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = false;
+    });
   };
+
   const [listSkills, setListSkills] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Отменяем стандартное поведение отправки формы
+    e.preventDefault();
 
     const selectedSkillNames = selectedSkills.map(skill => skill.nameSkill);
     console.log(selectedSkillNames);
@@ -121,6 +128,7 @@ export default function Search() {
                 type="search"
                 className={styles.search}
                 placeholder="Поиск"
+                value={selectedSkills.map(skill => skill.nameSkill).join(', ')}
               />
             </div>
             <div className={styles.cards}>
