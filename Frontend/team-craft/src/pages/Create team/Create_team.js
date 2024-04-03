@@ -79,10 +79,8 @@ const CreateTeamForm = () => {
     localStorage.setItem("teamGoal", teamGoal);
     localStorage.setItem("teamDescription", teamDescription);
     localStorage.setItem("MemberTeam", JSON.stringify(MemberTeam));
-    localStorage.setItem("team_stack", teamStack);
+    localStorage.setItem("team_stack", JSON.stringify(teamStack));
 
-    console.log("Данные команды:", JSON.parse(jsonData));
-    console.log("Данные команды:", jsonData);
 
     
     try {
@@ -157,8 +155,8 @@ const CreateTeamForm = () => {
               <PopUp_hobby onClose={toggleModal}/>
               <ul className={styles.ul_list}>
 
-                {teamStack && teamStack.length > 0 &&teamStack.map((skill, index) => (
-                  <li className={styles.li_item} key={index}>{skill.nameSkill}</li>
+                {teamStack && teamStack.length > 0 && teamStack.map((skill, index) => (
+                  <li className={styles.li_item} key={index}>{JSON.parse(skill).nameSkill}</li>
                 ))}
               </ul>
             </div>

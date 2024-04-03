@@ -46,9 +46,8 @@ export default function PopUp_skill(props) {
 
     const handleClose = () => {
         setIsOpen(false);
-        console.log(selectedItems);
-        localStorage.setItem('team_stack', JSON.stringify(selectedItems));
-        console.log(localStorage.getItem('team_stack'));
+        const newSelectedItems = selectedItems.map(item => JSON.stringify(item));
+        localStorage.setItem('team_stack', JSON.stringify(newSelectedItems));
     };
 
 
