@@ -57,19 +57,18 @@ export default function Login(){
           login: user,
           password: pwd,
         });
-        console.log(jsonData);
         const response = await axios.post(LOGIN_URL, jsonData, {
           headers: { "Content-Type": "application/json" },
         });
-        console.log(response.data.message);
 
         if (response.status === 200) {
           const userData = response.data?.user?.dataUser;
-          console.log(userData);
+
           delete userData.Id; // Удаляем Id из userData
           localStorage.setItem('userData', JSON.stringify(userData));
           localStorage.setItem('token', response.data?.jwtToken);
-          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('user', JSON.stringify(response.data?.user?.settingsUser?.login));
+          localStorage.setItem('email', JSON.stringify(response.data?.user?.settingsUser?.email));
           // Переходим на страницу профиля
 
           setToken(response.data?.jwtToken);

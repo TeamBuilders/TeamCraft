@@ -21,7 +21,7 @@ export default function Account() {
 
   // Получение данных пользователя из локального хранилища
   const user = JSON.parse(localStorage.getItem('user'));
-  
+  const email = JSON.parse(localStorage.getItem('email'));
   const dataString = new Date(userData.databirthday);
 
   // Используйте вызовы методов, чтобы получить год, месяц и день
@@ -110,7 +110,7 @@ export default function Account() {
               </div>
               <div className={styles.field}>
                 <h6>ПОЧТА</h6>
-                <p>{userData.email}</p>
+                <p>{email}</p>
               </div>
             </div>
 
