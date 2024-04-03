@@ -14,7 +14,7 @@ const USER_REGEX = /^[a-zA-Zа-яА-Я0-9-_]{6,16}$/;
 const PWD_REGEX =
   /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,24}$/;
 const NAME_REGEX = /^[a-zA-Zа-яА-Я]{2,16}$/;
-const REGISTER_URL = "https://a25715-5073.x.d-f.pw/api/register";
+const REGISTER_URL = "https://a25917-4be6.w.d-f.pw/api/register";
 
 const Signup = () => {
   const [login, setLogin] = useState("");
@@ -44,6 +44,9 @@ const Signup = () => {
 
   const [gender, setGender] = useState("male");
   const [user_contacts, setUser_contacts] = useState("");
+
+  const [email, setEmail] = useState("");
+  const [errEmail, setErrEmail] = useState("");
 
   const [errMsg, setErrMsg] = useState("");
 
@@ -90,16 +93,19 @@ const Signup = () => {
         name,
         sureName: surname,
         birthday: birth_date,
+        email,
         contact: user_contacts,
       });
+      console.log(jsonData);
       const response = await axios.post(REGISTER_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
         withCredentials: false,
       });
       navigate("/login");
-
+      
       // successful addition
     } catch (err) {
+      console.log(err.response?.data.message);
       // "User = null"
       // "Not all required fields are filled in!"
       // "Inccorect login user. Size or have special symbols"
@@ -110,7 +116,8 @@ const Signup = () => {
       // "Такой логин уже есть"
 
       // setErrMsg(err.response?.data.message);
-
+      console.log(err);
+      console.log(" почты " + email + " не существует ");
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
@@ -149,12 +156,18 @@ const Signup = () => {
           ) {
             setBirth_dateErr("Incorrect date of birth");
           }
+          if (
+            msg === (" почты " + email + " не существует ")  
+          ) {
+            setErrEmail(email + " does not exist");  
+          }
         }
         setErrMsg(err.response?.data.message);
       } else {
         setErrMsg("Registration Failed");
       }
     }
+    console.log(errEmail);
   };
   return (
     <div className={styles.signup_body}>
@@ -366,6 +379,25 @@ const Signup = () => {
                   aria-live="assertive"
                 >
                   {surnameErr}
+                </p>
+              </div>
+              
+              <div className={styles.field}>
+                <label htmlFor="email">почта</label>
+                <input
+                  type="text"
+                  id="email"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setErrEmail('');
+                  }}
+                  required
+                />
+                <p
+                  className={errEmail ? styles.errmsg : styles.offscreen}
+                  aria-live="assertive"
+                >
+                  {errEmail}
                 </p>
               </div>
 

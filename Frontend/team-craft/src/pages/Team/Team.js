@@ -5,7 +5,7 @@ import Footer from '../../components/Footer/Footer';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
 
-const EDIT_URL = "https://a25911-de43.w.d-f.pw/api/teams/edit";
+const EDIT_URL = "https://a25917-4be6.w.d-f.pw/api/teams/edit";
 
 export default function Team(){
     const navigate = useNavigate();

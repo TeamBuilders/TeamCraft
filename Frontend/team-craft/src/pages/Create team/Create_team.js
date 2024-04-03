@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import PopUp_hobby from '../../components/PopUp_Team/PopUp_hobby/PopUp_hobby';
 
-const CREATE_TEAM_URL = "https://a25913-16e5.w.d-f.pw/api/teams/create";
+const CREATE_TEAM_URL = "https://a25917-4be6.w.d-f.pw/api/teams/create";
 const CreateTeamForm = () => {
   const navigate = useNavigate();
   const [teamName, setTeamName] = useState("");
@@ -68,6 +68,7 @@ const CreateTeamForm = () => {
       teamGoal: teamGoal,
       team_lead: team_lead,
       teamDescription: teamDescription,
+      team_stack: teamStack,
       MemberTeam: MemberTeam,
     });
 

@@ -8,7 +8,7 @@ import {Icon} from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye'
 
-const LOGIN_URL = 'https://a25715-5073.x.d-f.pw/api/login';
+const LOGIN_URL = 'https://a25917-4be6.w.d-f.pw/api/login';
 
 export default function Login(){
 
