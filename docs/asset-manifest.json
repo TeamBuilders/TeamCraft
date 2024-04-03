@@ -1,18 +1,17 @@
 {
   "files": {
-    "main.css": "/TeamCraft/static/css/main.8b819730.css",
-    "main.js": "/TeamCraft/static/js/main.31c0bba2.js",
+    "main.css": "/TeamCraft/static/css/main.e5ddbb04.css",
+    "main.js": "/TeamCraft/static/js/main.45ca8de6.js",
     "static/js/453.db5f1709.chunk.js": "/TeamCraft/static/js/453.db5f1709.chunk.js",
-    "static/media/main_bg.jpg": "/TeamCraft/static/media/main_bg.6b171155d621a4bd9751.jpg",
     "static/media/bg.jpg": "/TeamCraft/static/media/bg.4e65bd45d2262db3534b.jpg",
     "static/media/avatar.jpg": "/TeamCraft/static/media/avatar.ad68fd62ce67cf89721c.jpg",
     "index.html": "/TeamCraft/index.html",
-    "main.8b819730.css.map": "/TeamCraft/static/css/main.8b819730.css.map",
-    "main.31c0bba2.js.map": "/TeamCraft/static/js/main.31c0bba2.js.map",
+    "main.e5ddbb04.css.map": "/TeamCraft/static/css/main.e5ddbb04.css.map",
+    "main.45ca8de6.js.map": "/TeamCraft/static/js/main.45ca8de6.js.map",
     "453.db5f1709.chunk.js.map": "/TeamCraft/static/js/453.db5f1709.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8b819730.css",
-    "static/js/main.31c0bba2.js"
+    "static/css/main.e5ddbb04.css",
+    "static/js/main.45ca8de6.js"
   ]
 }
