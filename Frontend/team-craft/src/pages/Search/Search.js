@@ -18,6 +18,7 @@ export default function Search() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Отменяем стандартное поведение отправки формы
+
     const selectedSkillNames = selectedSkills.map(skill => skill.nameSkill);
     console.log(selectedSkillNames);
     console.log(JSON.stringify({

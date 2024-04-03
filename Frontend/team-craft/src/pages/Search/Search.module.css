@@ -111,6 +111,9 @@
   margin-top: 50px; /*Внешний отступ сверху кнопок */
 }
 
+.btns button{
+  margin:5px;
+}
 .confirm {
   background-color: #4361EE; /* Цвет фона кнопки */
   color: white; /* Цвет текста на кнопке */
