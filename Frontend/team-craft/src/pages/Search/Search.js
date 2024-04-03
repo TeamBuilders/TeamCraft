@@ -13,33 +13,19 @@ export default function Search() {
   const handleCancel = () => {
     formRef.current.reset();
   };
-
-  const [skills, setSkills] = useState([]);
+  const [listSkills, setListSkills] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Отменяем стандартное поведение отправки формы
-
-    const formData = new FormData(formRef.current); // Создаем объект FormData из данных формы
-    const selectedSkills = [];
-
-  //   formData.forEach((value, key) => {
-  //     // Получаем все значения для ключа 'skill', которые имеют значение 'on' (отмеченные чекбоксы)
-  //     if (key === 'skill' && value === 'on') {
-  //       // Получаем id навыка из имени ключа
-  //       const skillId = parseInt(key.split("-")[1]);
-  //       // Находим навык с данным id и добавляем его в массив selectedSkills
-  //       const selectedSkill = listSkills.find(skill => skill.id === skillId);
-  //       if (selectedSkill) {
-  //         selectedSkills.push(selectedSkill);
-  //       }
-  //     }
-  // });
-
-  console.log(formData); // Выведет объект FormData с данными формы
-  console.log(selectedSkills); // Выведет массив отмеченных навыков
+    const selectedSkillNames = selectedSkills.map(skill => skill.nameSkill);
+    console.log(selectedSkillNames);
+    console.log(JSON.stringify({
+      skills: selectedSkillNames,
+    }));
     try {
       const jsonData = JSON.stringify({
-        skills: selectedSkills,
+        skills: selectedSkillNames,
       });
 
       const response = await axios.post(FILTER_URL, jsonData, {
@@ -56,7 +42,6 @@ export default function Search() {
     }
   };
 
-  const [listSkills, setListSkills] = useState([]);
 
   const takeSkills = async (e) => {
     try {
@@ -94,7 +79,14 @@ export default function Search() {
                       id={`skill-${skill.id}`}
                       name="skill"
                       value={skill.nameSkill}
-                      className={styles.checkbox_input} 
+                      className={styles.checkbox_input}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedSkills(prevSkills => [...prevSkills, skill]);
+                        } else {
+                          setSelectedSkills(prevSkills => prevSkills.filter(prevSkill => prevSkill.id !== skill.id));
+                        }
+                      }}
                     />
                     <span className={styles.checkbox_label}>
                       {skill.nameSkill}
