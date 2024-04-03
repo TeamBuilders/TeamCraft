@@ -12,6 +12,7 @@ const HOBBY_URL = API_URL + '/hobby';
 export default function PopUp_hobbies({onClose}) {
     
     const [hobby, setHobby] = useState([]);
+    const [teamStack, setTeamStack] = useState([]);
 
     
     const handleSubmit = async (e) => {
@@ -29,29 +30,29 @@ export default function PopUp_hobbies({onClose}) {
     }, []);
 
 
-    // let teamStack = localStorage.getItem(teamStack);
-
-
     const handleOpen = () => {
 
-        // if (teamStack === null) {
-        //     teamStack = [];
-        //      localStorage.setItem(teamStack, JSON.stringify(teamStack));
-        // }
+        if (teamStack === null) {
+            setTeamStack([]);
+            localStorage.setItem("team_stack",JSON.stringify(teamStack));
+        }
     };
-
-    const handleClose2 = () => {
-        // teamStack = JSON.parse(localStorage.getItem('teamStack'));
-    };
-
 
     useEffect(() => {
-        handleOpen();
+         handleOpen();
     }, []);
 
+    const handleClose2 = () => {
+        setTeamStack(JSON.parse(localStorage.getItem('team_stack')));
+        onClose(); 
+        };
+
     const handlePopupClose = () => {
-        onClose(); // Вызываем переданную функцию после закрытия Popup
+        // localStorage.setItem("team_stack", JSON.stringify(teamStack));
+
+        
     };
+
 
   return (<Popup contentStyle={{
     width: '500px', 
@@ -64,7 +65,7 @@ export default function PopUp_hobbies({onClose}) {
     display: 'flex',
     justifyContent: 'center'
   }} trigger=
-  {<button className={styles.button_trigger} disabled> Добавить навыки </button>}
+  {<button className={styles.button_trigger} > Добавить </button>}
   modal nested closeOnDocumentClick  onClose={handlePopupClose}>
   {
       close => (
