@@ -10,7 +10,7 @@ const FILTER_URL = API_URL + "/teams/filter";
 const SKILL_URL = API_URL + "/skill/1";
 
 export default function Search() {
-  const [teams, setTeams] = useState([]);
+const [teams, setTeams] = useState([]);
 
   const takeTeams = async (e) => {
     try {
@@ -28,10 +28,6 @@ export default function Search() {
     }
   };
 
-  useEffect(() => {
-    takeTeams();
-  }, []);
-
   const formRef = useRef(null);
   const handleCancel = () => {
     formRef.current.reset();
@@ -43,6 +39,7 @@ export default function Search() {
     checkboxes.forEach((checkbox) => {
       checkbox.checked = false;
     });
+    setFoundTeams(teams);
   };
 
   const [listSkills, setListSkills] = useState([]);
@@ -89,6 +86,8 @@ export default function Search() {
 
   useEffect(() => {
     takeSkills();
+    takeTeams();
+    setFoundTeams(teams);
   }, []);
   localStorage.setItem(
     "team_stack",
@@ -98,9 +97,8 @@ export default function Search() {
   return (
     <div className={styles.search_page}>
       <Header />
-      <div className={styles.bgcolor}>
-        <div className={styles.description}>
-          <div className={styles.filter}>
+      <div className={styles.grid_container}>
+      <div className={styles.filter}>
             <form onSubmit={handleSubmit} ref={formRef}>
               <div className={styles.form}>
                 <h3>Навыки</h3>
@@ -151,19 +149,21 @@ export default function Search() {
                 </button>
               </div>
             </form>
+      </div>
+      <div className={styles.bgcolor}>
+        <div className={styles.description}>
+          <div className={styles.td}>
+            <input
+              type="search"
+              className={styles.search}
+              placeholder="Поиск"
+              value={selectedSkills
+                .map((skill) => skill.nameSkill)
+                .join(", ")}
+              readOnly
+            />
           </div>
           <div className={styles.search_card}>
-            <div className={styles.td}>
-              <input
-                type="search"
-                className={styles.search}
-                placeholder="Поиск"
-                value={selectedSkills
-                  .map((skill) => skill.nameSkill)
-                  .join(", ")}
-                readOnly
-              />
-            </div>
             <div className={styles.cards}>
             {foundTeams.map((team, index) => (
               <div key={index} className={styles.card}>
@@ -203,6 +203,7 @@ export default function Search() {
             </div>
           </div>
         </div>
+      </div>
       </div>
       <Footer />
     </div>

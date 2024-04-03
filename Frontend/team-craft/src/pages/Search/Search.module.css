@@ -7,11 +7,17 @@
   height: auto;
   width: 100%;
 }
-
+.grid_container {
+  display: grid;
+  grid-template-columns: auto 1fr 3fr 1fr auto;
+  justify-items: end;
+}
 .bgcolor {
-  max-width: 1200px;
-  width: 90%;
-  height: 100vh;
+  grid-column: 3 / 4;
+  width: 100%;
+  max-width: 900px;
+  height: min-content;
+  min-height: 120vh;
   background-color: #1d2125;
   margin: auto;
   padding: 1em;
@@ -19,8 +25,9 @@
 }
 
 .description {
-  max-width: 1200px;
+  max-width: 900px;
   width: 100%;
+  height: 100%;
   overflow: hidden;
   display: flex;
   color: #fff;
@@ -29,13 +36,17 @@
 
 /**/
 .filter {
+  grid-column: 2 / 3;
   height: 700px;
   width: 230px;
+  color: #fff;
   border: 3px solid #9fc4f0;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap
+  flex-wrap: wrap;
+  background-color: #1d2125;
+
 }
 
 .form {
@@ -91,11 +102,12 @@
 .btns {
   display: flex;
   justify-content: space-between;
+  padding: 0px 10px; 
 }
 
-.btns button {
+/* .btns button {
   margin: 5px;
-}
+} */
 .confirm {
   background-color: #4361ee;
   color: white;
@@ -132,6 +144,12 @@
   background-color: #5fb8d3;
 }
 
+.search_card {
+  grid-column: 2 / 3;
+  width: 100%;
+  height: 100%;
+}
+
 .td {
   border: 2px solid #9fc4f0;
   border-radius: 15px;
@@ -139,11 +157,6 @@
   width: 80%;
   padding: 1px;
   margin: 10px;
-}
-
-.search_card {
-  width: fit-content;
-  height: 100%;
 }
 
 .search {
@@ -165,6 +178,7 @@ input[type="search"] {
   display: flex;
   flex-wrap: wrap;  
   width: 100%;
+  height: 100%;
 }
 
 .card {
@@ -174,8 +188,7 @@ input[type="search"] {
   border-radius: 15px;
   padding: 1% 1%;
   box-shadow: #000 0px 0px 5px;
-  margin-left: 10px;
-  margin-top: 10px;
+  margin:10px;
   font-size: 8pt;
 }
 .card:hover {
@@ -205,7 +218,7 @@ input[type="search"] {
 }
 
 .description2 {
-  width: max-content;
+  width: fit-content;
   height: min-content;
 }
 
@@ -214,7 +227,9 @@ input[type="search"] {
   max-width: 160px;
   width: fit-content;
 }
-
+.team_name {
+  width: fit-content;
+}
 .team_name_text {
   width: fit-content;
   padding: 2px 4px;
@@ -225,12 +240,12 @@ input[type="search"] {
   color: #fff9fc; /* Цвет текста в полях ввода */
   border-radius: 5px; /* Скругление углов полей ввода */
   border: 2px solid #9fc4f0;
+  /* white-space: nowrap; */
+  font-size: 11pt;
 }
-.team_name_text {
-  white-space: nowrap;
-  font-size: 11pt; /* Предотвращает перенос текста на новую строку */
+.team_goal {
+  width: fit-content;
 }
-
 
 .team_goal_text {
   box-sizing: border-box;
@@ -253,7 +268,6 @@ input[type="search"] {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 10px;
 }
 .skill {
   height: min-content;
