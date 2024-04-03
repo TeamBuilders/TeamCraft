@@ -9,11 +9,8 @@ export default function PopUp_category(props) {
     const [category, setCategory] = useState(props.value);
     const [isOpen, setIsOpen] = useState(false);
     const[isSelected, setIsSelected] = useState(false);
-
-     const [teamStack, setTeamStack] = useState([]);
-     const [selectedItems, setSelectedItems] = useState(teamStack[props.text]);
-   
-
+    const [teamStack, setTeamStack] = useState(JSON.parse(localStorage.getItem('team_stack')) || []);
+    const [selectedItems, setSelectedItems] = useState([]);
 
     const categories = {
         "Разработка": [
@@ -37,7 +34,8 @@ export default function PopUp_category(props) {
 
     const handleOpen = () => {
         setIsOpen(true);
-        setCategory(props.value);
+
+        // setCategory(props.value);
     };
 
     useEffect(() => {
@@ -47,14 +45,9 @@ export default function PopUp_category(props) {
 
     const handleClose = () => {
         setIsOpen(false);
-        // teamStack[props.text] = selectedItems;
-        if (selectedItems.length > 0) {
-            // teamStack = teamStack.includes(props.text) ? [...teamStack]: [...teamStack, props.text];
-        }
-        else{
-            // teamStack = teamStack.filter(hobby => hobby !== props.text);
-        }
-        //      localStorage.setItem('teamStack', JSON.stringify(teamStack));
+        console.log(selectedItems);
+        localStorage.setItem('team_stack', JSON.stringify(selectedItems));
+        console.log(localStorage.getItem('team_stack'));
     };
 
 
@@ -69,6 +62,7 @@ export default function PopUp_category(props) {
         }
     };
 
+
     return (
         <Popup 
             contentStyle={{
@@ -82,7 +76,7 @@ export default function PopUp_category(props) {
                 display: 'flex',
                 justifyContent: 'center'
             }} 
-            trigger={<button className={styles.button_trigger}>{props.text}</button>} 
+            trigger={<button className={styles.button_trigger} >{props.text}</button>} 
             modal 
             nested
             closeOnDocumentClick

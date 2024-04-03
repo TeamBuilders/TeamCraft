@@ -77,7 +77,8 @@ const CreateTeamForm = () => {
     localStorage.setItem("teamGoal", teamGoal);
     localStorage.setItem("teamDescription", teamDescription);
     localStorage.setItem("MemberTeam", JSON.stringify(MemberTeam));
-    
+    localStorage.setItem("team_stack", JSON.stringify(teamStack));
+
     console.log("Данные команды:", jsonData);
     try {
       const response = await axios.post(CREATE_TEAM_URL, jsonData, {
@@ -104,6 +105,12 @@ const CreateTeamForm = () => {
         setErrMsg("Нет ответа от сервера");
       }
     }
+  };
+
+  const toggleModal = () => {
+    setTeamStack(JSON.parse(localStorage.getItem('team_stack')));
+    console.log(teamStack);
+    console.log(JSON.parse(localStorage.getItem('team_stack')));
   };
 
   return (
@@ -141,7 +148,14 @@ const CreateTeamForm = () => {
             </div>
             <div className={styles.field}>
               <label htmlFor="teamGoal">Навыки команды:</label>
-              <PopUp_hobby  />
+              
+              <PopUp_hobby onClose={toggleModal}/>
+              <ul className={styles.ul_list}>
+
+                {teamStack && teamStack.length > 0 &&teamStack.map((skill, index) => (
+                  <li className={styles.li_item} key={index}>{skill}</li>
+                ))}
+              </ul>
             </div>
             {/* <div className={styles.field}>
                             <label htmlFor="team_lead">Теги команды:</label>

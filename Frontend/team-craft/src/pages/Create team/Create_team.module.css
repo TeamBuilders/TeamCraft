@@ -107,6 +107,31 @@
 .confirm:hover {
     background-color: #2980b9; /* Изменение цвета фона при наведении на кнопку */
 }
+
+.ul_list{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .li_item{
+    width: fit-content;
+    height: fit-content;
+    margin: 7px;
+    padding: 7px;
+    border: 2px solid #9fc4f0;
+    border-radius: 10px;
+    display: flex;
+    color: #fff;
+    margin-left: 0;
+    margin-bottom: 3%;
+    border-radius: 10px;
+    padding: 2%;
+  }
+
+
 @media (max-width: 700px){
     .form {
         width: 95%;
