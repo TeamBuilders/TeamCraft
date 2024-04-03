@@ -1,4 +1,4 @@
-.search_page{
+.search_page {
   /* background-image: url(../../images/bg.jpg);
   background-size: cover; */
   /* background-color: #131619; */
@@ -21,8 +21,6 @@
   border-radius: 10px;
 }
 
-
-
 .description {
   max-width: 1200px;
   width: 85%;
@@ -36,9 +34,8 @@
   flex-wrap: wrap;
 }
 
-
 /**/
-.filter{
+.filter {
   height: 600px;
   width: 250px;
   border: 3px solid #9fc4f0;
@@ -48,54 +45,53 @@
   flex-wrap: wrap;
 }
 
-
 .form {
   padding: 10px;
 }
-.checkbox_btn{
-	display: inline-block;
-	margin: 0 5px 0 0;
-	user-select: none;
-	position: relative;
+.checkbox_btn {
+  display: inline-block;
+  margin: 0 5px 0 0;
+  user-select: none;
+  position: relative;
 }
-.checkbox_btn input[type=checkbox] {
-	z-index: -1;
-	opacity: 0;
-	display: block;
-	width: 0;
-	height: 0;
+.checkbox_btn input[type="checkbox"] {
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
 }
 .checkbox_btn span {
   display: inline-block;
-	cursor: pointer;
-	padding: 0px 10px;
-	line-height: 30px;
-	border: 1px solid #999;
-	border-radius: 4px;
-	transition: background 0.2s ease;
+  cursor: pointer;
+  padding: 0px 10px;
+  line-height: 30px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  transition: background 0.2s ease;
   margin: 2px;
 }
- 
+
 /* Checked */
-.checkbox_btn input[type=checkbox]:checked + span {
-	background: #8BE3FF;
+.checkbox_btn input[type="checkbox"]:checked + span {
+  background: #8be3ff;
   color: #000;
 }
 
 /* Focus */
 .focused span {
-	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
- 
+
 /* Hover */
 .checkbox_btn:hover {
-	color: #666;
+  color: #666;
 }
- 
+
 /* Active */
-.checkbox_btn input[type=checkbox]:active:not(:disabled) + span {
-	background: #4361EE;
-	color: #000;
+.checkbox_btn input[type="checkbox"]:active:not(:disabled) + span {
+  background: #4361ee;
+  color: #000;
 }
 
 .btns {
@@ -104,11 +100,11 @@
   margin-top: 50px; /*Внешний отступ сверху кнопок */
 }
 
-.btns button{
-  margin:5px;
+.btns button {
+  margin: 5px;
 }
 .confirm {
-  background-color: #4361EE; /* Цвет фона кнопки */
+  background-color: #4361ee; /* Цвет фона кнопки */
   color: white; /* Цвет текста на кнопке */
   border: none; /* Убираем границу кнопки */
   padding: 10px; /* Внутренний отступ вокруг текста на кнопке */
@@ -125,13 +121,13 @@
 /* Определение стилей для наведения на кнопку */
 
 .confirm:hover {
-  background-color: #3349C0; /* Изменение цвета фона при наведении на кнопку */
+  background-color: #3349c0; /* Изменение цвета фона при наведении на кнопку */
 }
 
 /* Кнопка отмена*/
 
 .cancel {
-  background-color: #8BE3FF; /* Цвет фона кнопки */
+  background-color: #8be3ff; /* Цвет фона кнопки */
   color: black; /* Цвет текста на кнопке */
   border: none; /* Убираем границу кнопки */
   padding: 10px; /* Внутренний отступ вокруг текста на кнопке */
@@ -146,10 +142,10 @@
 }
 
 .cancel:hover {
-  background-color:#5fb8d3;
+  background-color: #5fb8d3;
 }
 
-.td{
+.td {
   border: 2px solid #9fc4f0;
   border-radius: 15px;
   max-height: 55px;
@@ -158,12 +154,12 @@
   margin-bottom: 40px;
 }
 
-.search_card{
+.search_card {
   width: 70%;
   height: 100%;
 }
 
-.search{
+.search {
   width: 100%;
   height: 100%;
   /* border: 2px solid #9fc4f0; */
@@ -171,24 +167,20 @@
   background-color: #1d2125;
   border: none;
   padding: 10px;
-  outline: none;  
+  outline: none;
 }
 
 input[type="search"] {
-  color:#fff;
-} 
+  color: #fff;
+}
 
-
-
-
-  /*Cards*/
-.cards{
+/*Cards*/
+.cards {
   width: 90%;
   height: 100%;
 }
 
-
-.card{
+.card {
   width: 100%;
   height: 10%;
   border: 2px solid #9fc4f0;
@@ -199,26 +191,58 @@ input[type="search"] {
   justify-content: center;
 }
 
-.picture{
-padding: auto;
+.picture {
+  padding: auto;
 }
 
 .avatar {
   width: 90px;
   height: 90px;
   border-radius: 6%;
-  margin: 8px 25px;
+  margin: 8px 15px;
 }
 
 .state {
-	display: flex;
+  display: flex;
   margin-top: 10px;
 }
 
-.description2{
+.description2 {
   width: 380px;
   height: 100px;
-  border-radius: 15px;
+  border-radius: 5px;
   box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
-  background: #4b505a;
+  /* background: #503c5f; */
+}
+
+.description2 p {
+  margin-bottom: 5px;
+}
+.team_name_text {
+  width: fit-content;
+  margin-left: 6px;
+  padding: 2px 4px;
+  font-size: 20px;
+  font-family: "Noto Sans", sans-serif;
+  box-sizing: border-box; /* Учитываем границу в расчетах ширины */
+  background-color: #1d2125; /* Цвет фона полей ввода */
+  color: #fff9fc; /* Цвет текста в полях ввода */
+  border-radius: 5px; /* Скругление углов полей ввода */
+  border: 2px solid #9fc4f0;
+}
+
+.team_goal_text {
+  font-size: 16px;
+  font-family: "Noto Sans", sans-serif;
+  /* padding: 10px; Внутренний отступ вокруг текста в поле ввода */
+  box-sizing: border-box; /* Учитываем границу в расчетах ширины */
+  background-color: #1d2125; /* Цвет фона полей ввода */
+  color: #fff9fc; /* Цвет текста в полях ввода */
+  border-radius: 5px; /* Скругление углов полей ввода */
+  border: 1px solid #1d2125; /* Границы */
+  margin-left: 6px;
+}
+
+.team_goal_text span {
+  border-bottom: 2px solid #9fc4f0;
 }

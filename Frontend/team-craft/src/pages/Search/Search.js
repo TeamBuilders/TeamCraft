@@ -13,9 +13,11 @@ export default function Search() {
   const handleCancel = () => {
     formRef.current.reset();
     setSelectedSkills([]);
-    
-    const checkboxes = formRef.current.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(checkbox => {
+
+    const checkboxes = formRef.current.querySelectorAll(
+      'input[type="checkbox"]'
+    );
+    checkboxes.forEach((checkbox) => {
       checkbox.checked = false;
     });
   };
@@ -26,11 +28,13 @@ export default function Search() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const selectedSkillNames = selectedSkills.map(skill => skill.nameSkill);
+    const selectedSkillNames = selectedSkills.map((skill) => skill.nameSkill);
     console.log(selectedSkillNames);
-    console.log(JSON.stringify({
-      skills: selectedSkillNames,
-    }));
+    console.log(
+      JSON.stringify({
+        skills: selectedSkillNames,
+      })
+    );
     try {
       const jsonData = JSON.stringify({
         skills: selectedSkillNames,
@@ -49,7 +53,6 @@ export default function Search() {
       console.error("Ошибка при отправке запроса:", err);
     }
   };
-
 
   const takeSkills = async (e) => {
     try {
@@ -90,9 +93,16 @@ export default function Search() {
                       className={styles.checkbox_input}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setSelectedSkills(prevSkills => [...prevSkills, skill]);
+                          setSelectedSkills((prevSkills) => [
+                            ...prevSkills,
+                            skill,
+                          ]);
                         } else {
-                          setSelectedSkills(prevSkills => prevSkills.filter(prevSkill => prevSkill.id !== skill.id));
+                          setSelectedSkills((prevSkills) =>
+                            prevSkills.filter(
+                              (prevSkill) => prevSkill.id !== skill.id
+                            )
+                          );
                         }
                       }}
                     />
@@ -119,7 +129,6 @@ export default function Search() {
                   Применить
                 </button>
               </div>
-
             </form>
           </div>
           <div className={styles.search_card}>
@@ -128,7 +137,9 @@ export default function Search() {
                 type="search"
                 className={styles.search}
                 placeholder="Поиск"
-                value={selectedSkills.map(skill => skill.nameSkill).join(', ')}
+                value={selectedSkills
+                  .map((skill) => skill.nameSkill)
+                  .join(", ")}
               />
             </div>
             <div className={styles.cards}>
@@ -141,7 +152,12 @@ export default function Search() {
                   />
                 </div>
                 <div className={styles.description2}>
-                  <div className={styles.text}></div>
+                  <div className={styles.team_name}>
+                    <p className={styles.team_name_text}>{/*foundTeams[0].teamName*/}Название команды</p>
+                  </div>
+                  <div className={styles.team_goal}>
+                    <p className={styles.team_goal_text}><span>Цель</span>: {/*foundTeams[0].teamGoal*/}Цель команды</p>
+                  </div>
                 </div>
               </div>
             </div>
