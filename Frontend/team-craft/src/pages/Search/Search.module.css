@@ -181,15 +181,11 @@ input[type="search"] {
 }
 
 .card {
-  width: min-content;
-  height: auto;
-  max-width: 500px;
   border: 2px solid #9fc4f0;
   border-radius: 15px;
-  padding: 1% 0%;
-  display: flex;
-  flex-direction: column;
+  padding: 1% 1%;
   box-shadow: #000 0px 0px 5px;
+
 }
 .card:hover {
   box-shadow: #000 0px 0px 10px;
@@ -208,17 +204,17 @@ input[type="search"] {
 }
 
 .card_block {
+
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
 }
 .card_block div {
   margin: 5px;
 }
 
 .description2 {
-  width: fit-content;
+  width: max-content;
   height: min-content;
 }
 
@@ -251,7 +247,8 @@ input[type="search"] {
   background-color: #1d2125; /* Цвет фона полей ввода */
   color: #fff9fc; /* Цвет текста в полях ввода */
   border-radius: 5px; /* Скругление углов полей ввода */
-  border: 1px solid #1d2125; /* Границы */
+
+  max-height: 67px;
 }
 
 .team_goal_text span {
@@ -259,8 +256,9 @@ input[type="search"] {
 }
 
 .team_stack {
-  max-width: 100%;
-  overflow-x: auto;
+  grid-row: 2; /* Определяем, что элемент team_stack находится на второй строке */
+
+  /* max-width: 100%; */
   display: flex;
   flex-direction: row;
   align-items: center;

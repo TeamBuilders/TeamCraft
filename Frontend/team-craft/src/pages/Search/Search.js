@@ -150,6 +150,8 @@ export default function Search() {
             </div>
             <div className={styles.cards}>
               <div className={styles.card}>
+                
+              <div style={{ width: 'min-content'}}>
                 <div className={styles.card_block}>
                   <div className={styles.picture}>
                     <img className={styles.avatar} />
@@ -162,7 +164,7 @@ export default function Search() {
                     </div>
                     <div className={styles.team_goal}>
                       <p className={styles.team_goal_text}>
-                        <span>Цель</span>: {/*foundTeams[0].teamGoal*/} Цель
+                        <span>Цель</span>: {/*foundTeams[0].teamGoal*/} Цель команды и всё такое 
                       </p>
                     </div>
                   </div>
@@ -180,6 +182,7 @@ export default function Search() {
                       <p>{skill}</p>
                     </div>
                   ))}
+                </div>
                 </div>
               </div>
             </div>
