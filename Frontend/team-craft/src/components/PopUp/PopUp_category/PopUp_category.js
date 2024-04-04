@@ -11,7 +11,9 @@ export default function PopUp_category(props) {
     const[isSelected, setIsSelected] = useState(false);
 
     const [userSkills, setUserSkills] = useState(props.value2);
+    // const [selectedItems, setSelectedItems] = useState(userSkills.skillsPerson[props.text]);
     const [selectedItems, setSelectedItems] = useState(userSkills.skillsPerson[props.text]);
+
    
 
 
@@ -45,9 +47,21 @@ export default function PopUp_category(props) {
     }, []);
 
 
+    // const handleClose = () => {
+    //     setIsOpen(false);
+    //     userSkills.skillsPerson[props.text] = selectedItems;
+    //     if (selectedItems.length > 0) {
+    //         userSkills.hobbiesPerson = userSkills.hobbiesPerson.includes(props.text) ? [...userSkills.hobbiesPerson]: [...userSkills.hobbiesPerson, props.text];
+    //     }
+    //     else{
+    //         userSkills.hobbiesPerson = userSkills.hobbiesPerson.filter(hobby => hobby !== props.text);
+    //     }
+    //     localStorage.setItem('userData', JSON.stringify(userSkills));
+    // };
+
     const handleClose = () => {
         setIsOpen(false);
-        userSkills.skillsPerson[props.text] = selectedItems;
+        userSkills.skillsPerson = selectedItems;
         if (selectedItems.length > 0) {
             userSkills.hobbiesPerson = userSkills.hobbiesPerson.includes(props.text) ? [...userSkills.hobbiesPerson]: [...userSkills.hobbiesPerson, props.text];
         }

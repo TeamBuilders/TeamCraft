@@ -15,7 +15,7 @@ export default function PopUp_hobbies({onClose}) {
     const [teamStack, setTeamStack] = useState([]);
 
     
-    const handleSubmit = async (e) => {
+    const handleSubmit = async () => {
         axios.get(HOBBY_URL)
         .then((response) => {
             setHobby(response.data);
@@ -30,29 +30,32 @@ export default function PopUp_hobbies({onClose}) {
     }, []);
 
 
-    const handleOpen = () => {
+    // const handleOpen = () => {
+    //     if (teamStack === null) {
+    //         setTeamStack([]);
+    //     }
+    // };
+    
+    // useEffect(() => {
+    //     handleOpen();
+    //     localStorage.setItem("team_stack", JSON.stringify(teamStack));
+    // }, [teamStack]);
 
-        if (teamStack === null) {
-            setTeamStack([]);
-            localStorage.setItem("team_stack",JSON.stringify(teamStack));
-        }
-    };
+    // const handleOpen = () => {
 
-    useEffect(() => {
-         handleOpen();
-    }, []);
+    //     if (teamStack === null) {
+    //         setTeamStack([]);
+    //         localStorage.setItem("team_stack",JSON.stringify(teamStack));
+    //     }
+    // };
+
+    // useEffect(() => {
+    //      handleOpen();
+    // }, []);
 
     const handleClose2 = () => {
-        setTeamStack(JSON.parse(localStorage.getItem('team_stack')));
         onClose(); 
-        };
-
-    const handlePopupClose = () => {
-        // localStorage.setItem("team_stack", JSON.stringify(teamStack));
-
-        
     };
-
 
   return (<Popup contentStyle={{
     width: '500px', 
@@ -65,8 +68,8 @@ export default function PopUp_hobbies({onClose}) {
     display: 'flex',
     justifyContent: 'center'
   }} trigger=
-  {<button className={styles.button_trigger} > Добавить </button>}
-  modal nested closeOnDocumentClick  onClose={handlePopupClose}>
+  {<button className={styles.button_trigger} type='button'> Добавить </button>}
+  modal nested closeOnDocumentClick >
   {
       close => (
         <div className={styles.modal}>
@@ -76,7 +79,7 @@ export default function PopUp_hobbies({onClose}) {
                 </div>
             ))}
             <div className={styles.buttons}>
-                <button className={styles.button_close} onClick={() => { handleClose2(); close(); }}>Сохранить</button>
+                <button className={styles.button_close} onClick={ () => {handleClose2(); close();} }>Сохранить</button>
             </div>
         </div>
         )

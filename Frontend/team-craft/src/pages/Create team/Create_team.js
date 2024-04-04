@@ -67,11 +67,12 @@ const CreateTeamForm = () => {
     const jsonData = JSON.stringify({
       teamName: teamName,
       teamGoal: teamGoal,
+      team_stack: teamStack,
       team_lead: team_lead,
       teamDescription: teamDescription,
-      team_stack: teamStack,
-      MemberTeam: MemberTeam,
+      memberTeam: MemberTeam,
     });
+    console.log("jsonData: ", jsonData);
     
     //Команда не создается потому,что в jsonData -> dataMemberUser -> skillsPerson должен быть массивом а не словарем
 
@@ -111,9 +112,9 @@ const CreateTeamForm = () => {
   };
 
   const toggleModal = () => {
-    setTeamStack(JSON.parse(localStorage.getItem('team_stack')));
-    console.log(teamStack);
-    console.log(JSON.parse(localStorage.getItem('team_stack')));
+    const prevTeamStack = JSON.parse(localStorage.getItem('team_stack'));
+    const newTeamStack = prevTeamStack.map(item => JSON.parse(item));
+    setTeamStack(newTeamStack);
   };
 
   return (
@@ -121,7 +122,7 @@ const CreateTeamForm = () => {
       <div className={styles.wrapper}>
         <div className={styles.form}>
           <h1>Создание команды</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className={styles.field}>
               <label htmlFor="teamName">Название команды:</label>
               <input
@@ -154,9 +155,8 @@ const CreateTeamForm = () => {
               
               <PopUp_hobby onClose={toggleModal}/>
               <ul className={styles.ul_list}>
-
                 {teamStack && teamStack.length > 0 && teamStack.map((skill, index) => (
-                  <li className={styles.li_item} key={index}>{JSON.parse(skill).nameSkill}</li>
+                  <li className={styles.li_item} key={index}>{skill.nameSkill}</li>
                 ))}
               </ul>
             </div>

@@ -38,15 +38,16 @@ export default function PopUp_hobbies({onClose}) {
             localStorage.setItem('userData', JSON.stringify(userData));
         }
         if (userData.skillsPerson === null) {
-            userData.skillsPerson = {
-                'Разработка': [],
-                "Музыка": [],
-                "Анимации": [],
-                "Гейминг": [],
-                "Социальные развлечения": [],
-                "Научные разработки": [],
-                "Активный отдых": []
-            };
+            userData.skillsPerson = [];
+            // userData.skillsPerson = {
+            //     'Разработка': [],
+            //     "Музыка": [],
+            //     "Анимации": [],
+            //     "Гейминг": [],
+            //     "Социальные развлечения": [],
+            //     "Научные разработки": [],
+            //     "Активный отдых": []
+            // };
             localStorage.setItem('userData', JSON.stringify(userData));
         }
     };

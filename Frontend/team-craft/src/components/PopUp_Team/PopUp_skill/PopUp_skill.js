@@ -7,65 +7,15 @@ import 'reactjs-popup/dist/index.css';
 
 export default function PopUp_skill(props) {
     const [category, setCategory] = useState(props.value);
-    const [isOpen, setIsOpen] = useState(false);
-    const[isSelected, setIsSelected] = useState(false);
-    const [teamStack, setTeamStack] = useState(JSON.parse(localStorage.getItem('team_stack')) || []);
     const [selectedItems, setSelectedItems] = useState([]);
-    const [skill, setSkill] = useState('');
-
-    const categories = {
-        "Разработка": [
-            "Mobile app development",
-            "Web development",
-            "Game development",
-            "Cyber security",
-            "Data science",
-            "Blockchain development",
-            "Desktop app development",
-            "Embedded systems development"
-        ],
-        "Музыка": ["dafdfdg", "dfgdfgd", "dfgdfsg"],
-        "Анимации": [],
-        "Гейминг": [],
-        "Социальные развлечения": [],
-        "Научные разработки": [],
-        "Активный отдых": []
-    };
-
-
-    const handleOpen = () => {
-        setIsOpen(true);
-
-        // setCategory(props.value);
-    };
-
-    useEffect(() => {
-        handleOpen();
-    }, []);
-
 
     const handleClose = () => {
-        setIsOpen(false);
         const newSelectedItems = selectedItems.map(item => JSON.stringify(item));
         localStorage.setItem('team_stack', JSON.stringify(newSelectedItems));
     };
 
-
-
-    // const handleItemClick = (item) => {
-    //     const isSelected = selectedItems.length === 0 ? false : selectedItems.includes(item.nameSkill);
-
-    //     if (isSelected) {
-    //         setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item.nameSkill));
-    //     } else {
-    //         setSelectedItems([...selectedItems, item]);
-    //     }
-    // };
-
     const handleItemClick = (item) => {
-        console.log(item);
 
-        console.log(item.nameSkill);
         const isSelected = selectedItems.some(selectedItem => selectedItem.nameSkill === item.nameSkill);
 
         if (isSelected) {
@@ -74,8 +24,7 @@ export default function PopUp_skill(props) {
             setSelectedItems([...selectedItems, item]);
         }
     };
-
-
+    
     return (
         <Popup 
             contentStyle={{
@@ -89,7 +38,7 @@ export default function PopUp_skill(props) {
                 display: 'flex',
                 justifyContent: 'center'
             }} 
-            trigger={<button className={styles.button_trigger} >{props.text}</button>} 
+            trigger={<button className={styles.button_trigger} type='button' >{props.text}</button>} 
             modal 
             nested
             closeOnDocumentClick
@@ -113,7 +62,7 @@ export default function PopUp_skill(props) {
                             </ul>
                         </div>
                         <div className={styles.buttons}>
-                        <button className={styles.button_close} onClick={() => { handleClose(); close(); }}>Сохранить</button>
+                        <button className={styles.button_close} onClick={() => { handleClose(); close();}}>Сохранить</button>
                         </div>
                     </div>
                 )
