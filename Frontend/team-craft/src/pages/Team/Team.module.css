@@ -223,6 +223,9 @@ p.fullness {
   text-decoration: none !important;
 }
 
+
+/* Заявки на вступление */
+
 .applic_member_teams{
   height: 300px; 
   overflow-y: auto; 
@@ -264,6 +267,8 @@ p.fullness {
   border-top-right-radius: 10px;
   /* background-color: #4361EE; */
   border: none;
+  border-bottom: 2px solid #9fc4f0;
+
 }
 
 .buttons .button_add:hover{
@@ -285,4 +290,30 @@ p.fullness {
 .buttons .button_remove:hover{
   background-color: #683e3e;
   text-decoration: none !important;
+}
+
+/* Навыки команды */
+.skillWrapper{
+  margin-bottom: 20px;
+}
+
+.ul_list_skills{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.li_item_skills{
+  width: fit-content;
+  height: fit-content;
+  margin: 7px;
+  padding: 7px;
+  border: 2px solid #9fc4f0;
+  border-radius: 10px;
+  display: flex;
+  color: #fff;
+  margin-bottom: 3%;
+  border-radius: 10px;
 }

@@ -18,7 +18,7 @@ export default function Team(){
     const [teamGoal, setTeamGoal] = useState(localStorage.getItem('teamGoal') || '');
     const [teamMembers, setTeamMembers] = useState(localStorage.getItem('MemberTeam') || '');
     const [numberOfmembers, setNumberOfmembers] = useState(JSON.parse(teamMembers).length);  
-    const [teamSkills, setTeamSkills] = useState(localStorage.getItem('teamSkills') || '');
+    const [teamSkills, setTeamSkills] = useState(JSON.parse(localStorage.getItem('team_stack')) || []);
     const [errMsg, setErrMsg] = useState('');
     const [error, setError] = useState('');
     const [isTeamLeader, setIsTeamLeader] = useState(false);
@@ -122,6 +122,8 @@ export default function Team(){
             }
         setIsEditing(false);
     };
+
+    console.log(JSON.parse(localStorage.getItem('teamSkills')));
 
     return(
         <div className={styles.team_page}>
@@ -260,18 +262,13 @@ export default function Team(){
                     <div className={styles.info}>
                         <div className={styles.info_panel}>
                             <p className={styles.inf_title}>Навыки команды:</p>
-                            {/* <div className={styles.hobbies}>
-                                {teamSkills && teamSkills.map((hobby, index) => (
-                                    <div className={styles.hobbyWrapper} key={index}>
-                                        <p className={styles.p_hobby}>{hobby}</p>
-                                        <ul className={styles.ul_list}>
-                                            {userData.skillsPerson && userData.skillsPerson[hobby] && userData.skillsPerson[hobby].map((skill, skillIndex) => (
-                                            <li className={styles.li_item} key={skillIndex}>{skill}</li>
-                                            ))}
-                                        </ul>
+                            <ul className={styles.ul_list_skills}>
+                                {teamSkills && teamSkills.map((skill, index) => (
+                                    <div className={styles.skillWrapper} key={index}>
+                                        <li className={styles.li_item_skills} key={index}>{skill.nameSkill}</li>
                                     </div>
                                  ))}
-                            </div> */}
+                            </ul>
                         </div>
                     </div>
                 </div>
