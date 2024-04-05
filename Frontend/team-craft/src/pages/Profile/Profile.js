@@ -123,55 +123,55 @@ export default function Account() {
           <div className={styles.teams}>
             <h2>Команды</h2>
             <div className={styles.block_teams}>
-            <div className={styles.block_player}>
-                <img  className={styles.player_icon}/>
+            <div className={styles.block_team}>
+                <img  className={styles.team_icon}/>
                 <div className={styles.desc}>
-                <p className={styles.player_title}>Название команды</p>
+                <p className={styles.team_title}>Название команды</p>
                 <div className={styles.state}>
                     <p className={styles.fullness}>Цель</p>
                 </div>
                 </div>
               </div>
-              <div className={styles.block_player}>
-                <img  className={styles.player_icon}/>
+              <div className={styles.block_team}>
+                <img  className={styles.team_icon}/>
                 <div className={styles.desc}>
-                <p className={styles.player_title}>Название команды</p>
+                <p className={styles.team_title}>Название команды</p>
                 <div className={styles.state}>
                     <p className={styles.fullness}>Цель</p>
                 </div>
                 </div>
               </div>
-              <div className={styles.block_player}>
-                <img  className={styles.player_icon}/>
+              <div className={styles.block_team}>
+                <img  className={styles.team_icon}/>
                 <div className={styles.desc}>
-                <p className={styles.player_title}>Название команды</p>
+                <p className={styles.team_title}>Название команды</p>
                 <div className={styles.state}>
                     <p className={styles.fullness}>Цель</p>
                 </div>
                 </div>
               </div>
-              <div className={styles.block_player}>
-                <img  className={styles.player_icon}/>
+              <div className={styles.block_team}>
+                <img  className={styles.team_icon}/>
                 <div className={styles.desc}>
-                <p className={styles.player_title}>Название команды</p>
+                <p className={styles.team_title}>Название команды</p>
                 <div className={styles.state}>
                     <p className={styles.fullness}>Цель</p>
                 </div>
                 </div>
               </div>
-              <div className={styles.block_player}>
-                <img  className={styles.player_icon}/>
+              <div className={styles.block_team}>
+                <img  className={styles.team_icon}/>
                 <div className={styles.desc}>
-                <p className={styles.player_title}>Название команды</p>
+                <p className={styles.team_title}>Название команды</p>
                 <div className={styles.state}>
                     <p className={styles.fullness}>Цель</p>
                 </div>
                 </div>
               </div>
-              <div className={styles.block_player}>
-                <img  className={styles.player_icon}/>
+              <div className={styles.block_team}>
+                <img  className={styles.team_icon}/>
                 <div className={styles.desc}>
-                <p className={styles.player_title}>Название команды</p>
+                <p className={styles.team_title}>Название команды</p>
                 <div className={styles.state}>
                     <p className={styles.fullness}>Цель</p>
                 </div>

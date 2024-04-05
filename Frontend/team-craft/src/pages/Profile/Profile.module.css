@@ -224,8 +224,8 @@ p.fullness {
   margin-bottom: 10px;
 }
 
-.teams .block_player {
-  margin: 20px 0px;
+.teams .block_team {
+ margin-bottom: 20px;
   display: flex;
   width: 98%;
   border-left: 3px solid #9fc4f0;
@@ -239,7 +239,7 @@ font-size: 27px;
 font-weight: bold;
 }
 
-.teams .player_icon{
+.teams .team_icon{
   background-image: url(../../images/team_icon.jpg);
   background-size: 122%;
   background-position: center;
@@ -249,11 +249,11 @@ font-weight: bold;
   margin: 17px;
 }
 
-.block_player .desc {
+.block_team .desc {
   margin-top: 17px;
 }
 
-.desc .player_title {
+.desc .team_title {
   font-size: 18px;
 }
 
