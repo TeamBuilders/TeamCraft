@@ -65,6 +65,7 @@ p.init {
 .description {
   height: 100%;
   overflow: hidden;
+  padding-top: 1%;
   display: flex;
   color: #fff;
   margin: 1em;
@@ -147,23 +148,7 @@ p.init {
   box-shadow: none;
   box-shadow:0 0 5px #9fc4f0;
 }
-.teams {
-  flex-basis: 45%;
-}
-.teams .block_team {
-    margin: 20px 0px;
-    display: flex;
-    width: auto;
-    border-left: 3px solid #9fc4f0;
-    background-color: #313338;
-    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
-}
-.teams .team_icon {
-    width: 60px;
-  height: 60px;
-  border-radius: 6%;
-  margin: 17px;
-}
+
 .block_team .desc {
     margin-top: 17px;
 }
@@ -188,39 +173,6 @@ p.init {
 }
 p.fullness {
     margin: 0;
-}
-
-.teams {
-    width: calc(10% + 300px);
-  margin-right: 5px;
-}
-.teams .buttons {
-    display: flex;
-    justify-content: space-between;
-}
-.teams .buttons .button {
-    width: 160px;
-    height: 40px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    padding-top: 8px;
-}
-.teams .buttons .button:hover {
-  box-shadow: none;
-  box-shadow:0 0 5px #9fc4f0;
-}
-.buttons a {
-    text-decoration: none;
-}
-.teams .buttons .button[id="b1"] {
-    color: #000;
-    background-color: #9fc4f0;
-    
-}
-.teams .buttons .button[id="b2"] {
-    color: #fff;
-    background-color: #4361ee;
 }
 
 .edit{
@@ -251,6 +203,72 @@ p.fullness {
   box-shadow:0 0 5px #bb2929;
   text-decoration: none !important;
 }
+
+
+/* Teams */
+
+.teams {
+  flex-basis: 45%;
+  width: calc(5% + 200px);
+  height: calc(5% + 200px);
+  margin-right: 5px;
+  padding: 1%;
+  padding-top: 0;
+  border-radius: 10px;
+}
+
+.block_teams {
+  height: 350px;
+  width: 90%;
+  overflow-y: auto; 
+  margin-bottom: 10px;
+}
+
+.teams .block_player {
+  margin: 20px 0px;
+  display: flex;
+  width: 98%;
+  border-left: 3px solid #9fc4f0;
+  background-color: #313338;
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+}
+
+
+.teams h2{
+font-size: 27px;
+font-weight: bold;
+}
+
+.teams .player_icon{
+  background-image: url(../../images/team_icon.jpg);
+  background-size: 122%;
+  background-position: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 17px;
+}
+
+.block_player .desc {
+  margin-top: 17px;
+}
+
+.desc .player_title {
+  font-size: 18px;
+}
+
+.initials .state {
+  display: flex;
+margin-top: 10px;
+align-items: center
+}
+
+p.fullness {
+  margin: 0;
+}
+
+
+
 
 @media (max-width: 750px){
     .personal {

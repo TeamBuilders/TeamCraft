@@ -119,10 +119,66 @@ export default function Account() {
             <PopUp_hobbies onClose={toggleModal}/>
             </div>
           </div>
+          {/* Сейчас так, пока не появиться api */}
           <div className={styles.teams}>
             <h2>Команды</h2>
-            {/* Добавить отображение команд пользователя */}
-          </div>
+            <div className={styles.block_teams}>
+            <div className={styles.block_player}>
+                <img  className={styles.player_icon}/>
+                <div className={styles.desc}>
+                <p className={styles.player_title}>Название команды</p>
+                <div className={styles.state}>
+                    <p className={styles.fullness}>Цель</p>
+                </div>
+                </div>
+              </div>
+              <div className={styles.block_player}>
+                <img  className={styles.player_icon}/>
+                <div className={styles.desc}>
+                <p className={styles.player_title}>Название команды</p>
+                <div className={styles.state}>
+                    <p className={styles.fullness}>Цель</p>
+                </div>
+                </div>
+              </div>
+              <div className={styles.block_player}>
+                <img  className={styles.player_icon}/>
+                <div className={styles.desc}>
+                <p className={styles.player_title}>Название команды</p>
+                <div className={styles.state}>
+                    <p className={styles.fullness}>Цель</p>
+                </div>
+                </div>
+              </div>
+              <div className={styles.block_player}>
+                <img  className={styles.player_icon}/>
+                <div className={styles.desc}>
+                <p className={styles.player_title}>Название команды</p>
+                <div className={styles.state}>
+                    <p className={styles.fullness}>Цель</p>
+                </div>
+                </div>
+              </div>
+              <div className={styles.block_player}>
+                <img  className={styles.player_icon}/>
+                <div className={styles.desc}>
+                <p className={styles.player_title}>Название команды</p>
+                <div className={styles.state}>
+                    <p className={styles.fullness}>Цель</p>
+                </div>
+                </div>
+              </div>
+              <div className={styles.block_player}>
+                <img  className={styles.player_icon}/>
+                <div className={styles.desc}>
+                <p className={styles.player_title}>Название команды</p>
+                <div className={styles.state}>
+                    <p className={styles.fullness}>Цель</p>
+                </div>
+                </div>
+              </div>
+            </div>
+            </div>
             <div className={styles.exit}>
               <button className={styles.button_exit} onClick={handleLogout}>Выйти</button>
             </div>
