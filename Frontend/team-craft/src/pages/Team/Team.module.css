@@ -1,0 +1,319 @@
+.team_page {
+  position: relative;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #000000;
+  min-width: 320px;
+  overflow-x: hidden;
+  height: 100vh;
+  width: 100%;
+}
+
+.bgcolor {
+  max-width: 1200px;
+  width: 90%;
+  background-color: #1d2125;
+  margin: auto;
+  padding: 1em;
+  border-radius: 10px;
+}
+
+.description {
+  max-width: 1200px;
+  width: 100%;
+  margin-bottom: 20px;
+  overflow: hidden;
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.team {
+  overflow: hidden;
+  display: block;
+  color: #fff;
+}
+.team .acc_panel {
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 26em;
+  border: 3px solid #9fc4f0;
+  border-radius: 10px;
+}
+.avatar {
+  width: 87px;
+  height: 87px;
+  border-radius: 6%;
+  margin: 8px 25px;
+}
+
+.team h2 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.initials .name {
+  margin-left: 6px;
+  border-bottom: 2px solid #9fc4f0;
+}
+p.name {
+  font-size: 20px;
+}
+.initials input {
+  font-size: 20px;
+  font-family: 'Noto Sans', sans-serif;
+  /* padding: 10px; Внутренний отступ вокруг текста в поле ввода */
+  outline: none; /* Убираем контур фокуса на полях ввода */
+  box-sizing: border-box; /* Учитываем границу в расчетах ширины */
+  background-color: #1D2125; /* Цвет фона полей ввода */
+  color: #FFF9FC; /* Цвет текста в полях ввода */
+  border-radius: 5px; /* Скругление углов полей ввода */
+  border: 1px solid #1D2125; /* Границы */
+  margin-left: 6px;
+  border-bottom: 2px solid #9fc4f0;
+}
+.player .block_player {
+    margin: 20px 0px;
+    display: flex;
+    width: 430px;
+    border-left: 3px solid #9fc4f0;
+    background-color: #313338;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+}
+
+.player h2{
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.player .player_icon{
+    width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 17px;
+}
+
+.block_player .desc {
+    margin-top: 17px;
+}
+
+.desc .player_title {
+    font-size: 18px;
+}
+
+.initials .state {
+    display: flex;
+  margin-top: 10px;
+  align-items: center
+}
+
+.initials .circle {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin: 5px;
+}
+
+.initials .circle[id="1"]{
+    background-color: #9fc4f0;
+    
+}
+
+p.fullness {
+    margin: 0;
+}
+
+.player {
+  width: calc(10% + 350px);
+  margin-right: 5px;
+  margin-top: 1em;
+}
+
+.info_team{
+  width: calc(10% + 300px);
+  margin-right: 62px;
+}
+  
+.tags,.inf_p{
+  resize: none;
+  font-size: 20;
+  padding: 5px;
+  font-family: "Noto Sans", sans-serif;
+  color: #fff;
+  background-color: #313338;
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+  border: 1px solid #000;
+  border-radius: 10px;
+  outline-color: #fff;
+}
+
+.tag p, .info p{
+  font-size: 25px;
+  font-style: bold;
+  margin-bottom: 15px;
+}
+
+.tag{ 
+  margin-bottom: 50px;
+}
+
+.tag_field{
+  display: flex;
+}
+
+.btns {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 52px;
+}
+
+.edit{
+  text-decoration: none;
+  width: 145px;
+  height: 35px;
+  color: #fff;
+  background-color: #4361EE;
+  box-shadow: 0 5px 5px rgba(0,0,0,1);
+  border-radius: 5px;
+  border: none;
+  
+}
+.edit:hover{
+  box-shadow: none;
+  box-shadow:0 0 5px #9fc4f0;
+  text-decoration: none !important;
+}
+
+.confirm{
+  text-decoration: none;
+  width: 145px;
+  height: 35px;
+  color: #fff;
+  background-color: #65c732;
+  box-shadow: 0 5px 5px rgba(0,0,0,1);
+  border-radius: 5px;
+  border: none;
+}
+.confirm:hover{
+  box-shadow: none;
+  box-shadow: 0 0 5px #65c732;
+  text-decoration: none !important;
+}
+.cancel{
+  text-decoration: none;
+  width: 100px;
+  height: 35px;
+  color: #fff;
+  background-color: #bb2929;
+  box-shadow: 0 5px 5px rgba(0,0,0,1);
+  border-radius: 5px;
+  border: none;
+  margin-right: 20px;
+}
+
+.cancel:hover{
+  box-shadow: none;
+  box-shadow:0 0 5px #bb2929;
+  text-decoration: none !important;
+}
+
+
+/* Заявки на вступление */
+
+.applic_member_teams{
+  height: 300px; 
+  overflow-y: auto; 
+  margin-bottom: 10px;
+}
+
+.applic_member .block_player {
+  margin: 20px 0px;
+  display: flex;
+  width: 430px;
+  border-left: 3px solid #9fc4f0;
+  background-color: #313338;
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.applic_member .player_icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 17px;
+}
+
+.applic_member h2{
+  font-size: 27px;
+}
+
+.applic_member .buttons{
+  display: grid;
+  margin-left: auto;
+  border-left:2px solid #9fc4f0;
+}
+
+.buttons .button_add{
+  width: 100px;;
+  text-decoration: none;
+  color: #fff;
+  background-color: transparent;
+  border-top-right-radius: 10px;
+  /* background-color: #4361EE; */
+  border: none;
+  border-bottom: 2px solid #9fc4f0;
+
+}
+
+.buttons .button_add:hover{
+  background-color: #46507e;
+  text-decoration: none !important;
+}
+
+.buttons .button_remove{
+  width: 100px;
+  text-decoration: none;
+  color: #fff;
+  background-color: transparent;
+  border-bottom-right-radius: 10px;
+
+  /* background-color: #bb2929; */
+  border: none;
+}
+
+.buttons .button_remove:hover{
+  background-color: #683e3e;
+  text-decoration: none !important;
+}
+
+/* Навыки команды */
+.skillWrapper{
+  margin-bottom: 20px;
+}
+
+.ul_list_skills{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.li_item_skills{
+  width: fit-content;
+  height: fit-content;
+  margin: 7px;
+  padding: 7px;
+  border: 2px solid #9fc4f0;
+  border-radius: 10px;
+  display: flex;
+  color: #fff;
+  margin-bottom: 3%;
+  border-radius: 10px;
+}

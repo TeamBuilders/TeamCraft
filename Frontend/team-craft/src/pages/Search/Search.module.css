@@ -1,0 +1,295 @@
+.search_page {
+  position: relative;
+  line-height: 1.4;
+  color: #000;
+  min-width: 320px;
+  overflow-x: hidden;
+  height: auto;
+  width: 100%;
+}
+.grid_container {
+  display: grid;
+  grid-template-columns: auto 1fr 3fr 1fr auto;
+  justify-items: end;
+}
+.bgcolor {
+  grid-column: 3 / 4;
+  width: 100%;
+  max-width: 900px;
+  height: min-content;
+  min-height: 120vh;
+  background-color: #1d2125;
+  margin: auto;
+  padding: 1em;
+  border-radius: 10px;
+}
+
+.description {
+  max-width: 900px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  color: #fff;
+  flex-wrap: wrap;
+}
+
+/**/
+.filter {
+  grid-column: 2 / 3;
+  height: 700px;
+  width: 230px;
+  color: #fff;
+  border: 3px solid #9fc4f0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #1d2125;
+
+}
+
+.form {
+  padding: 10px;
+}
+.checkbox_btn {
+  display: inline-block;
+  margin: 0 5px 0 0;
+  user-select: none;
+  position: relative;
+}
+.checkbox_btn input[type="checkbox"] {
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
+}
+.checkbox_btn span {
+  display: inline-block;
+  cursor: pointer;
+  padding: 0px 10px;
+  line-height: 30px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+  margin: 2px;
+  font-size: 10pt;
+}
+
+/* Checked */
+.checkbox_btn input[type="checkbox"]:checked + span {
+  background: #8be3ff;
+  color: #000;
+}
+
+/* Focus */
+.focused span {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Hover */
+.checkbox_btn:hover {
+  color: #666;
+}
+
+/* Active */
+.checkbox_btn input[type="checkbox"]:active:not(:disabled) + span {
+  background: #4361ee;
+  color: #000;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 10px; 
+}
+
+/* .btns button {
+  margin: 5px;
+} */
+.confirm {
+  background-color: #4361ee;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 55%;
+  max-width: 100px;
+  font-size: 10pt;
+  box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+}
+
+/* Определение стилей для наведения на кнопку */
+
+.confirm:hover {
+  background-color: #3349c0; /* Изменение цвета фона при наведении на кнопку */
+}
+
+/* Кнопка отмена*/
+
+.cancel {
+  background-color: #8be3ff;
+  color: black;
+  border: none;
+  padding: 7px;
+  border-radius: 4px;
+  width: 40%;
+  max-width: 180px;
+  font-size: 10pt;
+  font-weight: 400;
+  box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+}
+
+.cancel:hover {
+  background-color: #5fb8d3;
+}
+
+.search_card {
+  grid-column: 2 / 3;
+  width: 100%;
+  height: 100%;
+}
+
+.td {
+  border: 2px solid #9fc4f0;
+  border-radius: 15px;
+  max-height: 55px;
+  width: 80%;
+  padding: 1px;
+  margin: 10px;
+}
+
+.search {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background-color: #1d2125;
+  border: none;
+  padding: 10px;
+  outline: none;
+}
+
+input[type="search"] {
+  color: #fff;
+}
+
+/*Cards*/
+.cards {
+  display: flex;
+  flex-wrap: wrap;  
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  width: max-content;
+  max-width: 300px;
+  background-color: #1d2125;
+  border: 2px solid #9fc4f0;
+  border-radius: 15px;
+  padding: 1% 1%;
+  box-shadow: #000 0px 0px 5px;
+  margin:10px;
+  font-size: 8pt;
+}
+.card:hover {
+  box-shadow: #000 0px 0px 10px;
+}
+.picture {
+  width: fit-content;
+  height: fit-content;
+}
+.avatar {
+  background-image: url(../../images/team_icon.jpg);
+  background-size: 122%;
+  background-position: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%
+}
+
+.card_block {
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.card_block div {
+  margin: 5px;
+}
+
+.description2 {
+  width: max-content;
+  max-width: 190px;
+  height: min-content;
+}
+
+.description2 p {
+  margin-bottom: 5px;
+}
+.team_name {
+  width: fit-content;
+  overflow-x: ellipsis;
+  white-space: nowrap;
+}
+.team_name_text {
+  width: max-content;
+  padding: 2px 4px;
+  font-size: 20px;
+  font-family: "Noto Sans", sans-serif;
+  box-sizing: border-box; /* Учитываем границу в расчетах ширины */
+  background-color: #1d2125; /* Цвет фона полей ввода */
+  color: #fff9fc; /* Цвет текста в полях ввода */
+  border-radius: 5px; /* Скругление углов полей ввода */
+  border: 2px solid #9fc4f0;
+  font-size: 11pt;
+}
+.team_goal {
+  /* min-width: 80px; */
+
+}
+
+.team_goal_text {
+  width: fit-content;
+
+  box-sizing: border-box;
+  background-color: #1d2125;
+  color: #fff9fc;
+  border-radius: 5px;
+  max-height: 70px;
+  font-size: 8pt;
+}
+
+.team_goal_text span {
+  border-bottom: 2px solid #9fc4f0;
+}
+
+.team_stack {
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.skill {
+  height: min-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: default;
+  padding: 1px 10px;
+  line-height: 30px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+
+}
+.skill p {
+  margin: 2px;
+}
+.match {
+  color: #8be3ff;
+}

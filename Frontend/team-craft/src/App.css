@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.App{
+  font-family: 'Noto Sans', sans-serif;
+  color: #FFF9FC;
+  background-color: #131619;
+  /* background: linear-gradient( rgba(29, 33, 37, 0.53), rgba(29, 33, 37, 0.53)), url("images/bg.jpg"); */
+  /* background-image: url("images/bg.jpg");  */
+  /* background-size: 100% 1024px; */
+  /* background-repeat: no-repeat; */
+  background: url(images/bg.jpg); 
+  background-size: cover;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+
+html {
+  scrollbar-color: #9fc4f0 #1D2125;
+  scrollbar-width: 8px;
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;              
+}
+::-webkit-scrollbar-track {
+  background: #1D2125;       
+}
+::-webkit-scrollbar-thumb {
+  background-color: #9fc4f0;    
+  border-radius: 20px;       
+}
+
