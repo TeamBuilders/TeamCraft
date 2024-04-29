@@ -128,3 +128,12 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# database
+*.db
+*.db-shm
+*.db-wal
+
+#cash aspNet
+.bin/
+.obj/

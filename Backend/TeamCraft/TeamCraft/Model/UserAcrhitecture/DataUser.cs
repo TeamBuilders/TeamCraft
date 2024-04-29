@@ -1,4 +1,4 @@
-﻿using TeamCraft.FilterLogic;
+using TeamCraft.FilterLogic;
 using TeamCraft.JsonParsersClasses;
 
 namespace TeamCraft.Model.UserAcrhitecture
@@ -32,7 +32,7 @@ namespace TeamCraft.Model.UserAcrhitecture
         public DateTime? databirthday { get; set; }
         public string? gender { get; set; }
         
-
+        
         public List<CategoryHobby> hobbiesPerson { get; set; }
         public List<SkillPerson> skillsPerson { get; set; }
         public string? goalsPerson { get; set; }
