@@ -133,3 +133,7 @@ dist
 *.db
 *.db-shm
 *.db-wal
+
+#cash aspNet
+.bin/
+.obj/
