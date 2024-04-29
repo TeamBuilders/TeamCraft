@@ -1,6 +1,7 @@
-﻿using TeamCraft.DataBaseController;
+using TeamCraft.DataBaseController;
 using TeamCraft.Model.UserAcrhitecture;
 using System.Text.Json.Serialization;
+using TeamCraft.FilterLogic;
 
 namespace TeamCraft.Model.TeamsArchitecture
 {
@@ -20,6 +21,9 @@ namespace TeamCraft.Model.TeamsArchitecture
         public string teamName { get; set; }
 
         public string teamGoal { get; set; }
+
+        public List<SkillPerson> team_stack { get; set; } = new();
+
 
         public string team_lead { get; set; }
 
