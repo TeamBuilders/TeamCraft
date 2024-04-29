@@ -7,9 +7,10 @@ import axios from 'axios';
 import {Icon} from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff';
 import {eye} from 'react-icons-kit/feather/eye'
-import { API_URL } from '../../api/apiConfig';
+// import { API_URL } from '../../api/apiConfig';
+import axiosInstance from '../../api/axios';
 
-const LOGIN_URL = API_URL + '/login';
+const LOGIN_URL = '/login';
 
 export default function Login(){
 
@@ -57,7 +58,7 @@ export default function Login(){
           login: user,
           password: pwd,
         });
-        const response = await axios.post(LOGIN_URL, jsonData, {
+        const response = await axiosInstance.post(LOGIN_URL, jsonData, {
           headers: { "Content-Type": "application/json" },
         });
 

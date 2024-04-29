@@ -1,5 +1,10 @@
 import axios from 'axios';
 
-export default axios.create({
-    baseURL: 'localhost:3000'
+
+const axiosInstance = axios.create({
+    baseURL: 'http://artefomak-001-site1.ftempurl.com/api'
 })
+
+axiosInstance.defaults.headers.common['Authorization'] = 'Basic ' + btoa('11174512:60-dayfreetrial'); 
+
+export default axiosInstance;

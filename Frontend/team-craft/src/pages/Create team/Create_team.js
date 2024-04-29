@@ -3,9 +3,10 @@ import styles from "./Create_team.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import PopUp_hobby from '../../components/PopUp_Team/PopUp_hobby/PopUp_hobby';
-import { API_URL } from '../../api/apiConfig';
+// import { API_URL } from '../../api/apiConfig';
+import axiosInstance from '../../api/axios';
 
-const CREATE_TEAM_URL = API_URL + '/teams/create';
+const CREATE_TEAM_URL = '/teams/create';
 const CreateTeamForm = () => {
   const navigate = useNavigate();
   const [teamName, setTeamName] = useState("");
@@ -85,7 +86,7 @@ const CreateTeamForm = () => {
 
     
     try {
-      const response = await axios.post(CREATE_TEAM_URL, jsonData, {
+      const response = await axiosInstance.post(CREATE_TEAM_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
         withCredentials: false,
       });

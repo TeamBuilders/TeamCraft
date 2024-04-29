@@ -3,11 +3,12 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import styles from "../Search/Search.module.css";
 import axios from "axios";
-import { API_URL } from "../../api/apiConfig";
+// import { API_URL } from "../../api/apiConfig";
+import axiosInstance from "../../api/axios";
 
-const TEAMS_URL = API_URL + "/teams";
-const FILTER_URL = API_URL + "/teams/filter";
-const SKILL_URL = API_URL + "/skill/1";
+const TEAMS_URL = "/teams";
+const FILTER_URL = "/teams/filter";
+const SKILL_URL = "/skill/1";
 
 export default function Search() {
 const [teams, setTeams] = useState([]);
@@ -38,7 +39,7 @@ const [teams, setTeams] = useState([]);
       const jsonData = JSON.stringify(selectedSkills);
       console.log("Запрос: ", jsonData);
 
-      const response = await axios.post(FILTER_URL, jsonData, {
+      const response = await axiosInstance.post(FILTER_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -54,12 +55,12 @@ const [teams, setTeams] = useState([]);
     }
   };
   const takeTeams = async () => {
-    const response = await axios.get(TEAMS_URL);
+    const response = await axiosInstance.get(TEAMS_URL);
     return response.data;
   };
 
   const takeSkills = async () => {
-    const response = await axios.get(SKILL_URL);
+    const response = await axiosInstance.get(SKILL_URL);
     return response.data;
   };
 
