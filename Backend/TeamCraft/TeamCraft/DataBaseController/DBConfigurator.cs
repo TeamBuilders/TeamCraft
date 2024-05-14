@@ -4,12 +4,15 @@ using TeamCraft.Model.UserAcrhitecture;
 using TeamCraft.FilterLogic;
 using System.Reflection.Emit;
 using TeamCraft.JwtData;
-
+using TeamCraft.Model.Posts;
 
 namespace TeamCraft.DataBaseController
 {
     public class DBConfigurator : DbContext
     {
+        public DbSet<HackathonPost> HackathonPosts { get; set; } = null!;
+        public DbSet<PostsTags> Tags { get; set; } = null!;
+        public DbSet<PostTag> PostTags { get; set; } = null!;
         public DbSet<DataUser> dataUser { get; set; } = null!;
         public DbSet<AccountUser> accountsUser { get; set; } = null!;
         public DbSet<SettingsProfileUser> settingsProfileUser { get; set; } = null!;
@@ -90,6 +93,17 @@ namespace TeamCraft.DataBaseController
                 new SkillPerson(30,"Барабаны", listHobbies[1],2),
                 new SkillPerson(31,"Электронника", listHobbies[1],2)
             };
+
+            modelBuilder.Entity<HackathonPost>()
+         .Property(p => p.Id)
+         .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<PostTag>()
+        .HasKey(pt => new { pt.HackathonPostId, pt.PostsTagsId });
+
+            /*modelBuilder.Entity<HackathonPost>()
+            .HasMany(p => p.Tags)
+            .WithMany();*/
 
             modelBuilder.Entity<CategoryHobby>().HasData(listHobbies);
 
