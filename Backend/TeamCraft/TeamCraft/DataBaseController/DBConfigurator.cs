@@ -27,16 +27,16 @@ namespace TeamCraft.DataBaseController
            // Database.EnsureDeleted();
             Database.EnsureCreated();   // создаем базу данных при первом обращени
 
-            CategoryHobby[] listHobbies = new CategoryHobby[]
-            {       new CategoryHobby("Разработка"),
-                    new CategoryHobby("Музыка"),
-                    new CategoryHobby("Анимации"),
-                    new CategoryHobby("Гейминг"),
-                    new CategoryHobby("Социальные развлечения"),
-                    new CategoryHobby("Научные разработки"),
-                    new CategoryHobby("Активный отдых")
-            };
-            this.categoryHobbies.AddRange(listHobbies);
+            //CategoryHobby[] listHobbies = new CategoryHobby[]
+            //{       new CategoryHobby("Разработка"),
+            //        new CategoryHobby("Музыка"),
+            //        new CategoryHobby("Анимации"),
+            //        new CategoryHobby("Гейминг"),
+            //        new CategoryHobby("Социальные развлечения"),
+            //        new CategoryHobby("Научные разработки"),
+            //        new CategoryHobby("Активный отдых")
+            //};
+            //this.categoryHobbies.AddRange(listHobbies);
 
 
         }

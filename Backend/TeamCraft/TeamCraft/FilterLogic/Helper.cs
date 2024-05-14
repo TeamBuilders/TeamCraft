@@ -1,5 +1,9 @@
-﻿using System.Security.Cryptography;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
+using TeamCraft.DataBaseController;
+using TeamCraft.Model.UserAcrhitecture;
 
 namespace TeamCraft.FilterLogic
 {
@@ -70,6 +74,17 @@ namespace TeamCraft.FilterLogic
                     return true;
 
             return false;
+        } 
+
+        static public AccountUser? FindUserFromClaim(IEnumerable<Claim> claim, DBConfigurator db)
+        {
+            if(claim.Count() > 0)
+            {
+                string loginUser = claim.ToArray()[0].Type;
+                return db.accountsUser.Include(x => x.dataUser).Include(x => x.settingsUser).FirstOrDefault(item => item.settingsUser.login == loginUser);
+            }
+
+            return null;
         }
     }
 }
