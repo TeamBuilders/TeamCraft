@@ -9,12 +9,15 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import styles from "./Signup.module.css";
 import axios from "../../api/axios";
-import { API_URL } from '../../api/apiConfig';
+// import { API_URL } from '../../api/apiConfig';
+import axiosInstance from '../../api/axios';
+
+
 const USER_REGEX = /^[a-zA-Zа-яА-Я0-9-_]{6,16}$/;
 const PWD_REGEX =
   /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,24}$/;
 const NAME_REGEX = /^[a-zA-Zа-яА-Я]{2,16}$/;
-const REGISTER_URL = API_URL + '/register';
+const REGISTER_URL = '/register';
 
 const Signup = () => {
   const [login, setLogin] = useState("");
@@ -97,9 +100,8 @@ const Signup = () => {
         contact: user_contacts,
       });
       console.log(jsonData);
-      const response = await axios.post(REGISTER_URL, jsonData, {
+      const response = await axiosInstance.post(REGISTER_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
-        withCredentials: false,
       });
       navigate("/login");
       
@@ -117,7 +119,6 @@ const Signup = () => {
 
       // setErrMsg(err.response?.data.message);
       console.log(err);
-      console.log(" почты " + email + " не существует ");
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {

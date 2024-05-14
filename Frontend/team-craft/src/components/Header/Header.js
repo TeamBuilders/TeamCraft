@@ -12,8 +12,9 @@ function Header() {
             <div className={styles.header_text}>
                 <Link to="/" className={styles.h_text1}>TeamCraft</Link>
                 <ul className={styles.navbar_menu}>
-                    <li><Link to={isAuth ? "/search" : "/login" }  className={styles.h_text2} href="#">Найти команду</Link></li>
-                    <li><Link to={isAuth ? "/create_team" : "/login" } className={styles.h_text2} href="#">Создать команду</Link></li>
+                  {/* Поменял здесь проверку на isAuth, чтобы можно */}
+                    <li><Link to={true ? "/search" : "/login" }  className={styles.h_text2} href="#">Найти команду</Link></li>
+                    <li><Link to={true ? "/create_team" : "/login" } className={styles.h_text2} href="#">Создать команду</Link></li>
                     <li><Link to=""className={styles.h_text2} href="#">Блог</Link></li>
                 </ul>
              </div>

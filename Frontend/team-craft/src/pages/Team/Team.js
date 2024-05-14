@@ -4,9 +4,10 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
-import { API_URL } from '../../api/apiConfig';
+// import { API_URL } from '../../api/apiConfig';
+import axiosInstance from '../../api/axios';
 
-const EDIT_URL = API_URL + '/teams/edit';
+const EDIT_URL = '/teams/edit';
 
 export default function Team(){
     const navigate = useNavigate();
@@ -95,7 +96,7 @@ export default function Team(){
             localStorage.setItem("teamGoal", teamGoal);
             localStorage.setItem("MemberTeam", teamMembers);
             try {
-              const response = await axios.post(EDIT_URL, jsonData, {
+              const response = await axiosInstance.post(EDIT_URL, jsonData, {
                 headers: { "Content-Type": "application/json" },
               });
         

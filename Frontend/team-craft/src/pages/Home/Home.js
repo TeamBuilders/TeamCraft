@@ -2,8 +2,8 @@ import {React, useRef, useEffect, useState} from 'react';
 import styles from './Home.module.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-
 import { Link } from "react-router-dom";
+
 function Home() {
   const targetRefs = useRef([]); // Массив для хранения ссылок на целевые элементы
   const [visibilityStates, setVisibilityStates] = useState([]);

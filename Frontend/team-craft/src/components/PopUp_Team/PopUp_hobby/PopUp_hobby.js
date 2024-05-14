@@ -4,9 +4,10 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import PopUp_skill from '../PopUp_skill/PopUp_skill';
 import axios from 'axios';
-import { API_URL } from '../../../api/apiConfig';
+// import { API_URL } from '../../../api/apiConfig';
+import axiosInstance from '../../../api/axios';
 
-const HOBBY_URL = API_URL + '/hobby';
+const HOBBY_URL = '/hobby';
 
 
 export default function PopUp_hobbies({onClose}) {
@@ -16,7 +17,7 @@ export default function PopUp_hobbies({onClose}) {
 
     
     const handleSubmit = async () => {
-        axios.get(HOBBY_URL)
+        axiosInstance.get(HOBBY_URL)
         .then((response) => {
             setHobby(response.data);
         })    

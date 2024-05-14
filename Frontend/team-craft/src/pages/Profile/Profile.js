@@ -8,9 +8,9 @@ import { Link } from 'react-router-dom'; // Предполагается, что
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PopUp_hobbies from '../../components/PopUp/PopUp_hobbies/PopUp_hobbies';
-import { API_URL } from '../../api/apiConfig';
+// import { API_URL } from '../../api/apiConfig';
+// import axiosInstance from '../../api/axios';
 
-const TOKEN_URL = API_URL + '/data';
 
 export default function Account() {
 
