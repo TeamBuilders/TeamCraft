@@ -278,7 +278,7 @@ app.MapGet("/api/profiles/", async delegate (HttpContext context, DBConfigurator
     return data;
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
 
-app.MapPost("/api/profiles/filter", async delegate (HttpContext context, DBConfigurator db)
+app.MapGet("/api/profiles/filter", async delegate (HttpContext context, DBConfigurator db)
 {
     List<SkillPerson> skillsJson = await context.Request.ReadFromJsonAsync<List<SkillPerson>>();
 
@@ -384,7 +384,7 @@ app.MapPut("/api/teams/edit",  async  delegate  (HttpContext context, DBConfigur
 
     context.Response.StatusCode = requestStatusInput.statusCode;
     return JsonConvert.SerializeObject(requestStatusInput);
-}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
 app.MapPut("/api/team/require/{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idTeam)
 {
