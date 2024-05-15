@@ -17,6 +17,25 @@ using System.Security.Claims;
 using TeamCraft.Model.TeamsArchitecture;
 
 
+//след m1kraze
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http.Json;
+using Microsoft.AspNetCore.Mvc;
+//using Azure;
+using System.Linq;
+using TeamCraft.Model.Posts;
+using Microsoft.Extensions.Hosting;
+
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
@@ -31,6 +50,7 @@ builder.Services.AddCors(options =>
 
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+
 
 builder.Services.AddDbContext<DBConfigurator>(options => options.UseSqlite(connection));
 
@@ -420,6 +440,73 @@ app.MapPost("/api/teams/filter", async delegate (HttpContext context, DBConfigur
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
 
 
+
+app.MapPost("/api/hackathons/all", async delegate (HttpContext context, DBConfigurator db)
+{
+    // Получаем список постов прямо из базы данных
+    IList<HackathonPost> posts = await db.HackathonPosts.Include(post => post.PostTags).ToListAsync();
+
+    var configuration = context.RequestServices.GetRequiredService<IConfiguration>();
+    // Добавляем URL изображения для каждого поста
+    foreach (var post in posts)
+    {
+        post.ImageUrl = $"{configuration["BaseUrl"]}/api/hackathons/image/{post.Id}";
+    }
+
+    return Results.Ok(posts); // Возвращаем список постов
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
+
+
+
+
+app.MapGet("/api/hackathons/image/{id}", async (int id, DBConfigurator db) =>
+{
+    var post = db.HackathonPosts.FirstOrDefault(p => p.Id == id);
+    if (post != null && !string.IsNullOrEmpty(post.ImageBase64))
+    {
+        byte[] imageBytes = Convert.FromBase64String(post.ImageBase64);
+        return Results.File(imageBytes, "image/png");
+    }
+    else
+    {
+        return Results.NotFound();
+    }
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
+
+
 app.MapGet("/api/data", [Authorize] (HttpContext context) => $"Successfully!").RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()); ;
 
+
+Func<DBConfigurator> dbContextFactory = () =>
+{
+    var optionsBuilder = new DbContextOptionsBuilder<DBConfigurator>();
+    optionsBuilder.UseSqlite(connection);
+
+    return new DBConfigurator(optionsBuilder.Options);
+};
+
+// Сначала вызываем UpdateDatabase один раз
+await Helper.UpdateDatabase(dbContextFactory);
+
+// Затем настраиваем таймер для вызова UpdateDatabase каждый час
+var timer = new System.Timers.Timer(3600000); // Установка интервала в 1 час (3600000 миллисекунд)
+timer.Elapsed += async (sender, e) => await Helper.UpdateDatabase(dbContextFactory);
+timer.Start();
+
+
+/*string pathRussian = @"FilterLogic\words.txt";
+string pathEnglish = @"FilterLogic\bad_words.txt";
+
+var badWordsRussian = File.ReadAllLines(pathRussian);
+var badWordsEnglish = File.ReadAllLines(pathEnglish);
+var badWords = badWordsRussian.Concat(badWordsEnglish).ToArray();
+
+string sentence = "ааа помогииитее аборт"; 
+
+bool isClean = Helper.CheckSentence(sentence, badWords);
+Console.WriteLine(isClean ? "В предложении нет нецензурных слов" : "В предложении есть нецензурные слова");*/
+
+
 app.Run();
+
+

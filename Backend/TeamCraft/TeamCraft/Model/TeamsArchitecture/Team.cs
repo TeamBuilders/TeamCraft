@@ -24,15 +24,12 @@ namespace TeamCraft.Model.TeamsArchitecture
 
         public List<SkillPerson> team_stack { get; set; } = new();
 
-
-        public string team_lead { get; set; }
-
         public string? teamDescription { get; set; }
 
 
         public List<MemberTeam>? MemberTeam { get; set; } = new();
 
-        public List<MemberTeam>? Jion_means { get; set; } = new();
+        public List<DataUser>? Jion_means { get; set; } = new();
 
         public void AddPersonInTeam(MemberTeam user)
         {

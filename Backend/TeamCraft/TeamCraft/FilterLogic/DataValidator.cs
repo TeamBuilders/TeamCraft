@@ -5,6 +5,8 @@ using TeamCraft.Model.UserAcrhitecture;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
+using TeamCraft.Model.TeamsArchitecture;
+using System.Diagnostics.Tracing;
 namespace TeamCraft.FilterLogic
 {
     public static class DataValidator
@@ -23,7 +25,7 @@ namespace TeamCraft.FilterLogic
             }
             if(unverifiedUser.gender == null || unverifiedUser.sureName == null || unverifiedUser.name == null ||
                 unverifiedUser.birthday == null || unverifiedUser.contact == null || unverifiedUser.login == null
-                || unverifiedUser.password == null|| unverifiedUser.email== null) 
+                || unverifiedUser.password == null) 
             {
                 
                 result.SetBadStatus();
@@ -34,6 +36,7 @@ namespace TeamCraft.FilterLogic
             {
                 result.message.Add("Inccorect login user. Size or have special symbols");
             }
+            
             if(!Helper.CheckPasswordRequest(unverifiedUser.password))
             {
                 result.message.Add("Inccorect password: length, no number or special symbols");
@@ -58,14 +61,7 @@ namespace TeamCraft.FilterLogic
             {
                 result.SetBadStatus();
             }
-            if(Regex.IsMatch(unverifiedUser.email,@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")==false)
-            {
-                result.message.Add($" почты {unverifiedUser.email} не существует ");
-            }
-
-
-
-
+            
             return result;
         }
         static public RequestStatus CheckCorrectLoginData(LoginForm? loginForm, DBConfigurator db)
@@ -79,7 +75,7 @@ namespace TeamCraft.FilterLogic
             }
             string pass = Helper.ComputeSHA512(loginForm.password);
             var users = db.accountsUser.Include(item => item.dataUser).Include(item => item.settingsUser).ToList();
-            AccountUser? account = db.accountsUser.Include(item => item.dataUser).Include(item => item.settingsUser).FirstOrDefault(users => users.settingsUser.hashPassword == Helper.ComputeSHA512(loginForm.password));
+            AccountUser? account = db.accountsUser.Include(item => item.dataUser).Include(item => item.settingsUser).FirstOrDefault(users => users.settingsUser.hashPassword == Helper.ComputeSHA512(loginForm.password) && users.settingsUser.login == loginForm.login);
             if (account == null || account.settingsUser.login != loginForm.login) 
             {
                 result.SetBadStatus();
@@ -87,6 +83,79 @@ namespace TeamCraft.FilterLogic
                 return result;
             }
             result.message.Add("Correct data");
+            return result;
+        }
+        static public RequestStatus CheckCorrectTeamData(Team? inputTeam, DBConfigurator db) 
+        {
+            var result = new RequestStatus();
+
+            if(inputTeam == null)
+            {
+                result.SetBadStatus();
+                result.message.Add("Team = null");
+                return result;
+            }
+            if (inputTeam.teamName.Length < 4)
+            {
+                result.message.Add("Inccorect name team: null or too short");
+            }
+            if(inputTeam.teamGoal.Length == 0)
+            {
+                result.message.Add("Inccorect team goal");
+            }
+            if(inputTeam.team_stack.Count == 0) 
+            {
+                result.message.Add("empty team stack");
+            }
+            if (db.Teams.FirstOrDefault(team => team.teamName == inputTeam.teamName) != null)
+            {
+                result.message.Add("Такое имя команды уже есть");
+            }
+            if (result.message.Count > 0)
+            {
+                result.SetBadStatus();
+            }
+
+            return result;
+        }
+
+        static public RequestStatus CheckCorrectAccountUserData(AccountUser user, DBConfigurator db) 
+        {
+            var result = new RequestStatus();
+
+            var data = user.dataUser;
+
+            if (data == null)
+            {
+                result.SetBadStatus();
+                result.message.Add("User = null");
+                return result;
+            }
+            if (data.gender == null || data.sureName == null || data.name == null ||
+                data.databirthday == null || data.urlContact == null)
+            {
+
+                result.SetBadStatus();
+                result.message.Add("Not all required fields are filled in!");
+                return result;
+            }
+            if (!data.name.All(symbols => !specSymbols.Contains(symbols)) || !data.name.All(symbols => !numbers.Contains(symbols)) || data.name.Length < 2 || data.name.Length > 16)
+            {
+                result.message.Add("Inccorect name user. Size or have special symbols or numbers");
+            }
+            if (!data.sureName.All(symbols => !specSymbols.Contains(symbols)) || !data.sureName.All(symbols => !numbers.Contains(symbols)) || data.sureName.Length < 2 || data.sureName.Length > 16)
+            {
+                result.message.Add("Inccorect surname user. Size or have special symbols or numbers");
+            }
+            if (Helper.CalculateAgePerson(data.databirthday) > 99 || Helper.CalculateAgePerson(data.databirthday) < 12)
+            {
+                result.message.Add("Юзер либо еще не родился, либо уже умер, в любом случае все по новой");
+            }
+            if (result.message.Count > 0)
+            {
+                result.SetBadStatus();
+            }
+
             return result;
         }
     }

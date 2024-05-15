@@ -24,7 +24,7 @@ namespace TeamCraft.Model.UserAcrhitecture
         public int id { get; set; }
         public string login { get; set; }
 
-        public string email { get; set; }
+        public string? email { get; set; }
 
         public int rest {  get; set; }
 
