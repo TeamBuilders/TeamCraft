@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styles from "./Create_team.module.css";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
-import PopUp_hobby from '../../components/PopUp_Team/PopUp_hobby/PopUp_hobby';
+import PopUp_hobby from "../../components/PopUp_Team/PopUp_hobby/PopUp_hobby";
 // import { API_URL } from '../../api/apiConfig';
-import axiosInstance from '../../api/axios';
+import axiosInstance from "../../api/axios";
 
-const CREATE_TEAM_URL = '/teams/create';
+const CREATE_TEAM_URL = "/teams/create";
 const CreateTeamForm = () => {
   const navigate = useNavigate();
   const [teamName, setTeamName] = useState("");
@@ -54,14 +54,8 @@ const CreateTeamForm = () => {
     // Формируем объект для team_lead на основе значения user
 
     const user = JSON.parse(localStorage.getItem("user"));
-    const team_lead = user;
     const userData = JSON.parse(localStorage.getItem("userData"));
-    const MemberTeam = [
-      {
-        dataMemberUser: userData, 
-        roleMember: "Тимлид",
-      },
-    ];
+
     console.log("userData: ", userData);
 
     // Формируем итоговый объект JSON
@@ -69,35 +63,38 @@ const CreateTeamForm = () => {
       teamName: teamName,
       teamGoal: teamGoal,
       team_stack: teamStack,
-      team_lead: team_lead,
-      teamDescription: teamDescription,
-      memberTeam: MemberTeam,
+      teamDescription: teamDescription, // необязательное поле
     });
     console.log("jsonData: ", jsonData);
-    
-    //Команда не создается потому,что в jsonData -> dataMemberUser -> skillsPerson должен быть массивом а не словарем
 
-    localStorage.setItem("teamName", teamName);
-    localStorage.setItem("teamGoal", teamGoal);
-    localStorage.setItem("teamDescription", teamDescription);
-    localStorage.setItem("MemberTeam", JSON.stringify(MemberTeam));
-    localStorage.setItem("team_stack", JSON.stringify(teamStack));
-
-
-    
     try {
+      const jwtToken = localStorage.getItem("token");
+      console.log(jwtToken);
       const response = await axiosInstance.post(CREATE_TEAM_URL, jsonData, {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: false,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwtToken}`,
+        },
       });
 
       if (response.status === 200) {
+        // Преобразование объекта в JSON
+        const data = response.data;
+
         console.log("Сохранено");
-        navigate("/team/" + teamName);
+        console.log(data);
+
+        localStorage.setItem("teamName", data.teamName);
+        localStorage.setItem("teamGoal", data.teamGoal);
+        localStorage.setItem("teamDescription", data.teamDescription);
+        localStorage.setItem("MemberTeam", JSON.stringify(data.MemberTeam));
+        localStorage.setItem("team_stack", JSON.stringify(data.team_stack));
+
+        navigate("/team/" + data.teamName);
       }
     } catch (err) {
       console.error("Ошибка при отправке запроса:", err);
-
+      console.log(err.response.data.message);
       if (err.response) {
         if (err.response.status === 502) {
           if (err.response.data.message[0] === "Bad Gateway") {
@@ -113,8 +110,8 @@ const CreateTeamForm = () => {
   };
 
   const toggleModal = () => {
-    const prevTeamStack = JSON.parse(localStorage.getItem('team_stack'));
-    const newTeamStack = prevTeamStack.map(item => JSON.parse(item));
+    const prevTeamStack = JSON.parse(localStorage.getItem("team_stack"));
+    const newTeamStack = prevTeamStack.map((item) => JSON.parse(item));
     setTeamStack(newTeamStack);
   };
 
@@ -153,12 +150,16 @@ const CreateTeamForm = () => {
             </div>
             <div className={styles.field}>
               <label htmlFor="teamGoal">Навыки команды:</label>
-              
-              <PopUp_hobby onClose={toggleModal}/>
+
+              <PopUp_hobby onClose={toggleModal} />
               <ul className={styles.ul_list}>
-                {teamStack && teamStack.length > 0 && teamStack.map((skill, index) => (
-                  <li className={styles.li_item} key={index}>{skill.nameSkill}</li>
-                ))}
+                {teamStack &&
+                  teamStack.length > 0 &&
+                  teamStack.map((skill, index) => (
+                    <li className={styles.li_item} key={index}>
+                      {skill.nameSkill}
+                    </li>
+                  ))}
               </ul>
             </div>
             {/* <div className={styles.field}>

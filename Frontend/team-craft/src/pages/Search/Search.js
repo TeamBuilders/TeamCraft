@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import styles from "../Search/Search.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 // import { API_URL } from "../../api/apiConfig";
 import axiosInstance from "../../api/axios";
 
@@ -11,6 +12,7 @@ const FILTER_URL = "/teams/filter";
 const SKILL_URL = "/skill/1";
 
 export default function Search() {
+  const navigate = useNavigate();
 const [teams, setTeams] = useState([]);
 
 
@@ -152,7 +154,7 @@ const [teams, setTeams] = useState([]);
           <div className={styles.search_card}>
             <div className={styles.cards}>
             {foundTeams.map((team, index) => (
-              <div key={index} className={styles.card}>
+              <div key={index} className={styles.card} onClick={() => navigate(`/team/${team.id}`, { state: { team } })}>
                 <div style={{ width: "min-content" }}>
                   <div className={styles.card_block}>
                     <div className={styles.picture}>

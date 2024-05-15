@@ -193,11 +193,13 @@ input[type="search"] {
   font-size: 8pt;
 }
 .card:hover {
-  box-shadow: #000 0px 0px 10px;
+  box-shadow: #000 0px 0px 20px;
 }
 .picture {
   width: fit-content;
   height: fit-content;
+  user-select: none; /* Запрещаем выделение текста */
+
 }
 .avatar {
   background-image: url(../../images/team_icon.jpg);
@@ -205,7 +207,8 @@ input[type="search"] {
   background-position: center;
   width: 80px;
   height: 80px;
-  border-radius: 100%
+  border-radius: 100%;
+
 }
 
 .card_block {
@@ -243,6 +246,8 @@ input[type="search"] {
   border-radius: 5px; /* Скругление углов полей ввода */
   border: 2px solid #9fc4f0;
   font-size: 11pt;
+  user-select: none; /* Запрещаем выделение текста */
+  cursor: default; /* Устанавливаем стандартный курсор */
 }
 .team_goal {
   /* min-width: 80px; */
@@ -258,6 +263,8 @@ input[type="search"] {
   border-radius: 5px;
   max-height: 70px;
   font-size: 8pt;
+  user-select: none; /* Запрещаем выделение текста */
+  cursor: default; /* Устанавливаем стандартный курсор */
 }
 
 .team_goal_text span {
