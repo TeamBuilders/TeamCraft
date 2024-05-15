@@ -256,8 +256,8 @@ app.MapPut("/api/profile/", async delegate (HttpContext context, DBConfigurator 
     try
     {
         accountJwt.dataUser =accountUserJson.dataUser;
-        accountUserJson.settingsUser.isHiddeInResearch = accountUserJson.settingsUser.isHiddeInResearch;
-        accountUserJson.settingsUser.isHiddenData = accountUserJson.settingsUser.isHiddenData;
+        accountJwt.settingsUser.isHiddeInResearch = accountUserJson.settingsUser.isHiddeInResearch;
+        accountJwt.settingsUser.isHiddenData = accountUserJson.settingsUser.isHiddenData;
         await db.SaveChangesAsync();
         return JsonConvert.SerializeObject(accountJwt);
     }
@@ -273,10 +273,10 @@ app.MapGet("/api/profiles/", async delegate (HttpContext context, DBConfigurator
 {
     List<AccountUser> accountUsers = db.accountsUser.Include(account => account.settingsUser).Include(account => account.dataUser).ThenInclude(data => data.skillsPerson).ToList();
 
-    List<DataUser> data = accountUsers.Where(account => !account.settingsUser.isHiddeInResearch || !account.dataUser.inTeam).Select(accout => accout.dataUser).ToList();
+    List<DataUser> data = accountUsers.Where(account => !(account.settingsUser.isHiddeInResearch || account.dataUser.inTeam)).Select(accout => accout.dataUser).ToList();
 
     return data;
-});
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
 
 app.MapPost("/api/profiles/filter", async delegate (HttpContext context, DBConfigurator db)
 {
@@ -287,7 +287,7 @@ app.MapPost("/api/profiles/filter", async delegate (HttpContext context, DBConfi
 
     List<AccountUser> accountUsers = db.accountsUser.Include(account => account.settingsUser).Include(account => account.dataUser).ThenInclude(data => data.skillsPerson).ToList();
 
-    List<DataUser> data = accountUsers.Where(account => !account.settingsUser.isHiddeInResearch || !account.dataUser.inTeam).Select(accout => accout.dataUser).ToList();
+    List<DataUser> data = accountUsers.Where(account => !(account.settingsUser.isHiddeInResearch || account.dataUser.inTeam)).Select(accout => accout.dataUser).ToList();
 
     return data.Where(dataUser => skillsJson.All(x => dataUser.skillsPerson.Contains(x))).ToList();
 
@@ -354,6 +354,13 @@ app.MapPut("/api/teams/edit",  async  delegate  (HttpContext context, DBConfigur
 
     Team team = await context.Request.ReadFromJsonAsync<Team>();
     RequestStatus requestStatusInput = DataValidator.CheckCorrectTeamData(team, db);
+    AccountUser? owner = Helper.FindUserFromClaim(context.User.Claims, db);
+
+    if(owner == null || owner.dataUserId != team.MemberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId)
+    {
+        context.Response.StatusCode = 403;
+        return JsonConvert.SerializeObject("Не найден владелец или нет прав");
+    }
 
     if (requestStatusInput.statusCode == 200)
     {
@@ -670,4 +677,3 @@ app.MapPost("/api/hackathons/update", async delegate (HttpContext context, DBCon
 
 
 app.Run();
->>>>>>> 7178504057275cc6693114ffaeb2ad4dbc4e9673
