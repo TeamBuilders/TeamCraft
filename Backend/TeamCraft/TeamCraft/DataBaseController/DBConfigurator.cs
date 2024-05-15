@@ -5,11 +5,15 @@ using TeamCraft.FilterLogic;
 using System.Reflection.Emit;
 using TeamCraft.JwtData;
 using TeamCraft.Model.Posts;
+using Microsoft.Extensions.Configuration;
 
 namespace TeamCraft.DataBaseController
 {
     public class DBConfigurator : DbContext
     {
+        
+
+
         public DbSet<HackathonPost> HackathonPosts { get; set; } = null!;
         public DbSet<PostsTags> Tags { get; set; } = null!;
         public DbSet<PostTag> PostTags { get; set; } = null!;
@@ -30,16 +34,16 @@ namespace TeamCraft.DataBaseController
            // Database.EnsureDeleted();
             Database.EnsureCreated();   // создаем базу данных при первом обращени
 
-            //CategoryHobby[] listHobbies = new CategoryHobby[]
-            //{       new CategoryHobby("Разработка"),
-            //        new CategoryHobby("Музыка"),
-            //        new CategoryHobby("Анимации"),
-            //        new CategoryHobby("Гейминг"),
-            //        new CategoryHobby("Социальные развлечения"),
-            //        new CategoryHobby("Научные разработки"),
-            //        new CategoryHobby("Активный отдых")
-            //};
-            //this.categoryHobbies.AddRange(listHobbies);
+            CategoryHobby[] listHobbies = new CategoryHobby[]
+            {       new CategoryHobby("Разработка"),
+                    new CategoryHobby("Музыка"),
+                    new CategoryHobby("Анимации"),
+                    new CategoryHobby("Гейминг"),
+                    new CategoryHobby("Социальные развлечения"),
+                    new CategoryHobby("Научные разработки"),
+                    new CategoryHobby("Активный отдых")
+            };
+            this.categoryHobbies.AddRange(listHobbies);
 
 
         }
