@@ -72,6 +72,7 @@ const [teams, setTeams] = useState([]);
             const teamsData = await takeTeams();
             setTeams(teamsData);
             setFoundTeams(teamsData);
+            console.log(teamsData);
 
             const dataSkills = await takeSkills();
             setListSkills(dataSkills);

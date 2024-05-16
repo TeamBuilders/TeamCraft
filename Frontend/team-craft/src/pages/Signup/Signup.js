@@ -107,7 +107,7 @@ const Signup = () => {
       
       // successful addition
     } catch (err) {
-      console.log(err.response?.data.message);
+      console.log(err.response?.data);
       // "User = null"
       // "Not all required fields are filled in!"
       // "Inccorect login user. Size or have special symbols"
@@ -122,6 +122,7 @@ const Signup = () => {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
+        console.log(err.response?.data);
         for (let i = 0; i < err.response?.data.message.length; i++) {
           const msg = err.response?.data.message[i];
           if (

@@ -87,7 +87,7 @@ const CreateTeamForm = () => {
         localStorage.setItem("teamName", data.teamName);
         localStorage.setItem("teamGoal", data.teamGoal);
         localStorage.setItem("teamDescription", data.teamDescription);
-        localStorage.setItem("MemberTeam", JSON.stringify(data.MemberTeam));
+        localStorage.setItem("MemberTeam", JSON.stringify(data.memberTeam));
         localStorage.setItem("team_stack", JSON.stringify(data.team_stack));
 
         navigate("/team/" + data.teamName);

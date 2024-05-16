@@ -9,6 +9,9 @@ import axiosInstance from "../../api/axios";
 
 const EDIT_URL = "/teams/edit";
 const REQUIRE_URL = "/team/require/";
+const ACCEPT_URL = "/team/acceptRequire/";
+const DECLINE_URL = "/team/decline/";
+
 export default function Team() {
   const navigate = useNavigate();
 
@@ -25,12 +28,14 @@ export default function Team() {
   const [teamMembers, setTeamMembers] = useState(
     localStorage.getItem("MemberTeam") || []
   );
+  console.log("teamMembers: ");
+  console.log(teamMembers);
   const [teamSkills, setTeamSkills] = useState(
     localStorage.getItem("team_stack") || []
   );
 
   const location = useLocation();
-  const team = location.state?.team;
+  const [team, setTeam] = useState(location.state?.team);
 
   // useEffect(() => {
   //   if (team) {
@@ -48,7 +53,10 @@ export default function Team() {
     }
     if (team) {
       const userId = JSON.parse(localStorage.getItem("userData")).Id;
-      console.log("Эта часть работает, айди: " + userId);
+      console.log("Проверка на наличие в команде, айди пользователя: " + userId);
+      console.log("Пользователь:");
+      console.log(JSON.parse(localStorage.getItem("userData")));
+
       return team.memberTeam.some(
         (member) => member.dataMemberUserId === parseInt(userId)
       );
@@ -59,46 +67,61 @@ export default function Team() {
     if (team == undefined) {
       return false;
     }
-    if (team) {
+    if (team && team?.jion_means) {
       const userId = JSON.parse(localStorage.getItem("userData")).Id;
       console.log("Эта часть JIONMEANS работает, айди: " + userId);
-      console.log(team.jion_means);
+      console.log(team?.jion_means);
       return team.jion_means.some(
-        (member) => member.id === parseInt(userId)
+        (member) => member.Id === parseInt(userId)
       );
     }
   };
+  const checkIfUserIsUPMember = (team) => {
+    if (!team || !team.memberTeam) {
+        return false;
+    }
+    
+    const userId = JSON.parse(localStorage.getItem("userData")).Id;
+    
+    return team.memberTeam.some(
+        (member) => member.dataMemberUserId === parseInt(userId) && member.roleMember !== 0
+    );
+};
+
 
 
   const [canApply, setCanApply] = useState(
     team !== null &&
       team !== undefined &&
-      team.memberTeam &&
+      team?.memberTeam &&
       !checkIfUserIsMember(team)
   );
-
+  console.log("Проверка на наличие в команде: " + checkIfUserIsMember(team));
+  console.log("Проверка на наличие в команде админов: " + checkIfUserIsUPMember(team));
+  console.log("Проверка на наличие в списке заявок: " + checkIfUserInJion(team));
   console.log("canApply: " + canApply);
   console.log("team: ");
   console.log(team);
-  console.log(team.memberTeam);
-  console.log(canApply);
+  console.log("team?.memberTeam: ");
+  console.log(team?.memberTeam);
 
   const [errMsg, setErrMsg] = useState("");
   const [error, setError] = useState("");
 
   const [ApplySubmit, setApplySubmit] = useState(team !== null &&
     team !== undefined &&
-    team.jion_means && checkIfUserInJion(team));
+    team?.jion_means && checkIfUserInJion(team));
 
   console.log("ApplySubmit: " + ApplySubmit);
   const [ApplyError, setApplyError] = useState("");
 
-  const handleApplyClick = async () => {
+  const handleApplyClick = async (e) => {
     const jwtToken = localStorage.getItem("token");
     console.log(jwtToken);
 
     try {
-      const response = await axiosInstance.put(REQUIRE_URL + team.id, null, {
+      console.log("Ссылка: " + REQUIRE_URL + JSON.stringify(team.Id || team.id));
+      const response = await axiosInstance.post(REQUIRE_URL + JSON.stringify(team.Id || team.id), null, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${jwtToken}`,
@@ -119,7 +142,38 @@ export default function Team() {
       setApplyError("Корсы или что-то ещё")
     }
   };
+  // Принятие участника в команду
+  const handleAddMemberClick = async (memberId) => {
+    try {
+      const jwtToken = localStorage.getItem("token");
+      console.log("Ссылка: " + ACCEPT_URL + JSON.stringify(team.Id) + '-' + JSON.stringify(memberId));
+      console.log("jwtToken: " + jwtToken);
+      const response = await axiosInstance.post(
+        ACCEPT_URL + JSON.stringify(team.Id) + '-' + JSON.stringify(memberId), null,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
+  
+      if (response.status === 200) {
+        // Обработка успешного ответа
+        console.log("Заявка принята успешно");
+        setTeam(response.data);
+        console.log("new team: ");
+        console.log(team);
+        // Обновить страницу
+        // Дополнительные действия, если необходимо
+      }
+    } catch (error) {
+      console.error("Ошибка при отправке запроса:", error);
+      // Обработка ошибки
+    }
+  };
 
+  
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -240,7 +294,7 @@ export default function Team() {
                       />
                       <div className={styles.desc}>
                         <p className={styles.player_title}>
-                          {member.dataMemberUser.name}
+                          {member.dataMemberUser.name + " " + member.dataMemberUser.sureName}
                         </p>
                         <div className={styles.state}>
                           <p className={styles.fullness}>
@@ -267,7 +321,7 @@ export default function Team() {
                         />
                         <div className={styles.desc}>
                           <p className={styles.player_title}>
-                            {member.dataMemberUser.name}
+                            {member.dataMemberUser.name + " " + member.dataMemberUser.sureName}
                           </p>
                           <div className={styles.state}>
                             <p className={styles.fullness}>
@@ -287,12 +341,14 @@ export default function Team() {
                 )}
               </div>
             </div>
-            {/* Здесь изменить условие, чтобы заявки видели лишь владелец и админы */}
-            {(!team || !checkIfUserIsMember(team)) && (
+            {(!team || checkIfUserIsUPMember(team)) && (
               <div className={styles.applic_member}>
                 <h2>Заявки на вступление</h2>
                 <div className={styles.applic_member_teams}>
-                  {team.jion_means.map((member) => (
+                  {(team?.jion_means.length === 0 || team?.jion_means.length === undefined) && (
+                    <p>Нет заявок на вступление</p>
+                  )} 
+                  {team?.jion_means.map((member) => (
                     <div key={member.Id} className={styles.block_player}>
                       <img
                         src="images/avatar.jpg"
@@ -304,7 +360,7 @@ export default function Team() {
                         <div className={styles.state}></div>
                       </div>
                       <div className={styles.buttons}>
-                        <button className={styles.button_add}>Добавить</button>
+                        <button className={styles.button_add} onClick={() => handleAddMemberClick(member.Id)}>Добавить</button>
                         <button className={styles.button_remove}>
                           Отклонить
                         </button>
