@@ -200,10 +200,13 @@ export default function Team() {
       console.log("Изменения сохранены");
       console.log("Ответ:")
       console.log(response);
+      localStorage.setItem("team", JSON.stringify(response.data));
+      setTeam(response.data);
       setIsEditing(false);
     }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
+      setTeam(JSON.parse(localStorage.getItem("team")));
 
     }
 
