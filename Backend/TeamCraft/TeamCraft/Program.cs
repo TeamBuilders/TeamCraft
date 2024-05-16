@@ -255,7 +255,14 @@ app.MapPost("/api/profile/", async delegate (HttpContext context, DBConfigurator
 
     try
     {
-        accountJwt.dataUser = accountUserJson.dataUser;
+        accountJwt.dataUser.skillsPerson = accountUserJson.dataUser.skillsPerson;
+        accountJwt.dataUser.goalsPerson = accountUserJson.dataUser.goalsPerson;
+        accountJwt.dataUser.urlContact = accountUserJson.dataUser.urlContact;
+        accountJwt.dataUser.databirthday = accountUserJson.dataUser.databirthday;
+        accountJwt.dataUser.descriptionUser = accountUserJson.dataUser.descriptionUser;
+        accountJwt.dataUser.name = accountUserJson.dataUser.name;
+        accountJwt.dataUser.sureName = accountUserJson.dataUser.sureName;
+        accountJwt.dataUser.gender = accountUserJson.dataUser.gender;
         accountJwt.settingsUser.isHiddeInResearch = accountUserJson.settingsUser.isHiddeInResearch;
         accountJwt.settingsUser.isHiddenData = accountUserJson.settingsUser.isHiddenData;
         await db.SaveChangesAsync();
@@ -364,20 +371,26 @@ app.MapPost("/api/teams/edit", async delegate (HttpContext context, DBConfigurat
 
     if (requestStatusInput.statusCode == 200)
     {
-        bool teamInBase = db.Teams.Count(tm => tm.Id == team.Id) == 1;
-        if (!teamInBase)
+        Team? teamDb = db.Teams.FirstOrDefault(tm => tm.Id == team.Id);
+
+        if(teamDb == null)
         {
             context.Response.StatusCode = 400;
             return JsonConvert.SerializeObject("Not find id team");
         }
 
-        await db.Teams.Where(tm => tm.Id == team.Id).ExecuteUpdateAsync(objec => objec.
-            SetProperty(obj => obj.memberTeam, obj => team.memberTeam).
-            SetProperty(obj => obj.jion_means, obj => team.jion_means).
-            SetProperty(obj => obj.teamName, obj => team.teamName).
-            SetProperty(obj => obj.teamGoal, obj => team.teamGoal).
-            SetProperty(obj => obj.teamDescription, obj => team.teamDescription).
-            SetProperty(obj => obj.team_stack, obj => team.team_stack));
+        teamDb.team_stack = team.team_stack;
+        teamDb.teamGoal = team.teamGoal;
+        teamDb.teamName = team.teamName;
+        teamDb.teamDescription = team.teamDescription;
+
+        //await db.Teams.Where(tm => tm.Id == team.Id).ExecuteUpdateAsync(objec => objec.
+        //    SetProperty(obj => obj.memberTeam, obj => team.memberTeam).
+        //    SetProperty(obj => obj.jion_means, obj => team.jion_means).
+        //    SetProperty(obj => obj.teamName, obj => team.teamName).
+        //    SetProperty(obj => obj.teamGoal, obj => team.teamGoal).
+        //    SetProperty(obj => obj.teamDescription, obj => team.teamDescription).
+        //    SetProperty(obj => obj.team_stack, obj => team.team_stack));
         await db.SaveChangesAsync();
         return JsonConvert.SerializeObject(team);
     }
@@ -606,12 +619,12 @@ Func<DBConfigurator> dbContextFactory = () =>
 };
 
 //Сначала вызываем UpdateDatabase один раз
-await Helper.UpdateDatabase(dbContextFactory);
+//  await Helper.UpdateDatabase(dbContextFactory);
 
 // Затем настраиваем таймер для вызова UpdateDatabase каждый час
-var timer = new System.Timers.Timer(3600000); // Установка интервала в 1 час (3600000 миллисекунд)
-timer.Elapsed += async (sender, e) => await Helper.UpdateDatabase(dbContextFactory);
-timer.Start();
+//var timer = new System.Timers.Timer(3600000); // Установка интервала в 1 час (3600000 миллисекунд)
+//timer.Elapsed += async (sender, e) => await Helper.UpdateDatabase(dbContextFactory);
+//timer.Start();
 
 
 /*string pathRussian = @"FilterLogic\words.txt";
