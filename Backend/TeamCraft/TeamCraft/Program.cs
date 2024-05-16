@@ -597,10 +597,6 @@ app.MapGet("/api/hackathons/image/{id}", async (int id, DBConfigurator db) =>
 
 
 
-
-app.MapGet("/api/data", [Authorize] (HttpContext context) => $"Successfully!").RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()); ;
-
-
 Func<DBConfigurator> dbContextFactory = () =>
 {
     var optionsBuilder = new DbContextOptionsBuilder<DBConfigurator>();
