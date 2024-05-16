@@ -10,7 +10,7 @@ import axiosInstance from "../../api/axios";
 const EDIT_URL = "/teams/edit";
 const REQUIRE_URL = "/team/require/";
 const ACCEPT_URL = "/team/acceptRequire/";
-const DECLINE_URL = "/team/decline/";
+const CANCEL_URL = "/team/cancelledRequire/";
 
 export default function Team() {
   const navigate = useNavigate();
@@ -164,8 +164,6 @@ export default function Team() {
         setTeam(response.data);
         console.log("new team: ");
         console.log(team);
-        // Обновить страницу
-        // Дополнительные действия, если необходимо
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
@@ -173,7 +171,33 @@ export default function Team() {
     }
   };
 
+  const handleDeclineClick = async (memberId) => {
+    try {
+      const jwtToken = localStorage.getItem("token");
+      console.log("Ссылка: " + CANCEL_URL + JSON.stringify(team.Id) + '-' + JSON.stringify(memberId));
+      console.log("jwtToken: " + jwtToken);
+      const response = await axiosInstance.post(
+        CANCEL_URL + JSON.stringify(team.Id) + '-' + JSON.stringify(memberId), null,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
   
+      if (response.status === 200) {
+        // Обработка успешного ответа
+        console.log("Заявка отклонена");
+        setTeam(response.data);
+        console.log("new team: ");
+        console.log(team);
+      }
+    } catch (error) {
+      console.error("Ошибка при отправке запроса:", error);
+      // Обработка ошибки
+    }
+  };
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -361,9 +385,7 @@ export default function Team() {
                       </div>
                       <div className={styles.buttons}>
                         <button className={styles.button_add} onClick={() => handleAddMemberClick(member.Id)}>Добавить</button>
-                        <button className={styles.button_remove}>
-                          Отклонить
-                        </button>
+                        <button className={styles.button_remove} onClick={() => handleDeclineClick(member.Id)}>Отклонить</button>
                       </div>
                     </div>
                   ))}
@@ -415,13 +437,16 @@ export default function Team() {
                 <p className={styles.inf_title}>Теги:</p>
                 <ul className={styles.ul_list_skills}>
                   {team
-                    ? team.team_stack.map((skill, index) => (
-                        <div className={styles.skillWrapper} key={index}>
-                          <li className={styles.li_item_skills} key={index}>
-                            {skill.nameSkill}
-                          </li>
-                        </div>
-                      ))
+                    ? 
+                    <>
+                    {team && team.team_stack.map((skill, index) => (
+                      <div className={styles.skillWrapper} key={index}>
+                        <li className={styles.li_item_skills} key={index}>
+                          {skill.nameSkill}
+                        </li>
+                      </div>
+                    ))}
+                    </>
                     : JSON.parse(teamSkills).map((skill, index) => (
                         <div className={styles.skillWrapper} key={index}>
                           <li className={styles.li_item_skills} key={index}>
@@ -446,7 +471,6 @@ export default function Team() {
             </div>
           ) : (
             <>
-              {/* Условное отображение кнопки "Подать заявку на вступление" */}
               {canApply && !checkIfUserIsMember(team) && !ApplySubmit && ApplyError === "" && (
                 <button className={styles.confirm} onClick={handleApplyClick}>
                   Подать заявку
