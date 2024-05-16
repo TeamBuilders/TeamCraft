@@ -55,11 +55,26 @@ export default function Team() {
     }
   };
 
+  const checkIfUserInJion = (team) => {
+    if (team == undefined) {
+      return false;
+    }
+    if (team) {
+      const userId = JSON.parse(localStorage.getItem("userData")).Id;
+      console.log("Эта часть JIONMEANS работает, айди: " + userId);
+      console.log(team.jion_means);
+      return team.jion_means.some(
+        (member) => member.id === parseInt(userId)
+      );
+    }
+  };
+
+
   const [canApply, setCanApply] = useState(
     team !== null &&
-    team !== undefined &&
-    team.memberTeam &&
-    !checkIfUserIsMember(team)
+      team !== undefined &&
+      team.memberTeam &&
+      !checkIfUserIsMember(team)
   );
 
   console.log("canApply: " + canApply);
@@ -71,8 +86,12 @@ export default function Team() {
   const [errMsg, setErrMsg] = useState("");
   const [error, setError] = useState("");
 
-  console.log(teamSkills);
-  console.log(teamMembers);
+  const [ApplySubmit, setApplySubmit] = useState(team !== null &&
+    team !== undefined &&
+    team.jion_means && checkIfUserInJion(team));
+
+  console.log("ApplySubmit: " + ApplySubmit);
+  const [ApplyError, setApplyError] = useState("");
 
   const handleApplyClick = async () => {
     const jwtToken = localStorage.getItem("token");
@@ -92,11 +111,12 @@ export default function Team() {
 
         console.log("Заявка на вступление подана");
         console.log(data);
-
+        setApplySubmit(true);
         // navigate("/team/" + data.teamName);
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
+      setApplyError("Корсы или что-то ещё")
     }
   };
 
@@ -227,10 +247,10 @@ export default function Team() {
                             {member.roleMember === 0
                               ? "Участник"
                               : member.roleMember === 1
-                                ? "Админ"
-                                : member.roleMember === 2
-                                  ? "Создатель"
-                                  : ""}
+                              ? "Админ"
+                              : member.roleMember === 2
+                              ? "Создатель"
+                              : ""}
                           </p>
                         </div>
                       </div>
@@ -254,10 +274,10 @@ export default function Team() {
                               {member.roleMember === 0
                                 ? "Участник"
                                 : member.roleMember === 1
-                                  ? "Админ"
-                                  : member.roleMember === 2
-                                    ? "Создатель"
-                                    : ""}
+                                ? "Админ"
+                                : member.roleMember === 2
+                                ? "Создатель"
+                                : ""}
                             </p>
                           </div>
                         </div>
@@ -268,78 +288,29 @@ export default function Team() {
               </div>
             </div>
             {/* Здесь изменить условие, чтобы заявки видели лишь владелец и админы */}
-            {(!team || checkIfUserIsMember(team)) && (
+            {(!team || !checkIfUserIsMember(team)) && (
               <div className={styles.applic_member}>
                 <h2>Заявки на вступление</h2>
                 <div className={styles.applic_member_teams}>
-                  <div className={styles.block_player}>
-                    <img
-                      src="images/avatar.jpg"
-                      alt="player_icon"
-                      className={styles.player_icon}
-                    />
-                    <div className={styles.desc}>
-                      <p className={styles.player_title}>Никнейм</p>
-                      <div className={styles.state}></div>
+                  {team.jion_means.map((member) => (
+                    <div key={member.Id} className={styles.block_player}>
+                      <img
+                        src="images/avatar.jpg"
+                        alt="player_icon"
+                        className={styles.player_icon}
+                      />
+                      <div className={styles.desc}>
+                        <p className={styles.player_title}>{member.name + " " + member.sureName}</p>
+                        <div className={styles.state}></div>
+                      </div>
+                      <div className={styles.buttons}>
+                        <button className={styles.button_add}>Добавить</button>
+                        <button className={styles.button_remove}>
+                          Отклонить
+                        </button>
+                      </div>
                     </div>
-                    <div className={styles.buttons}>
-                      <button className={styles.button_add}>Добавить</button>
-                      <button className={styles.button_remove}>
-                        Отклонить
-                      </button>
-                    </div>
-                  </div>
-                  <div className={styles.block_player}>
-                    <img
-                      src="images/avatar.jpg"
-                      alt="player_icon"
-                      className={styles.player_icon}
-                    />
-                    <div className={styles.desc}>
-                      <p className={styles.player_title}>Никнейм</p>
-                      <div className={styles.state}></div>
-                    </div>
-                    <div className={styles.buttons}>
-                      <button className={styles.button_add}>Добавить</button>
-                      <button className={styles.button_remove}>
-                        Отклонить
-                      </button>
-                    </div>
-                  </div>
-                  <div className={styles.block_player}>
-                    <img
-                      src="images/avatar.jpg"
-                      alt="player_icon"
-                      className={styles.player_icon}
-                    />
-                    <div className={styles.desc}>
-                      <p className={styles.player_title}>Никнейм</p>
-                      <div className={styles.state}></div>
-                    </div>
-                    <div className={styles.buttons}>
-                      <button className={styles.button_add}>Добавить</button>
-                      <button className={styles.button_remove}>
-                        Отклонить
-                      </button>
-                    </div>
-                  </div>
-                  <div className={styles.block_player}>
-                    <img
-                      src="images/avatar.jpg"
-                      alt="player_icon"
-                      className={styles.player_icon}
-                    />
-                    <div className={styles.desc}>
-                      <p className={styles.player_title}>Никнейм</p>
-                      <div className={styles.state}></div>
-                    </div>
-                    <div className={styles.buttons}>
-                      <button className={styles.button_add}>Добавить</button>
-                      <button className={styles.button_remove}>
-                        Отклонить
-                      </button>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             )}
@@ -389,19 +360,19 @@ export default function Team() {
                 <ul className={styles.ul_list_skills}>
                   {team
                     ? team.team_stack.map((skill, index) => (
-                      <div className={styles.skillWrapper} key={index}>
-                        <li className={styles.li_item_skills} key={index}>
-                          {skill.nameSkill}
-                        </li>
-                      </div>
-                    ))
+                        <div className={styles.skillWrapper} key={index}>
+                          <li className={styles.li_item_skills} key={index}>
+                            {skill.nameSkill}
+                          </li>
+                        </div>
+                      ))
                     : JSON.parse(teamSkills).map((skill, index) => (
-                      <div className={styles.skillWrapper} key={index}>
-                        <li className={styles.li_item_skills} key={index}>
-                          {skill.nameSkill}
-                        </li>
-                      </div>
-                    ))}
+                        <div className={styles.skillWrapper} key={index}>
+                          <li className={styles.li_item_skills} key={index}>
+                            {skill.nameSkill}
+                          </li>
+                        </div>
+                      ))}
                 </ul>
               </div>
             </div>
@@ -420,9 +391,19 @@ export default function Team() {
           ) : (
             <>
               {/* Условное отображение кнопки "Подать заявку на вступление" */}
-              {canApply && !checkIfUserIsMember(team) && (
+              {canApply && !checkIfUserIsMember(team) && !ApplySubmit && ApplyError === "" && (
                 <button className={styles.confirm} onClick={handleApplyClick}>
                   Подать заявку
+                </button>
+              )}
+              {ApplySubmit && (
+                <button className={styles.confirm}>
+                  Заявка отправлена
+                </button>
+              )}
+              {ApplyError && (
+                <button className={styles.cancel}>
+                  {ApplyError}
                 </button>
               )}
               {/* TODO: Надо изменить условие здесь!!! */}
