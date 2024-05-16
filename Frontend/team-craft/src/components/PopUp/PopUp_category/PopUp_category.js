@@ -10,11 +10,9 @@ export default function PopUp_category(props) {
     const [isOpen, setIsOpen] = useState(false);
     const[isSelected, setIsSelected] = useState(false);
 
-    const [userSkills, setUserSkills] = useState(props.value2);
-    // const [selectedItems, setSelectedItems] = useState(userSkills.skillsPerson[props.text]);
-    const [selectedItems, setSelectedItems] = useState(userSkills.skillsPerson[props.text]);
-
-   
+    const [userSkills, setUserSkills] = useState(props.value2)
+    //в данных пользователя hobby и skills хранятся раздельно. И в userSkills все скиллы в одном массиве без разделений 
+    const [selectedItems, setSelectedItems] = useState(userSkills.skillsPerson.length === 0 ? [] : JSON.parse(userSkills.skillsPerson));
 
 
     const categories = {
@@ -46,22 +44,9 @@ export default function PopUp_category(props) {
         handleOpen();
     }, []);
 
-
-    // const handleClose = () => {
-    //     setIsOpen(false);
-    //     userSkills.skillsPerson[props.text] = selectedItems;
-    //     if (selectedItems.length > 0) {
-    //         userSkills.hobbiesPerson = userSkills.hobbiesPerson.includes(props.text) ? [...userSkills.hobbiesPerson]: [...userSkills.hobbiesPerson, props.text];
-    //     }
-    //     else{
-    //         userSkills.hobbiesPerson = userSkills.hobbiesPerson.filter(hobby => hobby !== props.text);
-    //     }
-    //     localStorage.setItem('userData', JSON.stringify(userSkills));
-    // };
-
     const handleClose = () => {
         setIsOpen(false);
-        userSkills.skillsPerson = selectedItems;
+        userSkills.skillsPerson = JSON.stringify(selectedItems);
         if (selectedItems.length > 0) {
             userSkills.hobbiesPerson = userSkills.hobbiesPerson.includes(props.text) ? [...userSkills.hobbiesPerson]: [...userSkills.hobbiesPerson, props.text];
         }
