@@ -82,6 +82,9 @@ const [teams, setTeams] = useState([]);
 
     fetchData();
 }, []);
+  const handleTeamClick = (team) => {
+    navigate(`/team/${team.teamName}`, { state: { team } });
+  };
   return (
     <div className={styles.search_page}>
       <Header />
@@ -154,7 +157,7 @@ const [teams, setTeams] = useState([]);
           <div className={styles.search_card}>
             <div className={styles.cards}>
             {foundTeams.map((team, index) => (
-              <div key={index} className={styles.card} onClick={() => navigate(`/team/${team.id}`, { state: { team } })}>
+              <div key={index} className={styles.card} onClick={() => handleTeamClick(team)}>
                 <div style={{ width: "min-content" }}>
                   <div className={styles.card_block}>
                     <div className={styles.picture}>

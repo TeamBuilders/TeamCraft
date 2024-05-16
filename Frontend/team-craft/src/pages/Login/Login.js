@@ -65,7 +65,7 @@ export default function Login(){
         if (response.status === 200) {
           const userData = response.data?.user?.dataUser;
 
-          delete userData.Id; // Удаляем Id из userData
+          // delete userData.Id; // Удаляем Id из userData
           localStorage.setItem('userData', JSON.stringify(userData));
           localStorage.setItem('token', response.data?.jwtToken);
           localStorage.setItem('user', JSON.stringify(response.data?.user?.settingsUser?.login));

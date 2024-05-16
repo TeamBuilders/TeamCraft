@@ -3,12 +3,12 @@ import styles from "./Team.module.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // import { API_URL } from '../../api/apiConfig';
 import axiosInstance from "../../api/axios";
 
 const EDIT_URL = "/teams/edit";
-
+const REQUIRE_URL = "/team/require/";
 export default function Team() {
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export default function Team() {
     localStorage.getItem("teamGoal") || ""
   );
   const [teamDescription, setTeamDescription] = useState(
-    localStorage.getItem("teamDescription") || ""
+    localStorage.getItem("teamDescription") || "Описание отсутствует"
   );
   const [teamMembers, setTeamMembers] = useState(
     localStorage.getItem("MemberTeam") || []
@@ -28,15 +28,77 @@ export default function Team() {
   const [teamSkills, setTeamSkills] = useState(
     localStorage.getItem("team_stack") || []
   );
-  const [numberOfmembers, setNumberOfmembers] = useState(
-    JSON.parse(localStorage.getItem("MemberTeam")).length
+
+  const location = useLocation();
+  const team = location.state?.team;
+
+  // useEffect(() => {
+  //   if (team) {
+  //     setTeamName(team.teamName);
+  //     setTeamGoal(team.teamGoal);
+  //     setTeamDescription(team.teamDescription || "Описание отсутствует");
+  //     setTeamMembers(JSON.stringify(team.memberTeam));
+  //     setTeamSkills(JSON.stringify(team.team_stack));
+  //   }
+  // }, [team]);
+
+  const checkIfUserIsMember = (team) => {
+    if (team == undefined) {
+      return false;
+    }
+    if (team) {
+      const userId = JSON.parse(localStorage.getItem("userData")).Id;
+      console.log("Эта часть работает, айди: " + userId);
+      return team.memberTeam.some(
+        (member) => member.dataMemberUserId === parseInt(userId)
+      );
+    }
+  };
+
+  const [canApply, setCanApply] = useState(
+    team !== null &&
+    team !== undefined &&
+    team.memberTeam &&
+    !checkIfUserIsMember(team)
   );
+
+  console.log("canApply: " + canApply);
+  console.log("team: ");
+  console.log(team);
+  console.log(team.memberTeam);
+  console.log(canApply);
 
   const [errMsg, setErrMsg] = useState("");
   const [error, setError] = useState("");
 
   console.log(teamSkills);
   console.log(teamMembers);
+
+  const handleApplyClick = async () => {
+    const jwtToken = localStorage.getItem("token");
+    console.log(jwtToken);
+
+    try {
+      const response = await axiosInstance.put(REQUIRE_URL + team.id, null, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      });
+
+      if (response.status === 200) {
+        // Преобразование объекта в JSON
+        const data = response.data;
+
+        console.log("Заявка на вступление подана");
+        console.log(data);
+
+        // navigate("/team/" + data.teamName);
+      }
+    } catch (error) {
+      console.error("Ошибка при отправке запроса:", error);
+    }
+  };
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -125,12 +187,21 @@ export default function Team() {
                       required
                     />
                   ) : (
-                    <p className={styles.name}>{teamName}</p>
+                    <>
+                      {team ? (
+                        <p className={styles.name}>{team.teamName}</p>
+                      ) : (
+                        <p className={styles.name}>{teamName}</p>
+                      )}
+                    </>
                   )}
                   <div className={styles.state}>
                     <div className={styles.circle} id="1"></div>
                     <p className={styles.fullness}>
-                      Количество участников: {numberOfmembers}
+                      Количество участников:{" "}
+                      {team
+                        ? team.memberTeam.length
+                        : JSON.parse(localStorage.getItem("MemberTeam")).length}
                     </p>
                   </div>
                 </div>
@@ -139,112 +210,153 @@ export default function Team() {
             <div className={styles.player}>
               <h2>Участники</h2>
               <div className={styles.blocks_players}>
-                {JSON.parse(teamMembers).map((member) => (
-                  <div key={member.Id} className={styles.block_player}>
+                {team ? (
+                  team.memberTeam.map((member, index) => (
+                    <div key={index} className={styles.block_player}>
+                      <img
+                        src="images/avatar.jpg"
+                        alt="player_icon"
+                        className={styles.player_icon}
+                      />
+                      <div className={styles.desc}>
+                        <p className={styles.player_title}>
+                          {member.dataMemberUser.name}
+                        </p>
+                        <div className={styles.state}>
+                          <p className={styles.fullness}>
+                            {member.roleMember === 0
+                              ? "Участник"
+                              : member.roleMember === 1
+                                ? "Админ"
+                                : member.roleMember === 2
+                                  ? "Создатель"
+                                  : ""}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <>
+                    {JSON.parse(teamMembers).map((member) => (
+                      <div key={member.Id} className={styles.block_player}>
+                        <img
+                          src="images/avatar.jpg"
+                          alt="player_icon"
+                          className={styles.player_icon}
+                        />
+                        <div className={styles.desc}>
+                          <p className={styles.player_title}>
+                            {member.dataMemberUser.name}
+                          </p>
+                          <div className={styles.state}>
+                            <p className={styles.fullness}>
+                              {member.roleMember === 0
+                                ? "Участник"
+                                : member.roleMember === 1
+                                  ? "Админ"
+                                  : member.roleMember === 2
+                                    ? "Создатель"
+                                    : ""}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
+            {/* Здесь изменить условие, чтобы заявки видели лишь владелец и админы */}
+            {(!team || checkIfUserIsMember(team)) && (
+              <div className={styles.applic_member}>
+                <h2>Заявки на вступление</h2>
+                <div className={styles.applic_member_teams}>
+                  <div className={styles.block_player}>
                     <img
                       src="images/avatar.jpg"
                       alt="player_icon"
                       className={styles.player_icon}
                     />
                     <div className={styles.desc}>
-                      <p className={styles.player_title}>
-                        {member.dataMemberUser.name}
-                      </p>
-                      <div className={styles.state}>
-                        <p className={styles.fullness}>
-                          {member.roleMember === 0
-                            ? "Участник"
-                            : member.roleMember === 1
-                            ? "Админ"
-                            : member.roleMember === 2
-                            ? "Создатель"
-                            : ""}
-                        </p>
-                      </div>
+                      <p className={styles.player_title}>Никнейм</p>
+                      <div className={styles.state}></div>
+                    </div>
+                    <div className={styles.buttons}>
+                      <button className={styles.button_add}>Добавить</button>
+                      <button className={styles.button_remove}>
+                        Отклонить
+                      </button>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.applic_member}>
-              <h2>Заявки на вступление</h2>
-              <div className={styles.applic_member_teams}>
-                <div className={styles.block_player}>
-                  <img
-                    src="images/avatar.jpg"
-                    alt="player_icon"
-                    className={styles.player_icon}
-                  />
-                  <div className={styles.desc}>
-                    <p className={styles.player_title}>Никнейм</p>
-                    <div className={styles.state}></div>
+                  <div className={styles.block_player}>
+                    <img
+                      src="images/avatar.jpg"
+                      alt="player_icon"
+                      className={styles.player_icon}
+                    />
+                    <div className={styles.desc}>
+                      <p className={styles.player_title}>Никнейм</p>
+                      <div className={styles.state}></div>
+                    </div>
+                    <div className={styles.buttons}>
+                      <button className={styles.button_add}>Добавить</button>
+                      <button className={styles.button_remove}>
+                        Отклонить
+                      </button>
+                    </div>
                   </div>
-                  <div className={styles.buttons}>
-                    <button className={styles.button_add}>Добавить</button>
-                    <button className={styles.button_remove}>Отклонить</button>
+                  <div className={styles.block_player}>
+                    <img
+                      src="images/avatar.jpg"
+                      alt="player_icon"
+                      className={styles.player_icon}
+                    />
+                    <div className={styles.desc}>
+                      <p className={styles.player_title}>Никнейм</p>
+                      <div className={styles.state}></div>
+                    </div>
+                    <div className={styles.buttons}>
+                      <button className={styles.button_add}>Добавить</button>
+                      <button className={styles.button_remove}>
+                        Отклонить
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.block_player}>
-                  <img
-                    src="images/avatar.jpg"
-                    alt="player_icon"
-                    className={styles.player_icon}
-                  />
-                  <div className={styles.desc}>
-                    <p className={styles.player_title}>Никнейм</p>
-                    <div className={styles.state}></div>
-                  </div>
-                  <div className={styles.buttons}>
-                    <button className={styles.button_add}>Добавить</button>
-                    <button className={styles.button_remove}>Отклонить</button>
-                  </div>
-                </div>
-                <div className={styles.block_player}>
-                  <img
-                    src="images/avatar.jpg"
-                    alt="player_icon"
-                    className={styles.player_icon}
-                  />
-                  <div className={styles.desc}>
-                    <p className={styles.player_title}>Никнейм</p>
-                    <div className={styles.state}></div>
-                  </div>
-                  <div className={styles.buttons}>
-                    <button className={styles.button_add}>Добавить</button>
-                    <button className={styles.button_remove}>Отклонить</button>
-                  </div>
-                </div>
-                <div className={styles.block_player}>
-                  <img
-                    src="images/avatar.jpg"
-                    alt="player_icon"
-                    className={styles.player_icon}
-                  />
-                  <div className={styles.desc}>
-                    <p className={styles.player_title}>Никнейм</p>
-                    <div className={styles.state}></div>
-                  </div>
-                  <div className={styles.buttons}>
-                    <button className={styles.button_add}>Добавить</button>
-                    <button className={styles.button_remove}>Отклонить</button>
+                  <div className={styles.block_player}>
+                    <img
+                      src="images/avatar.jpg"
+                      alt="player_icon"
+                      className={styles.player_icon}
+                    />
+                    <div className={styles.desc}>
+                      <p className={styles.player_title}>Никнейм</p>
+                      <div className={styles.state}></div>
+                    </div>
+                    <div className={styles.buttons}>
+                      <button className={styles.button_add}>Добавить</button>
+                      <button className={styles.button_remove}>
+                        Отклонить
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
           <div className={styles.info_team}>
             <div className={styles.tag}>
-              <p>Теги</p>
+              <p>Цель команды:</p>
               <div className={styles.tag_field}>
                 <textarea
-                  value={teamGoal}
+                  value={team ? team.teamGoal : teamGoal}
                   className={styles.tags}
                   onChange={(e) => setTeamGoal(e.target.value)}
                   name="tags"
                   style={{ fontSize: "15pt" }}
                   rows="3"
                   cols="40"
+                  readOnly={!isEditing}
                   required
                 ></textarea>
               </div>
@@ -252,29 +364,38 @@ export default function Team() {
             <div className={styles.info}>
               <div className={styles.info_panel}>
                 <p className={styles.inf_title}>Информация о команде</p>
-                {teamDescription || isEditing ? (
-                  <textarea
-                    value={teamDescription}
-                    className={styles.inf_p}
-                    name="inf-p"
-                    style={{ fontSize: "13pt" }}
-                    rows="10"
-                    cols="40"
-                    readOnly={!isEditing}
-                    required
-                  />
-                ) : (
-                  <p style={{ fontSize: "13pt" }}>Отсутствует</p>
-                )}
+                <textarea
+                  value={
+                    team
+                      ? team.teamDescription === ""
+                        ? "Описание отсутствует"
+                        : team.teamDescription
+                      : teamDescription
+                  }
+                  className={styles.inf_p}
+                  name="inf-p"
+                  style={{ fontSize: "13pt" }}
+                  rows="10"
+                  cols="40"
+                  readOnly={!isEditing}
+                  required
+                />
               </div>
             </div>
 
             <div className={styles.info}>
               <div className={styles.info_panel}>
-                <p className={styles.inf_title}>Навыки команды:</p>
+                <p className={styles.inf_title}>Теги:</p>
                 <ul className={styles.ul_list_skills}>
-                  {teamSkills &&
-                    JSON.parse(teamSkills).map((skill, index) => (
+                  {team
+                    ? team.team_stack.map((skill, index) => (
+                      <div className={styles.skillWrapper} key={index}>
+                        <li className={styles.li_item_skills} key={index}>
+                          {skill.nameSkill}
+                        </li>
+                      </div>
+                    ))
+                    : JSON.parse(teamSkills).map((skill, index) => (
                       <div className={styles.skillWrapper} key={index}>
                         <li className={styles.li_item_skills} key={index}>
                           {skill.nameSkill}
@@ -297,9 +418,20 @@ export default function Team() {
               </button>
             </div>
           ) : (
-            <button className={styles.edit} onClick={handleEditClick}>
-              Редактировать
-            </button>
+            <>
+              {/* Условное отображение кнопки "Подать заявку на вступление" */}
+              {canApply && !checkIfUserIsMember(team) && (
+                <button className={styles.confirm} onClick={handleApplyClick}>
+                  Подать заявку
+                </button>
+              )}
+              {/* TODO: Надо изменить условие здесь!!! */}
+              {!canApply && (
+                <button className={styles.edit} onClick={handleEditClick}>
+                  Редактировать
+                </button>
+              )}
+            </>
           )}
         </div>
       </div>
