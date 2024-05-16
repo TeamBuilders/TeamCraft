@@ -1,6 +1,7 @@
-using TeamCraft.Model.Posts;
+using System.Text.Json.Serialization;
 
-namespace TeamCraft.FilterLogic
+
+namespace TeamCraft.Model.Posts
 {
     /*public class PostsTags
     {
@@ -24,16 +25,20 @@ namespace TeamCraft.FilterLogic
     public class PostsTags
     {
         public int id { get; set; }
+        public List<PostTag> PostTags { get; set; }
         public string nameTags { get; set; }
-        public List<PostTag> PostTags { get; set; } 
     }
+
 
     public class PostTag // Новый класс для связи "многие ко многим"
     {
-        public string nameTags { get; set; } 
+        public string nameTags { get; set; }
         public int HackathonPostId { get; set; }
+
+        [JsonIgnore]
         public HackathonPost HackathonPost { get; set; }
         public int PostsTagsId { get; set; }
         public PostsTags PostsTags { get; set; }
     }
+
 }

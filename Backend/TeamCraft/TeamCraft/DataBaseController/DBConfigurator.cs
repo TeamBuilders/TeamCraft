@@ -5,11 +5,15 @@ using TeamCraft.FilterLogic;
 using System.Reflection.Emit;
 using TeamCraft.JwtData;
 using TeamCraft.Model.Posts;
+using Microsoft.Extensions.Configuration;
 
 namespace TeamCraft.DataBaseController
 {
     public class DBConfigurator : DbContext
     {
+        
+
+
         public DbSet<HackathonPost> HackathonPosts { get; set; } = null!;
         public DbSet<PostsTags> Tags { get; set; } = null!;
         public DbSet<PostTag> PostTags { get; set; } = null!;
