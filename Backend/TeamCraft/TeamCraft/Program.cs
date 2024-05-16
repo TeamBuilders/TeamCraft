@@ -15,9 +15,6 @@ using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using TeamCraft.Model.TeamsArchitecture;
-
-
-//след m1kraze
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +27,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Mvc;
-//using Azure;
 using System.Linq;
 using TeamCraft.Model.Posts;
-using Microsoft.Extensions.Hosting;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,7 +45,6 @@ builder.Services.AddCors(options =>
 
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
-
 
 builder.Services.AddDbContext<DBConfigurator>(options => options.UseSqlite(connection));
 
@@ -96,7 +90,7 @@ builder.Services.AddCors(options =>
         });
 });
 var app = builder.Build();
-app.UseCors(builder => builder.WithOrigins("http://localhost:7039", "https://localhost:7039")
+app.UseCors(builder => builder.WithOrigins("http://45.58.159.81:80/", "https://45.58.159.81:443/")
               .SetIsOriginAllowedToAllowWildcardSubdomains()
               .AllowAnyHeader()
               .AllowCredentials()
@@ -143,9 +137,9 @@ app.MapPost("/api/profile/restoration/", async delegate (HttpContext context, DB
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка отправки сообщения: {ex.Message}"); 
+                Console.WriteLine($"Ошибка отправки сообщения: {ex.Message}");
             }
-            
+
         }
     }
 });
@@ -155,7 +149,7 @@ app.MapPost("/api/profile/restoration/code/", async delegate (HttpContext contex
 
     int? searcode = emailData.code;
 
-    EmailData emaild =  db.Emails.FirstOrDefault(x => x.code == searcode);
+    EmailData emaild = db.Emails.FirstOrDefault(x => x.code == searcode);
 
     string email = emaild.email;
 
@@ -164,7 +158,7 @@ app.MapPost("/api/profile/restoration/code/", async delegate (HttpContext contex
     accountUser.rest = 1;
     db.Emails.Remove(emaild);
     db.SaveChangesAsync();
-    
+
 
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
 
@@ -179,13 +173,13 @@ app.MapPost("/api/profile/restoration/end", async delegate (HttpContext context,
     int rest = 1;
 
     SettingsProfileUser user = db.settingsProfileUser.FirstOrDefault(x => x.rest == rest);
-    if (loginORpassword.login==null)
+    if (loginORpassword.login == null)
     {
         user.hashPassword = Helper.ComputeSHA512(loginORpassword.password);
     }
     else
     {
-        user.login= loginORpassword.login;
+        user.login = loginORpassword.login;
     }
     user.rest = 0;
     db.SaveChangesAsync();
@@ -199,15 +193,16 @@ app.MapPost("/api/register", async delegate (HttpContext context, DBConfigurator
 {
     RegistrationForm? userForm = await context.Request.ReadFromJsonAsync<RegistrationForm>();
     RequestStatus statusRequestUser = DataValidator.CheckCorrectUserData(userForm, db);
-    if(statusRequestUser.statusCode == 200)
+    AccountUser user = new AccountUser();
+    if (statusRequestUser.statusCode == 200)
     {
-        AccountUser user = new AccountUser(userForm);
+        user = new AccountUser(userForm);
         db.accountsUser.Add(user);
         await db.SaveChangesAsync();
         statusRequestUser.message.Add("successful addition");
     }
     context.Response.StatusCode = statusRequestUser.statusCode;
-    return  JsonConvert.SerializeObject(statusRequestUser);
+    return JsonConvert.SerializeObject((statusRequestUser, user));
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
 
 
@@ -242,12 +237,70 @@ app.MapPost("/api/login", async delegate (HttpContext context, DBConfigurator db
     return JsonConvert.SerializeObject(statusRequestUser);
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
 
+app.MapPut("/api/profile/", async delegate (HttpContext context, DBConfigurator db)
+{
+    AccountUser? accountUserJson = await context.Request.ReadFromJsonAsync<AccountUser>();
+    AccountUser? accountJwt = Helper.FindUserFromClaim(context.User.Claims, db);
+
+    if (accountJwt == null || accountUserJson == null)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Не найден акаунт пользователя");
+    }
+    if (!(accountJwt.id == accountUserJson.id && accountJwt.dataUserId == accountUserJson.dataUserId && accountUserJson.settingsUserId == accountJwt.settingsUserId))
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Не сходится редактируемый профиль и пользователь, от чьего лица редактируется профиль");
+    }
+
+    try
+    {
+        accountJwt.dataUser = accountUserJson.dataUser;
+        accountJwt.settingsUser.isHiddeInResearch = accountUserJson.settingsUser.isHiddeInResearch;
+        accountJwt.settingsUser.isHiddenData = accountUserJson.settingsUser.isHiddenData;
+        await db.SaveChangesAsync();
+        return JsonConvert.SerializeObject(accountJwt);
+    }
+    catch
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Ошибка записи");
+    }
+
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
+
+app.MapGet("/api/profiles/", async delegate (HttpContext context, DBConfigurator db)
+{
+    List<AccountUser> accountUsers = db.accountsUser.Include(account => account.settingsUser).Include(account => account.dataUser).ThenInclude(data => data.skillsPerson).ToList();
+
+    List<DataUser> data = accountUsers.Where(account => !(account.settingsUser.isHiddeInResearch || account.dataUser.inTeam)).Select(accout => accout.dataUser).ToList();
+
+    return data;
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
+
+app.MapGet("/api/profiles/filter", async delegate (HttpContext context, DBConfigurator db)
+{
+    List<SkillPerson> skillsJson = await context.Request.ReadFromJsonAsync<List<SkillPerson>>();
+
+    //if (skillsJson.Count == 0)
+    //    return HttpResponse.Redirect("/api/profiles/");
+
+    List<AccountUser> accountUsers = db.accountsUser.Include(account => account.settingsUser).Include(account => account.dataUser).ThenInclude(data => data.skillsPerson).ToList();
+
+    List<DataUser> data = accountUsers.Where(account => !(account.settingsUser.isHiddeInResearch || account.dataUser.inTeam)).Select(accout => accout.dataUser).ToList();
+
+    return data.Where(dataUser => skillsJson.All(x => dataUser.skillsPerson.Contains(x))).ToList();
+
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
+
 
 
 app.MapGet("/api/hobby", async delegate (HttpContext context, DBConfigurator db)
 {
     return db.categoryHobbies.Include(x => x.skillPeople).ToList();
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
+
+
 app.MapGet("/api/skill/{number}", async delegate (HttpContext context, DBConfigurator db, int number)
 {
     if (number < db.categoryHobbies.ToList().Count && number > 0)
@@ -258,100 +311,10 @@ app.MapGet("/api/skill/{number}", async delegate (HttpContext context, DBConfigu
 
 app.MapGet("/api/teams", async delegate (HttpContext context, DBConfigurator db)
 {
-    List<Team> teams = db.Teams.Include(teams => teams.MemberTeam).ToList();
+    List<Team> teams = db.Teams.Include(teams => teams.team_stack).Include(team => team.Jion_means).Include(teams => teams.MemberTeam).ThenInclude(teams => teams.dataMemberUser).ToList();
     return JsonConvert.SerializeObject(teams);
 
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
-
-app.MapPost("/api/teams/join", async delegate (HttpContext context, DBConfigurator db)
-{
-    Team team = await context.Request.ReadFromJsonAsync<Team>();
-    Team oldteam = db.Teams.FirstOrDefault(x => x.team_lead == team.team_lead);
-    oldteam.Jion_means = team.Jion_means;
-    await db.SaveChangesAsync();
-
-}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
-
-app.MapPost("/api/teams", async delegate (HttpContext context, DBConfigurator db)
-{
-    List<Team> teams = db.Teams.ToList();
-    return JsonConvert.SerializeObject(teams);
-
-});
-
-app.MapPost("/api/teams/join", async delegate (HttpContext context, DBConfigurator db)
-{
-    Team team = await context.Request.ReadFromJsonAsync<Team>();
-    Team oldteam = db.Teams.FirstOrDefault(x => x.team_lead == team.team_lead);
-    oldteam.Jion_means = team.Jion_means;
-    db.SaveChangesAsync();
-
-});
-
-
-app.MapPost("/api/teams/create", async delegate (HttpContext context, DBConfigurator db)
-{
-    Team team = await context.Request.ReadFromJsonAsync<Team>();
-
-    db.Teams.Add(team);
-    db.SaveChangesAsync();
-
-});
-app.MapPost("/api/teams/edit", async delegate (HttpContext context, DBConfigurator db)
-{
-    Team team = await context.Request.ReadFromJsonAsync<Team>();
-    List<MemberTeam> newmemb = team.MemberTeam;
-    string team_lead = team.team_lead;
-    Team oldteam = db.Teams.FirstOrDefault(x => x.team_lead == team_lead);
-    oldteam.teamName = team.teamName;
-    oldteam.teamDescription = team.teamDescription;
-    oldteam.teamGoal = team.teamGoal;
-    List<MemberTeam> oldmemb = oldteam.MemberTeam;
-    int id = 0;
-    if (oldmemb.Last().Id > newmemb.Last().Id)
-    {
-
-        int f = 0;
-        for (int i = 0; i <= newmemb.Last().Id; i++)
-        {
-            if (oldmemb[i + f].Id != newmemb[i].Id)
-            {
-                id = oldmemb[i].dataMemberUser.Id;
-                f++;
-            }
-            if (f == 0)
-            {
-                id = oldmemb[i + 1].dataMemberUser.Id;
-
-            }
-        }
-        DataUser user = db.dataUser.FirstOrDefault(x => x.Id == id);
-        user.inTeam = false;
-    }
-    else
-    {
-        int f = 0;
-        for (int i = 0; i <= oldmemb.Last().Id; i++)
-        {
-            if (oldmemb[i].Id != newmemb[i + f].Id)
-            {
-                id = newmemb[i].dataMemberUser.Id;
-                f++;
-            }
-            if (f == 0)
-            {
-                id = newmemb[i + 1].dataMemberUser.Id;
-
-            }
-        }
-        DataUser user = db.dataUser.FirstOrDefault(x => x.Id == id);
-        user.inTeam = true;
-    }
-    oldteam.MemberTeam = team.MemberTeam;
-    db.SaveChangesAsync();
-
-});
-
 
 
 
@@ -359,78 +322,194 @@ app.MapPost("/api/teams/edit", async delegate (HttpContext context, DBConfigurat
 app.MapPost("/api/teams/create", async delegate (HttpContext context, DBConfigurator db)
 {
     Team team = await context.Request.ReadFromJsonAsync<Team>();
-    List<SkillPerson> stack = new List<SkillPerson>();
-    foreach (var sk in team.team_stack)
-        stack.Add(db.skillPeople.Where(c => c.nameSkill == sk.nameSkill).FirstOrDefault());
-    team.team_stack = stack;
-    db.Teams.Add(team);
-    await db.SaveChangesAsync();
+    RequestStatus requestStatus = DataValidator.CheckCorrectTeamData(team, db);
 
-}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
-
-
-app.MapPost("/api/teams/edit", async delegate (HttpContext context, DBConfigurator db)
-{
-    Team team = await context.Request.ReadFromJsonAsync<Team>();
-    List<MemberTeam> newmemb = team.MemberTeam;
-    string team_lead = team.team_lead;
-    Team oldteam = db.Teams.FirstOrDefault(x => x.team_lead == team_lead);
-    oldteam.teamName = team.teamName;
-    oldteam.teamDescription = team.teamDescription;
-    oldteam.teamGoal = team.teamGoal;
-    List<MemberTeam> oldmemb = oldteam.MemberTeam.ToList();
-    List<MemberTeam> oldjoin = oldteam.Jion_means.ToList();
-    int id = 0;
-    if (oldmemb.Last().Id > newmemb.Last().Id)
+    if (requestStatus.statusCode == 200)
     {
-
-        int f = 0;
-        for (int i = 0; i <= newmemb.Last().Id; i++)
+        List<SkillPerson> stack = new List<SkillPerson>();
+        foreach (var sk in team.team_stack)
+            stack.Add(db.skillPeople.Where(c => c.nameSkill == sk.nameSkill).FirstOrDefault());
+        team.team_stack = stack;
+        AccountUser? ownerTeam = Helper.FindUserFromClaim(context.User.Claims, db);
+        if (ownerTeam == null)
         {
-            if (oldmemb[i + f].Id != newmemb[i].Id)
-            {
-                id = oldmemb[i].dataMemberUser.Id;
-                f++;
-            }
-            if (f == 0)
-            {
-                id = oldmemb[i + 1].dataMemberUser.Id;
-
-            }
+            context.Response.StatusCode = 400;
+            return JsonConvert.SerializeObject("Не найден акаунт пользователя, от лица которого создают команду");
         }
-        DataUser user = db.dataUser.FirstOrDefault(x => x.Id == id);
-        user.inTeam = false;
+        team.AddPersonInTeam(new MemberTeam(ownerTeam.dataUser, team, TypeRoleMember.owner));
+        db.Teams.Add(team);
+        await db.SaveChangesAsync();
+
+        return JsonConvert.SerializeObject(team);
+    }
+
+    context.Response.StatusCode = requestStatus.statusCode;
+    return JsonConvert.SerializeObject(requestStatus);
+
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
+
+
+app.MapPut("/api/teams/edit", async delegate (HttpContext context, DBConfigurator db)
+{
+
+    Team team = await context.Request.ReadFromJsonAsync<Team>();
+    RequestStatus requestStatusInput = DataValidator.CheckCorrectTeamData(team, db);
+    AccountUser? owner = Helper.FindUserFromClaim(context.User.Claims, db);
+
+    if (owner == null || owner.dataUserId != team.MemberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId)
+    {
+        context.Response.StatusCode = 403;
+        return JsonConvert.SerializeObject("Не найден владелец или нет прав");
+    }
+
+    if (requestStatusInput.statusCode == 200)
+    {
+        bool teamInBase = db.Teams.Count(tm => tm.Id == team.Id) == 1;
+        if (!teamInBase)
+        {
+            context.Response.StatusCode = 400;
+            return JsonConvert.SerializeObject("Not find id team");
+        }
+
+        await db.Teams.Where(tm => tm.Id == team.Id).ExecuteUpdateAsync(objec => objec.
+            SetProperty(obj => obj.MemberTeam, obj => team.MemberTeam).
+            SetProperty(obj => obj.Jion_means, obj => team.Jion_means).
+            SetProperty(obj => obj.teamName, obj => team.teamName).
+            SetProperty(obj => obj.teamGoal, obj => team.teamGoal).
+            SetProperty(obj => obj.teamDescription, obj => team.teamDescription).
+            SetProperty(obj => obj.team_stack, obj => team.team_stack));
+        await db.SaveChangesAsync();
+        return JsonConvert.SerializeObject(team);
+    }
+
+    context.Response.StatusCode = requestStatusInput.statusCode;
+    return JsonConvert.SerializeObject(requestStatusInput);
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
+
+app.MapPut("/api/team/require/{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idTeam)
+{
+    Team? teamDb = db.Teams.Include(team => team.Jion_means).FirstOrDefault(team => team.Id == idTeam);
+    DataUser? userDb = Helper.FindUserFromClaim(context.User.Claims, db)?.dataUser;
+    if (teamDb == null || userDb == null)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Not found id team or user");
+    }
+
+    teamDb.Jion_means.Add(userDb);
+    await db.SaveChangesAsync();
+    return JsonConvert.SerializeObject(db.Teams.Include(team => team.Jion_means).FirstOrDefault(team => team.Id == idTeam));
+}
+).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
+
+app.MapPut("/api/team/acceptRequire/{idTeam}-{idUser}", async delegate (HttpContext context, DBConfigurator db, int idTeam, int idUser)
+{
+    Team? teamDb = db.Teams.Include(team => team.Jion_means).Include(team => team.MemberTeam).FirstOrDefault(team => team.Id == idTeam);
+    DataUser? userDb = db.dataUser.FirstOrDefault(dataUser => dataUser.Id == idUser);
+    AccountUser? ownerAccount = Helper.FindUserFromClaim(context.User.Claims, db);
+
+    if (teamDb == null || userDb == null || ownerAccount == null)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Not found id team or user id or owner id");
+    }
+
+    MemberTeam? owner = db.memberTeams.FirstOrDefault(member => member.dataMemberUserId == Helper.FindUserFromClaim(context.User.Claims, db).dataUserId);
+
+    if (teamDb.MemberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId == ownerAccount.dataUserId)
+    {
+        if (teamDb.Jion_means.Contains(userDb))
+            teamDb.Jion_means.Remove(userDb);
+        else
+        {
+            context.Response.StatusCode = 400;
+            return JsonConvert.SerializeObject("User not exists in list require team");
+        }
+        userDb.inTeam = true;
+        MemberTeam memberTeam = new MemberTeam(userDb, teamDb);
+        teamDb.MemberTeam.Add(memberTeam);
+        await db.SaveChangesAsync();
+        return JsonConvert.SerializeObject(db.Teams.Include(team => team.Jion_means).Include(team => team.MemberTeam).FirstOrDefault(team => team.Id == idTeam));
     }
     else
     {
-        int f = 0;
-        for (int i = 0; i <= oldmemb.Last().Id; i++)
-        {
-            if (oldmemb[i].Id != newmemb[i + f].Id)
-            {
-                id = newmemb[i].dataMemberUser.Id;
-                f++;
-            }
-            if (f == 0)
-            {
-                id = newmemb[i + 1].dataMemberUser.Id;
-
-            }
-        }
-        DataUser user = db.dataUser.FirstOrDefault(x => x.Id == id);
-        user.inTeam = true;
+        context.Response.StatusCode = 403;
+        return JsonConvert.SerializeObject("Пользователь сделавший запрос не является руководителем команды");
     }
-    oldteam.MemberTeam = team.MemberTeam;
-    await db.SaveChangesAsync();
 
-}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
+
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
+
+app.MapPut("/api/team/cancelledRequire/{idTeam}-{idUser}", async delegate (HttpContext context, DBConfigurator db, int idTeam, int idUser)
+{
+    Team? teamDb = db.Teams.Include(team => team.Jion_means).Include(team => team.MemberTeam).FirstOrDefault(team => team.Id == idTeam);
+    DataUser? userDb = db.dataUser.FirstOrDefault(dataUser => dataUser.Id == idUser);
+    AccountUser? ownerAccount = Helper.FindUserFromClaim(context.User.Claims, db);
+
+    if (teamDb == null || userDb == null || ownerAccount == null)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Not found id team or user id or owner id");
+    }
+
+    //MemberTeam? owner = db.memberTeams.FirstOrDefault(member => member.dataMemberUserId == ownerAccount.dataUserId);
+
+    if (teamDb.MemberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId == ownerAccount.dataUserId)
+    {
+        if (teamDb.Jion_means.Contains(userDb))
+            teamDb.Jion_means.Remove(userDb);
+        else
+        {
+            context.Response.StatusCode = 400;
+            return JsonConvert.SerializeObject("User not exists in list require team");
+        }
+
+        await db.SaveChangesAsync();
+        return JsonConvert.SerializeObject(db.Teams.Include(team => team.Jion_means).Include(team => team.MemberTeam).FirstOrDefault(team => team.Id == idTeam));
+    }
+    else
+    {
+        context.Response.StatusCode = 403;
+        return JsonConvert.SerializeObject("Пользователь сделавший запрос не является руководителем команды");
+    }
+
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
+
+app.MapPut("/api/teams/deleteMember/{idTeam}-{idMember}", async delegate (HttpContext context, DBConfigurator db, int idTeam, int idMember)
+{
+    Team? targetTeam = db.Teams.Include(team => team.Jion_means).Include(team => team.MemberTeam).ThenInclude(member => member.dataMemberUser).FirstOrDefault(team => team.Id == idTeam);
+    MemberTeam? targetMember = targetTeam.MemberTeam.FirstOrDefault(member => member.Id == idMember);
+    AccountUser? ownerAccount = Helper.FindUserFromClaim(context.User.Claims, db);
+
+    if (targetMember == null || targetTeam == null || ownerAccount == null)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Not exists team, owner or target Delete Person");
+    }
+
+    if (targetTeam.MemberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId == ownerAccount.dataUserId)
+    {
+        targetMember.dataMemberUser.inTeam = false;
+        targetTeam.MemberTeam.Remove(targetMember);
+        await db.SaveChangesAsync();
+        return JsonConvert.SerializeObject(targetTeam);
+    }
+    else
+    {
+        context.Response.StatusCode = 403;
+        return JsonConvert.SerializeObject("Пользователь сделавший запрос не является руководителем команды");
+    }
+
+
+
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
 
 app.MapPost("/api/teams/filter", async delegate (HttpContext context, DBConfigurator db)
 {
     List<SkillPerson> skillsJson = await context.Request.ReadFromJsonAsync<List<SkillPerson>>();
 
-    if(skillsJson.Count == 0)
+    if (skillsJson.Count == 0)
         return db.Teams.Include(team => team.team_stack).Include(team => team.Jion_means).Include(team => team.MemberTeam).ThenInclude(c => c!.dataMemberUser).ToList();
 
     List<Team> team = db.Teams.Include(team => team.team_stack).Include(team => team.MemberTeam).Include(team => team.Jion_means).ToList();
@@ -439,6 +518,14 @@ app.MapPost("/api/teams/filter", async delegate (HttpContext context, DBConfigur
 
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
 
+
+app.MapGet("/api/data", (HttpContext context) => $"Successfully!").RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
+
+app.MapGet("/api/test", async delegate (HttpContext http, DBConfigurator db)
+{
+    return Helper.FindUserFromClaim(http.User.Claims, db);
+
+});
 
 
 app.MapPost("/api/hackathons/all", async delegate (HttpContext context, DBConfigurator db)
@@ -506,7 +593,4 @@ string sentence = "ааа помогииитее аборт";
 bool isClean = Helper.CheckSentence(sentence, badWords);
 Console.WriteLine(isClean ? "В предложении нет нецензурных слов" : "В предложении есть нецензурные слова");*/
 
-
 app.Run();
-
-

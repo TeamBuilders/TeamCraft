@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using TeamCraft.DataBaseController;
 using TeamCraft.Model.Posts;
-using Iveonik.Stemmers;
+
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TeamCraft.Model.UserAcrhitecture;
