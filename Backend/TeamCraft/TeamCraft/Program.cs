@@ -605,13 +605,13 @@ Func<DBConfigurator> dbContextFactory = () =>
     return new DBConfigurator(optionsBuilder.Options);
 };
 
-// Сначала вызываем UpdateDatabase один раз
-//await Helper.UpdateDatabase(dbContextFactory);
+//Сначала вызываем UpdateDatabase один раз
+await Helper.UpdateDatabase(dbContextFactory);
 
-//// Затем настраиваем таймер для вызова UpdateDatabase каждый час
-//var timer = new System.Timers.Timer(3600000); // Установка интервала в 1 час (3600000 миллисекунд)
-//timer.Elapsed += async (sender, e) => await Helper.UpdateDatabase(dbContextFactory);
-//timer.Start();
+// Затем настраиваем таймер для вызова UpdateDatabase каждый час
+var timer = new System.Timers.Timer(3600000); // Установка интервала в 1 час (3600000 миллисекунд)
+timer.Elapsed += async (sender, e) => await Helper.UpdateDatabase(dbContextFactory);
+timer.Start();
 
 
 /*string pathRussian = @"FilterLogic\words.txt";
