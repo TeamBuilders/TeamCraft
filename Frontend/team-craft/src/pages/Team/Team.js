@@ -16,140 +16,100 @@ export default function Team() {
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [teamName, setTeamName] = useState(
-    localStorage.getItem("teamName") || ""
-  );
-  const [teamGoal, setTeamGoal] = useState(
-    localStorage.getItem("teamGoal") || ""
-  );
-  const [teamDescription, setTeamDescription] = useState(
-    localStorage.getItem("teamDescription") || "Описание отсутствует"
-  );
-  const [teamMembers, setTeamMembers] = useState(
-    localStorage.getItem("MemberTeam") || []
-  );
-  console.log("teamMembers: ");
-  console.log(teamMembers);
-  const [teamSkills, setTeamSkills] = useState(
-    localStorage.getItem("team_stack") || []
-  );
 
   const location = useLocation();
-  const [team, setTeam] = useState(location.state?.team);
-
-  // useEffect(() => {
-  //   if (team) {
-  //     setTeamName(team.teamName);
-  //     setTeamGoal(team.teamGoal);
-  //     setTeamDescription(team.teamDescription || "Описание отсутствует");
-  //     setTeamMembers(JSON.stringify(team.memberTeam));
-  //     setTeamSkills(JSON.stringify(team.team_stack));
-  //   }
-  // }, [team]);
-
-  const checkIfUserIsMember = (team) => {
-    if (team == undefined) {
-      return false;
-    }
-    if (team) {
-      const userId = JSON.parse(localStorage.getItem("userData")).Id;
-      console.log("Проверка на наличие в команде, айди пользователя: " + userId);
-      console.log("Пользователь:");
-      console.log(JSON.parse(localStorage.getItem("userData")));
-
-      return team.memberTeam.some(
-        (member) => member.dataMemberUserId === parseInt(userId)
-      );
-    }
-  };
-
-  const checkIfUserInJion = (team) => {
-    if (team == undefined) {
-      return false;
-    }
-    if (team && team?.jion_means) {
-      const userId = JSON.parse(localStorage.getItem("userData")).Id;
-      console.log("Эта часть JIONMEANS работает, айди: " + userId);
-      console.log(team?.jion_means);
-      return team.jion_means.some(
-        (member) => member.Id === parseInt(userId)
-      );
-    }
-  };
-  const checkIfUserIsUPMember = (team) => {
-    if (!team || !team.memberTeam) {
-        return false;
-    }
-    
-    const userId = JSON.parse(localStorage.getItem("userData")).Id;
-    
-    return team.memberTeam.some(
-        (member) => member.dataMemberUserId === parseInt(userId) && member.roleMember !== 0
-    );
-};
-
-
-
-  const [canApply, setCanApply] = useState(
-    team !== null &&
-      team !== undefined &&
-      team?.memberTeam &&
-      !checkIfUserIsMember(team)
-  );
-  console.log("Проверка на наличие в команде: " + checkIfUserIsMember(team));
-  console.log("Проверка на наличие в команде админов: " + checkIfUserIsUPMember(team));
-  console.log("Проверка на наличие в списке заявок: " + checkIfUserInJion(team));
-  console.log("canApply: " + canApply);
+  const [team, setTeam] = useState(JSON.parse(localStorage.getItem("team")));
   console.log("team: ");
   console.log(team);
-  console.log("team?.memberTeam: ");
-  console.log(team?.memberTeam);
 
-  const [errMsg, setErrMsg] = useState("");
-  const [error, setError] = useState("");
+  // Проверка на наличие в команде
+  const checkIfUserIsMember = (team) => {
+    if (team) {
+      const userId = JSON.parse(localStorage.getItem("userData")).Id;
+      return team.memberTeam.some(
+        (member) =>
+          member.dataMemberUser && member.dataMemberUserId === parseInt(userId)
+      );
+    }
+  };
+  // Проверка на наличие в команде админов
+  const checkIfUserIsUPMember = (team) => {
+    const userId = JSON.parse(localStorage.getItem("userData")).Id;
+    return team.memberTeam.some(
+      (member) =>
+        member.dataMemberUser &&
+        member.dataMemberUserId === parseInt(userId) &&
+        member.roleMember !== 0
+    );
+  };
+  // Проверка на наличие в списке заявок
+  const checkIfUserInJion = (team) => {
+    if (team && team?.jion_means) {
+      const userId = JSON.parse(localStorage.getItem("userData")).Id;
+      return team.jion_means.some((member) => member.Id === parseInt(userId));
+    }
+  };
 
-  const [ApplySubmit, setApplySubmit] = useState(team !== null &&
-    team !== undefined &&
-    team?.jion_means && checkIfUserInJion(team));
+  // Может ли пользователь отправить заявку на вступление в команду
+  const [canApply, setCanApply] = useState(!checkIfUserIsMember(team));
 
-  console.log("ApplySubmit: " + ApplySubmit);
+  // Отправлена ли заявка на вступление в команду
+  const [ApplySubmit, setApplySubmit] = useState(
+    team !== null &&
+      team !== undefined &&
+      team?.jion_means &&
+      checkIfUserInJion(team)
+  );
+
   const [ApplyError, setApplyError] = useState("");
 
+  // Запрос на вступление в команду
   const handleApplyClick = async (e) => {
     const jwtToken = localStorage.getItem("token");
     console.log(jwtToken);
 
     try {
-      console.log("Ссылка: " + REQUIRE_URL + JSON.stringify(team.Id || team.id));
-      const response = await axiosInstance.post(REQUIRE_URL + JSON.stringify(team.Id || team.id), null, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      });
+      console.log(
+        "Ссылка: " + REQUIRE_URL + JSON.stringify(team.Id || team.id)
+      );
+      const response = await axiosInstance.post(
+        REQUIRE_URL + JSON.stringify(team.Id || team.id),
+        null,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
 
       if (response.status === 200) {
-        // Преобразование объекта в JSON
         const data = response.data;
 
         console.log("Заявка на вступление подана");
         console.log(data);
         setApplySubmit(true);
-        // navigate("/team/" + data.teamName);
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
-      setApplyError("Корсы или что-то ещё")
+      setApplyError("Корсы или что-то ещё");
     }
   };
   // Принятие участника в команду
   const handleAddMemberClick = async (memberId) => {
     try {
       const jwtToken = localStorage.getItem("token");
-      console.log("Ссылка: " + ACCEPT_URL + JSON.stringify(team.Id) + '-' + JSON.stringify(memberId));
+      console.log(
+        "Ссылка: " +
+          ACCEPT_URL +
+          JSON.stringify(team.id) +
+          "-" +
+          JSON.stringify(memberId)
+      );
       console.log("jwtToken: " + jwtToken);
       const response = await axiosInstance.post(
-        ACCEPT_URL + JSON.stringify(team.Id) + '-' + JSON.stringify(memberId), null,
+        ACCEPT_URL + JSON.stringify(team.id) + "-" + JSON.stringify(memberId),
+        null,
         {
           headers: {
             "Content-Type": "application/json",
@@ -157,27 +117,36 @@ export default function Team() {
           },
         }
       );
-  
+
       if (response.status === 200) {
         // Обработка успешного ответа
-        console.log("Заявка принята успешно");
+        console.log("Заявка принята");
+        console.log("Ответ:")
+        console.log(response);
+        localStorage.setItem("team", JSON.stringify(response.data));
         setTeam(response.data);
-        console.log("new team: ");
-        console.log(team);
+        console.log("Новая команда: ");
+        console.log(response.data);
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
-      // Обработка ошибки
     }
   };
-
+  // Отклонить заявку на вступление в команду
   const handleDeclineClick = async (memberId) => {
     try {
       const jwtToken = localStorage.getItem("token");
-      console.log("Ссылка: " + CANCEL_URL + JSON.stringify(team.Id) + '-' + JSON.stringify(memberId));
+      console.log(
+        "Ссылка: " +
+          CANCEL_URL +
+          JSON.stringify(team.id) +
+          "-" +
+          JSON.stringify(memberId)
+      );
       console.log("jwtToken: " + jwtToken);
       const response = await axiosInstance.post(
-        CANCEL_URL + JSON.stringify(team.Id) + '-' + JSON.stringify(memberId), null,
+        CANCEL_URL + JSON.stringify(team.id) + "-" + JSON.stringify(memberId),
+        null,
         {
           headers: {
             "Content-Type": "application/json",
@@ -185,83 +154,69 @@ export default function Team() {
           },
         }
       );
-  
       if (response.status === 200) {
-        // Обработка успешного ответа
         console.log("Заявка отклонена");
+        console.log("Ответ:")
+        console.log(response);
+        localStorage.setItem("team", JSON.stringify(response.data));
         setTeam(response.data);
-        console.log("new team: ");
-        console.log(team);
+        console.log("Новая команда: ");
+        console.log(response.data);
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
-      // Обработка ошибки
     }
   };
+
+  // Редактирование команды
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
+  // Отмена изменений в команде
   const handleCancelClick = () => {
     setIsEditing(false);
-    setTeamName(localStorage.getItem("teamName") || "");
-    setTeamGoal(localStorage.getItem("teamGoal") || "");
-
-    setError("");
+    setTeam(JSON.parse(localStorage.getItem("team")));
+    console.log("Отмена изменений в команде");
   };
 
+  // Сохранить изменения в команде
   const handleSaveClick = async (e) => {
-    if (!teamName.trim() || !teamGoal.trim()) {
-      setError("Пожалуйста, заполните все поля");
-      return;
-    }
     e.preventDefault();
 
-    const user = JSON.parse(localStorage.getItem("user"));
-    const team_lead = user;
-    const userData = JSON.parse(localStorage.getItem("userData"));
-
-    // Формируем итоговый объект JSON
-    const jsonData = JSON.stringify({
-      teamName: teamName,
-      teamGoal: teamGoal,
-      team_lead: team_lead,
-      MemberTeam: JSON.parse(teamMembers),
-    });
-
-    console.log("Данные команды:", jsonData);
-    localStorage.setItem("teamName", teamName);
-    localStorage.setItem("teamGoal", teamGoal);
-    localStorage.setItem("MemberTeam", teamMembers);
+    const jwtToken = localStorage.getItem("token");
+    const jsonData = team;
+    console.log("Адрес: " + EDIT_URL);
+    console.log("JSON: " + JSON.stringify(jsonData));
+    console.log("jwtToken: " + jwtToken);
     try {
-      const response = await axiosInstance.post(EDIT_URL, jsonData, {
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (response.status === 200) {
-        // Сам напишу
-        // Переходим на страницу команды
-
-        navigate("/team/" + teamName);
-      }
-    } catch (err) {
-      console.error("Ошибка при отправке запроса:", err);
-
-      if (err.response) {
-        if (err.response.status === 502) {
-          if (err.response.data.message[0] === "Bad Gateway") {
-            setErrMsg("Опять че то с сервером");
-          }
-        } else {
-          setErrMsg("Ошибка создания команды");
-        }
-      } else {
-        setErrMsg("Нет ответа от сервера");
-      }
+    const response = await axiosInstance.post(EDIT_URL, jsonData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    });
+    if (response.status === 200) {
+      console.log("Изменения сохранены");
+      console.log("Ответ:")
+      console.log(response);
+      setIsEditing(false);
     }
+    } catch (error) {
+      console.error("Ошибка при отправке запроса:", error);
+
+    }
+
+    console.log("Изменения сохранены");
     setIsEditing(false);
   };
 
+  console.log("Проверки:");
+  console.log("В команде?: " + checkIfUserIsMember(team));
+  console.log("Участник админ?: " + checkIfUserIsUPMember(team));
+  console.log("В заявках?: " + checkIfUserInJion(team));
+  console.log("Может видеть кнопку заявки? " + canApply);
+  console.log("Заявка отправлена?: " + ApplySubmit);
   return (
     <div className={styles.team_page}>
       <Header />
@@ -280,26 +235,17 @@ export default function Team() {
                   {isEditing ? (
                     <input
                       type="text"
-                      value={teamName}
-                      onChange={(e) => setTeamName(e.target.value)}
+                      value={team.teamName}
+                      onChange={(e) => setTeam({ ...team, teamName: e.target.value })}
                       required
                     />
                   ) : (
-                    <>
-                      {team ? (
-                        <p className={styles.name}>{team.teamName}</p>
-                      ) : (
-                        <p className={styles.name}>{teamName}</p>
-                      )}
-                    </>
+                    <p className={styles.name}>{team.teamName}</p>
                   )}
                   <div className={styles.state}>
                     <div className={styles.circle} id="1"></div>
                     <p className={styles.fullness}>
-                      Количество участников:{" "}
-                      {team
-                        ? team.memberTeam.length
-                        : JSON.parse(localStorage.getItem("MemberTeam")).length}
+                      Количество участников: {team.memberTeam.length}
                     </p>
                   </div>
                 </div>
@@ -308,71 +254,43 @@ export default function Team() {
             <div className={styles.player}>
               <h2>Участники</h2>
               <div className={styles.blocks_players}>
-                {team ? (
-                  team.memberTeam.map((member, index) => (
-                    <div key={index} className={styles.block_player}>
-                      <img
-                        src="images/avatar.jpg"
-                        alt="player_icon"
-                        className={styles.player_icon}
-                      />
-                      <div className={styles.desc}>
-                        <p className={styles.player_title}>
-                          {member.dataMemberUser.name + " " + member.dataMemberUser.sureName}
+                {team.memberTeam.map((member, index) => (
+                  <div key={index} className={styles.block_player}>
+                    <img
+                      src="images/avatar.jpg"
+                      alt="player_icon"
+                      className={styles.player_icon}
+                    />
+                    <div className={styles.desc}>
+                      <p className={styles.player_title}>
+                        {member.dataMemberUser?.name +
+                          " " +
+                          member.dataMemberUser?.sureName}
+                      </p>
+                      <div className={styles.state}>
+                        <p className={styles.fullness}>
+                          {member.roleMember === 0
+                            ? "Участник"
+                            : member.roleMember === 1
+                            ? "Админ"
+                            : member.roleMember === 2
+                            ? "Создатель"
+                            : ""}
                         </p>
-                        <div className={styles.state}>
-                          <p className={styles.fullness}>
-                            {member.roleMember === 0
-                              ? "Участник"
-                              : member.roleMember === 1
-                              ? "Админ"
-                              : member.roleMember === 2
-                              ? "Создатель"
-                              : ""}
-                          </p>
-                        </div>
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <>
-                    {JSON.parse(teamMembers).map((member) => (
-                      <div key={member.Id} className={styles.block_player}>
-                        <img
-                          src="images/avatar.jpg"
-                          alt="player_icon"
-                          className={styles.player_icon}
-                        />
-                        <div className={styles.desc}>
-                          <p className={styles.player_title}>
-                            {member.dataMemberUser.name + " " + member.dataMemberUser.sureName}
-                          </p>
-                          <div className={styles.state}>
-                            <p className={styles.fullness}>
-                              {member.roleMember === 0
-                                ? "Участник"
-                                : member.roleMember === 1
-                                ? "Админ"
-                                : member.roleMember === 2
-                                ? "Создатель"
-                                : ""}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </>
-                )}
+                  </div>
+                ))}
               </div>
             </div>
-            {(!team || checkIfUserIsUPMember(team)) && (
+            {checkIfUserIsUPMember(team) && (
               <div className={styles.applic_member}>
                 <h2>Заявки на вступление</h2>
                 <div className={styles.applic_member_teams}>
-                  {(team?.jion_means.length === 0 || team?.jion_means.length === undefined) && (
+                  {team.jion_means.length === 0 && (
                     <p>Нет заявок на вступление</p>
-                  )} 
-                  {team?.jion_means.map((member) => (
+                  )}
+                  {team.jion_means.map((member) => (
                     <div key={member.Id} className={styles.block_player}>
                       <img
                         src="images/avatar.jpg"
@@ -380,12 +298,24 @@ export default function Team() {
                         className={styles.player_icon}
                       />
                       <div className={styles.desc}>
-                        <p className={styles.player_title}>{member.name + " " + member.sureName}</p>
+                        <p className={styles.player_title}>
+                          {member.name + " " + member.sureName}
+                        </p>
                         <div className={styles.state}></div>
                       </div>
                       <div className={styles.buttons}>
-                        <button className={styles.button_add} onClick={() => handleAddMemberClick(member.Id)}>Добавить</button>
-                        <button className={styles.button_remove} onClick={() => handleDeclineClick(member.Id)}>Отклонить</button>
+                        <button
+                          className={styles.button_add}
+                          onClick={() => handleAddMemberClick(member.id)}
+                        >
+                          Добавить
+                        </button>
+                        <button
+                          className={styles.button_remove}
+                          onClick={() => handleDeclineClick(member.id)}
+                        >
+                          Отклонить
+                        </button>
                       </div>
                     </div>
                   ))}
@@ -398,9 +328,9 @@ export default function Team() {
               <p>Цель команды:</p>
               <div className={styles.tag_field}>
                 <textarea
-                  value={team ? team.teamGoal : teamGoal}
+                  value={team.teamGoal}
                   className={styles.tags}
-                  onChange={(e) => setTeamGoal(e.target.value)}
+                  onChange={(e) => setTeam({ ...team, teamGoal: e.target.value })}
                   name="tags"
                   style={{ fontSize: "15pt" }}
                   rows="3"
@@ -415,12 +345,11 @@ export default function Team() {
                 <p className={styles.inf_title}>Информация о команде</p>
                 <textarea
                   value={
-                    team
-                      ? team.teamDescription === ""
-                        ? "Описание отсутствует"
-                        : team.teamDescription
-                      : teamDescription
+                    team.teamDescription === ""
+                      ? "Описание отсутствует"
+                      : team.teamDescription
                   }
+                  onChange={(e) => setTeam({ ...team, teamDescription: e.target.value })}
                   className={styles.inf_p}
                   name="inf-p"
                   style={{ fontSize: "13pt" }}
@@ -436,24 +365,14 @@ export default function Team() {
               <div className={styles.info_panel}>
                 <p className={styles.inf_title}>Теги:</p>
                 <ul className={styles.ul_list_skills}>
-                  {team
-                    ? 
-                    <>
-                    {team && team.team_stack.map((skill, index) => (
+                  {team &&
+                    team.team_stack?.map((skill, index) => (
                       <div className={styles.skillWrapper} key={index}>
                         <li className={styles.li_item_skills} key={index}>
                           {skill.nameSkill}
                         </li>
                       </div>
                     ))}
-                    </>
-                    : JSON.parse(teamSkills).map((skill, index) => (
-                        <div className={styles.skillWrapper} key={index}>
-                          <li className={styles.li_item_skills} key={index}>
-                            {skill.nameSkill}
-                          </li>
-                        </div>
-                      ))}
                 </ul>
               </div>
             </div>
@@ -471,23 +390,21 @@ export default function Team() {
             </div>
           ) : (
             <>
-              {canApply && !checkIfUserIsMember(team) && !ApplySubmit && ApplyError === "" && (
-                <button className={styles.confirm} onClick={handleApplyClick}>
-                  Подать заявку
-                </button>
-              )}
+              {canApply &&
+                !ApplySubmit &&
+                ApplyError === "" && (
+                  <button className={styles.confirm} onClick={handleApplyClick}>
+                    Подать заявку
+                  </button>
+                )}
               {ApplySubmit && (
-                <button className={styles.confirm}>
-                  Заявка отправлена
-                </button>
+                <button className={styles.confirm}>Заявка отправлена</button>
               )}
               {ApplyError && (
-                <button className={styles.cancel}>
-                  {ApplyError}
-                </button>
+                <button className={styles.cancel}>{ApplyError}</button>
               )}
               {/* TODO: Надо изменить условие здесь!!! */}
-              {!canApply && (
+              {checkIfUserIsUPMember(team) && (
                 <button className={styles.edit} onClick={handleEditClick}>
                   Редактировать
                 </button>

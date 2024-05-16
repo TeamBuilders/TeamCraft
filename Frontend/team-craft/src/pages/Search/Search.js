@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 // import { API_URL } from "../../api/apiConfig";
 import axiosInstance from "../../api/axios";
 
-const TEAMS_URL = "/teams";
+// const TEAMS_URL = "/teams"; разные регистры - издевательсвто
 const FILTER_URL = "/teams/filter";
 const SKILL_URL = "/skill/1";
 
@@ -57,8 +57,12 @@ const [teams, setTeams] = useState([]);
     }
   };
   const takeTeams = async () => {
-    const response = await axiosInstance.get(TEAMS_URL);
-    return response.data;
+    const jsonData = JSON.stringify([]);
+
+      const response = await axiosInstance.post(FILTER_URL, jsonData, {
+        headers: { "Content-Type": "application/json" },
+      });
+      return response.data;
   };
 
   const takeSkills = async () => {
@@ -84,7 +88,8 @@ const [teams, setTeams] = useState([]);
     fetchData();
 }, []);
   const handleTeamClick = (team) => {
-    navigate(`/team/${team.teamName}`, { state: { team } });
+    localStorage.setItem("team", JSON.stringify(team));
+    navigate(`/team/${team.teamName}`);
   };
   return (
     <div className={styles.search_page}>

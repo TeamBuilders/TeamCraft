@@ -79,18 +79,12 @@ const CreateTeamForm = () => {
 
       if (response.status === 200) {
         // Преобразование объекта в JSON
-        const data = response.data;
+        const team = response.data;
 
         console.log("Сохранено");
-        console.log(data);
-
-        localStorage.setItem("teamName", data.teamName);
-        localStorage.setItem("teamGoal", data.teamGoal);
-        localStorage.setItem("teamDescription", data.teamDescription);
-        localStorage.setItem("MemberTeam", JSON.stringify(data.memberTeam));
-        localStorage.setItem("team_stack", JSON.stringify(data.team_stack));
-
-        navigate("/team/" + data.teamName);
+        console.log(team);
+        localStorage.setItem("team", JSON.stringify(team));
+        navigate(`/team/${team.teamName}`);
       }
     } catch (err) {
       console.error("Ошибка при отправке запроса:", err);
