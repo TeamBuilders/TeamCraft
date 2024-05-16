@@ -11,6 +11,7 @@ const EDIT_URL = "/teams/edit";
 const REQUIRE_URL = "/team/require/";
 const ACCEPT_URL = "/team/acceptRequire/";
 const CANCEL_URL = "/team/cancelledRequire/";
+const KICK_URL = "/teams/deleteMember/";
 
 export default function Team() {
   const navigate = useNavigate();
@@ -19,8 +20,13 @@ export default function Team() {
 
   const location = useLocation();
   const [team, setTeam] = useState(JSON.parse(localStorage.getItem("team")));
+  const userId = JSON.parse(localStorage.getItem("userData")).Id;
+
+  const userRole = team.memberTeam.find((member) => member.dataMemberUserId === userId)?.roleMember;
+
   console.log("team: ");
   console.log(team);
+  console.log("userId: " + userId);
 
   // Проверка на наличие в команде
   const checkIfUserIsMember = (team) => {
@@ -34,7 +40,6 @@ export default function Team() {
   };
   // Проверка на наличие в команде админов
   const checkIfUserIsUPMember = (team) => {
-    const userId = JSON.parse(localStorage.getItem("userData")).Id;
     return team.memberTeam.some(
       (member) =>
         member.dataMemberUser &&
@@ -209,11 +214,36 @@ export default function Team() {
       setTeam(JSON.parse(localStorage.getItem("team")));
 
     }
-
     console.log("Изменения сохранены");
     setIsEditing(false);
   };
-
+  // Kick
+  const handleKickClick = async (memberId) => {
+    const jwtToken = localStorage.getItem("token");
+    try {
+      const response = await axiosInstance.post(
+        KICK_URL + JSON.stringify(team.id) + "-" + JSON.stringify(memberId),
+        null,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("Кикнуть");
+        console.log("Ответ:")
+        console.log(response);
+        localStorage.setItem("team", JSON.stringify(response.data));
+        setTeam(response.data);
+        console.log("Новая команда: ");
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error("Ошибка при отправке запроса:", error);
+    }
+  }
   console.log("Проверки:");
   console.log("В команде?: " + checkIfUserIsMember(team));
   console.log("Участник админ?: " + checkIfUserIsUPMember(team));
@@ -282,6 +312,16 @@ export default function Team() {
                         </p>
                       </div>
                     </div>
+                    
+                    {userRole === 2 && (userId !== member.dataMemberUserId) && (
+                    <div className={styles.kick}>
+                      <button
+                        className={styles.button_kick}
+                        onClick={() => handleKickClick(member.id)}
+                      >
+                        Кикнуть
+                      </button>
+                    </div>)}
                   </div>
                 ))}
               </div>
@@ -406,7 +446,6 @@ export default function Team() {
               {ApplyError && (
                 <button className={styles.cancel}>{ApplyError}</button>
               )}
-              {/* TODO: Надо изменить условие здесь!!! */}
               {checkIfUserIsUPMember(team) && (
                 <button className={styles.edit} onClick={handleEditClick}>
                   Редактировать

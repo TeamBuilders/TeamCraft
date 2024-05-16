@@ -124,6 +124,25 @@ p.name {
     background-color: #9fc4f0;
     
 }
+.kick {
+  margin-right: 10px;  
+  margin-left: auto;
+  padding-top: 17px;
+}
+.button_kick {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  text-decoration: none;
+}
+
+.button_kick:hover {
+  color: darkred;
+  text-decoration: underline;
+}
 
 p.fullness {
     margin: 0;
