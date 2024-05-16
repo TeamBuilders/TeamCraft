@@ -237,7 +237,7 @@ app.MapPost("/api/login", async delegate (HttpContext context, DBConfigurator db
     return JsonConvert.SerializeObject(statusRequestUser);
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
 
-app.MapPut("/api/profile/", async delegate (HttpContext context, DBConfigurator db)
+app.MapPost("/api/profile/", async delegate (HttpContext context, DBConfigurator db)
 {
     AccountUser? accountUserJson = await context.Request.ReadFromJsonAsync<AccountUser>();
     AccountUser? accountJwt = Helper.FindUserFromClaim(context.User.Claims, db);
@@ -311,7 +311,7 @@ app.MapGet("/api/skill/{number}", async delegate (HttpContext context, DBConfigu
 
 app.MapGet("/api/teams", async delegate (HttpContext context, DBConfigurator db)
 {
-    List<Team> teams = db.Teams.Include(teams => teams.team_stack).Include(team => team.Jion_means).Include(teams => teams.MemberTeam).ThenInclude(teams => teams.dataMemberUser).ToList();
+    List<Team> teams = db.Teams.Include(teams => teams.team_stack).Include(team => team.jion_means).Include(teams => teams.memberTeam).ThenInclude(teams => teams.dataMemberUser).ToList();
     return JsonConvert.SerializeObject(teams);
 
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
@@ -349,14 +349,14 @@ app.MapPost("/api/teams/create", async delegate (HttpContext context, DBConfigur
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
 
-app.MapPut("/api/teams/edit", async delegate (HttpContext context, DBConfigurator db)
+app.MapPost("/api/teams/edit", async delegate (HttpContext context, DBConfigurator db)
 {
 
     Team team = await context.Request.ReadFromJsonAsync<Team>();
     RequestStatus requestStatusInput = DataValidator.CheckCorrectTeamData(team, db);
     AccountUser? owner = Helper.FindUserFromClaim(context.User.Claims, db);
 
-    if (owner == null || owner.dataUserId != team.MemberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId)
+    if (owner == null || owner.dataUserId != team.memberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId)
     {
         context.Response.StatusCode = 403;
         return JsonConvert.SerializeObject("Не найден владелец или нет прав");
@@ -372,8 +372,8 @@ app.MapPut("/api/teams/edit", async delegate (HttpContext context, DBConfigurato
         }
 
         await db.Teams.Where(tm => tm.Id == team.Id).ExecuteUpdateAsync(objec => objec.
-            SetProperty(obj => obj.MemberTeam, obj => team.MemberTeam).
-            SetProperty(obj => obj.Jion_means, obj => team.Jion_means).
+            SetProperty(obj => obj.memberTeam, obj => team.memberTeam).
+            SetProperty(obj => obj.jion_means, obj => team.jion_means).
             SetProperty(obj => obj.teamName, obj => team.teamName).
             SetProperty(obj => obj.teamGoal, obj => team.teamGoal).
             SetProperty(obj => obj.teamDescription, obj => team.teamDescription).
@@ -386,9 +386,9 @@ app.MapPut("/api/teams/edit", async delegate (HttpContext context, DBConfigurato
     return JsonConvert.SerializeObject(requestStatusInput);
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
-app.MapPut("/api/team/require/{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idTeam)
+app.MapPost("/api/team/require/{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idTeam)
 {
-    Team? teamDb = db.Teams.Include(team => team.Jion_means).FirstOrDefault(team => team.Id == idTeam);
+    Team? teamDb = db.Teams.Include(team => team.jion_means).FirstOrDefault(team => team.Id == idTeam);
     DataUser? userDb = Helper.FindUserFromClaim(context.User.Claims, db)?.dataUser;
     if (teamDb == null || userDb == null)
     {
@@ -396,15 +396,21 @@ app.MapPut("/api/team/require/{idTeam}", async delegate (HttpContext context, DB
         return JsonConvert.SerializeObject("Not found id team or user");
     }
 
-    teamDb.Jion_means.Add(userDb);
+    if(teamDb.jion_means.Count(mean => mean.Id == userDb.Id) > 0)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Пользователь уже дал заявку");
+    }
+
+    teamDb.jion_means.Add(userDb);
     await db.SaveChangesAsync();
-    return JsonConvert.SerializeObject(db.Teams.Include(team => team.Jion_means).FirstOrDefault(team => team.Id == idTeam));
+    return JsonConvert.SerializeObject(db.Teams.Include(team => team.jion_means).FirstOrDefault(team => team.Id == idTeam));
 }
 ).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
-app.MapPut("/api/team/acceptRequire/{idTeam}-{idUser}", async delegate (HttpContext context, DBConfigurator db, int idTeam, int idUser)
+app.MapPost("/api/team/acceptRequire/{idTeam}-{idUser}", async delegate (HttpContext context, DBConfigurator db, int idTeam, int idUser)
 {
-    Team? teamDb = db.Teams.Include(team => team.Jion_means).Include(team => team.MemberTeam).FirstOrDefault(team => team.Id == idTeam);
+    Team? teamDb = db.Teams.Include(team => team.jion_means).Include(team => team.memberTeam).FirstOrDefault(team => team.Id == idTeam);
     DataUser? userDb = db.dataUser.FirstOrDefault(dataUser => dataUser.Id == idUser);
     AccountUser? ownerAccount = Helper.FindUserFromClaim(context.User.Claims, db);
 
@@ -416,10 +422,10 @@ app.MapPut("/api/team/acceptRequire/{idTeam}-{idUser}", async delegate (HttpCont
 
     MemberTeam? owner = db.memberTeams.FirstOrDefault(member => member.dataMemberUserId == Helper.FindUserFromClaim(context.User.Claims, db).dataUserId);
 
-    if (teamDb.MemberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId == ownerAccount.dataUserId)
+    if (teamDb.memberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId == ownerAccount.dataUserId)
     {
-        if (teamDb.Jion_means.Contains(userDb))
-            teamDb.Jion_means.Remove(userDb);
+        if (teamDb.jion_means.Contains(userDb))
+            teamDb.jion_means.Remove(userDb);
         else
         {
             context.Response.StatusCode = 400;
@@ -427,9 +433,9 @@ app.MapPut("/api/team/acceptRequire/{idTeam}-{idUser}", async delegate (HttpCont
         }
         userDb.inTeam = true;
         MemberTeam memberTeam = new MemberTeam(userDb, teamDb);
-        teamDb.MemberTeam.Add(memberTeam);
+        teamDb.memberTeam.Add(memberTeam);
         await db.SaveChangesAsync();
-        return JsonConvert.SerializeObject(db.Teams.Include(team => team.Jion_means).Include(team => team.MemberTeam).FirstOrDefault(team => team.Id == idTeam));
+        return JsonConvert.SerializeObject(db.Teams.Include(team => team.jion_means).Include(team => team.memberTeam).FirstOrDefault(team => team.Id == idTeam));
     }
     else
     {
@@ -440,9 +446,9 @@ app.MapPut("/api/team/acceptRequire/{idTeam}-{idUser}", async delegate (HttpCont
 
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
-app.MapPut("/api/team/cancelledRequire/{idTeam}-{idUser}", async delegate (HttpContext context, DBConfigurator db, int idTeam, int idUser)
+app.MapPost("/api/team/cancelledRequire/{idTeam}-{idUser}", async delegate (HttpContext context, DBConfigurator db, int idTeam, int idUser)
 {
-    Team? teamDb = db.Teams.Include(team => team.Jion_means).Include(team => team.MemberTeam).FirstOrDefault(team => team.Id == idTeam);
+    Team? teamDb = db.Teams.Include(team => team.jion_means).Include(team => team.memberTeam).FirstOrDefault(team => team.Id == idTeam);
     DataUser? userDb = db.dataUser.FirstOrDefault(dataUser => dataUser.Id == idUser);
     AccountUser? ownerAccount = Helper.FindUserFromClaim(context.User.Claims, db);
 
@@ -454,10 +460,10 @@ app.MapPut("/api/team/cancelledRequire/{idTeam}-{idUser}", async delegate (HttpC
 
     //MemberTeam? owner = db.memberTeams.FirstOrDefault(member => member.dataMemberUserId == ownerAccount.dataUserId);
 
-    if (teamDb.MemberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId == ownerAccount.dataUserId)
+    if (teamDb.memberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId == ownerAccount.dataUserId)
     {
-        if (teamDb.Jion_means.Contains(userDb))
-            teamDb.Jion_means.Remove(userDb);
+        if (teamDb.jion_means.Contains(userDb))
+            teamDb.jion_means.Remove(userDb);
         else
         {
             context.Response.StatusCode = 400;
@@ -465,7 +471,7 @@ app.MapPut("/api/team/cancelledRequire/{idTeam}-{idUser}", async delegate (HttpC
         }
 
         await db.SaveChangesAsync();
-        return JsonConvert.SerializeObject(db.Teams.Include(team => team.Jion_means).Include(team => team.MemberTeam).FirstOrDefault(team => team.Id == idTeam));
+        return JsonConvert.SerializeObject(db.Teams.Include(team => team.jion_means).Include(team => team.memberTeam).FirstOrDefault(team => team.Id == idTeam));
     }
     else
     {
@@ -475,10 +481,10 @@ app.MapPut("/api/team/cancelledRequire/{idTeam}-{idUser}", async delegate (HttpC
 
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
-app.MapPut("/api/teams/deleteMember/{idTeam}-{idMember}", async delegate (HttpContext context, DBConfigurator db, int idTeam, int idMember)
+app.MapPost("/api/teams/deleteMember/{idTeam}-{idMember}", async delegate (HttpContext context, DBConfigurator db, int idTeam, int idMember)
 {
-    Team? targetTeam = db.Teams.Include(team => team.Jion_means).Include(team => team.MemberTeam).ThenInclude(member => member.dataMemberUser).FirstOrDefault(team => team.Id == idTeam);
-    MemberTeam? targetMember = targetTeam.MemberTeam.FirstOrDefault(member => member.Id == idMember);
+    Team? targetTeam = db.Teams.Include(team => team.jion_means).Include(team => team.memberTeam).ThenInclude(member => member.dataMemberUser).FirstOrDefault(team => team.Id == idTeam);
+    MemberTeam? targetMember = targetTeam.memberTeam.FirstOrDefault(member => member.Id == idMember);
     AccountUser? ownerAccount = Helper.FindUserFromClaim(context.User.Claims, db);
 
     if (targetMember == null || targetTeam == null || ownerAccount == null)
@@ -487,10 +493,10 @@ app.MapPut("/api/teams/deleteMember/{idTeam}-{idMember}", async delegate (HttpCo
         return JsonConvert.SerializeObject("Not exists team, owner or target Delete Person");
     }
 
-    if (targetTeam.MemberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId == ownerAccount.dataUserId)
+    if (targetTeam.memberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId == ownerAccount.dataUserId)
     {
         targetMember.dataMemberUser.inTeam = false;
-        targetTeam.MemberTeam.Remove(targetMember);
+        targetTeam.memberTeam.Remove(targetMember);
         await db.SaveChangesAsync();
         return JsonConvert.SerializeObject(targetTeam);
     }
@@ -510,14 +516,42 @@ app.MapPost("/api/teams/filter", async delegate (HttpContext context, DBConfigur
     List<SkillPerson> skillsJson = await context.Request.ReadFromJsonAsync<List<SkillPerson>>();
 
     if (skillsJson.Count == 0)
-        return db.Teams.Include(team => team.team_stack).Include(team => team.Jion_means).Include(team => team.MemberTeam).ThenInclude(c => c!.dataMemberUser).ToList();
+        return db.Teams.Include(team => team.team_stack).Include(team => team.jion_means).Include(team => team.memberTeam).ThenInclude(c => c!.dataMemberUser).ToList();
 
-    List<Team> team = db.Teams.Include(team => team.team_stack).Include(team => team.MemberTeam).Include(team => team.Jion_means).ToList();
+    List<Team> team = db.Teams.Include(team => team.team_stack).Include(team => team.memberTeam).Include(team => team.jion_means).ToList();
 
     return team.Where(team => skillsJson.All(x => team.team_stack.Contains(x))).ToList();
 
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
 
+
+app.MapGet("/api/profile/includeTeam", async delegate (HttpContext context, DBConfigurator db)
+{
+    AccountUser? account = Helper.FindUserFromClaim(context.User.Claims, db);
+
+    if(account == null)
+    {
+        context.Response.StatusCode = 403;
+        return JsonConvert.SerializeObject("Не выполнен вход в аккаунт: не верный логин или пароль");
+    }
+
+    return JsonConvert.SerializeObject(db.memberTeams.Include(member => member.team).ThenInclude(team => team.team_stack).Include(team => team.team.memberTeam).Include(team => team.team.jion_means).Where(member => member.dataMemberUserId == account.id));
+
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
+
+
+app.MapGet("/api/team/{id}", async delegate (HttpContext context ,DBConfigurator db, int id)
+{
+    Team? team = db.Teams.Include(teams => teams.team_stack).Include(teams => teams.jion_means).Include(teams => teams.memberTeam).FirstOrDefault(teams => teams.Id == id);
+
+    if(team == null)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Команда не найдена");
+    }
+
+    return JsonConvert.SerializeObject(team);
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
 
 app.MapGet("/api/data", (HttpContext context) => $"Successfully!").RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
@@ -559,6 +593,9 @@ app.MapGet("/api/hackathons/image/{id}", async (int id, DBConfigurator db) =>
         return Results.NotFound();
     }
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
+
+
+
 
 
 app.MapGet("/api/data", [Authorize] (HttpContext context) => $"Successfully!").RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()); ;

@@ -27,13 +27,13 @@ namespace TeamCraft.Model.TeamsArchitecture
         public string? teamDescription { get; set; }
 
 
-        public List<MemberTeam>? MemberTeam { get; set; } = new();
+        public List<MemberTeam>? memberTeam { get; set; } = new();
 
-        public List<DataUser>? Jion_means { get; set; } = new();
+        public List<DataUser>? jion_means { get; set; } = new();
 
         public void AddPersonInTeam(MemberTeam user)
         {
-            MemberTeam.Add(user);
+            memberTeam.Add(user);
             user.dataMemberUser.inTeam = true;
         }
     }
