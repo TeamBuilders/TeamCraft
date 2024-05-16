@@ -1,13 +1,14 @@
-﻿using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium;
+﻿
 using System.Security.Cryptography;
 using System.Text;
 using TeamCraft.DataBaseController;
 using TeamCraft.Model.Posts;
-
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TeamCraft.Model.UserAcrhitecture;
+using System;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
 
 namespace TeamCraft.FilterLogic
 {
@@ -91,14 +92,10 @@ namespace TeamCraft.FilterLogic
             return null;
         }
 
-        public static async Task UpdateDatabase(Func<DBConfigurator> dbContextFactory)
+        /*public static async Task UpdateDatabase(Func<DBConfigurator> dbContextFactory)
         {
-            //List<HackathonPost> posts = new List<HackathonPost>();
-
             using (var db = dbContextFactory())
             {
-
-
                 static async Task<string> ConvertImageToBase64(string imageUrl)
                 {
                     using (HttpClient httpClient = new HttpClient())
@@ -108,9 +105,166 @@ namespace TeamCraft.FilterLogic
                     }
                 }
 
+                //"C:\Users\m1kraze\Downloads\KM76.5.3-Goanna-20240511\KM-Goanna\k-meleon.exe"
+
+                // Установка Chromium
+                var browserFetcher = new BrowserFetcher(new BrowserFetcherOptions());
+                var revisionInfo = await browserFetcher.DownloadAsync("856583"); // номер последней стабильной версии Chromium
+
+                // Получение пути к исполняемому файлу Chromium
+                var executablePath = revisionInfo.GetExecutablePath();
+
+                // Запуск браузера K-Meleon
+                var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+                {
+                    Headless = true,
+                    ExecutablePath = "..\\..\\..\\..\\KM-Goanna\\k-meleon.exe" // Используем путь к исполняемому файлу K-Meleon
+                });
+
+                var page = await browser.NewPageAsync();
+                //await page.GoToAsync("https://www.xn--80aa3anexr8c.xn--p1acf/");
+                await page.GoToAsync("https://www.хакатоны.рус/");
+                //https://www.хакатоны.рус/
+                var html = await page.GetContentAsync();
+
+                // Создание экземпляра HtmlDocument
+                var htmlDocument = new HtmlAgilityPack.HtmlDocument();
+
+                // Загрузка HTML-кода в htmlDocument
+                htmlDocument.LoadHtml(html); // где html - это ваш HTML-код
+
+                // Извлечение информации о хакатонах
+                var hackathons = htmlDocument.DocumentNode.SelectNodes("//div[@class='js-feed-post']");
+
+                if (hackathons != null)
+                {
+                    foreach (var hackathon in hackathons)
+                    {
+                        HackathonPost post = new HackathonPost();
+                        post.Title = hackathon.SelectSingleNode(".//div[@class='js-feed-post-title']//a").InnerText;
+                        post.Link = hackathon.SelectSingleNode(".//div[@class='js-feed-post-title']//a").GetAttributeValue("href", "");
+                        post.Description = hackathon.SelectSingleNode(".//div[@class='js-feed-post-descr']").InnerText;
+                        post.ImageUrl = "defaultImage.png";
+
+                        // Проверяем, существует ли уже пост в базе данных
+                        var existingPost = db.HackathonPosts.FirstOrDefault(p => p.Title == post.Title && p.Link == post.Link);
+
+                        if (existingPost != null)
+                        {
+                            // Если пост уже существует, пропускаем его и переходим к следующему посту в цикле
+                            continue;
+                        }
+
+                        // Если пост не существует, добавляем его в базу данных
+                        db.HackathonPosts.Add(post);
+                        db.SaveChanges();
+
+                        var tags = hackathon.SelectNodes(".//div[@class='t-feed__post-tag']");
+
+
+                        // Проверяем, инициализирован ли PostTags
+                        if (post.PostTags == null)
+                        {
+                            post.PostTags = new List<PostTag>();
+                        }
+
+                        foreach (var tag in tags)
+                        {
+                            string tagName = tag.InnerText;
+                            var existingTag = db.Tags.FirstOrDefault(t => t.nameTags == tagName);
+                            if (existingTag != null)
+                            {
+                                // Если тег уже существует, проверяем, не был ли он уже добавлен к post
+                                if (!post.PostTags.Any(pt => pt.PostsTagsId == existingTag.id))
+                                {
+                                    // Если тег еще не был добавлен, создаем новый PostTag
+                                    var postTag = new PostTag
+                                    {
+                                        HackathonPostId = post.Id,
+                                        PostsTagsId = existingTag.id,
+                                        nameTags = existingTag.nameTags
+
+                                    };
+                                    db.PostTags.Add(postTag); // Добавляем PostTag в базу данных
+
+                                }
+                            }
+                            else
+                            {
+                                // Если тег не существует, создаем новый тег
+                                var newTag = new PostsTags { nameTags = tagName };
+                                db.Tags.Add(newTag);
+                                db.SaveChanges(); // Сохраняем изменения в базе данных 
+
+                                // Создаем новый PostTag
+                                var postTag = new PostTag
+                                {
+                                    HackathonPostId = post.Id,
+                                    PostsTagsId = newTag.id,
+                                    nameTags = newTag.nameTags
+
+
+                                };
+                                db.PostTags.Add(postTag); // Добавляем PostTag в базу данных
+
+                            }
+                            db.SaveChanges();
+                        }
+
+                        //db.SaveChanges(); // Сохраняем все изменения в базе данных
+
+                        string imageUrl = hackathon.SelectSingleNode(".//div[@class='t-feed__post-img t-img js-feed-img']").GetAttributeValue("data-original", "");
+
+                        if (!string.IsNullOrEmpty(imageUrl)) // Проверяем, не является ли imageUrl NULL или пустой строкой
+                        {
+                            string imageBase64 = await ConvertImageToBase64(imageUrl);
+                            post.ImageBase64 = imageBase64;
+                            post.ImageUrl = "defaultImage.png";
+                        }
+                        else
+                        {
+                            post.ImageBase64 = "defaultBase64Image"; // Задаем значение по умолчанию для ImageBase64, если imageUrl NULL или пустая строка
+                            post.ImageUrl = "defaultImage.png";
+                        }
+
+                        //db.SaveChanges();
+
+                        //posts.Add(post); // Добавляем пост в список
+                    }
+                }
+                await db.SaveChangesAsync();
+
+                
+
+                // Возвращаем список постов из базы данных
+                //return db.HackathonPosts.ToList();
+            }
+
+
+            //return Results.Ok();
+            //return posts; // Возвращаем список постов
+        }*/
+
+
+        public static async Task UpdateDatabase(Func<DBConfigurator> dbContextFactory)
+        {
+            //List<HackathonPost> posts = new List<HackathonPost>();
+
+            using (var db = dbContextFactory())
+            {
+                static async Task<string> ConvertImageToBase64(string imageUrl)
+                {
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        byte[] imageBytes = await httpClient.GetByteArrayAsync(imageUrl);
+                        return Convert.ToBase64String(imageBytes);
+                    }
+                }
 
                 // Начинаем тырить инфу, открываем Хромик, ВЫРУБИ АНТИВИРУСНИК, А ТО ОН НЕ ОТКРОЕТСЯ
-                IWebDriver _driver = new ChromeDriver();
+                ChromeOptions options = new ChromeOptions();
+                options.AddArgument("--headless"); // Добавляем аргумент "--headless"
+                IWebDriver _driver = new ChromeDriver(options); // Используем опции при создании экземпляра ChromeDriver
                 _driver.Manage().Timeouts().PageLoad = TimeSpan.FromMinutes(1); // Установка таймаута загрузки страницы в 1 мин
                 _driver.Navigate().GoToUrl("https://www.xn--80aa3anexr8c.xn--p1acf/");
 
@@ -119,6 +273,7 @@ namespace TeamCraft.FilterLogic
 
                 // Извлечение информации о хакатонах
                 IList<IWebElement> hackathons = _driver.FindElements(By.CssSelector(".js-feed-post"));
+
 
 
 
