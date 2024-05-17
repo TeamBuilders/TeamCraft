@@ -70,6 +70,13 @@ export default function Login(){
           localStorage.setItem('token', response.data?.jwtToken);
           localStorage.setItem('user', JSON.stringify(response.data?.user?.settingsUser?.login));
           localStorage.setItem('email', JSON.stringify(response.data?.user?.settingsUser?.email));
+          localStorage.setItem('id', JSON.stringify(response.data?.user?.id));
+          localStorage.setItem('dataUserId', JSON.stringify(response.data?.user?.dataUserId));
+          localStorage.setItem('settingsUserId', JSON.stringify(response.data?.user?.settingsUserId));
+          localStorage.setItem('isHiddeInResearch', JSON.stringify(response.data?.user?.settingsUser?.isHiddeInResearch));
+          localStorage.setItem('isHiddenData', JSON.stringify(response.data?.user?.settingsUser?.isHiddenData));
+
+
           // Переходим на страницу профиля
 
           setToken(response.data?.jwtToken);
