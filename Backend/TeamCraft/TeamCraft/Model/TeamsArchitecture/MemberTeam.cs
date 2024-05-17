@@ -13,7 +13,7 @@ namespace TeamCraft.Model.TeamsArchitecture
             this.team = team;
         }
 
-        public int Id { get; set; }
+        public int id { get; set; }
         public int dataMemberUserId { get; set; }
         public DataUser dataMemberUser { get; set; }
 

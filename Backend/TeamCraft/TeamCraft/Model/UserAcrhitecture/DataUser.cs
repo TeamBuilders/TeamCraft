@@ -25,7 +25,7 @@ namespace TeamCraft.Model.UserAcrhitecture
             this.databirthday = form.birthday;
             this.urlContact = form.contact;
         }
-        public int Id { get; set; }
+        public int id { get; set; }
         public string name { get; set; }
         public string sureName { get; set; }
 

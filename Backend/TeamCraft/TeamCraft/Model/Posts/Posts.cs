@@ -8,7 +8,7 @@ namespace TeamCraft.Model.Posts
 {
     public class HackathonPost
     {
-        public int Id { get; set; }
+        public int id { get; set; }
         public string Title { get; set; }
         public string Link { get; set; }
         public string Description { get; set; }

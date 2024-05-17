@@ -16,7 +16,7 @@ namespace TeamCraft.Model.TeamsArchitecture
             this.teamDescription = teamDescription;
         }
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public string teamName { get; set; }
 
