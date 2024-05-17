@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TeamCraft.JwtData
+﻿namespace TeamCraft.JwtData
 {
     public class EmailData
     {
@@ -11,6 +9,6 @@ namespace TeamCraft.JwtData
         }
         public int Id { get; set; }
         public string? email { get; set; }
-        public int? code { get; set; }   
+        public int? code { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using TeamCraft.Model;
 
 namespace TeamCraft.FilterLogic
 {
@@ -10,7 +9,7 @@ namespace TeamCraft.FilterLogic
 
         }
 
-        public SkillPerson(string name,  CategoryHobby hobbyAttachment)
+        public SkillPerson(string name, CategoryHobby hobbyAttachment)
         {
             this.nameSkill = name;
             this.categoryHobby = hobbyAttachment;
@@ -29,8 +28,7 @@ namespace TeamCraft.FilterLogic
         [Newtonsoft.Json.JsonIgnore]
         public CategoryHobby? categoryHobby { get; set; }
 
-        //public int? CategoryHobbyId { get; set; }
-        //public CategoryHobby? CategoryHobby { get; set; }
+
 
         public override bool Equals(object? obj)
         {

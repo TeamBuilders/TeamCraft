@@ -1,17 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using TeamCraft.Model.TeamsArchitecture;
-using TeamCraft.Model.UserAcrhitecture;
 using TeamCraft.FilterLogic;
-using System.Reflection.Emit;
 using TeamCraft.JwtData;
 using TeamCraft.Model.Posts;
-using Microsoft.Extensions.Configuration;
+using TeamCraft.Model.TeamsArchitecture;
+using TeamCraft.Model.UserAcrhitecture;
 
 namespace TeamCraft.DataBaseController
 {
     public class DBConfigurator : DbContext
     {
-        
+
 
 
         public DbSet<HackathonPost> HackathonPosts { get; set; } = null!;
@@ -31,7 +29,7 @@ namespace TeamCraft.DataBaseController
     : base(options)
         {
 
-           // Database.EnsureDeleted();
+            // Database.EnsureDeleted();
             Database.EnsureCreated();   // создаем базу данных при первом обращени
 
             //CategoryHobby[] listHobbies = new CategoryHobby[]
@@ -51,7 +49,7 @@ namespace TeamCraft.DataBaseController
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             CategoryHobby[] listHobbies = new CategoryHobby[]
-            {       
+            {
                 new CategoryHobby(1,"Разработка"),
                 new CategoryHobby(2,"Музыка"),
                 new CategoryHobby(3,"Анимации"),
@@ -63,6 +61,7 @@ namespace TeamCraft.DataBaseController
 
             SkillPerson[] skillPeople = new SkillPerson[]
             {
+                //it
                 new SkillPerson(1,"C#", listHobbies[0],1),
                 new SkillPerson(2,"Asp Net Core", listHobbies[0],1),
                 new SkillPerson(3,"Entity FrameWrork", listHobbies[0], 1),
@@ -87,7 +86,7 @@ namespace TeamCraft.DataBaseController
                 new SkillPerson(22,"Godot", listHobbies[0], 1),
                 new SkillPerson(23,"Unigine", listHobbies[0], 1),
 
-                //Музыка
+                //Music
                 new SkillPerson(24,"Композитор", listHobbies[1], 2),
                 new SkillPerson(25,"Вокал", listHobbies[1],2),
                 new SkillPerson(26,"Гитара", listHobbies[1],2),

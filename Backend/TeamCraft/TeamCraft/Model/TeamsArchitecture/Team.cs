@@ -1,7 +1,5 @@
-using TeamCraft.DataBaseController;
-using TeamCraft.Model.UserAcrhitecture;
-using System.Text.Json.Serialization;
 using TeamCraft.FilterLogic;
+using TeamCraft.Model.UserAcrhitecture;
 
 namespace TeamCraft.Model.TeamsArchitecture
 {

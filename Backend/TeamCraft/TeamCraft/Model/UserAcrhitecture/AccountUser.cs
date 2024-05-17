@@ -1,5 +1,4 @@
 ﻿using TeamCraft.JsonParsersClasses;
-using TeamCraft.Model.TeamsArchitecture;
 
 namespace TeamCraft.Model.UserAcrhitecture
 

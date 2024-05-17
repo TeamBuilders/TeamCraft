@@ -1,14 +1,13 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using TeamCraft.DataBaseController;
 using TeamCraft.Model.Posts;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 using TeamCraft.Model.UserAcrhitecture;
-using System;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium;
 
 namespace TeamCraft.FilterLogic
 {
@@ -29,7 +28,7 @@ namespace TeamCraft.FilterLogic
         }
 
 
-        static public string ComputeSHA512(string stringValue) // ДЕЛАЕТ В КАПСЕ, А НА САЙТАХ ХЭШКОД В НИЖНЕМ РЕГИСТРЕ
+        static public string ComputeSHA512(string stringValue)
         {
             StringBuilder sb = new StringBuilder();
             using (SHA512 sha512 = SHA512.Create())
@@ -44,7 +43,7 @@ namespace TeamCraft.FilterLogic
             return sb.ToString();
         }
 
-        static public bool CheckPasswordRequest(string password) 
+        static public bool CheckPasswordRequest(string password)
         {
             bool sizePassword = false,
                  hasUpChar = false,
@@ -57,10 +56,10 @@ namespace TeamCraft.FilterLogic
                 hasSpecialChar = true;
             if (password.Length >= 8)
                 sizePassword = true;
-            if(password.ToUpper() != password)
-                hasDownChar= true;
-            if(password.ToLower() != password)
-                hasUpChar= true;
+            if (password.ToUpper() != password)
+                hasDownChar = true;
+            if (password.ToLower() != password)
+                hasUpChar = true;
 
 
 
@@ -74,7 +73,7 @@ namespace TeamCraft.FilterLogic
 
         static public bool CheckNumberInString(string value)
         {
-            for(int i = 0; i < value.Length; i++) 
+            for (int i = 0; i < value.Length; i++)
                 if (value[i] > 47 && value[i] < 58)
                     return true;
 
@@ -261,17 +260,17 @@ namespace TeamCraft.FilterLogic
                     }
                 }
 
-                // Начинаем тырить инфу, открываем Хромик, ВЫРУБИ АНТИВИРУСНИК, А ТО ОН НЕ ОТКРОЕТСЯ
+
                 ChromeOptions options = new ChromeOptions();
-                options.AddArgument("--headless"); // Добавляем аргумент "--headless"
-                IWebDriver _driver = new ChromeDriver(options); // Используем опции при создании экземпляра ChromeDriver
-                _driver.Manage().Timeouts().PageLoad = TimeSpan.FromMinutes(1); // Установка таймаута загрузки страницы в 1 мин
+                options.AddArgument("--headless");
+                IWebDriver _driver = new ChromeDriver(options);
+                _driver.Manage().Timeouts().PageLoad = TimeSpan.FromMinutes(1);
                 _driver.Navigate().GoToUrl("https://www.xn--80aa3anexr8c.xn--p1acf/");
 
-                // Ожидание загрузки JavaScript
+
                 Thread.Sleep(10000);
 
-                // Извлечение информации о хакатонах
+
                 IList<IWebElement> hackathons = _driver.FindElements(By.CssSelector(".js-feed-post"));
 
 
@@ -285,22 +284,22 @@ namespace TeamCraft.FilterLogic
                     post.Description = hackathon.FindElement(By.CssSelector(".js-feed-post-descr")).Text;
                     post.ImageUrl = "defaultImage.png";
 
-                    // Проверяем, существует ли уже пост в базе данных
+
                     var existingPost = db.HackathonPosts.FirstOrDefault(p => p.Title == post.Title && p.Link == post.Link);
 
                     if (existingPost != null)
                     {
-                        // Если пост уже существует, пропускаем его и переходим к следующему посту в цикле
+
                         continue;
                     }
 
-                    // Если пост не существует, добавляем его в базу данных
+
                     db.HackathonPosts.Add(post);
                     db.SaveChanges();
 
                     IList<IWebElement> tags = hackathon.FindElements(By.CssSelector(".t-feed__post-tag"));
 
-                    // Проверяем, инициализирован ли PostTags
+
                     if (post.PostTags == null)
                     {
                         post.PostTags = new List<PostTag>();
@@ -312,10 +311,10 @@ namespace TeamCraft.FilterLogic
                         var existingTag = db.Tags.FirstOrDefault(t => t.nameTags == tagName);
                         if (existingTag != null)
                         {
-                            // Если тег уже существует, проверяем, не был ли он уже добавлен к post
+
                             if (!post.PostTags.Any(pt => pt.PostsTagsId == existingTag.id))
                             {
-                                // Если тег еще не был добавлен, создаем новый PostTag
+
                                 var postTag = new PostTag
                                 {
                                     HackathonPostId = post.id,
@@ -323,18 +322,18 @@ namespace TeamCraft.FilterLogic
                                     nameTags = existingTag.nameTags
 
                                 };
-                                db.PostTags.Add(postTag); // Добавляем PostTag в базу данных
+                                db.PostTags.Add(postTag);
 
                             }
                         }
                         else
                         {
-                            // Если тег не существует, создаем новый тег
+
                             var newTag = new PostsTags { nameTags = tagName };
                             db.Tags.Add(newTag);
-                            db.SaveChanges(); // Сохраняем изменения в базе данных 
+                            db.SaveChanges();
 
-                            // Создаем новый PostTag
+
                             var postTag = new PostTag
                             {
                                 HackathonPostId = post.id,
@@ -343,16 +342,16 @@ namespace TeamCraft.FilterLogic
 
 
                             };
-                            db.PostTags.Add(postTag); // Добавляем PostTag в базу данных
+                            db.PostTags.Add(postTag);
 
                         }
                         db.SaveChanges();
                     }
 
-                    //db.SaveChanges(); // Сохраняем все изменения в базе данных
+
 
                     string imageUrl = hackathon.FindElement(By.CssSelector(".t-feed__post-img.t-img.js-feed-img")).GetAttribute("data-original");
-                    if (!string.IsNullOrEmpty(imageUrl)) // Проверяем, не является ли imageUrl NULL или пустой строкой
+                    if (!string.IsNullOrEmpty(imageUrl))
                     {
                         string imageBase64 = await ConvertImageToBase64(imageUrl);
                         post.ImageBase64 = imageBase64;
@@ -360,7 +359,7 @@ namespace TeamCraft.FilterLogic
                     }
                     else
                     {
-                        post.ImageBase64 = "defaultBase64Image"; // Задаем значение по умолчанию для ImageBase64, если imageUrl NULL или пустая строка
+                        post.ImageBase64 = "defaultBase64Image";
                         post.ImageUrl = "defaultImage.png";
                     }
 
@@ -373,13 +372,13 @@ namespace TeamCraft.FilterLogic
 
                 _driver.Quit();
 
-                // Возвращаем список постов из базы данных
+
                 //return db.HackathonPosts.ToList();
             }
 
 
             //return Results.Ok();
-            //return posts; // Возвращаем список постов
+            //return posts; 
         }
 
 

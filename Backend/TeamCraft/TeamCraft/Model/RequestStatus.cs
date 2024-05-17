@@ -2,7 +2,7 @@
 {
     public class RequestStatus
     {
-        public RequestStatus() 
+        public RequestStatus()
         {
             this.statusCode = 200;
             this.statusRequest = "Ok";

@@ -1,12 +1,9 @@
-﻿using TeamCraft.Model;
-using TeamCraft.JsonParsersClasses;
+﻿using Microsoft.EntityFrameworkCore;
 using TeamCraft.DataBaseController;
-using TeamCraft.Model.UserAcrhitecture;
-using Microsoft.EntityFrameworkCore;
-using System.Net.Mail;
-using System.Text.RegularExpressions;
+using TeamCraft.JsonParsersClasses;
+using TeamCraft.Model;
 using TeamCraft.Model.TeamsArchitecture;
-using System.Diagnostics.Tracing;
+using TeamCraft.Model.UserAcrhitecture;
 namespace TeamCraft.FilterLogic
 {
     public static class DataValidator
@@ -17,17 +14,17 @@ namespace TeamCraft.FilterLogic
         {
             var result = new RequestStatus();
 
-            if(unverifiedUser == null) 
+            if (unverifiedUser == null)
             {
                 result.SetBadStatus();
                 result.message.Add("User = null");
                 return result;
             }
-            if(unverifiedUser.gender == null || unverifiedUser.sureName == null || unverifiedUser.name == null ||
+            if (unverifiedUser.gender == null || unverifiedUser.sureName == null || unverifiedUser.name == null ||
                 unverifiedUser.birthday == null || unverifiedUser.contact == null || unverifiedUser.login == null
-                || unverifiedUser.password == null) 
+                || unverifiedUser.password == null)
             {
-                
+
                 result.SetBadStatus();
                 result.message.Add("Not all required fields are filled in!");
                 return result;
@@ -36,8 +33,8 @@ namespace TeamCraft.FilterLogic
             {
                 result.message.Add("Inccorect login user. Size or have special symbols");
             }
-            
-            if(!Helper.CheckPasswordRequest(unverifiedUser.password))
+
+            if (!Helper.CheckPasswordRequest(unverifiedUser.password))
             {
                 result.message.Add("Inccorect password: length, no number or special symbols");
             }
@@ -49,25 +46,25 @@ namespace TeamCraft.FilterLogic
             {
                 result.message.Add("Inccorect surname user. Size or have special symbols or numbers");
             }
-            if(Helper.CalculateAgePerson(unverifiedUser.birthday) > 99 || Helper.CalculateAgePerson(unverifiedUser.birthday) < 12)
+            if (Helper.CalculateAgePerson(unverifiedUser.birthday) > 99 || Helper.CalculateAgePerson(unverifiedUser.birthday) < 12)
             {
                 result.message.Add("Юзер либо еще не родился, либо уже умер, в любом случае все по новой");
             }
-            if (db.settingsProfileUser.FirstOrDefault(users => users.login == unverifiedUser.login) != null) 
+            if (db.settingsProfileUser.FirstOrDefault(users => users.login == unverifiedUser.login) != null)
             {
                 result.message.Add("Такой логин уже есть");
             }
-            if (result.message.Count > 0) 
+            if (result.message.Count > 0)
             {
                 result.SetBadStatus();
             }
-            
+
             return result;
         }
         static public RequestStatus CheckCorrectLoginData(LoginForm? loginForm, DBConfigurator db)
         {
             RequestStatus result = new RequestStatus();
-            if (loginForm == null || loginForm.login == null || loginForm.password == null) 
+            if (loginForm == null || loginForm.login == null || loginForm.password == null)
             {
                 result.SetBadStatus();
                 result.message.Add("loginForm = null or Not all required fields are filled in!");
@@ -76,7 +73,7 @@ namespace TeamCraft.FilterLogic
             string pass = Helper.ComputeSHA512(loginForm.password);
             var users = db.accountsUser.Include(item => item.dataUser).Include(item => item.settingsUser).ToList();
             AccountUser? account = db.accountsUser.Include(item => item.dataUser).Include(item => item.settingsUser).FirstOrDefault(users => users.settingsUser.hashPassword == Helper.ComputeSHA512(loginForm.password) && users.settingsUser.login == loginForm.login);
-            if (account == null || account.settingsUser.login != loginForm.login) 
+            if (account == null || account.settingsUser.login != loginForm.login)
             {
                 result.SetBadStatus();
                 result.message.Add("Inccorect password or login");
@@ -85,11 +82,11 @@ namespace TeamCraft.FilterLogic
             result.message.Add("Correct data");
             return result;
         }
-        static public RequestStatus CheckCorrectTeamData(Team? inputTeam, DBConfigurator db) 
+        static public RequestStatus CheckCorrectTeamData(Team? inputTeam, DBConfigurator db)
         {
             var result = new RequestStatus();
 
-            if(inputTeam == null)
+            if (inputTeam == null)
             {
                 result.SetBadStatus();
                 result.message.Add("Team = null");
@@ -99,11 +96,11 @@ namespace TeamCraft.FilterLogic
             {
                 result.message.Add("Inccorect name team: null or too short");
             }
-            if(inputTeam.teamGoal.Length == 0)
+            if (inputTeam.teamGoal.Length == 0)
             {
                 result.message.Add("Inccorect team goal");
             }
-            if(inputTeam.team_stack.Count == 0) 
+            if (inputTeam.team_stack.Count == 0)
             {
                 result.message.Add("empty team stack");
             }
@@ -119,7 +116,7 @@ namespace TeamCraft.FilterLogic
             return result;
         }
 
-        static public RequestStatus CheckCorrectAccountUserData(AccountUser user, DBConfigurator db) 
+        static public RequestStatus CheckCorrectAccountUserData(AccountUser user, DBConfigurator db)
         {
             var result = new RequestStatus();
 

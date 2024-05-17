@@ -1,9 +1,3 @@
-using TeamCraft.JsonParsersClasses;
-using Newtonsoft.Json;
-using System.Text.Json.Serialization;
-using TeamCraft.JsonParsersClasses;
-using System.Text.Json.Serialization;
-
 namespace TeamCraft.Model.Posts
 {
     public class HackathonPost
@@ -20,7 +14,7 @@ namespace TeamCraft.Model.Posts
 
         public HackathonPost()
         {
-            
+
         }
 
         //[JsonIgnore]

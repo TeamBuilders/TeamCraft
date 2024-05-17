@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Text.Json.Serialization;
-using TeamCraft.FilterLogic;
+﻿using TeamCraft.FilterLogic;
 using TeamCraft.JsonParsersClasses;
 
 namespace TeamCraft.Model.UserAcrhitecture
@@ -15,18 +13,13 @@ namespace TeamCraft.Model.UserAcrhitecture
             this.email = form.email;
         }
 
-        //public SettingsProfileUser(string login, string password, bool isHade = false)
-        //{
-        //    this.login = login;
-        //    this.hashPassword = Helper.ComputeSHA512(password);
-        //    this.isHiddeInResearch = isHade;
-        //}
+
         public int id { get; set; }
         public string login { get; set; }
 
         public string? email { get; set; }
 
-        public int rest {  get; set; }
+        public int rest { get; set; }
 
         [Newtonsoft.Json.JsonIgnore]
         //[System.Text.Json.Serialization.JsonIgnore]
@@ -34,6 +27,6 @@ namespace TeamCraft.Model.UserAcrhitecture
 
 
         public bool isHiddeInResearch { get; set; } = false;
-        public bool isHiddenData { get; set; }  = false;
+        public bool isHiddenData { get; set; } = false;
     }
 }

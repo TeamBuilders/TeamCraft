@@ -1,34 +1,20 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Net.Mail;
+using System.Security.Claims;
 using System.Text.Json.Serialization;
 using TeamCraft.DataBaseController;
 using TeamCraft.FilterLogic;
-using TeamCraft.Model.UserAcrhitecture;
-using System.Net.Mail;
-using System.Net;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using TeamCraft.JwtData;
 using TeamCraft.JsonParsersClasses;
+using TeamCraft.JwtData;
 using TeamCraft.Model;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Authorization;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using TeamCraft.Model.TeamsArchitecture;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http.Json;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using TeamCraft.Model.Posts;
+using TeamCraft.Model.TeamsArchitecture;
+using TeamCraft.Model.UserAcrhitecture;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,19 +48,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            // указывает, будет ли валидироваться издатель при валидации токена
+
             ValidateIssuer = true,
-            // строка, представляющая издателя
+
             ValidIssuer = AuthOptions.ISSUER,
-            // будет ли валидироваться потребитель токена
+
             ValidateAudience = true,
-            // установка потребителя токена
+
             ValidAudience = AuthOptions.AUDIENCE,
-            // будет ли валидироваться время существования
+
             ValidateLifetime = false,
-            // установка ключа безопасности
+
             IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-            // валидация ключа безопасности
+
             ValidateIssuerSigningKey = true,
         };
     });
@@ -100,23 +86,22 @@ app.UseAuthorization();
 
 
 
-// Метод восстановления пароля через почту
+
 app.MapPost("/api/profile/restoration/", async delegate (HttpContext context, DBConfigurator db)
 {
     Random random = new Random();
     int randomNumber = random.Next(100000, 999999);
     EmailData email = await context.Request.ReadFromJsonAsync<EmailData>();
-    // Отправка письма
-    // Настройки SMTP-сервера Mail.ru
+
     string smtpServer = "smtp.mail.ru";
     int smtpPort = 587;
-    string smtpUsername = "proverka_2121@mail.ru"; //твоя почта, с которой отправляется сообщение
-    string smtpPassword = "iRzNgtp4J8UKaT515daf";//пароль приложения (от почты)
+    string smtpUsername = "proverka_2121@mail.ru";
+    string smtpPassword = "iRzNgtp4J8UKaT515daf";
 
     // Создаем объект клиента SMTP
     using (SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort))
     {
-        // Настройки аутентификации
+
         smtpClient.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
         smtpClient.EnableSsl = true;
         email.code = randomNumber;
@@ -131,7 +116,7 @@ app.MapPost("/api/profile/restoration/", async delegate (HttpContext context, DB
 
             try
             {
-                // Отправляем сообщение
+
                 smtpClient.Send(mailMessage);
                 Console.WriteLine("Сообщение успешно отправлено.");
             }
@@ -230,7 +215,6 @@ app.MapPost("/api/login", async delegate (HttpContext context, DBConfigurator db
             jwtToken = new JwtSecurityTokenHandler().WriteToken(jwt)
         };
 
-        //return new JwtSecurityTokenHandler().WriteToken(jwt);
         return JsonConvert.SerializeObject(response);
     }
     context.Response.StatusCode = statusRequestUser.statusCode;
@@ -288,9 +272,6 @@ app.MapGet("/api/profiles/", async delegate (HttpContext context, DBConfigurator
 app.MapGet("/api/profiles/filter", async delegate (HttpContext context, DBConfigurator db)
 {
     List<SkillPerson> skillsJson = await context.Request.ReadFromJsonAsync<List<SkillPerson>>();
-
-    //if (skillsJson.Count == 0)
-    //    return HttpResponse.Redirect("/api/profiles/");
 
     List<AccountUser> accountUsers = db.accountsUser.Include(account => account.settingsUser).Include(account => account.dataUser).ThenInclude(data => data.skillsPerson).ToList();
 
@@ -373,7 +354,7 @@ app.MapPost("/api/teams/edit", async delegate (HttpContext context, DBConfigurat
     {
         Team? teamDb = db.Teams.FirstOrDefault(tm => tm.id == team.id);
 
-        if(teamDb == null)
+        if (teamDb == null)
         {
             context.Response.StatusCode = 400;
             return JsonConvert.SerializeObject("Not find id team");
@@ -384,13 +365,7 @@ app.MapPost("/api/teams/edit", async delegate (HttpContext context, DBConfigurat
         teamDb.teamName = team.teamName;
         teamDb.teamDescription = team.teamDescription;
 
-        //await db.Teams.Where(tm => tm.Id == team.Id).ExecuteUpdateAsync(objec => objec.
-        //    SetProperty(obj => obj.memberTeam, obj => team.memberTeam).
-        //    SetProperty(obj => obj.jion_means, obj => team.jion_means).
-        //    SetProperty(obj => obj.teamName, obj => team.teamName).
-        //    SetProperty(obj => obj.teamGoal, obj => team.teamGoal).
-        //    SetProperty(obj => obj.teamDescription, obj => team.teamDescription).
-        //    SetProperty(obj => obj.team_stack, obj => team.team_stack));
+
         await db.SaveChangesAsync();
         return JsonConvert.SerializeObject(team);
     }
@@ -409,7 +384,7 @@ app.MapPost("/api/team/require/{idTeam}", async delegate (HttpContext context, D
         return JsonConvert.SerializeObject("Not found id team or user");
     }
 
-    if(teamDb.jion_means.Count(mean => mean.id == userDb.id) > 0)
+    if (teamDb.jion_means.Count(mean => mean.id == userDb.id) > 0)
     {
         context.Response.StatusCode = 400;
         return JsonConvert.SerializeObject("Пользователь уже дал заявку");
@@ -463,7 +438,7 @@ app.MapPost("/api/team/cancelledRequire/{idTeam}-{idUser}", async delegate (Http
 {
     Team? teamDb = db.Teams.Include(team => team.jion_means).Include(team => team.memberTeam).FirstOrDefault(team => team.id == idTeam);
     DataUser? userDb = db.dataUser.FirstOrDefault(dataUser => dataUser.id == idUser);
-    AccountUser? ownerAccount = Helper.FindUserFromClaim(context.User.Claims, db);  
+    AccountUser? ownerAccount = Helper.FindUserFromClaim(context.User.Claims, db);
 
     if (teamDb == null || userDb == null || ownerAccount == null)
     {
@@ -471,7 +446,7 @@ app.MapPost("/api/team/cancelledRequire/{idTeam}-{idUser}", async delegate (Http
         return JsonConvert.SerializeObject("Not found id team or user id or owner id");
     }
 
-    //MemberTeam? owner = db.memberTeams.FirstOrDefault(member => member.dataMemberUserId == ownerAccount.dataUserId);
+
 
     if (teamDb.memberTeam.FirstOrDefault(member => member.roleMember == TypeRoleMember.owner).dataMemberUserId == ownerAccount.dataUserId)
     {
@@ -523,6 +498,29 @@ app.MapPost("/api/teams/deleteMember/{idTeam}-{idMember}", async delegate (HttpC
 
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
+app.MapPost("/api/profile/exitTeam/{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idTeam)
+{
+    AccountUser? ownerAccount = Helper.FindUserFromClaim(context.User.Claims, db);
+    Team? team = db.Teams.Include(member => member.memberTeam).FirstOrDefault(team => team.id == idTeam);
+
+    if (team == null || ownerAccount == null)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Not exists team or account user");
+    }
+    MemberTeam? member = team.memberTeam.FirstOrDefault(member => member.dataMemberUserId == ownerAccount.dataUserId);
+    if (member == null)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Member dont exists in team");
+    }
+
+    team.memberTeam.Remove(member);
+    await db.SaveChangesAsync();
+    return JsonConvert.SerializeObject(team);
+
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
+
 
 app.MapPost("/api/teams/filter", async delegate (HttpContext context, DBConfigurator db)
 {
@@ -542,7 +540,7 @@ app.MapGet("/api/profile/includeTeam", async delegate (HttpContext context, DBCo
 {
     AccountUser? account = Helper.FindUserFromClaim(context.User.Claims, db);
 
-    if(account == null)
+    if (account == null)
     {
         context.Response.StatusCode = 403;
         return JsonConvert.SerializeObject("Не выполнен вход в аккаунт: не верный логин или пароль");
@@ -553,11 +551,11 @@ app.MapGet("/api/profile/includeTeam", async delegate (HttpContext context, DBCo
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
 
-app.MapGet("/api/team/{id}", async delegate (HttpContext context ,DBConfigurator db, int id)
+app.MapGet("/api/team/{id}", async delegate (HttpContext context, DBConfigurator db, int id)
 {
     Team? team = db.Teams.Include(teams => teams.team_stack).Include(teams => teams.jion_means).Include(teams => teams.memberTeam).FirstOrDefault(teams => teams.id == id);
 
-    if(team == null)
+    if (team == null)
     {
         context.Response.StatusCode = 400;
         return JsonConvert.SerializeObject("Команда не найдена");
@@ -577,17 +575,17 @@ app.MapGet("/api/test", async delegate (HttpContext http, DBConfigurator db)
 
 app.MapPost("/api/hackathons/all", async delegate (HttpContext context, DBConfigurator db)
 {
-    // Получаем список постов прямо из базы данных
+
     IList<HackathonPost> posts = await db.HackathonPosts.Include(post => post.PostTags).ToListAsync();
 
     var configuration = context.RequestServices.GetRequiredService<IConfiguration>();
-    // Добавляем URL изображения для каждого поста
+
     foreach (var post in posts)
     {
         post.ImageUrl = $"{configuration["BaseUrl"]}/api/hackathons/image/{post.id}";
     }
 
-    return Results.Ok(posts); // Возвращаем список постов
+    return Results.Ok(posts);
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
 
 
@@ -618,25 +616,15 @@ Func<DBConfigurator> dbContextFactory = () =>
     return new DBConfigurator(optionsBuilder.Options);
 };
 
-//Сначала вызываем UpdateDatabase один раз
+
 //await Helper.UpdateDatabase(dbContextFactory);
 
-//// Затем настраиваем таймер для вызова UpdateDatabase каждый час
+
 //var timer = new System.Timers.Timer(3600000); // Установка интервала в 1 час (3600000 миллисекунд)
 //timer.Elapsed += async (sender, e) => await Helper.UpdateDatabase(dbContextFactory);
 //timer.Start();
 
 
-/*string pathRussian = @"FilterLogic\words.txt";
-string pathEnglish = @"FilterLogic\bad_words.txt";
 
-var badWordsRussian = File.ReadAllLines(pathRussian);
-var badWordsEnglish = File.ReadAllLines(pathEnglish);
-var badWords = badWordsRussian.Concat(badWordsEnglish).ToArray();
-
-string sentence = "ааа помогииитее аборт"; 
-
-bool isClean = Helper.CheckSentence(sentence, badWords);
-Console.WriteLine(isClean ? "В предложении нет нецензурных слов" : "В предложении есть нецензурные слова");*/
 
 app.Run();
