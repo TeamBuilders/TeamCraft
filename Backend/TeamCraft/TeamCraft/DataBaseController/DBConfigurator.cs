@@ -99,7 +99,7 @@ namespace TeamCraft.DataBaseController
             };
 
             modelBuilder.Entity<HackathonPost>()
-         .Property(p => p.Id)
+         .Property(p => p.id)
          .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<PostTag>()

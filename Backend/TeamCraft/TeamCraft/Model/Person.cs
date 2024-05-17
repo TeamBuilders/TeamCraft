@@ -3,7 +3,7 @@
     public class Person
     {
         public Person() { }
-        public int Id { get; set; }
+        public int id { get; set; }
         public string name { get; set; }
         public string sureName { get; set; }
 

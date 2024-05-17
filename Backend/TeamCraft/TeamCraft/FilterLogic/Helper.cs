@@ -318,7 +318,7 @@ namespace TeamCraft.FilterLogic
                                 // Если тег еще не был добавлен, создаем новый PostTag
                                 var postTag = new PostTag
                                 {
-                                    HackathonPostId = post.Id,
+                                    HackathonPostId = post.id,
                                     PostsTagsId = existingTag.id,
                                     nameTags = existingTag.nameTags
 
@@ -337,7 +337,7 @@ namespace TeamCraft.FilterLogic
                             // Создаем новый PostTag
                             var postTag = new PostTag
                             {
-                                HackathonPostId = post.Id,
+                                HackathonPostId = post.id,
                                 PostsTagsId = newTag.id,
                                 nameTags = newTag.nameTags
 
