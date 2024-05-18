@@ -602,7 +602,7 @@ app.MapPost("/api/team/invite/{idDataUserInvited}-{idTeam}", async delegate (Htt
 
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
-app.MapPost("api/profile/acceptInvete/{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idTeam)
+app.MapPost("api/profile/acceptInvite/{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idTeam)
 {
     DataUser? accountUser = Helper.FindUserFromClaim(context.User.Claims, db)?.dataUser;
     Team? team = db.Teams.Include(team => team.team_stack).Include(team => team.memberTeam).FirstOrDefault(team => team.id == idTeam);
@@ -624,7 +624,7 @@ app.MapPost("api/profile/acceptInvete/{idTeam}", async delegate (HttpContext con
     return JsonConvert.SerializeObject(team);
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
-app.MapPost("api/profile/cancelledInvete/{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idTeam)
+app.MapPost("api/profile/cancelledInvite/{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idTeam)
 {
     DataUser? accountUser = Helper.FindUserFromClaim(context.User.Claims, db)?.dataUser;
     Team? team = db.Teams.Include(team => team.team_stack).Include(team => team.memberTeam).FirstOrDefault(team => team.id == idTeam);
