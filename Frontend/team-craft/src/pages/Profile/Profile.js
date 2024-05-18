@@ -72,6 +72,10 @@ export default function Account() {
 
   const navigate = useNavigate();
 
+  const updateData = (newData) => {
+    setUserData(newData);
+  };
+
   const toggleModal = () => {
     // window.location.reload();
     setUserData(JSON.parse(localStorage.getItem('userData')));
@@ -85,7 +89,7 @@ export default function Account() {
       const jsonData = JSON.stringify({
           id : JSON.parse(localStorage.getItem('id')),
           dataUserId : JSON.parse(localStorage.getItem('dataUserId')),
-          dataUser : editUserData,
+          dataUser : userData,
           settingsUserId: JSON.parse(localStorage.getItem('settingsUserId')),
           settingsUser:{
             isHiddeInResearch: JSON.parse(localStorage.getItem('isHiddeInResearch')),
@@ -113,7 +117,7 @@ export default function Account() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditUserData({ ...editUserData, [name]: value });
+    setUserData({ ...userData, [name]: value });
   };
 
   
@@ -124,6 +128,13 @@ export default function Account() {
     // Перенаправляем пользователя на страницу "/home"
     navigate('/');
   };
+
+  const handleCancelClick = () => {
+    setIsEdit(false); 
+    setUserData(JSON.parse(localStorage.getItem('userData')));
+    //console.log("cancel", localStorage.getItem('userData'));
+  };
+
 
   return (
     <div className={styles.body}>
@@ -147,7 +158,6 @@ export default function Account() {
         <div className={styles.description}>
           <div className={styles.personal}>
             <h2>Личная информация</h2>
-            {isEdit ? (
                 <div>
                   <form onSubmit={handleProfileEdit}>
                   <div className={styles.fields}>
@@ -156,7 +166,8 @@ export default function Account() {
                       <input
                         type="text"
                         name="name"
-                        value={editUserData.name}
+                        value={userData.name}
+                        readOnly = {!isEdit}
                         onChange={handleInputChange}
                       />
                     </div>
@@ -165,8 +176,9 @@ export default function Account() {
                       <input
                         type="text"
                         name="sureName"
-                        value={editUserData.sureName}
+                        value={userData.sureName}
                         onChange={handleInputChange}
+                        readOnly = {!isEdit}
                       />
                     </div>
                     <div className={styles.field}>
@@ -174,9 +186,10 @@ export default function Account() {
                       <input
                         type="date"
                         name="databirthday"
-                        value={editUserData.databirthday.slice(0,10)}
+                        value={userData.databirthday.slice(0,10)}
                         max={new Date().toISOString().split("T")[0]}
                         onChange={handleInputChange}
+                        readOnly = {!isEdit}
                       />
                     </div>
                     <div className={styles.field}>
@@ -184,37 +197,40 @@ export default function Account() {
                       <input
                         type="text"
                         name="gender"
-                        value={editUserData.gender}
+                        value={userData.gender}
                         onChange={handleInputChange}
+                        readOnly = {!isEdit}
                       />
                     </div>
                     <div className={styles.field}>
                       <label>О СЕБЕ</label>
                       <textarea
                         name="descriptionUser"
-                        value={editUserData.descriptionUser}
+                        value={userData.descriptionUser}
                         onChange={handleInputChange}
+                        readOnly = {!isEdit}
                       />
                     </div>
-                    <div className={styles.hobbies}>
-                    {userData.hobbiesPerson && userData.hobbiesPerson.map((hobby, index) => (
+                    {/* <div className={styles.hobbies}>
+                    {userData.hobbiesPerson && JSON.parse(userData.hobbiesPerson).map((hobby, index) => (
                       <div className={styles.hobbyWrapper} key={index}>
                         <p className={styles.p_hobby}>{hobby}</p>
                         <ul className={styles.ul_list}>
-                          {userData.skillsPerson && userData.skillsPerson[hobby] && userData.skillsPerson[hobby].map((skill, skillIndex) => (
+                          {userData.skillsPerson && JSON.parse(userData.skillsPerson).map((skill, skillIndex) => (
                             <li className={styles.li_item} key={skillIndex}>{skill}</li>
                           ))}
                         </ul>
                       </div>
                     ))}
-                  </div>
+                  </div> */}
                     <div className={styles.field}>
                       <label>КОНТАКТЫ</label>
                       <input
                         type="text"
                         name="urlContact"
-                        value={editUserData.urlContact}
+                        value={userData.urlContact}
                         onChange={handleInputChange}
+                        readOnly = {!isEdit}
                       />
                     </div>
                     <div className={styles.field}>
@@ -222,64 +238,20 @@ export default function Account() {
                       <input
                         type="email"
                         name="email"
-                        value={email}
-                        disabled
+                        value={userData.email}
+                        readOnly = {!isEdit}
                       />
                     </div>
                   </div>
                   <div className={styles.profile_edit_buttons}>
-                    <button className={styles.unvisble_button} ref= {buttonCancelRef} type="button" onClick={() => {setIsEdit(false); setEditUserData({ ...userData }); }} disabled={isClicked}>Отмена</button>
+                    <button className={styles.unvisble_button} ref= {buttonCancelRef} type="button" onClick={() => {handleCancelClick(); }} disabled={isClicked}>Отмена</button>
                     <button className={styles.unvisble_button} ref= {buttonSaveRef} type="submit" disabled={isClicked}>Сохранить</button>
                   </div>
                 </form>
                   <div className={styles.edit}>
-                   {isEdit ? <PopUp_hobbies onClose={toggleModal}/> : null}
+                   {isEdit ? <PopUp_hobbies data={userData} onClose={toggleModal}  setData={updateData}/> : null}
                  </div>
                 </div>
-              ) : (
-                <div className={styles.fields}>
-                  <div className={styles.field}>
-                    <h6>ИМЯ</h6>
-                    <p>{userData.name}</p>
-                  </div>
-                  <div className={styles.field}>
-                    <h6>ФАМИЛИЯ</h6>
-                    <p>{userData.sureName}</p>
-                  </div>
-                  <div className={styles.field}>
-                    <h6>ДАТА РОЖДЕНИЯ</h6>
-                    <p>{dateString}</p>
-                  </div>
-                  <div className={styles.field}>
-                    <h6>ПОЛ</h6>
-                    <p>{userData.gender}</p>
-                  </div>
-                  <div className={styles.field}>
-                    <h6>О СЕБЕ</h6>
-                    <p>{userData.descriptionUser}</p>
-                  </div>
-                  <div className={styles.hobbies}>
-                    {userData.hobbiesPerson && userData.hobbiesPerson.map((hobby, index) => (
-                      <div className={styles.hobbyWrapper} key={index}>
-                        <p className={styles.p_hobby}>{hobby}</p>
-                        <ul className={styles.ul_list}>
-                          {userData.skillsPerson && userData.skillsPerson[hobby] && userData.skillsPerson[hobby].map((skill, skillIndex) => (
-                            <li className={styles.li_item} key={skillIndex}>{skill}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                  <div className={styles.field}>
-                    <h6>КОНТАКТЫ</h6>
-                    <p>{userData.urlContact}</p>
-                  </div>
-                  <div className={styles.field}>
-                    <h6>ПОЧТА</h6>
-                    <p>{email}</p>
-                  </div>
-                </div>
-              )}
           </div>
           {/* Сейчас так, пока не появиться api */}
           <div className={styles.teams}>

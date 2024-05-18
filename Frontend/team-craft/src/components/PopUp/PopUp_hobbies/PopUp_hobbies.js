@@ -10,7 +10,7 @@ import axiosInstance from '../../../api/axios';
 const HOBBY_URL = '/hobby';
 
 
-export default function PopUp_hobbies({onClose}) {
+export default function PopUp_hobbies({data, onClose, setData}) {
     
     const [hobby, setHobby] = useState([]);
 
@@ -30,13 +30,12 @@ export default function PopUp_hobbies({onClose}) {
     }, []);
 
 
-    let userData = JSON.parse(localStorage.getItem('userData'));
+    let userData = data;
 
     const handleOpen2 = () => {
 
         if (userData.hobbiesPerson === null) {
             userData.hobbiesPerson = [];
-            localStorage.setItem('userData', JSON.stringify(userData));
         }
         if (userData.skillsPerson === null) {
             userData.skillsPerson = [];
@@ -49,12 +48,12 @@ export default function PopUp_hobbies({onClose}) {
             //     "Научные разработки": [],
             //     "Активный отдых": []
             // };
-            localStorage.setItem('userData', JSON.stringify(userData));
         }
     };
 
     const handleClose2 = () => {
-        userData = JSON.parse(localStorage.getItem('userData'));
+        //console.log(userData);
+        setData(userData);
     };
 
 
@@ -63,6 +62,7 @@ export default function PopUp_hobbies({onClose}) {
     }, []);
 
     const handlePopupClose = () => {
+        console.log("вызов");
         onClose(); // Вызываем переданную функцию после закрытия Popup
     };
 
@@ -78,7 +78,7 @@ export default function PopUp_hobbies({onClose}) {
     justifyContent: 'center'
   }} trigger=
   {<button className={styles.button_trigger}> Рассказать о себе </button>}
-  modal nested closeOnDocumentClick  onClose={handlePopupClose}>
+  modal nested closeOnDocumentClick  >
   {
       close => (
         <div className={styles.modal}>
