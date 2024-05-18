@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using TeamCraft.DataBaseController;
 using TeamCraft.FilterLogic;
@@ -563,6 +565,87 @@ app.MapGet("/api/team/{id}", async delegate (HttpContext context, DBConfigurator
 
     return JsonConvert.SerializeObject(team);
 }).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader());
+
+
+
+app.MapPost("/api/team/invite/{idDataUserInvited}-{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idDataUserInvited, int idTeam)
+{
+    DataUser? accountOwnerTeam = Helper.FindUserFromClaim(context.User.Claims, db)?.dataUser;
+    DataUser? dataInvtePerson = db.dataUser.FirstOrDefault(data => data.id == idDataUserInvited);
+    Team? targetTeam = db.Teams.FirstOrDefault(data => data.id == idTeam);
+
+    if (accountOwnerTeam == null || dataInvtePerson == null || targetTeam == null) 
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("not find team or Inveted User");
+    }
+    if (!targetTeam.memberTeam.Select(member => member.dataMemberUserId).Contains(accountOwnerTeam.id))
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Пригласивший не находится в команде куда приглашает");
+    }
+    if(targetTeam.memberTeam.Find(data => data.dataMemberUserId == accountOwnerTeam.id).roleMember == 0)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Пригласивший не имеет прав приглашать");
+    }
+    if(dataInvtePerson.invitedFromTeam.Select(team => team.id).Contains(idTeam))
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("Пользователь уже приглашен");
+    }
+
+    dataInvtePerson.invitedFromTeam.Add(targetTeam);
+    await db.SaveChangesAsync();
+
+    return JsonConvert.SerializeObject(dataInvtePerson);
+
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
+
+app.MapPost("api/profile/acceptInvete/{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idTeam)
+{
+    DataUser? accountUser = Helper.FindUserFromClaim(context.User.Claims, db)?.dataUser;
+    Team? team = db.Teams.Include(team => team.team_stack).Include(team => team.memberTeam).FirstOrDefault(team => team.id == idTeam);
+
+    if (team == null || accountUser == null)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("not find team or Inveted User");
+    }
+    if(!accountUser.invitedFromTeam.Select(team => team.id).Contains(idTeam)) 
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("user not invited in team");
+    }
+    team.memberTeam.Add(new MemberTeam(accountUser, team));
+    accountUser.invitedFromTeam.Remove(team);
+    await db.SaveChangesAsync();
+
+    return JsonConvert.SerializeObject(team);
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
+
+app.MapPost("api/profile/cancelledInvete/{idTeam}", async delegate (HttpContext context, DBConfigurator db, int idTeam)
+{
+    DataUser? accountUser = Helper.FindUserFromClaim(context.User.Claims, db)?.dataUser;
+    Team? team = db.Teams.Include(team => team.team_stack).Include(team => team.memberTeam).FirstOrDefault(team => team.id == idTeam);
+
+    if (team == null || accountUser == null)
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("not find team or Inveted User");
+    }
+    if (!accountUser.invitedFromTeam.Select(team => team.id).Contains(idTeam))
+    {
+        context.Response.StatusCode = 400;
+        return JsonConvert.SerializeObject("user not invited in team");
+    }
+
+    accountUser.invitedFromTeam.Remove(team);
+    await db.SaveChangesAsync();
+
+    return JsonConvert.SerializeObject(accountUser);
+});
+
 
 app.MapGet("/api/data", (HttpContext context) => $"Successfully!").RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 

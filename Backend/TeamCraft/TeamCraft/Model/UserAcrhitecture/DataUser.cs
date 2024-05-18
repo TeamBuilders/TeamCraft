@@ -1,5 +1,6 @@
 using TeamCraft.FilterLogic;
 using TeamCraft.JsonParsersClasses;
+using TeamCraft.Model.TeamsArchitecture;
 
 namespace TeamCraft.Model.UserAcrhitecture
 {
@@ -27,7 +28,7 @@ namespace TeamCraft.Model.UserAcrhitecture
 
         public List<CategoryHobby> hobbiesPerson { get; set; }
         public List<SkillPerson> skillsPerson { get; set; }
-        //public List<MemberTeam> participantTeams {  get; set; }
+        public List<Team> invitedFromTeam { get; set; }
         public string? goalsPerson { get; set; }
         public string urlContact { get; set; }
         public bool inTeam { get; set; } = false;

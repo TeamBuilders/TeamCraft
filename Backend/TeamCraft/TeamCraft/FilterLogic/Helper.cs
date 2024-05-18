@@ -85,7 +85,8 @@ namespace TeamCraft.FilterLogic
             if (claim.Count() > 0)
             {
                 string loginUser = claim.ToArray()[0].Type;
-                return db.accountsUser.Include(x => x.dataUser).Include(x => x.settingsUser).FirstOrDefault(item => item.settingsUser.login == loginUser);
+                string password = claim.ToArray()[0].Value;
+                return db.accountsUser.Include(data => data.dataUser).ThenInclude(data => data.skillsPerson).Include(x => x.dataUser).ThenInclude(data => data.invitedFromTeam).Include(x => x.settingsUser).FirstOrDefault(item => item.settingsUser.login == loginUser && item.settingsUser.hashPassword == ComputeSHA512(password));
             }
 
             return null;

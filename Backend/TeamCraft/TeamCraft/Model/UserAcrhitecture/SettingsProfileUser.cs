@@ -22,7 +22,7 @@ namespace TeamCraft.Model.UserAcrhitecture
         public int rest { get; set; }
 
         [Newtonsoft.Json.JsonIgnore]
-        //[System.Text.Json.Serialization.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public string hashPassword { get; set; }
 
 
