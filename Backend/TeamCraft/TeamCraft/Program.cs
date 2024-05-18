@@ -644,7 +644,7 @@ app.MapPost("api/profile/cancelledInvite/{idTeam}", async delegate (HttpContext 
     await db.SaveChangesAsync();
 
     return JsonConvert.SerializeObject(accountUser);
-});
+}).RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
 
 
 app.MapGet("/api/data", (HttpContext context) => $"Successfully!").RequireCors(options => options.AllowAnyOrigin().AllowAnyHeader()).RequireAuthorization();
