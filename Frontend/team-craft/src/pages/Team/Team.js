@@ -12,6 +12,8 @@ const ACCEPT_URL = "/team/acceptRequire/";
 const CANCEL_URL = "/team/cancelledRequire/";
 const KICK_URL = "/teams/deleteMember/";
 const TEAM_URL = "/team/";
+const EXIT_URL = "/profile/exitTeam/";
+
 export default function Team() {
   const navigate = useNavigate();
 
@@ -120,6 +122,40 @@ export default function Team() {
         console.log("Заявка на вступление подана");
         console.log(data);
         setApplySubmit(true);
+      }
+    } catch (error) {
+      console.error("Ошибка при отправке запроса:", error);
+      setApplyError(error.response.data?.message);
+    }
+  };
+  const [isExiting, setIsExiting] = useState(false);
+  const handleExitClick = async (e) => {
+    const jwtToken = localStorage.getItem("token");
+    console.log(jwtToken);
+
+    try {
+      console.log(
+        "Ссылка: " + EXIT_URL + JSON.stringify(team.id)
+      );
+      const response = await axiosInstance.post(
+        EXIT_URL + JSON.stringify(team.id),
+        null,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
+        setIsExiting(true);
+        console.log("Пользователь покинул команду");
+        console.log(data);
+        localStorage.setItem("team", JSON.stringify(response.data));
+        setTeam(response.data);
+        setApplySubmit(false);
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
@@ -465,6 +501,7 @@ export default function Team() {
             <>
               {canApply &&
                 !ApplySubmit &&
+                !checkIfUserIsMember(team) &&
                 ApplyError === "" && (
                   <button className={styles.confirm} onClick={handleApplyClick}>
                     Подать заявку
@@ -481,6 +518,12 @@ export default function Team() {
                   Редактировать
                 </button>
               )}
+              {checkIfUserIsMember(team) && !checkIfUserIsUPMember(team) && !isExiting && (
+                <button className={styles.exit} onClick={handleExitClick}>
+                  Покинуть команду
+                </button>
+              )}
+
             </>
           )}
           {editError && (
