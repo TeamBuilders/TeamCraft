@@ -104,16 +104,6 @@ export default function Find() {
       <div className={styles.grid_container}>
         <div className={styles.bgcolor}>
           <div className={styles.description}>
-            <div className={styles.headOfFind}>
-              <div className={styles.td}>
-                <input
-                  type="search"
-                  className={styles.search}
-                  placeholder="Поиск"
-                  readOnly
-                />
-              </div>
-            </div>
             <div className={styles.search_card}>
               <div className={styles.cards}>
                 {news.map((item) => (

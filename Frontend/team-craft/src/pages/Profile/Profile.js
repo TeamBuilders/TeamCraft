@@ -13,7 +13,7 @@ import PopUp_hobbies from '../../components/PopUp/PopUp_hobbies/PopUp_hobbies';
 import axiosInstance from '../../api/axios';
 
 const PROFILE_EDIT_URL = '/profile';
-const INCLUDE_TEAM_URL = '/profile/includeTeam';
+const INCLUDE_TEAM_URL = '/profile/includeTeam/';
 const TEAM_URL = '/team/';
 
 export default function Account() {
@@ -21,7 +21,6 @@ export default function Account() {
   const location = useLocation();
   //console.log("location: " + location.state);
   const [isOther, setIsOther] = useState(location.state != null ? true : false);
-
   //console.log("props: " + JSON.stringify(location.state));
 
   const [userData, setUserData] = useState(isOther? location.state : JSON.parse(localStorage.getItem('userData')));
@@ -95,16 +94,13 @@ export default function Account() {
   };
 
   //Получение данных о командах
-  const handleIncludeTeam = async (e) => {
+  const handleIncludeTeam = async (id) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axiosInstance.get(INCLUDE_TEAM_URL, {
+      const response = await axiosInstance.get(INCLUDE_TEAM_URL + id, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
         }
       });
-      //console.log(response.data);
       if (response.status === 200) {
         let newIncludeTeam = [];
         for (let i = 0; i < response.data.length; i++) {
@@ -119,7 +115,7 @@ export default function Account() {
     }
   }
   useEffect(() => {
-    handleIncludeTeam();
+    handleIncludeTeam(userData.id);
   }, []);
 
   //console.log(includeTeam)

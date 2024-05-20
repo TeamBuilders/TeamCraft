@@ -9,6 +9,7 @@ import axiosInstance from "../../api/axios";
 
 // const TEAMS_URL = "/teams"; разные регистры - издевательсвто
 const PROFILES_URL = "/profiles";
+const FILTER_URL = "/profiles/filter";
 const SKILL_URL = "/skill/1";
 const HOBBY_URL = "/hobby";
 const INVITE_URL = "/team/invite/";
@@ -29,17 +30,18 @@ export default function Find() {
   const formRef = useRef(null);
   const [users, setUsers] = useState([]);
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
     formRef.current.reset();
-    setSelectedSkills([]);
 
+    setSelectedSkills([]);
     const checkboxes = formRef.current.querySelectorAll(
       'input[type="checkbox"]'
     );
     checkboxes.forEach((checkbox) => {
       checkbox.checked = false;
     });
-    setFoundUsers(users);
+    const usersData = await takeUsers();
+    setFoundUsers(usersData);
   };
 
   const [listSkills, setListSkills] = useState([]);
@@ -53,7 +55,7 @@ export default function Find() {
       const jsonData = JSON.stringify(selectedSkills);
       console.log("Запрос: ", jsonData);
 
-      const response = await axiosInstance.post(PROFILES_URL, jsonData, {
+      const response = await axiosInstance.post(FILTER_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -100,7 +102,6 @@ export default function Find() {
         const usersData = await takeUsers();
         console.log(usersData);
         setFoundUsers(usersData);
-        setFoundUsers(usersData);
 
         fetchHobbies();
 
@@ -122,7 +123,6 @@ export default function Find() {
     }
     setSelectedSkills([]);
   };
-
 
   function calculateAgeString(birthDateString) {
     const birthDate = new Date(birthDateString);
@@ -190,13 +190,10 @@ export default function Find() {
         console.log("jwtToken: " + jwtToken);
         console.log("teamId: " + teamId);
         console.log("user.id: " + user.id);
-        console.log("userId - teamId: " + user.id + "-" + teamId); 
+        console.log("userId - teamId: " + user.id + "-" + teamId);
         try {
           const response = axiosInstance.post(
-            INVITE_URL +
-              JSON.stringify(user.id) +
-              "-" +
-              JSON.stringify(teamId),
+            INVITE_URL + JSON.stringify(user.id) + "-" + JSON.stringify(teamId),
             null,
             {
               headers: { "Content-Type": "application/json" },
@@ -217,12 +214,11 @@ export default function Find() {
 
     return (
       <div key={user.id} className={styles.card}>
-        <div
-          style={{ width: "min-content" }}
-          
-        >
-          <div className={styles.card_block}
-          onClick={() => handleUserClick(user)}>
+        <div style={{ width: "min-content" }}>
+          <div
+            className={styles.card_block}
+            onClick={() => handleUserClick(user)}
+          >
             <div className={styles.picture}>
               <img className={styles.avatar} />
             </div>
@@ -239,7 +235,12 @@ export default function Find() {
               </div>
               <div className={styles.team_goal}>
                 <p className={styles.team_goal_text}>
-                  <span>Пол</span>: {user.gender}
+                  <span>Пол</span>:{" "}
+                  {user.gender === "male" || user.gender === "man"
+                    ? "мужчина"
+                    : user.gender === "female" || user.gender === "woman"
+                    ? "женщина"
+                    : ""}
                 </p>
               </div>
               <div className={styles.team_goal}>
@@ -248,6 +249,15 @@ export default function Find() {
                 </p>
               </div>
             </div>
+          </div>
+          <div className={styles.invite}>
+            <button
+              className={styles.button_invite}
+              onClick={handleSendApplication}
+              disabled={isApplicationSent} // Если заявка уже отправлена, делаем кнопку неактивной
+            >
+              {isApplicationSent ? "Отправлено" : "Пригласить"}
+            </button>
           </div>
           <div className={styles.team_stack}>
             {user.skillsPerson.map((skill, index) => (
@@ -262,15 +272,6 @@ export default function Find() {
                 <p>{skill.nameSkill}</p>
               </div>
             ))}
-          </div>
-          <div className={styles.invite}>
-            <button
-              className={styles.button_invite}
-              onClick={handleSendApplication}
-              disabled={isApplicationSent} // Если заявка уже отправлена, делаем кнопку неактивной
-            >
-              {isApplicationSent ? "Отправлено" : "Пригласить"}
-            </button>
           </div>
         </div>
       </div>
