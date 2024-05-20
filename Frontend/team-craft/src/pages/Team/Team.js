@@ -293,8 +293,10 @@ export default function Team() {
                   <div
                     key={index}
                     className={styles.block_player}
-                    onClick={() => handleUserClick(member.dataMemberUser)}
                   >
+                    <div
+                    className={styles.active_div}
+                    onClick={() => handleUserClick(member.dataMemberUser)}>
                     <img
                       src="images/avatar.jpg"
                       alt="player_icon"
@@ -318,7 +320,7 @@ export default function Team() {
                         </p>
                       </div>
                     </div>
-
+                            </div>
                     {userRole === 2 && userId !== member.dataMemberUserId && (
                       <div className={styles.kick}>
                         <button

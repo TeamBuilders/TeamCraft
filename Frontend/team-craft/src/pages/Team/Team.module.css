@@ -392,3 +392,8 @@ p.fullness {
   box-shadow:0 0 5px #9fc4f0;
   text-decoration: none !important;
 }
+
+.active_div {
+  display: flex;
+  width: 100%;
+}
