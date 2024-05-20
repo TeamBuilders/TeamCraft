@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Team.module.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import PopUp_hobby from "../../components/PopUp_Team_Edit/PopUp_hobby/PopUp_hobby_edit";
 import { useNavigate, useLocation } from "react-router-dom";
 // import { API_URL } from '../../api/apiConfig';
 import axiosInstance from "../../api/axios";
@@ -250,6 +251,10 @@ export default function Team() {
     }
   };
 
+  const toggleModal = (teamStack) => {
+    team.team_stack = teamStack;
+  };
+
   return (
     <div className={styles.team_page}>
       <Header />
@@ -439,6 +444,9 @@ export default function Team() {
                     ))}
                 </ul>
               </div>
+              {isEditing &&
+              <PopUp_hobby team={team} onClose={toggleModal} />
+              }
             </div>
           </div>
         </div>
