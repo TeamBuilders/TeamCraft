@@ -123,10 +123,6 @@ export default function Find() {
     setSelectedSkills([]);
   };
 
-  const handleTeamClick = (team) => {
-    localStorage.setItem("team", JSON.stringify(team));
-    navigate(`/team/${team.teamName}`);
-  };
 
   function calculateAgeString(birthDateString) {
     const birthDate = new Date(birthDateString);
@@ -194,13 +190,13 @@ export default function Find() {
         console.log("jwtToken: " + jwtToken);
         console.log("teamId: " + teamId);
         console.log("user.id: " + user.id);
-
+        console.log("userId - teamId: " + user.id + "-" + teamId); 
         try {
           const response = axiosInstance.post(
             INVITE_URL +
-              JSON.stringify(team.id) +
+              JSON.stringify(user.id) +
               "-" +
-              JSON.stringify(user.id),
+              JSON.stringify(teamId),
             null,
             {
               headers: { "Content-Type": "application/json" },
@@ -223,9 +219,10 @@ export default function Find() {
       <div key={user.id} className={styles.card}>
         <div
           style={{ width: "min-content" }}
-          onClick={() => handleUserClick(user)}
+          
         >
-          <div className={styles.card_block}>
+          <div className={styles.card_block}
+          onClick={() => handleUserClick(user)}>
             <div className={styles.picture}>
               <img className={styles.avatar} />
             </div>
