@@ -7,6 +7,7 @@ import AuthProvider from '../../context/AuthProvider';
 import { Link } from 'react-router-dom'; // Предполагается, что вы используете React Router
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PopUp_hobbies from '../../components/PopUp/PopUp_hobbies/PopUp_hobbies';
 // import { API_URL } from '../../api/apiConfig';
 import axiosInstance from '../../api/axios';
@@ -16,8 +17,14 @@ const INCLUDE_TEAM_URL = '/profile/includeTeam';
 const TEAM_URL = '/team/';
 
 export default function Account() {
+  //нужен для передачи данных при переходе на страницу профиля c помощью navigate
+  const location = useLocation();
+  //console.log("location: " + location.state);
+  const [isOther, setIsOther] = useState(location.state != null ? true : false);
 
-  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')));
+  //console.log("props: " + JSON.stringify(location.state));
+
+  const [userData, setUserData] = useState(isOther? location.state : JSON.parse(localStorage.getItem('userData')));
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -83,6 +90,10 @@ export default function Account() {
     
   };
 
+  const handleCopy = (event) => {
+    event.preventDefault();
+  };
+
   //Получение данных о командах
   const handleIncludeTeam = async (e) => {
     try {
@@ -113,7 +124,7 @@ export default function Account() {
 
   //console.log(includeTeam)
   
-  //ОТправка профиля на редактирование
+  //Отправка профиля на редактирование
   const handleProfileEdit = async (e) => {
     e.preventDefault();
     try {
@@ -153,7 +164,7 @@ export default function Account() {
     setUserData({ ...userData, [name]: value });
   };
 
-  
+  //Выход из профиля
   const handleLogout = () => {
     setIsAuth(false);
     // Очищаем локальное хранилище
@@ -162,6 +173,7 @@ export default function Account() {
     navigate('/');
   };
 
+  //Отмена изменений
   const handleCancelClick = () => {
     setIsEdit(false); 
     setUserData(JSON.parse(localStorage.getItem('userData')));
@@ -197,8 +209,8 @@ export default function Account() {
             <img className={styles.avatar}  src={userData.avatar} />
 
             <div className={styles.initials}>
-              <p className={styles.nick}>{user}</p> 
-              <p className={styles.init}>{userData.name} {userData.sureName}</p> {/* Отображаем имя и фамилию пользователя */}
+              <p className={styles.nick}>{isOther? userData.name + " " + userData.sureName : user}</p> 
+              {!isOther && <p className={styles.init}>{userData.name} {userData.sureName}</p>} {/* Отображаем имя и фамилию пользователя */} 
             </div>
           </div>
         </div>
@@ -259,7 +271,7 @@ export default function Account() {
                         readOnly = {!isEdit}
                       />
                     </div>
-                    <div className={styles.hobbies}>
+                    <div className={userData.hobbiesPerson == null ? null : styles.hobbies}>
                     {userData.hobbiesPerson && userData.hobbiesPerson.map((hobby, index) => (
                       <div className={styles.hobbyWrapper} key={index}>
                         <p className={styles.p_hobby}>{hobby.nameHobby}</p>
@@ -291,10 +303,12 @@ export default function Account() {
                       />
                     </div>
                   </div>
+                  {!isOther && 
                   <div className={styles.profile_edit_buttons}>
-                    <button className={styles.unvisble_button} ref= {buttonCancelRef} type="button" onClick={() => {handleCancelClick(); }} disabled={isClicked}>Отмена</button>
-                    <button className={styles.unvisble_button} ref= {buttonSaveRef} type="submit" disabled={isClicked}>Сохранить</button>
+                  <button className={styles.unvisble_button} ref= {buttonCancelRef} type="button" onClick={() => {handleCancelClick(); }} disabled={isClicked}>Отмена</button>
+                  <button className={styles.unvisble_button} ref= {buttonSaveRef} type="submit" disabled={isClicked}>Сохранить</button>
                   </div>
+                  }
                 </form>
                   <div className={styles.edit}>
                    {isEdit ? <PopUp_hobbies data={userData} onClose={toggleModal}  setData={updateData}/> : null}
@@ -310,13 +324,14 @@ export default function Account() {
                   <div className={styles.desc}>
                   <p className={styles.team_title}>{team.teamName}</p>
                   <div className={styles.state}>
-                      <p className={styles.fullness}>{team.teamGoal}</p>
+                      <p onCopy={handleCopy} className={styles.fullness}>{team.teamGoal}</p>
                   </div>
                   </div>
                 </div>
               ))}
             </div>
             </div>
+            {!isOther &&
             <div className={styles.exit}>
             {isEdit?
                 <div className={styles.profile_edit_buttons}>
@@ -328,6 +343,7 @@ export default function Account() {
                 }
               <button className={styles.button_exit} onClick={handleLogout}>Выйти</button>
             </div>
+            }
         </div>
       </div>
     </div>
