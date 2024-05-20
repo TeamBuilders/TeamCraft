@@ -35,7 +35,10 @@ export const AuthProvider = ({ children }) => {
     };
 
     if (token) {
-      checkTokenValidity(token);
+      // checkTokenValidity(token);
+      setIsAuth(true);
+      setLoading(false); // Устанавливаем флаг загрузки в false после завершения проверки токена
+
     } else { 
       setLoading(false); // Если токен отсутствует, сразу устанавливаем флаг загрузки в false
     }
