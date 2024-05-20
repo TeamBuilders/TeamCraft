@@ -2,10 +2,16 @@ import {React, useContext} from 'react';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 import AuthContext  from '../../context/AuthProvider';
+import { useLocation } from 'react-router-dom';
+
 
 function Header() {
   const {isAuth} = useContext(AuthContext);
+  const location = useLocation();
 
+  function refreshPage(){ 
+    window.location.reload(); 
+  }  
   return (
     <header>      
       <div className={styles.header}>
@@ -20,7 +26,7 @@ function Header() {
              </div>
             <div className={styles.header_text_r} >
                 <a className={styles.h_text3} href="#">FAQ</a>
-                <Link to={isAuth ? "/profile" : "/login" }  className={styles.btn_sign_in}>{isAuth ? <p className={styles.header_button}>Профиль</p> : <p className={styles.header_button}>Войти</p>}</Link> 
+                <Link to={isAuth ? "/profile" : "/login" }  className={styles.btn_sign_in} onClick={refreshPage}>{isAuth ? <p className={styles.header_button}>Профиль</p> : <p className={styles.header_button}>Войти</p>}</Link> 
             </div>
         </div>
     </header>
