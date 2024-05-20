@@ -10,7 +10,7 @@ function Header() {
   const location = useLocation();
 
   function refreshPage(){ 
-    if (location.pathname.substring("/profile")) {
+    if (location.pathname.includes("/profile")) {
       window.location.reload(); 
     }
   }  
