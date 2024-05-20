@@ -12,14 +12,15 @@ import PopUp_hobbies from '../../components/PopUp/PopUp_hobbies/PopUp_hobbies';
 import axiosInstance from '../../api/axios';
 
 const PROFILE_EDIT_URL = '/profile';
+const INCLUDE_TEAM_URL = '/profile/includeTeam';
 
 export default function Account() {
 
   const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')));
 
-  // Состояния для редактирования профиля
   const [isEdit, setIsEdit] = useState(false);
-  const [editUserData, setEditUserData] = useState({ ...userData });
+
+  const[includeTeam, setIncludeTeam] = useState([]);
 
   // Проверка аутентификации пользователя
   const {isAuth, setIsAuth} = useContext(AuthContext);
@@ -33,9 +34,6 @@ export default function Account() {
   const year = dataString.getFullYear();
   const month = dataString.getMonth() + 1; // Прибавляем 1, так как месяцы нумеруются с 0
   const day = dataString.getDate();
-
-  // Объединяем данные календаря в строку
-  const dateString = `${year} ${month} ${day}`;
 
   const buttonSaveRef = useRef(null);
   const buttonCancelRef = useRef(null);
@@ -82,6 +80,27 @@ export default function Account() {
     
   };
 
+  const handleIncludeTeam = async (e) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axiosInstance.get(INCLUDE_TEAM_URL, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      });
+      //console.log(response);
+      if (response.status === 200) {
+        setIncludeTeam(response.data);
+      }
+    } catch (error) {
+      console.error('Ошибка при получении команд пользователя', error);
+    }
+  }
+  useEffect(() => {
+    handleIncludeTeam();
+  }, []);
+  
   const handleProfileEdit = async (e) => {
     e.preventDefault();
     try {
@@ -97,6 +116,7 @@ export default function Account() {
           }
         }
       );
+      console.log(JSON.parse(jsonData));
       const response = await axiosInstance.post(PROFILE_EDIT_URL, jsonData, {
         headers: {
           "Content-Type": "application/json",
@@ -134,7 +154,21 @@ export default function Account() {
     setUserData(JSON.parse(localStorage.getItem('userData')));
     //console.log("cancel", localStorage.getItem('userData'));
   };
+   //console.log("token", localStorage.getItem('token'));
+   //console.log("userData", userData);
 
+   // Переход на страницу команды по клику на ее название
+   const handleTeamClick = (team) => {
+    localStorage.setItem("team", JSON.stringify(team));
+    navigate(`/team/${team.teamName}`);
+  };
+
+  // Вычисление минимальной даты (100 лет назад)
+  const getMinDate = () => {
+    const today = new Date();
+    const minDate = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate());
+    return minDate.toISOString().split('T')[0];
+  }; 
 
   return (
     <div className={styles.body}>
@@ -188,8 +222,9 @@ export default function Account() {
                         name="databirthday"
                         value={userData.databirthday.slice(0,10)}
                         max={new Date().toISOString().split("T")[0]}
+                        min={getMinDate()}
                         onChange={handleInputChange}
-                        readOnly = {!isEdit}
+                        readOnly={!isEdit}
                       />
                     </div>
                     <div className={styles.field}>
@@ -206,23 +241,23 @@ export default function Account() {
                       <label>О СЕБЕ</label>
                       <textarea
                         name="descriptionUser"
-                        value={userData.descriptionUser}
+                        value={userData.descriptionUser === null && !isEdit ? '' : userData.descriptionUser}
                         onChange={handleInputChange}
                         readOnly = {!isEdit}
                       />
                     </div>
-                    {/* <div className={styles.hobbies}>
-                    {userData.hobbiesPerson && JSON.parse(userData.hobbiesPerson).map((hobby, index) => (
+                    <div className={styles.hobbies}>
+                    {userData.hobbiesPerson && userData.hobbiesPerson.map((hobby, index) => (
                       <div className={styles.hobbyWrapper} key={index}>
-                        <p className={styles.p_hobby}>{hobby}</p>
+                        <p className={styles.p_hobby}>{hobby.nameHobby}</p>
                         <ul className={styles.ul_list}>
-                          {userData.skillsPerson && JSON.parse(userData.skillsPerson).map((skill, skillIndex) => (
-                            <li className={styles.li_item} key={skillIndex}>{skill}</li>
+                          {userData.skillsPerson && userData.skillsPerson.map((skill, skillIndex) => (
+                            skill.categoryHobbyId ===hobby.id && <li className={styles.li_item} key={skillIndex}>{skill.nameSkill}</li>
                           ))}
                         </ul>
                       </div>
                     ))}
-                  </div> */}
+                  </div>
                     <div className={styles.field}>
                       <label>КОНТАКТЫ</label>
                       <input
@@ -257,60 +292,17 @@ export default function Account() {
           <div className={styles.teams}>
             <h2>Команды</h2>
             <div className={styles.block_teams}>
-            <div className={styles.block_team}>
-                <img  className={styles.team_icon}/>
-                <div className={styles.desc}>
-                <p className={styles.team_title}>Название команды</p>
-                <div className={styles.state}>
-                    <p className={styles.fullness}>Цель</p>
+              {includeTeam.length != 0 && includeTeam.map((team, index) => (
+                <div key={index} className={styles.block_team} onClick={() => handleTeamClick(team)}>
+                  <img  className={styles.team_icon}/>
+                  <div className={styles.desc}>
+                  <p className={styles.team_title}>{team.teamName}</p>
+                  <div className={styles.state}>
+                      <p className={styles.fullness}>Цель {team.teamGoal}</p>
+                  </div>
+                  </div>
                 </div>
-                </div>
-              </div>
-              <div className={styles.block_team}>
-                <img  className={styles.team_icon}/>
-                <div className={styles.desc}>
-                <p className={styles.team_title}>Название команды</p>
-                <div className={styles.state}>
-                    <p className={styles.fullness}>Цель</p>
-                </div>
-                </div>
-              </div>
-              <div className={styles.block_team}>
-                <img  className={styles.team_icon}/>
-                <div className={styles.desc}>
-                <p className={styles.team_title}>Название команды</p>
-                <div className={styles.state}>
-                    <p className={styles.fullness}>Цель</p>
-                </div>
-                </div>
-              </div>
-              <div className={styles.block_team}>
-                <img  className={styles.team_icon}/>
-                <div className={styles.desc}>
-                <p className={styles.team_title}>Название команды</p>
-                <div className={styles.state}>
-                    <p className={styles.fullness}>Цель</p>
-                </div>
-                </div>
-              </div>
-              <div className={styles.block_team}>
-                <img  className={styles.team_icon}/>
-                <div className={styles.desc}>
-                <p className={styles.team_title}>Название команды</p>
-                <div className={styles.state}>
-                    <p className={styles.fullness}>Цель</p>
-                </div>
-                </div>
-              </div>
-              <div className={styles.block_team}>
-                <img  className={styles.team_icon}/>
-                <div className={styles.desc}>
-                <p className={styles.team_title}>Название команды</p>
-                <div className={styles.state}>
-                    <p className={styles.fullness}>Цель</p>
-                </div>
-                </div>
-              </div>
+              ))}
             </div>
             </div>
             <div className={styles.exit}>

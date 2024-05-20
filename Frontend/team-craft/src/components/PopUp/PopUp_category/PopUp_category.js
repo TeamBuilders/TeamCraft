@@ -12,29 +12,8 @@ export default function PopUp_category(props) {
 
     const [userSkills, setUserSkills] = useState(props.value2)
     //в данных пользователя hobby и skills хранятся раздельно. И в userSkills все скиллы в одном массиве без разделений 
-    const [selectedItems, setSelectedItems] = useState(userSkills.skillsPerson.length === 0 ? [] : JSON.parse(userSkills.skillsPerson));
-    let selectedHobbies = userSkills.hobbiesPerson.length === 0 ? [] : JSON.parse(userSkills.hobbiesPerson);
-
-
-    const categories = {
-        "Разработка": [
-            "Mobile app development",
-            "Web development",
-            "Game development",
-            "Cyber security",
-            "Data science",
-            "Blockchain development",
-            "Desktop app development",
-            "Embedded systems development"
-        ],
-        "Музыка": ["dafdfdg", "dfgdfgd", "dfgdfsg"],
-        "Анимации": [],
-        "Гейминг": [],
-        "Социальные развлечения": [],
-        "Научные разработки": [],
-        "Активный отдых": []
-    };
-
+    const [selectedItems, setSelectedItems] = useState(userSkills.skillsPerson.length === 0 ? [] : userSkills.skillsPerson);
+    let selectedHobbies = userSkills.hobbiesPerson.length === 0 ? [] : userSkills.hobbiesPerson;
 
     const handleOpen = () => {
         setIsOpen(true);
@@ -47,15 +26,16 @@ export default function PopUp_category(props) {
 
     const handleClose = () => {
         setIsOpen(false);
-        userSkills.skillsPerson = JSON.stringify(selectedItems);
+        //const newSelectedItems = selectedItems.map(item => JSON.stringify(item));
+        userSkills.skillsPerson = selectedItems;
         //console.log(userSkills);
         if (selectedItems.length > 0) {
-            selectedHobbies = selectedHobbies.includes(props.text) ? [...selectedHobbies]: [...selectedHobbies, props.text];
+            selectedHobbies = selectedHobbies.some(hobby => hobby.nameHobby === props.text.nameHobby) ? [...selectedHobbies]: [...selectedHobbies, props.text];
         }
         else{
-            selectedHobbies = selectedHobbies.filter(hobby => hobby !== props.text);
+            selectedHobbies = selectedHobbies.filter(hobby => hobby.id !== props.text.id);
         }
-        userSkills.hobbiesPerson = JSON.stringify(selectedHobbies);
+        userSkills.hobbiesPerson = selectedHobbies;
         props.value2.skillsPerson = userSkills.skillsPerson;
         props.value2.hobbiesPerson = userSkills.hobbiesPerson;
     };
@@ -63,10 +43,10 @@ export default function PopUp_category(props) {
 
 
     const handleItemClick = (item) => {
-        const isSelected = selectedItems.length === 0 ? false : selectedItems.includes(item);
+        const isSelected = selectedItems.some(selectedItem => selectedItem.nameSkill === item.nameSkill);
 
         if (isSelected) {
-            setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
+            setSelectedItems(selectedItems.filter(selectedItem => selectedItem.id !== item.id));
         } else {
             setSelectedItems([...selectedItems, item]);
         }
@@ -85,7 +65,7 @@ export default function PopUp_category(props) {
                 display: 'flex',
                 justifyContent: 'center'
             }} 
-            trigger={<button className={styles.button_trigger}>{props.text}</button>} 
+            trigger={<button className={styles.button_trigger}>{props.text.nameHobby}</button>} 
             modal 
             nested
             closeOnDocumentClick
@@ -94,14 +74,14 @@ export default function PopUp_category(props) {
                 close => (
                     <div className={styles.modal}>
                         <div>
-                            <h2>{props.text}</h2>
+                            <h2>{props.text.nameHobby}</h2>
                             <ul className={styles.ul_list}>
                                     {category.map((item, index) => (
                                         <li
                                             className={styles.li_item}
                                             key={index}
-                                            onClick={() => handleItemClick(item.nameSkill)}
-                                            style={{ backgroundColor: selectedItems.includes(item.nameSkill) ? '#1c2e7b' : '#4361EE' }}
+                                            onClick={() => handleItemClick(item)}
+                                            style={{ backgroundColor: selectedItems.some(selectedItem => selectedItem.id === item.id) ? '#1c2e7b' : '#4361EE' }}
                                         >
                                             {item.nameSkill}
                                         </li>

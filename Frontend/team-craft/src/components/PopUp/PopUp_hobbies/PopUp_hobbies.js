@@ -39,15 +39,6 @@ export default function PopUp_hobbies({data, onClose, setData}) {
         }
         if (userData.skillsPerson === null) {
             userData.skillsPerson = [];
-            // userData.skillsPerson = {
-            //     'Разработка': [],
-            //     "Музыка": [],
-            //     "Анимации": [],
-            //     "Гейминг": [],
-            //     "Социальные развлечения": [],
-            //     "Научные разработки": [],
-            //     "Активный отдых": []
-            // };
         }
     };
 
@@ -84,7 +75,7 @@ export default function PopUp_hobbies({data, onClose, setData}) {
         <div className={styles.modal}>
             {hobby.map((hobbies, index) => (
                 <div className={styles.content} key={index}>
-                    <PopUp_category text={hobbies.nameHobby} value={hobbies.skillPeople} value2={userData} />
+                    <PopUp_category text={{id: hobbies.id, nameHobby: hobbies.nameHobby}} value={hobbies.skillPeople} value2={userData} />
                 </div>
             ))}
             <div className={styles.buttons}>

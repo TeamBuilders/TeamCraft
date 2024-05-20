@@ -162,6 +162,14 @@ const Signup = () => {
     }
     console.log(errEmail);
   };
+
+   // Вычисление минимальной даты (100 лет назад)
+   const getMinDate = () => {
+    const today = new Date();
+    const minDate = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate());
+    return minDate.toISOString().split('T')[0];
+  }; 
+
   return (
     <div className={styles.signup_body}>
       <signup>
@@ -399,6 +407,8 @@ const Signup = () => {
                 <input
                   type="date"
                   id="birth_date"
+                  max={new Date().toISOString().split("T")[0]}
+                  min={getMinDate()}
                   onChange={(e) => {
                     setBirth_date(e.target.value);
                     setBirth_dateErr('');
