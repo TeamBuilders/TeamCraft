@@ -10,10 +10,11 @@ import axiosInstance from "../../api/axios";
 // const TEAMS_URL = "/teams"; разные регистры - издевательсвто
 const FILTER_URL = "/teams/filter";
 const SKILL_URL = "/skill/1";
+const HOBBY_URL = "/hobby";
 
 export default function Search() {
   const navigate = useNavigate();
-const [teams, setTeams] = useState([]);
+  const [teams, setTeams] = useState([]);
 
 
   const formRef = useRef(null);
@@ -31,7 +32,7 @@ const [teams, setTeams] = useState([]);
   };
 
   const [listSkills, setListSkills] = useState([]);
-  const [selectedSkills, setSelectedSkills] = useState([]);
+  // const [selectedSkills, setSelectedSkills] = useState([]);
   const [foundTeams, setFoundTeams] = useState([]);
 
   const handleSubmit = async (e) => {
@@ -62,24 +63,42 @@ const [teams, setTeams] = useState([]);
       const response = await axiosInstance.post(FILTER_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
       });
+      console.log(response);
       return response.data;
   };
 
   const takeSkills = async () => {
     const response = await axiosInstance.get(SKILL_URL);
+    console.log(response);
     return response.data;
+  };
+
+  const [hobbies, setHobbies] = useState([]);
+  const [selectedHobby, setSelectedHobby] = useState(null);
+  const [selectedSkills, setSelectedSkills] = useState([]);
+
+  const fetchHobbies = async () => {
+    try {
+      const response = await axiosInstance.get(HOBBY_URL);
+      console.log(response.data);
+      setHobbies(response.data);
+    } catch (error) {
+      console.error('Error fetching hobbies:', error);
+    }
   };
 
   useEffect(() => {
     const fetchData = async () => {
         try {
             const teamsData = await takeTeams();
+            console.log(teamsData);
             setTeams(teamsData);
             setFoundTeams(teamsData);
-            console.log(teamsData);
 
-            const dataSkills = await takeSkills();
-            setListSkills(dataSkills);
+            fetchHobbies();
+
+            // const dataSkills = await takeSkills();
+            // setListSkills(dataSkills);
         } catch (error) {
             console.error(error);
         }
@@ -87,6 +106,17 @@ const [teams, setTeams] = useState([]);
 
     fetchData();
 }, []);
+const handleHobbyClick = (hobbyId) => {
+  // Если выбранное хобби изменилось (или закрывается), сбрасываем выбранные скиллы
+  if (selectedHobby === hobbyId) {
+    setSelectedHobby(null);
+  } else {
+    setSelectedHobby(hobbyId);
+  }
+  setSelectedSkills([]);
+};
+
+
   const handleTeamClick = (team) => {
     localStorage.setItem("team", JSON.stringify(team));
     navigate(`/team/${team.teamName}`);
@@ -99,34 +129,44 @@ const [teams, setTeams] = useState([]);
             <form onSubmit={handleSubmit} ref={formRef}>
               <div className={styles.form}>
                 <h3>Навыки</h3>
-                {listSkills.map((skill, index) => (
-                  <label key={index} className={styles.checkbox_btn}>
-                    <input
-                      type="checkbox"
-                      id={`skill-${skill.id}`}
-                      name="skill"
-                      value={skill.nameSkill}
-                      className={styles.checkbox_input}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedSkills((prevSkills) => [
-                            ...prevSkills,
-                            skill,
-                          ]);
-                        } else {
-                          setSelectedSkills((prevSkills) =>
-                            prevSkills.filter(
-                              (prevSkill) => prevSkill.id !== skill.id
-                            )
-                          );
-                        }
-                      }}
-                    />
-                    <span className={styles.checkbox_label}>
-                      {skill.nameSkill}
-                    </span>
-                  </label>
-                ))}
+                {hobbies.map((hobby) => (
+        <div key={hobby.id}>
+          <button 
+            className={styles.button_hobby}
+            onClick={() => handleHobbyClick(hobby.id)}
+          >
+          <span className={selectedHobby === hobby.id ? styles.triangleDown : styles.triangleRight}></span>
+            {hobby.nameHobby}
+          </button>
+          {selectedHobby === hobby.id && (
+            <div>
+              {hobby.skillPeople.map((skill) => (
+                <label key={skill.id} className={styles.checkbox_btn}>
+                  <input
+                    type="checkbox"
+                    id={`skill-${skill.id}`}
+                    name="skill"
+                    value={skill.nameSkill}
+                    className={styles.checkbox_input}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedSkills((prevSkills) => [...prevSkills, skill]);
+                      } else {
+                        setSelectedSkills((prevSkills) =>
+                          prevSkills.filter((prevSkill) => prevSkill.id !== skill.id)
+                        );
+                      }
+                    }}
+                  />
+                  <span className={styles.checkbox_label}>
+                    {skill.nameSkill}
+                  </span>
+                </label>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
               </div>
               <div className={styles.btns}>
                 <button

@@ -88,7 +88,7 @@ const CreateTeamForm = () => {
       }
     } catch (err) {
       console.error("Ошибка при отправке запроса:", err);
-      console.log(err.response.data.message);
+      console.log(err.message);
       if (err.response) {
         if (err.response.status === 502) {
           if (err.response.data.message[0] === "Bad Gateway") {

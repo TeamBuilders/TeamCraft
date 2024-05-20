@@ -37,7 +37,7 @@
 /**/
 .filter {
   grid-column: 2 / 3;
-  height: 700px;
+  height: fit-content;
   width: 230px;
   color: #fff;
   border: 3px solid #9fc4f0;
@@ -103,6 +103,7 @@
   display: flex;
   justify-content: space-between;
   padding: 0px 10px; 
+  margin-bottom: 15px;
 }
 
 /* .btns button {
@@ -233,7 +234,6 @@ input[type="search"] {
 .team_name {
   width: fit-content;
   overflow-x: ellipsis;
-  white-space: nowrap;
 }
 .team_name_text {
   width: max-content;
@@ -248,6 +248,7 @@ input[type="search"] {
   font-size: 11pt;
   user-select: none; /* Запрещаем выделение текста */
   cursor: default; /* Устанавливаем стандартный курсор */
+  max-width: 183px;
 }
 .team_goal {
   /* min-width: 80px; */
@@ -299,4 +300,35 @@ input[type="search"] {
 }
 .match {
   color: #8be3ff;
+}
+
+/* Стили для выделения выбранных хобби */
+.button_hobby {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: transparent; /* Убираем фон */
+  border: none; /* Убираем границу */
+  cursor: pointer;
+  outline: none;
+  color: white; /* Делаем текст белым */
+}
+
+
+.triangleRight {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid white; /* Делаем треугольник белым */
+  margin-right: 8px;
+}
+
+.triangleDown {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid white; /* Делаем треугольник белым */
+  margin-right: 8px;
 }

@@ -104,27 +104,18 @@ const Signup = () => {
         headers: { "Content-Type": "application/json" },
       });
       navigate("/login");
-      
+      console.log(response);
       // successful addition
     } catch (err) {
       console.log(err.response?.data);
-      // "User = null"
-      // "Not all required fields are filled in!"
-      // "Inccorect login user. Size or have special symbols"
-      // "Inccorect password: length, no number or special symbols"
-      // "Inccorect name user. Size or have special symbols or numbers"
-      // "Inccorect surname user. Size or have special symbols or numbers"
-      // "Юзер либо еще не родился, либо уже умер, в любом случае все по новой"
-      // "Такой логин уже есть"
-
-      // setErrMsg(err.response?.data.message);
       console.log(err);
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
-        console.log(err.response?.data);
-        for (let i = 0; i < err.response?.data.message.length; i++) {
-          const msg = err.response?.data.message[i];
+        console.log(err.response?.data.Item1);
+        for (let i = 0; i < err.response?.data.Item1.message?.length; i++) {
+          const msg = err.response?.data.Item1.message[i];
+          console.log(msg);
           if (
             msg === "Inccorect login user. Size or have special symbols" ||
             msg === "Такой логин уже есть"

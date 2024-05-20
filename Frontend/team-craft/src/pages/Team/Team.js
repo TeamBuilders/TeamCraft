@@ -1,8 +1,7 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Team.module.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 // import { API_URL } from '../../api/apiConfig';
 import axiosInstance from "../../api/axios";
@@ -12,29 +11,56 @@ const REQUIRE_URL = "/team/require/";
 const ACCEPT_URL = "/team/acceptRequire/";
 const CANCEL_URL = "/team/cancelledRequire/";
 const KICK_URL = "/teams/deleteMember/";
-
+const TEAM_URL = "/team/";
 export default function Team() {
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const location = useLocation();
   const [team, setTeam] = useState(JSON.parse(localStorage.getItem("team")));
-  const userId = JSON.parse(localStorage.getItem("userData")).Id;
-
+  const userId = JSON.parse(localStorage.getItem("userData")).id;
+  const teamId = team.id;
   const userRole = team.memberTeam.find((member) => member.dataMemberUserId === userId)?.roleMember;
+
+  // Обновление данных при перезагрузке страницы
+  useEffect(() => {
+    const isPageLoadedBefore = localStorage.getItem('pageLoaded');
+
+    // Если страница уже была загружена ранее, делаем GET-запрос
+    console.log("isPageLoadedBefore: " + isPageLoadedBefore);
+    if (isPageLoadedBefore) {
+      const fetchTeamData = async () => {
+        try {
+          const response = await axiosInstance.get(TEAM_URL + teamId);
+          if (response.status !== 200) {
+            console.log(response);
+            throw new Error('Network response was not ok');
+          }
+          console.log("response: ");
+          console.log(response);
+          localStorage.setItem("team", JSON.stringify(response.data));
+          setTeam(response.data);
+        } catch (error) {
+           console.error(error);
+        }
+      };
+
+      fetchTeamData();
+    } 
+  }, []);
 
   console.log("team: ");
   console.log(team);
   console.log("userId: " + userId);
+  console.log("teamId: " + teamId);
 
   // Проверка на наличие в команде
   const checkIfUserIsMember = (team) => {
     if (team) {
-      const userId = JSON.parse(localStorage.getItem("userData")).Id;
+      const userId = JSON.parse(localStorage.getItem("userData")).id;
       return team.memberTeam.some(
         (member) =>
-          member.dataMemberUser && member.dataMemberUserId === parseInt(userId)
+          member.dataMemberUserId === parseInt(userId)
       );
     }
   };
@@ -42,7 +68,6 @@ export default function Team() {
   const checkIfUserIsUPMember = (team) => {
     return team.memberTeam.some(
       (member) =>
-        member.dataMemberUser &&
         member.dataMemberUserId === parseInt(userId) &&
         member.roleMember !== 0
     );
@@ -50,20 +75,21 @@ export default function Team() {
   // Проверка на наличие в списке заявок
   const checkIfUserInJion = (team) => {
     if (team && team?.jion_means) {
-      const userId = JSON.parse(localStorage.getItem("userData")).Id;
-      return team.jion_means.some((member) => member.Id === parseInt(userId));
+      const userId = JSON.parse(localStorage.getItem("userData")).id;
+      return team.jion_means.some((member) => member.id === parseInt(userId));
     }
   };
 
   // Может ли пользователь отправить заявку на вступление в команду
   const [canApply, setCanApply] = useState(!checkIfUserIsMember(team));
-
+  console.log("checkIfUserIsMember: " + checkIfUserIsMember(team));
+  console.log("checkIfUserIsUPMember: " + checkIfUserIsUPMember(team));
+  console.log("checkIfUserInJion: " + checkIfUserInJion(team));
   // Отправлена ли заявка на вступление в команду
   const [ApplySubmit, setApplySubmit] = useState(
-    team !== null &&
-      team !== undefined &&
       team?.jion_means &&
-      checkIfUserInJion(team)
+      checkIfUserInJion(team) &&
+      !checkIfUserIsMember(team)
   );
 
   const [ApplyError, setApplyError] = useState("");
@@ -75,10 +101,10 @@ export default function Team() {
 
     try {
       console.log(
-        "Ссылка: " + REQUIRE_URL + JSON.stringify(team.Id || team.id)
+        "Ссылка: " + REQUIRE_URL + JSON.stringify(team.id)
       );
       const response = await axiosInstance.post(
-        REQUIRE_URL + JSON.stringify(team.Id || team.id),
+        REQUIRE_URL + JSON.stringify(team.id),
         null,
         {
           headers: {
@@ -97,7 +123,7 @@ export default function Team() {
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
-      setApplyError("Корсы или что-то ещё");
+      setApplyError(error.response.data?.message);
     }
   };
   // Принятие участника в команду
@@ -185,6 +211,7 @@ export default function Team() {
     console.log("Отмена изменений в команде");
   };
 
+  const [editError, setEditError] = useState("");
   // Сохранить изменения в команде
   const handleSaveClick = async (e) => {
     e.preventDefault();
@@ -209,10 +236,13 @@ export default function Team() {
       setTeam(response.data);
       setIsEditing(false);
     }
+    
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
       setTeam(JSON.parse(localStorage.getItem("team")));
-
+      if (error.response.status === 400) {
+        setEditError(error.response.data.message);
+      }
     }
     console.log("Изменения сохранены");
     setIsEditing(false);
@@ -334,7 +364,7 @@ export default function Team() {
                     <p>Нет заявок на вступление</p>
                   )}
                   {team.jion_means.map((member) => (
-                    <div key={member.Id} className={styles.block_player}>
+                    <div key={member.id} className={styles.block_player}>
                       <img
                         src="images/avatar.jpg"
                         alt="player_icon"
@@ -441,7 +471,7 @@ export default function Team() {
                   </button>
                 )}
               {ApplySubmit && (
-                <button className={styles.confirm}>Заявка отправлена</button>
+                <button className={styles.confirm}>Отправлено</button>
               )}
               {ApplyError && (
                 <button className={styles.cancel}>{ApplyError}</button>
@@ -452,6 +482,11 @@ export default function Team() {
                 </button>
               )}
             </>
+          )}
+          {editError && (
+            <div className={styles.error}>
+              <p>{editError}</p>
+            </div>
           )}
         </div>
       </div>
