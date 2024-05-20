@@ -284,7 +284,7 @@ p.fullness {
 
 .block_teams {
   height: 350px;
-  width: 90%;
+  width: 100%;
   overflow-y: auto; 
   margin-bottom: 10px;
 }
@@ -308,14 +308,16 @@ font-weight: bold;
   background-image: url(../../images/team_icon.jpg);
   background-size: 122%;
   background-position: center;
-  width: 60px;
-  height: 60px;
+  background-repeat: no-repeat;
+  min-width: 60px;
+  min-height: 60px;
   border-radius: 50%;
   margin: 17px;
 }
 
 .block_team .desc {
   margin-top: 17px;
+  margin-bottom: 17px;
 }
 
 .desc .team_title {
