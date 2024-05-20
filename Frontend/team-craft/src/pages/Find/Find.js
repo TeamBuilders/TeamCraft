@@ -178,7 +178,14 @@ export default function Find() {
       console.log("Ошибка при отправке запроса");
     }
   };
-
+  // Переход на страницу профиля по клику на него
+  const handleUserClick = (user) => {
+    if (user.id === JSON.parse(localStorage.getItem("userData")).id) {
+      navigate(`/profile`);
+    } else {
+      navigate(`/profile/${user.id}`, { state: user });
+    }
+  };
   const UserCard = ({ user }) => {
     const [isApplicationSent, setIsApplicationSent] = useState(false);
     const INVITE_URL = "/team/invite/";
@@ -216,7 +223,7 @@ export default function Find() {
       <div key={user.id} className={styles.card}>
         <div
           style={{ width: "min-content" }}
-          //   onClick={() => handleTeamClick(user)}
+          onClick={() => handleUserClick(user)}
         >
           <div className={styles.card_block}>
             <div className={styles.picture}>
@@ -353,26 +360,25 @@ export default function Find() {
         <div className={styles.bgcolor}>
           <div className={styles.description}>
             <div className={styles.headOfFind}>
-
-            <div className={styles.td}>
-              <input
-                type="search"
-                className={styles.search}
-                placeholder="Поиск"
-                value={selectedSkills
-                  .map((skill) => skill.nameSkill)
-                  .join(", ")}
-                readOnly
-              />
-            </div>
-            <div className={styles.toBack}>
-              <button
-                className={styles.button_back}
-                onClick={() => navigate(`/team/${team.teamName}`)}
-              >
-                Назад
-              </button>
-            </div>
+              <div className={styles.td}>
+                <input
+                  type="search"
+                  className={styles.search}
+                  placeholder="Поиск"
+                  value={selectedSkills
+                    .map((skill) => skill.nameSkill)
+                    .join(", ")}
+                  readOnly
+                />
+              </div>
+              <div className={styles.toBack}>
+                <button
+                  className={styles.button_back}
+                  onClick={() => navigate(`/team/${team.teamName}`)}
+                >
+                  Назад
+                </button>
+              </div>
             </div>
 
             <div className={styles.search_card}>

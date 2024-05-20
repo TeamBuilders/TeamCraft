@@ -22,48 +22,40 @@ export default function Team() {
   const [team, setTeam] = useState(JSON.parse(localStorage.getItem("team")));
   const userId = JSON.parse(localStorage.getItem("userData")).id;
   const teamId = team.id;
-  const userRole = team.memberTeam.find((member) => member.dataMemberUserId === userId)?.roleMember;
-  console.log("team: " + team);
+  const userRole = team.memberTeam.find(
+    (member) => member.dataMemberUserId === userId
+  )?.roleMember;
 
   // Обновление данных при перезагрузке страницы
   useEffect(() => {
-    const isPageLoadedBefore = localStorage.getItem('pageLoaded');
+    const isPageLoadedBefore = localStorage.getItem("pageLoaded");
 
     // Если страница уже была загружена ранее, делаем GET-запрос
-    console.log("isPageLoadedBefore: " + isPageLoadedBefore);
     if (isPageLoadedBefore) {
       const fetchTeamData = async () => {
         try {
           const response = await axiosInstance.get(TEAM_URL + teamId);
           if (response.status !== 200) {
-            console.log(response);
-            throw new Error('Network response was not ok');
+            throw new Error("Network response was not ok");
           }
-          console.log("response: ");
-          console.log(response);
           localStorage.setItem("team", JSON.stringify(response.data));
           setTeam(response.data);
         } catch (error) {
-           console.error(error);
+          console.error(error);
         }
       };
 
       fetchTeamData();
-    } 
+    }
   }, []);
 
-  console.log("team: ");
-  console.log(team);
-  console.log("userId: " + userId);
-  console.log("teamId: " + teamId);
 
   // Проверка на наличие в команде
   const checkIfUserIsMember = (team) => {
     if (team) {
       const userId = JSON.parse(localStorage.getItem("userData")).id;
       return team.memberTeam.some(
-        (member) =>
-          member.dataMemberUserId === parseInt(userId)
+        (member) => member.dataMemberUserId === parseInt(userId)
       );
     }
   };
@@ -71,8 +63,7 @@ export default function Team() {
   const checkIfUserIsUPMember = (team) => {
     return team.memberTeam.some(
       (member) =>
-        member.dataMemberUserId === parseInt(userId) &&
-        member.roleMember !== 0
+        member.dataMemberUserId === parseInt(userId) && member.roleMember !== 0
     );
   };
   // Проверка на наличие в списке заявок
@@ -85,14 +76,9 @@ export default function Team() {
 
   // Может ли пользователь отправить заявку на вступление в команду
   const [canApply, setCanApply] = useState(!checkIfUserIsMember(team));
-  console.log("checkIfUserIsMember: " + checkIfUserIsMember(team));
-  console.log("checkIfUserIsUPMember: " + checkIfUserIsUPMember(team));
-  console.log("checkIfUserInJion: " + checkIfUserInJion(team));
   // Отправлена ли заявка на вступление в команду
   const [ApplySubmit, setApplySubmit] = useState(
-      team?.jion_means &&
-      checkIfUserInJion(team) &&
-      !checkIfUserIsMember(team)
+    team?.jion_means && checkIfUserInJion(team) && !checkIfUserIsMember(team)
   );
 
   const [ApplyError, setApplyError] = useState("");
@@ -100,12 +86,7 @@ export default function Team() {
   // Запрос на вступление в команду
   const handleApplyClick = async (e) => {
     const jwtToken = localStorage.getItem("token");
-    console.log(jwtToken);
-
     try {
-      console.log(
-        "Ссылка: " + REQUIRE_URL + JSON.stringify(team.id)
-      );
       const response = await axiosInstance.post(
         REQUIRE_URL + JSON.stringify(team.id),
         null,
@@ -120,8 +101,6 @@ export default function Team() {
       if (response.status === 200) {
         const data = response.data;
 
-        console.log("Заявка на вступление подана");
-        console.log(data);
         setApplySubmit(true);
       }
     } catch (error) {
@@ -132,12 +111,8 @@ export default function Team() {
   const [isExiting, setIsExiting] = useState(false);
   const handleExitClick = async (e) => {
     const jwtToken = localStorage.getItem("token");
-    console.log(jwtToken);
 
     try {
-      console.log(
-        "Ссылка: " + EXIT_URL + JSON.stringify(team.id)
-      );
       const response = await axiosInstance.post(
         EXIT_URL + JSON.stringify(team.id),
         null,
@@ -152,8 +127,6 @@ export default function Team() {
       if (response.status === 200) {
         const data = response.data;
         setIsExiting(true);
-        console.log("Пользователь покинул команду");
-        console.log(data);
         localStorage.setItem("team", JSON.stringify(response.data));
         setTeam(response.data);
         setApplySubmit(false);
@@ -167,14 +140,6 @@ export default function Team() {
   const handleAddMemberClick = async (memberId) => {
     try {
       const jwtToken = localStorage.getItem("token");
-      console.log(
-        "Ссылка: " +
-          ACCEPT_URL +
-          JSON.stringify(team.id) +
-          "-" +
-          JSON.stringify(memberId)
-      );
-      console.log("jwtToken: " + jwtToken);
       const response = await axiosInstance.post(
         ACCEPT_URL + JSON.stringify(team.id) + "-" + JSON.stringify(memberId),
         null,
@@ -188,13 +153,8 @@ export default function Team() {
 
       if (response.status === 200) {
         // Обработка успешного ответа
-        console.log("Заявка принята");
-        console.log("Ответ:")
-        console.log(response);
         localStorage.setItem("team", JSON.stringify(response.data));
         setTeam(response.data);
-        console.log("Новая команда: ");
-        console.log(response.data);
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
@@ -204,14 +164,6 @@ export default function Team() {
   const handleDeclineClick = async (memberId) => {
     try {
       const jwtToken = localStorage.getItem("token");
-      console.log(
-        "Ссылка: " +
-          CANCEL_URL +
-          JSON.stringify(team.id) +
-          "-" +
-          JSON.stringify(memberId)
-      );
-      console.log("jwtToken: " + jwtToken);
       const response = await axiosInstance.post(
         CANCEL_URL + JSON.stringify(team.id) + "-" + JSON.stringify(memberId),
         null,
@@ -223,13 +175,8 @@ export default function Team() {
         }
       );
       if (response.status === 200) {
-        console.log("Заявка отклонена");
-        console.log("Ответ:")
-        console.log(response);
         localStorage.setItem("team", JSON.stringify(response.data));
         setTeam(response.data);
-        console.log("Новая команда: ");
-        console.log(response.data);
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
@@ -243,9 +190,9 @@ export default function Team() {
 
   // Отмена изменений в команде
   const handleCancelClick = () => {
+    setEditError("");
     setIsEditing(false);
     setTeam(JSON.parse(localStorage.getItem("team")));
-    console.log("Отмена изменений в команде");
   };
 
   const [editError, setEditError] = useState("");
@@ -255,25 +202,19 @@ export default function Team() {
 
     const jwtToken = localStorage.getItem("token");
     const jsonData = team;
-    console.log("Адрес: " + EDIT_URL);
-    console.log("JSON: " + JSON.stringify(jsonData));
-    console.log("jwtToken: " + jwtToken);
     try {
-    const response = await axiosInstance.post(EDIT_URL, jsonData, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${jwtToken}`,
-      },
-    });
-    if (response.status === 200) {
-      console.log("Изменения сохранены");
-      console.log("Ответ:")
-      console.log(response);
-      localStorage.setItem("team", JSON.stringify(response.data));
-      setTeam(response.data);
-      setIsEditing(false);
-    }
-    
+      const response = await axiosInstance.post(EDIT_URL, jsonData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      });
+      if (response.status === 200) {
+        localStorage.setItem("team", JSON.stringify(response.data));
+        setTeam(response.data);
+        setIsEditing(false);
+        setEditError("");
+      }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
       setTeam(JSON.parse(localStorage.getItem("team")));
@@ -281,8 +222,6 @@ export default function Team() {
         setEditError(error.response.data.message);
       }
     }
-    console.log("Изменения сохранены");
-    setIsEditing(false);
   };
   // Kick
   const handleKickClick = async (memberId) => {
@@ -299,37 +238,23 @@ export default function Team() {
         }
       );
       if (response.status === 200) {
-        console.log("Кикнуть");
-        console.log("Ответ:")
-        console.log(response);
         localStorage.setItem("team", JSON.stringify(response.data));
         setTeam(response.data);
-        console.log("Новая команда: ");
-        console.log(response.data);
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
     }
-  }
+  };
 
-  
-   // Переход на страницу профиля по клику на него
-   const handleUserClick = (user) => {
-    if(user.id === JSON.parse(localStorage.getItem("userData")).id){
+  // Переход на страницу профиля по клику на него
+  const handleUserClick = (user) => {
+    if (user.id === JSON.parse(localStorage.getItem("userData")).id) {
       navigate(`/profile`);
-    }
-    else{
-      navigate(`/profile/${user.id}`, {state :user});
+    } else {
+      navigate(`/profile/${user.id}`, { state: user });
     }
   };
 
-
-  console.log("Проверки:");
-  console.log("В команде?: " + checkIfUserIsMember(team));
-  console.log("Участник админ?: " + checkIfUserIsUPMember(team));
-  console.log("В заявках?: " + checkIfUserInJion(team));
-  console.log("Может видеть кнопку заявки? " + canApply);
-  console.log("Заявка отправлена?: " + ApplySubmit);
   return (
     <div className={styles.team_page}>
       <Header />
@@ -349,7 +274,9 @@ export default function Team() {
                     <input
                       type="text"
                       value={team.teamName}
-                      onChange={(e) => setTeam({ ...team, teamName: e.target.value })}
+                      onChange={(e) =>
+                        setTeam({ ...team, teamName: e.target.value })
+                      }
                       required
                     />
                   ) : (
@@ -368,7 +295,11 @@ export default function Team() {
               <h2>Участники</h2>
               <div className={styles.blocks_players}>
                 {team.memberTeam.map((member, index) => (
-                  <div key={index} className={styles.block_player} onClick={() => handleUserClick(member.dataMemberUser)}>
+                  <div
+                    key={index}
+                    className={styles.block_player}
+                    onClick={() => handleUserClick(member.dataMemberUser)}
+                  >
                     <img
                       src="images/avatar.jpg"
                       alt="player_icon"
@@ -392,16 +323,17 @@ export default function Team() {
                         </p>
                       </div>
                     </div>
-                    
-                    {userRole === 2 && (userId !== member.dataMemberUserId) && (
-                    <div className={styles.kick}>
-                      <button
-                        className={styles.button_kick}
-                        onClick={() => handleKickClick(member.id)}
-                      >
-                        Кикнуть
-                      </button>
-                    </div>)}
+
+                    {userRole === 2 && userId !== member.dataMemberUserId && (
+                      <div className={styles.kick}>
+                        <button
+                          className={styles.button_kick}
+                          onClick={() => handleKickClick(member.id)}
+                        >
+                          Кикнуть
+                        </button>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -451,8 +383,10 @@ export default function Team() {
                 <button
                   className={styles.button_find}
                   onClick={() => navigate(`/find`)}
-                  > Пригласить </button>
-
+                >
+                  {" "}
+                  Пригласить{" "}
+                </button>
               </div>
             )}
           </div>
@@ -463,7 +397,9 @@ export default function Team() {
                 <textarea
                   value={team.teamGoal}
                   className={styles.tags}
-                  onChange={(e) => setTeam({ ...team, teamGoal: e.target.value })}
+                  onChange={(e) =>
+                    setTeam({ ...team, teamGoal: e.target.value })
+                  }
                   name="tags"
                   style={{ fontSize: "15pt" }}
                   rows="3"
@@ -477,12 +413,10 @@ export default function Team() {
               <div className={styles.info_panel}>
                 <p className={styles.inf_title}>Информация о команде</p>
                 <textarea
-                  value={
-                    team.teamDescription === ""
-                      ? "Описание отсутствует"
-                      : team.teamDescription
+                  value={team.teamDescription}
+                  onChange={(e) =>
+                    setTeam({ ...team, teamDescription: e.target.value })
                   }
-                  onChange={(e) => setTeam({ ...team, teamDescription: e.target.value })}
                   className={styles.inf_p}
                   name="inf-p"
                   style={{ fontSize: "13pt" }}
@@ -542,16 +476,17 @@ export default function Team() {
                   Редактировать
                 </button>
               )}
-              {checkIfUserIsMember(team) && !checkIfUserIsUPMember(team) && !isExiting && (
-                <button className={styles.exit} onClick={handleExitClick}>
-                  Покинуть команду
-                </button>
-              )}
-
+              {checkIfUserIsMember(team) &&
+                !checkIfUserIsUPMember(team) &&
+                !isExiting && (
+                  <button className={styles.exit} onClick={handleExitClick}>
+                    Покинуть команду
+                  </button>
+                )}
             </>
           )}
           {editError && (
-            <div className={styles.error}>
+            <div className={styles.editError}>
               <p>{editError}</p>
             </div>
           )}

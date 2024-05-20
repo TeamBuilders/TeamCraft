@@ -40,17 +40,14 @@ export default function Search() {
 
     try {
       const jsonData = JSON.stringify(selectedSkills);
-      console.log("Запрос: ", jsonData);
 
       const response = await axiosInstance.post(FILTER_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
       });
 
       if (response.status === 200) {
-        console.log(response.data);
         setFoundTeams(response.data);
         const foundTeams = response.data;
-        console.log(foundTeams);
         // localStorage.setItem("foundTeams", JSON.stringify(foundTeams));
       }
     } catch (err) {
@@ -63,13 +60,11 @@ export default function Search() {
       const response = await axiosInstance.post(FILTER_URL, jsonData, {
         headers: { "Content-Type": "application/json" },
       });
-      console.log(response);
       return response.data;
   };
 
   const takeSkills = async () => {
     const response = await axiosInstance.get(SKILL_URL);
-    console.log(response);
     return response.data;
   };
 
@@ -80,7 +75,6 @@ export default function Search() {
   const fetchHobbies = async () => {
     try {
       const response = await axiosInstance.get(HOBBY_URL);
-      console.log(response.data);
       setHobbies(response.data);
     } catch (error) {
       console.error('Error fetching hobbies:', error);
@@ -91,7 +85,6 @@ export default function Search() {
     const fetchData = async () => {
         try {
             const teamsData = await takeTeams();
-            console.log(teamsData);
             setTeams(teamsData);
             setFoundTeams(teamsData);
 

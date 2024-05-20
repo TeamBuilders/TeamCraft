@@ -56,7 +56,6 @@ const CreateTeamForm = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const userData = JSON.parse(localStorage.getItem("userData"));
 
-    console.log("userData: ", userData);
 
     // Формируем итоговый объект JSON
     const jsonData = JSON.stringify({
@@ -65,11 +64,9 @@ const CreateTeamForm = () => {
       team_stack: teamStack,
       teamDescription: teamDescription, // необязательное поле
     });
-    console.log("jsonData: ", jsonData);
 
     try {
       const jwtToken = localStorage.getItem("token");
-      console.log(jwtToken);
       const response = await axiosInstance.post(CREATE_TEAM_URL, jsonData, {
         headers: {
           "Content-Type": "application/json",
@@ -81,14 +78,11 @@ const CreateTeamForm = () => {
         // Преобразование объекта в JSON
         const team = response.data;
 
-        console.log("Сохранено");
-        console.log(team);
         localStorage.setItem("team", JSON.stringify(team));
         navigate(`/team/${team.teamName}`);
       }
     } catch (err) {
       console.error("Ошибка при отправке запроса:", err);
-      console.log(err.message);
       if (err.response) {
         if (err.response.status === 502) {
           if (err.response.data.message[0] === "Bad Gateway") {

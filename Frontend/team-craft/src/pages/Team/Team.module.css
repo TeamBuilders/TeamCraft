@@ -357,7 +357,17 @@ p.fullness {
   padding: 0;
   text-decoration: none;
 }
-
+.editError {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 16px;
+}
+.editError p {
+  margin-right: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
 .exit:hover {
   color: darkred;
   text-decoration: underline;
