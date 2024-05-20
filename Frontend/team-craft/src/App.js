@@ -25,6 +25,7 @@ export default function App() {
             <Route path="/team" element={<Team/>}/>
             <Route path="/team/:teamName" element={<Team/>}/>
             <Route path="/profile" element={<Profile/>}/>
+            <Route path="/profile/:userId" element={<Profile/>}/>
             <Route path="/Search" element={<Search/>}/>
             <Route path="/Find" element={<Find/>}/>
           </Routes>

@@ -23,6 +23,7 @@ export default function Team() {
   const userId = JSON.parse(localStorage.getItem("userData")).id;
   const teamId = team.id;
   const userRole = team.memberTeam.find((member) => member.dataMemberUserId === userId)?.roleMember;
+  console.log("team: " + team);
 
   // Обновление данных при перезагрузке страницы
   useEffect(() => {
@@ -310,6 +311,19 @@ export default function Team() {
       console.error("Ошибка при отправке запроса:", error);
     }
   }
+
+  
+   // Переход на страницу профиля по клику на него
+   const handleUserClick = (user) => {
+    if(user.id === JSON.parse(localStorage.getItem("userData")).id){
+      navigate(`/profile`);
+    }
+    else{
+      navigate(`/profile/${user.id}`, {state :user});
+    }
+  };
+
+
   console.log("Проверки:");
   console.log("В команде?: " + checkIfUserIsMember(team));
   console.log("Участник админ?: " + checkIfUserIsUPMember(team));
@@ -354,7 +368,7 @@ export default function Team() {
               <h2>Участники</h2>
               <div className={styles.blocks_players}>
                 {team.memberTeam.map((member, index) => (
-                  <div key={index} className={styles.block_player}>
+                  <div key={index} className={styles.block_player} onClick={() => handleUserClick(member.dataMemberUser)}>
                     <img
                       src="images/avatar.jpg"
                       alt="player_icon"

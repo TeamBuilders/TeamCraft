@@ -84,6 +84,11 @@ p.name {
     border-left: 3px solid #9fc4f0;
     background-color: #313338;
     box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.block_player:hover{
+  box-shadow: 0 0 7px #9fc4f0;
 }
 
 .player h2{
@@ -260,6 +265,11 @@ p.fullness {
   background-color: #313338;
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  cursor: pointer;
+}
+
+.applic_member .block_player:hover{
+  box-shadow: 0 0 5px #9fc4f0;
 }
 
 .applic_member .player_icon {
