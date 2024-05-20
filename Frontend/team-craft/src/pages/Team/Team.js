@@ -28,27 +28,22 @@ export default function Team() {
 
   // Обновление данных при перезагрузке страницы
   useEffect(() => {
-    const isPageLoadedBefore = localStorage.getItem("pageLoaded");
-
-    // Если страница уже была загружена ранее, делаем GET-запрос
-    if (isPageLoadedBefore) {
-      const fetchTeamData = async () => {
-        try {
-          const response = await axiosInstance.get(TEAM_URL + teamId);
-          if (response.status !== 200) {
-            throw new Error("Network response was not ok");
-          }
-          localStorage.setItem("team", JSON.stringify(response.data));
-          setTeam(response.data);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-
-      fetchTeamData();
-    }
+    const fetchData = async () => {
+      console.log("Ссылка: " + TEAM_URL + teamId);
+      try {
+        const response = await axiosInstance.get(TEAM_URL + teamId);
+        console.log(response.data);
+        localStorage.setItem("team", JSON.stringify(response.data));
+        setTeam(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchData(); // Вызываем внутреннюю асинхронную функцию
   }, []);
-
+  
+  console.log(team);
 
   // Проверка на наличие в команде
   const checkIfUserIsMember = (team) => {
@@ -465,7 +460,8 @@ export default function Team() {
                     Подать заявку
                   </button>
                 )}
-              {ApplySubmit && (
+              {ApplySubmit &&
+              !checkIfUserIsMember(team) && (
                 <button className={styles.confirm}>Отправлено</button>
               )}
               {ApplyError && (
