@@ -10,8 +10,11 @@ function Header() {
   const location = useLocation();
 
   function refreshPage(){ 
-    window.location.reload(); 
+    if (location.pathname.substring("/profile")) {
+      window.location.reload(); 
+    }
   }  
+  console.log(location.pathname);
   return (
     <header>      
       <div className={styles.header}>
