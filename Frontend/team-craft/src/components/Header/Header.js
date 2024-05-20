@@ -3,6 +3,7 @@ import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 import AuthContext  from '../../context/AuthProvider';
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 
 function Header() {
@@ -14,6 +15,11 @@ function Header() {
       window.location.reload(); 
     }
   }  
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
   //console.log(location.pathname);
   return (
     <header>      
