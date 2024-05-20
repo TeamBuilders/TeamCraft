@@ -312,6 +312,7 @@ input[type="search"] {
   cursor: pointer;
   outline: none;
   color: white; /* Делаем текст белым */
+  text-align: left;
 }
 
 
