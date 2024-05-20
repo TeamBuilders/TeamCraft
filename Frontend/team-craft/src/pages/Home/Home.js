@@ -1,14 +1,19 @@
-import {React, useRef, useEffect, useState} from 'react';
+import {React, useRef, useEffect, useState, useContext} from 'react';
 import styles from './Home.module.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import home1 from '../../images/home1.png';
 import home2 from '../../images/home2.png';
 import { Link } from "react-router-dom";
+import AuthContext  from '../../context/AuthProvider';
+
 
 function Home() {
   const targetRefs = useRef([]); // Массив для хранения ссылок на целевые элементы
   const [visibilityStates, setVisibilityStates] = useState([]);
+
+  const {isAuth} = useContext(AuthContext);
+
 
   useEffect(() => {
     const observers = [];
@@ -79,9 +84,11 @@ function Home() {
                 </span>
               </p>
             </div>
-            <Link className={styles.btn_sign_up} to="/Signup">
+            {!isAuth &&
+             <Link className={styles.btn_sign_up} to="/Signup">
               Регистрация
             </Link>
+            }
           </div>
         </div>
         <div className={styles.container2}>

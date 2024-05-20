@@ -14,7 +14,7 @@ function Header() {
       window.location.reload(); 
     }
   }  
-  console.log(location.pathname);
+  //console.log(location.pathname);
   return (
     <header>      
       <div className={styles.header}>
