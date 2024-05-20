@@ -336,3 +336,18 @@ p.fullness {
   margin-bottom: 3%;
   border-radius: 10px;
 }
+
+.exit {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  text-decoration: none;
+}
+
+.exit:hover {
+  color: darkred;
+  text-decoration: underline;
+}
