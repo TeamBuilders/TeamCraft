@@ -272,7 +272,18 @@ p.fullness {
   box-shadow: 0 0 5px #9fc4f0;
 }
 
-.applic_member .player_icon {
+.applic_member_block_player_info{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.applic_member_block_player_info:hover{
+  background-color: #282a2e;
+  border-radius: 10px;
+}
+
+.applic_member_block_player_info .player_icon {
   width: 60px;
   height: 60px;
   border-radius: 50%;

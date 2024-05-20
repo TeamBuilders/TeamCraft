@@ -349,16 +349,18 @@ export default function Team() {
                   )}
                   {team.jion_means.map((member) => (
                     <div key={member.id} className={styles.block_player}>
-                      <img
-                        src="images/avatar.jpg"
-                        alt="player_icon"
-                        className={styles.player_icon}
-                      />
-                      <div className={styles.desc}>
-                        <p className={styles.player_title}>
-                          {member.name + " " + member.sureName}
-                        </p>
-                        <div className={styles.state}></div>
+                      <div className={styles.applic_member_block_player_info} onClick={() => handleUserClick(member)}>
+                        <img
+                          src="images/avatar.jpg"
+                          alt="player_icon"
+                          className={styles.player_icon}
+                        />
+                        <div className={styles.desc}>
+                          <p className={styles.player_title}>
+                            {member.name + " " + member.sureName}
+                          </p>
+                          <div className={styles.state}></div>
+                        </div>
                       </div>
                       <div className={styles.buttons}>
                         <button
