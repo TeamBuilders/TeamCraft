@@ -94,13 +94,12 @@ export default function Account() {
   };
 
   //Получение данных о командах
-  const handleIncludeTeam = async (id) => {
+  const handleIncludeTeam = async (e) => {
     try {
-      const response = await axiosInstance.get(INCLUDE_TEAM_URL + id, {
-        headers: {
-          "Content-Type": "application/json",
-        }
-      });
+      //console.log("isOther", userData);
+      const userId = isOther ? userData.id : JSON.parse(localStorage.getItem('dataUserId'));
+      const response = await axiosInstance.get(INCLUDE_TEAM_URL + userId);
+      //console.log(response.data);
       if (response.status === 200) {
         let newIncludeTeam = [];
         for (let i = 0; i < response.data.length; i++) {
@@ -115,7 +114,7 @@ export default function Account() {
     }
   }
   useEffect(() => {
-    handleIncludeTeam(userData.id);
+    handleIncludeTeam();
   }, []);
 
   //console.log(includeTeam)
@@ -136,6 +135,7 @@ export default function Account() {
           }
         }
       );
+      console.log(jsonData);
       console.log(JSON.parse(jsonData));
       const response = await axiosInstance.post(PROFILE_EDIT_URL, jsonData, {
         headers: {
@@ -143,6 +143,7 @@ export default function Account() {
           Authorization: `Bearer ${token}`
         }
       });
+      console.log(response.data);
       if (response.status === 200) {
         localStorage.setItem('userData', JSON.stringify(response.data.dataUser));
         localStorage.setItem('isHiddeInResearch', JSON.stringify(response.data.settingsUser.isHiddeInResearch));
