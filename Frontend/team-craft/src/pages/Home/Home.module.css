@@ -131,6 +131,7 @@ a.btn_sign_in:hover{
 
 .container2 div, .container3 div {
     margin: 40px auto;
+
 }
 .container3{
     width: 100%;
@@ -178,16 +179,14 @@ a.btn_sign_in:hover{
     width: 420px;
     height: 310px;
     border-radius: 20px;
-    border: 3px solid #9FC4F0;
-    margin-left: 0px;
     opacity: 0; 
     transform: translateX(-15%); 
     transition: opacity 1s ease, transform 1s ease;
-
-     /* margin-right: 250px; */
-    /* margin-top: 340px; */
 }
-
+.img_cont2 img {
+    width: 100%;
+    margin-top: -100px;
+}
 .img_cont2.visible{
     opacity: 1; 
     transform: translateX(0); 
@@ -217,14 +216,15 @@ a.btn_sign_in:hover{
 .img_cont3{
     width: 420px;
     height: 310px;
-    border-radius: 20px;
-    border: 3px solid #9FC4F0;
 
     opacity: 0; 
     transform: translateX(15%); 
     transition: opacity 1s ease, transform 1s ease;
 }
-
+.img_cont3 img {
+    width: 100%;
+    margin-top: -50px;
+}
 .img_cont3.visible{
     opacity: 1; 
     transform: translateX(0);

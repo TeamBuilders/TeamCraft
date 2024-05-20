@@ -2,6 +2,8 @@ import {React, useRef, useEffect, useState} from 'react';
 import styles from './Home.module.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import home1 from '../../images/home1.png';
+import home2 from '../../images/home2.png';
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -83,7 +85,9 @@ function Home() {
           </div>
         </div>
         <div className={styles.container2}>
-          <div  ref={ref => targetRefs.current[1] = ref} className={`${styles.img_cont2} ${visibilityStates[1] ? styles.visible : ''}`}></div>
+          <div  ref={ref => targetRefs.current[1] = ref} className={`${styles.img_cont2} ${visibilityStates[1] ? styles.visible : ''}`}>
+            <img src={home1} alt="home1" className={styles.avatar1} />
+          </div>
           <div ref={ref => targetRefs.current[2] = ref} className={`${styles.text_cont2} ${visibilityStates[2] ? styles.visible : ''}`}>
             <p> 
               <span className={styles.cont2_head}>Найдите команду</span> <br />{" "}
@@ -102,7 +106,10 @@ function Home() {
               разделяют ваши интересы и идеи.
             </p>
           </div>
-          <div ref={ref => targetRefs.current[4] = ref} className={`${styles.img_cont3} ${visibilityStates[4] ? styles.visible : ''}`}></div>
+          <div ref={ref => targetRefs.current[4] = ref} className={`${styles.img_cont3} ${visibilityStates[4] ? styles.visible : ''}`}>
+          <img src={home2} alt="home2" className={styles.avatar2} />
+
+          </div>
         </div>
       <Footer />
     </div>

@@ -11,6 +11,7 @@ import Team from './pages/Team/Team';
 import Search from './pages/Search/Search';
 import CreateTeam from './pages/Create team/Create_team';
 import Find from './pages/Find/Find';
+import Blog from './pages/Blog/Blog';
 import './App.css';
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="/profile" element={<Profile/>}/>
             <Route path="/Search" element={<Search/>}/>
             <Route path="/Find" element={<Find/>}/>
+            <Route path="/Blog" element={<Blog/>}/>
           </Routes>
         </Router> 
     </div>
