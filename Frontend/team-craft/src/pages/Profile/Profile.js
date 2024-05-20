@@ -13,6 +13,7 @@ import axiosInstance from '../../api/axios';
 
 const PROFILE_EDIT_URL = '/profile';
 const INCLUDE_TEAM_URL = '/profile/includeTeam';
+const TEAM_URL = '/team/';
 
 export default function Account() {
 
@@ -40,6 +41,7 @@ export default function Account() {
 
   const [isClicked, setIsClicked] = useState(true);
 
+  //Симуляция нажатия кнопок save и cancel чтобы расположить их не в форме
   const simulateSaveButtonClick = () => {
     if (buttonSaveRef.current) {
       const event = new MouseEvent('click', {
@@ -63,6 +65,7 @@ export default function Account() {
       buttonCancelRef.current.dispatchEvent(event);
     }
   };
+ 
 
   const toggleButtonState = () => {
     setIsClicked(prevState => !prevState);
@@ -80,6 +83,7 @@ export default function Account() {
     
   };
 
+  //Получение данных о командах
   const handleIncludeTeam = async (e) => {
     try {
       const token = localStorage.getItem('token');
@@ -89,18 +93,27 @@ export default function Account() {
           Authorization: `Bearer ${token}`
         }
       });
-      //console.log(response);
+      //console.log(response.data);
       if (response.status === 200) {
-        setIncludeTeam(response.data);
+        let newIncludeTeam = [];
+        for (let i = 0; i < response.data.length; i++) {
+          const teamInfo = await axiosInstance.get(TEAM_URL + JSON.stringify(response.data[i].teamId));
+          newIncludeTeam.push(teamInfo.data);
+        }
+        setIncludeTeam(newIncludeTeam);
+        //console.log(localStorage.getItem('userData'));
       }
     } catch (error) {
-      console.error('Ошибка при получении команд пользователя', error);
+      console.error('Ошибка при получении команд ', error);
     }
   }
   useEffect(() => {
     handleIncludeTeam();
   }, []);
+
+  //console.log(includeTeam)
   
+  //ОТправка профиля на редактирование
   const handleProfileEdit = async (e) => {
     e.preventDefault();
     try {
@@ -288,7 +301,6 @@ export default function Account() {
                  </div>
                 </div>
           </div>
-          {/* Сейчас так, пока не появиться api */}
           <div className={styles.teams}>
             <h2>Команды</h2>
             <div className={styles.block_teams}>
@@ -298,7 +310,7 @@ export default function Account() {
                   <div className={styles.desc}>
                   <p className={styles.team_title}>{team.teamName}</p>
                   <div className={styles.state}>
-                      <p className={styles.fullness}>Цель {team.teamGoal}</p>
+                      <p className={styles.fullness}>{team.teamGoal}</p>
                   </div>
                   </div>
                 </div>
