@@ -15,15 +15,10 @@ function Footer() {
       </div>
 
         <div className={styles.footer_text}>
-            <div className={styles.soc}>
-                <a className={styles.foot_h} href="#">Социальные сети</a>
-                <br/><a className={styles.foot_h} href="#">FAQ</a>
-            </div>
+          
             <div className={styles.inf}>
-                <a className={styles.foot_h}>Компания</a>
-                <br/><a className={styles.inf_t_2} href ="#">О проекте</a>
-                <br/><a className={styles.inf_t_2} href ="#">Контакты</a>
-                <br/><a className={styles.inf_t_2} href ="#">Конфиденциальность</a>
+            <p>© 2023-2024 Team-Craft</p>
+            <p>Создан в рамках курса проектной деятельности Мехмата ЮФУ</p>
             </div>
         </div>
     </footer>
