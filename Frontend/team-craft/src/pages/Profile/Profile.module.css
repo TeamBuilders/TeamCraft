@@ -79,7 +79,7 @@ p.init {
 }
 .description .personal h6, .description .personal label {
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 500;
 }
 .personal {
   flex-basis: 45%;
@@ -134,7 +134,6 @@ p.init {
   border-radius: 10px;
   display: flex;
   color: #fff;
-  background-color: #4361EE;
   margin-bottom: 3%;
   border-radius: 10px;
   padding: 2%;
