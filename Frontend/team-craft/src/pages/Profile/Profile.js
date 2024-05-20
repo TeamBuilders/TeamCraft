@@ -6,8 +6,7 @@ import Footer from '../../components/Footer/Footer';
 import AuthProvider from '../../context/AuthProvider';
 import { Link } from 'react-router-dom'; // Предполагается, что вы используете React Router
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import PopUp_hobbies from '../../components/PopUp/PopUp_hobbies/PopUp_hobbies';
 // import { API_URL } from '../../api/apiConfig';
 import axiosInstance from '../../api/axios';
@@ -15,6 +14,9 @@ import axiosInstance from '../../api/axios';
 const PROFILE_EDIT_URL = '/profile';
 const INCLUDE_TEAM_URL = '/profile/includeTeam/';
 const TEAM_URL = '/team/';
+
+const ACCEPT_URL = "/profile/acceptInvite/";
+const CANCEL_URL = "/profile/cancelledInvite/";
 
 export default function Account() {
   //нужен для передачи данных при переходе на страницу профиля c помощью navigate
@@ -119,6 +121,55 @@ export default function Account() {
 
   //console.log(includeTeam)
   
+  // Принятие участника в команду
+  const handleAddMemberClick = async (IdTeam) => {
+    try {
+      const jwtToken = localStorage.getItem("token");
+      const response = await axiosInstance.post(
+        ACCEPT_URL + JSON.stringify(IdTeam),
+        null,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        // Обработка успешного ответа
+        //localStorage.setItem("userData", JSON.stringify(response.data));
+        //setTeam(response.data);
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error("Ошибка при отправке запроса:", error);
+    }
+  };
+  // Отклонить заявку на вступление в команду
+  const handleDeclineClick = async (IdTeam) => {
+    try {
+      const jwtToken = localStorage.getItem("token");
+      const response = await axiosInstance.post(
+        CANCEL_URL +JSON.stringify(IdTeam),
+        null,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        //localStorage.setItem("team", JSON.stringify(response.data));
+        //setTeam(response.data);
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error("Ошибка при отправке запроса:", error);
+    }
+  };
+
   //Отправка профиля на редактирование
   const handleProfileEdit = async (e) => {
     e.preventDefault();
@@ -177,7 +228,7 @@ export default function Account() {
     //console.log("cancel", localStorage.getItem('userData'));
   };
    //console.log("token", localStorage.getItem('token'));
-   //console.log("userData", userData);
+   console.log("userData", userData);
 
    // Переход на страницу команды по клику на ее название
    const handleTeamClick = (team) => {
@@ -312,6 +363,7 @@ export default function Account() {
                  </div>
                 </div>
           </div>
+          <div className={styles.teams_block}>
           <div className={styles.teams}>
             <h2>Команды</h2>
             <div className={styles.block_teams}>
@@ -328,6 +380,46 @@ export default function Account() {
               ))}
             </div>
             </div>
+            {!isOther && (
+              <div className={styles.applic_member}>
+                <h2>Приглашения</h2>
+                <div className={styles.applic_member_teams}>
+                  {userData.invitedFromTeam === null && (
+                    <p>Нет приглашений</p>
+                  )}
+                  {!userData.invitedFromTeam === null && userData.invitedFromTeam.map((team) => (
+                    <div key={team.id} className={styles.block_player}>
+                      <img
+                        src="images/avatar.jpg"
+                        alt="player_icon"
+                        className={styles.player_icon}
+                      />
+                      <div className={styles.desc}>
+                        <p className={styles.player_title}>
+                          {team.teamName + " " + team.teamGoal}
+                        </p>
+                        <div className={styles.state}></div>
+                      </div>
+                      <div className={styles.buttons}>
+                        <button
+                          className={styles.button_add}
+                          onClick={() => handleAddMemberClick(team.id)}
+                        >
+                          Добавить
+                        </button>
+                        <button
+                          className={styles.button_remove}
+                          onClick={() => handleDeclineClick(team.id)}
+                        >
+                          Отклонить
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
             {!isOther &&
             <div className={styles.exit}>
             {isEdit?

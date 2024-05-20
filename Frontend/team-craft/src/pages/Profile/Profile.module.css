@@ -274,12 +274,18 @@ p.fullness {
 
 .teams {
   flex-basis: 45%;
-  width: calc(5% + 200px);
+  width: 100%;
   height: calc(5% + 200px);
   margin-right: 5px;
   padding: 1%;
   padding-top: 0;
   border-radius: 10px;
+}
+
+.teams_block{
+  width: calc(5% + 400px);
+  height: calc(5% + 500px);
+  margin-right: 5px;
 }
 
 .block_teams {
@@ -352,7 +358,79 @@ p.fullness {
   margin: 0;
 }
 
+/* Заявки на вступление */
 
+.applic_member_teams{
+  height: fit-content;
+  max-height: 300px; 
+  overflow-y: auto; 
+  margin-bottom: 10px;
+}
+
+.applic_member .block_player {
+  margin: 20px 0px;
+  display: flex;
+  width: 430px;
+  border-left: 3px solid #9fc4f0;
+  background-color: #313338;
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.applic_member .block_player:hover{
+  box-shadow: 0 0 5px #9fc4f0;
+}
+
+.applic_member .player_icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 17px;
+}
+
+.applic_member h2{
+  font-size: 27px;
+}
+
+.applic_member .buttons{
+  display: grid;
+  margin-left: auto;
+  border-left:2px solid #9fc4f0;
+}
+
+.buttons .button_add{
+  width: 100px;;
+  text-decoration: none;
+  color: #fff;
+  background-color: transparent;
+  border-top-right-radius: 10px;
+  /* background-color: #4361EE; */
+  border: none;
+  border-bottom: 2px solid #9fc4f0;
+
+}
+
+.buttons .button_add:hover{
+  background-color: #46507e;
+  text-decoration: none !important;
+}
+
+.buttons .button_remove{
+  width: 100px;
+  text-decoration: none;
+  color: #fff;
+  background-color: transparent;
+  border-bottom-right-radius: 10px;
+
+  /* background-color: #bb2929; */
+  border: none;
+}
+
+.buttons .button_remove:hover{
+  background-color: #683e3e;
+  text-decoration: none !important;
+}
 
 
 @media (max-width: 750px){
