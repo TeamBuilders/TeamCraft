@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/TeamCraft/static/css/main.157dc667.css",
+    "main.js": "/TeamCraft/static/js/main.f75269b1.js",
+    "static/js/453.db5f1709.chunk.js": "/TeamCraft/static/js/453.db5f1709.chunk.js",
+    "static/media/bg.jpg": "/TeamCraft/static/media/bg.4e65bd45d2262db3534b.jpg",
+    "static/media/home2.png": "/TeamCraft/static/media/home2.5427496cc6d9d0afa258.png",
+    "static/media/home1.png": "/TeamCraft/static/media/home1.8f9eff64e425f7199f99.png",
+    "static/media/avatar.jpg": "/TeamCraft/static/media/avatar.ad68fd62ce67cf89721c.jpg",
+    "static/media/team_icon.jpg": "/TeamCraft/static/media/team_icon.14dfa71778af91c1f5cd.jpg",
+    "index.html": "/TeamCraft/index.html",
+    "main.157dc667.css.map": "/TeamCraft/static/css/main.157dc667.css.map",
+    "main.f75269b1.js.map": "/TeamCraft/static/js/main.f75269b1.js.map",
+    "453.db5f1709.chunk.js.map": "/TeamCraft/static/js/453.db5f1709.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.157dc667.css",
+    "static/js/main.f75269b1.js"
+  ]
+}

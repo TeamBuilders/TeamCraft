@@ -155,25 +155,8 @@ export default function Find() {
     return age + " " + yearsString;
   }
 
-  //   поста запрос /api/team/invite/{idDataUserInvited}-{idTeam}
 
-  const handleInviteClick = (user) => {
-    const response = axiosInstance.post(
-      `INVITE_URL' + ${user.id} + '-' + ${teamId}`,
-      null,
-      {
-        headers: { "Content-Type": "application/json" },
-        Authorization: `Bearer ${jwtToken}`,
-      }
-    );
-    console.log(response);
-    if (response.status === 200) {
-      console.log("Пользователь приглашшен в команду");
-      console.log(response.data);
-    } else {
-      console.log("Ошибка при отправке запроса");
-    }
-  };
+  
   // Переход на страницу профиля по клику на него
   const handleUserClick = (user) => {
     if (user.id === JSON.parse(localStorage.getItem("userData")).id) {
@@ -182,22 +165,34 @@ export default function Find() {
       navigate(`/profile/${user.id}`, { state: user });
     }
   };
+  
   const UserCard = ({ user }) => {
-    const [isApplicationSent, setIsApplicationSent] = useState(false);
+    const [isApplicationSent, setIsApplicationSent] = useState();
+    useEffect(() => {
+      if (user && Array.isArray(user.invitedFromTeam) && user.invitedFromTeam.includes(teamId)) {
+        setIsApplicationSent(true);
+      } else {
+        setIsApplicationSent(false);
+      }
+    }, [user, teamId]);
     const INVITE_URL = "/team/invite/";
-    const handleSendApplication = () => {
+  //   поста запрос /api/team/invite/{idDataUserInvited}-{idTeam}
+
+    const handleSendApplication = async() => {
       if (!isApplicationSent) {
         console.log("jwtToken: " + jwtToken);
         console.log("teamId: " + teamId);
         console.log("user.id: " + user.id);
         console.log("userId - teamId: " + user.id + "-" + teamId);
         try {
-          const response = axiosInstance.post(
+          const response = await axiosInstance.post(
             INVITE_URL + JSON.stringify(user.id) + "-" + JSON.stringify(teamId),
             null,
             {
-              headers: { "Content-Type": "application/json" },
-              Authorization: `Bearer ${jwtToken}`,
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${jwtToken}`,
+              },
             }
           );
           if (response.status === 200) {
