@@ -10,6 +10,7 @@ import Profile from './pages/Profile/Profile';
 import Team from './pages/Team/Team';
 import Search from './pages/Search/Search';
 import CreateTeam from './pages/Create team/Create_team';
+import Find from './pages/Find/Find';
 import './App.css';
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/team/:teamName" element={<Team/>}/>
             <Route path="/profile" element={<Profile/>}/>
             <Route path="/Search" element={<Search/>}/>
+            <Route path="/Find" element={<Find/>}/>
           </Routes>
         </Router> 
     </div>

@@ -431,6 +431,16 @@ export default function Team() {
                 </div>
               </div>
             )}
+            {/* Переход на страницу поиска */}
+            {checkIfUserIsUPMember(team) && (
+              <div className={styles.find}>
+                <button
+                  className={styles.button_find}
+                  onClick={() => navigate(`/find`)}
+                  > Пригласить </button>
+
+              </div>
+            )}
           </div>
           <div className={styles.info_team}>
             <div className={styles.tag}>

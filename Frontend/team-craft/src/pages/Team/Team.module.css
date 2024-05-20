@@ -246,7 +246,8 @@ p.fullness {
 /* Заявки на вступление */
 
 .applic_member_teams{
-  height: 300px; 
+  height: fit-content;
+  max-height: 300px; 
   overflow-y: auto; 
   margin-bottom: 10px;
 }
@@ -350,4 +351,24 @@ p.fullness {
 .exit:hover {
   color: darkred;
   text-decoration: underline;
+}
+.find {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px;
+}
+
+.button_find {
+  background-color: #8be3ff;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  font-size: 12pt;
+  padding: 7px;
+  box-shadow: 5px 7px 2px rgba(0, 0, 0, 0.247);
+}
+.button_find:hover {
+  box-shadow: none;
+  box-shadow:0 0 5px #9fc4f0;
+  text-decoration: none !important;
 }
