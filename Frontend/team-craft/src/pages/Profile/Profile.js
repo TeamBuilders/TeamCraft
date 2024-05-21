@@ -14,6 +14,7 @@ import axiosInstance from '../../api/axios';
 const PROFILE_EDIT_URL = '/profile';
 const INCLUDE_TEAM_URL = '/profile/includeTeam/';
 const TEAM_URL = '/team/';
+const USER_URL = '/test/';
 
 const ACCEPT_URL = "/profile/acceptInvite/";
 const CANCEL_URL = "/profile/cancelledInvite/";
@@ -30,6 +31,8 @@ export default function Account() {
   const [isEdit, setIsEdit] = useState(false);
 
   const[includeTeam, setIncludeTeam] = useState([]);
+  const[invitedFromTeam, setInvitedFromTeam] = useState([]);
+
 
   // Проверка аутентификации пользователя
   const {isAuth, setIsAuth} = useContext(AuthContext);
@@ -48,6 +51,28 @@ export default function Account() {
   const buttonCancelRef = useRef(null);
 
   const [isClicked, setIsClicked] = useState(true);
+
+  const UpdateData = async () => {
+    try {
+      const jwtToken = localStorage.getItem("token");
+      //console.log(jwtToken);
+      const response = await axiosInstance.get(USER_URL + userData.id,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      }
+      );
+      if (response.status === 200) {
+        //console.log(response.data);
+        localStorage.setItem("userData", JSON.stringify(response.data.dataUser));
+        setUserData(response.data.dataUser);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   //Симуляция нажатия кнопок save и cancel чтобы расположить их не в форме
   const simulateSaveButtonClick = () => {
@@ -109,19 +134,41 @@ export default function Account() {
           newIncludeTeam.push(teamInfo.data);
         }
         setIncludeTeam(newIncludeTeam);
+        //console.log(newIncludeTeam);
         //console.log(localStorage.getItem('userData'));
       }
     } catch (error) {
       console.error('Ошибка при получении команд ', error);
     }
   }
+
+  //Получение данных о командах, которые пригалисили этого участника
+  const handleInvitedFromTeam = async (e) => {
+      let newInvitedFromTeam = [];
+        for (let i = 0; i < userData.invitedFromTeam.length; i++) {
+          try{
+            const response = await axiosInstance.get(TEAM_URL + JSON.stringify(userData.invitedFromTeam[i]));
+            newInvitedFromTeam.push(response.data);
+          }
+          catch (error) {
+            console.error('Ошибка при получении информации о команде', error);
+          }
+        }
+        setInvitedFromTeam(newInvitedFromTeam);
+        //console.log(newInvitedFromTeam);
+        //console.log(localStorage.getItem('userData'));
+  }
   useEffect(() => {
+    UpdateData();
     handleIncludeTeam();
+    if(userData.invitedFromTeam != null){
+      handleInvitedFromTeam();
+    }
   }, []);
 
   //console.log(includeTeam)
   
-  // Принятие участника в команду
+  // Принятие предложения вступить в команду
   const handleAddMemberClick = async (IdTeam) => {
     try {
       const jwtToken = localStorage.getItem("token");
@@ -140,13 +187,14 @@ export default function Account() {
         // Обработка успешного ответа
         //localStorage.setItem("userData", JSON.stringify(response.data));
         //setTeam(response.data);
-        console.log(response.data);
+        UpdateData();
+        //console.log(response.data);
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
     }
   };
-  // Отклонить заявку на вступление в команду
+  // Отклонить предложение вступить в команду
   const handleDeclineClick = async (IdTeam) => {
     try {
       const jwtToken = localStorage.getItem("token");
@@ -161,9 +209,9 @@ export default function Account() {
         }
       );
       if (response.status === 200) {
-        //localStorage.setItem("team", JSON.stringify(response.data));
-        //setTeam(response.data);
-        console.log(response.data);
+        localStorage.setItem("userData", JSON.stringify(response.data));
+        setUserData(response.data.dataUser);
+        //console.log(response.data);
       }
     } catch (error) {
       console.error("Ошибка при отправке запроса:", error);
@@ -186,15 +234,15 @@ export default function Account() {
           }
         }
       );
-      console.log(jsonData);
-      console.log(JSON.parse(jsonData));
+      //console.log(jsonData);
+      //console.log(JSON.parse(jsonData));
       const response = await axiosInstance.post(PROFILE_EDIT_URL, jsonData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
         }
       });
-      console.log(response.data);
+      //console.log(response.data);
       if (response.status === 200) {
         localStorage.setItem('userData', JSON.stringify(response.data.dataUser));
         localStorage.setItem('isHiddeInResearch', JSON.stringify(response.data.settingsUser.isHiddeInResearch));
@@ -228,7 +276,7 @@ export default function Account() {
     //console.log("cancel", localStorage.getItem('userData'));
   };
    //console.log("token", localStorage.getItem('token'));
-   console.log("userData", userData);
+   //console.log("userData", userData);
 
    // Переход на страницу команды по клику на ее название
    const handleTeamClick = (team) => {
@@ -384,28 +432,33 @@ export default function Account() {
               <div className={styles.applic_member}>
                 <h2>Приглашения</h2>
                 <div className={styles.applic_member_teams}>
-                  {userData.invitedFromTeam === null && (
+                  {invitedFromTeam.length === 0 && (
                     <p>Нет приглашений</p>
                   )}
-                  {!userData.invitedFromTeam === null && userData.invitedFromTeam.map((team) => (
-                    <div key={team.id} className={styles.block_player}>
-                      <img
-                        src="images/avatar.jpg"
-                        alt="player_icon"
-                        className={styles.player_icon}
-                      />
-                      <div className={styles.desc}>
-                        <p className={styles.player_title}>
-                          {team.teamName + " " + team.teamGoal}
-                        </p>
-                        <div className={styles.state}></div>
+                  {!(invitedFromTeam.length === 0) && invitedFromTeam.map((team) => (
+                    <div key={team.id} className={styles.block_player} >
+                      <div className={styles.block_player_button} onClick={() => handleTeamClick(team)}>
+                        <img
+                          src="images/avatar.jpg"
+                          alt="player_icon"
+                          className={styles.player_icon}
+                        />
+                        <div className={styles.desc}>
+                          <p className={styles.player_title} style={{fontSize: "20px", borderRadius: "5px", border: "2px solid #9fc4f0", padding: "2px 4px"}}>
+                            {team.teamName}
+                          </p>
+                          <p className={styles.player_title}>
+                            {team.teamGoal}
+                          </p>
+                          <div className={styles.state}></div>
+                        </div>
                       </div>
                       <div className={styles.buttons}>
                         <button
                           className={styles.button_add}
                           onClick={() => handleAddMemberClick(team.id)}
                         >
-                          Добавить
+                          Принять
                         </button>
                         <button
                           className={styles.button_remove}
