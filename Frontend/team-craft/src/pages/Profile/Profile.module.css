@@ -44,6 +44,12 @@
   border-radius: 50%;
   margin: 8px 25px;
 }
+.player_icon {
+  background-image: url(../../images/empty_avatar.jpg);
+  background-size: cover; 
+
+}
+
 .profile {
   margin-bottom: 10px;
 }
@@ -321,12 +327,22 @@ font-weight: bold;
   background-size: 122%;
   background-position: center;
   background-repeat: no-repeat;
+  border-radius: 50%;
   min-width: 60px;
   min-height: 60px;
-  border-radius: 50%;
   margin: 22px;
 }
 
+.team_icon2 {
+  background-image: url(../../images/team_icon.jpg);
+  background-size: 122%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  min-width: 60px;
+  min-height: 60px;
+  margin: 22px;
+}
 
 
 .block_team .desc {

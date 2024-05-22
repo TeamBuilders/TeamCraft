@@ -438,11 +438,8 @@ export default function Account() {
                   {!(invitedFromTeam.length === 0) && invitedFromTeam.map((team) => (
                     <div key={team.id} className={styles.block_player} >
                       <div className={styles.block_player_button} onClick={() => handleTeamClick(team)}>
-                        <img
-                          src="images/avatar.jpg"
-                          alt="player_icon"
-                          className={styles.player_icon}
-                        />
+                      <img  className={styles.team_icon2}/>
+
                         <div className={styles.desc}>
                           <p className={styles.player_title} style={{fontSize: "20px", borderRadius: "5px", border: "2px solid #9fc4f0", padding: "2px 4px"}}>
                             {team.teamName}

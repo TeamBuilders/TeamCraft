@@ -30,10 +30,8 @@ export default function Team() {
   // Обновление данных при перезагрузке страницы
   useEffect(() => {
     const fetchData = async () => {
-      console.log("Ссылка: " + TEAM_URL + teamId);
       try {
         const response = await axiosInstance.get(TEAM_URL + teamId);
-        console.log(response.data);
         localStorage.setItem("team", JSON.stringify(response.data));
         setTeam(response.data);
       } catch (error) {
@@ -44,8 +42,6 @@ export default function Team() {
     fetchData(); // Вызываем внутреннюю асинхронную функцию
   }, []);
   
-  console.log(team);
-
   // Проверка на наличие в команде
   const checkIfUserIsMember = (team) => {
     if (team) {
@@ -265,8 +261,6 @@ export default function Team() {
               <h2>Команда</h2>
               <div className={styles.acc_panel}>
                 <img
-                  src="../../images/csgo.ico"
-                  alt="Avatar"
                   className={styles.avatar}
                 />
                 <div className={styles.initials}>
@@ -303,8 +297,6 @@ export default function Team() {
                     className={styles.active_div}
                     onClick={() => handleUserClick(member.dataMemberUser)}>
                     <img
-                      src="images/avatar.jpg"
-                      alt="player_icon"
                       className={styles.player_icon}
                     />
                     <div className={styles.desc}>
@@ -350,11 +342,9 @@ export default function Team() {
                   {team.jion_means.map((member) => (
                     <div key={member.id} className={styles.block_player}>
                       <div className={styles.applic_member_block_player_info} onClick={() => handleUserClick(member)}>
-                        <img
-                          src="images/avatar.jpg"
-                          alt="player_icon"
-                          className={styles.player_icon}
-                        />
+                      <img
+                      className={styles.player_icon}
+                    />  
                         <div className={styles.desc}>
                           <p className={styles.player_title}>
                             {member.name + " " + member.sureName}

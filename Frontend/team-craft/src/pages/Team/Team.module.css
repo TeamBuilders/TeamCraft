@@ -47,8 +47,12 @@
 .avatar {
   width: 87px;
   height: 87px;
-  border-radius: 6%;
   margin: 8px 25px;
+  background-image: url(../../images/team_icon.jpg);
+  background-size: 122%;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .team h2 {
@@ -101,6 +105,16 @@ p.name {
   height: 60px;
   border-radius: 50%;
   margin: 17px;
+}
+.player_icon {
+  background-image: url(../../images/empty_avatar.jpg);
+  background-size: 122%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  min-width: 60px;
+  min-height: 60px;
+  margin: 22px;
 }
 
 .block_player .desc {
