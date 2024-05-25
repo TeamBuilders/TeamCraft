@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Create_team.module.css";
-import { json, useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
-import PopUp_hobby from "../../components/PopUp_Team/PopUp_hobby/PopUp_hobby";
-// import { API_URL } from '../../api/apiConfig';
+import { useNavigate } from "react-router-dom";
+import PopUpHobby from "../../components/PopUp_Team/PopUp_hobby/PopUp_hobby";
 import axiosInstance from "../../api/axios";
 
 const CREATE_TEAM_URL = "/teams/create";
@@ -13,49 +11,13 @@ const CreateTeamForm = () => {
   const [teamGoal, setteamGoal] = useState("");
   const [teamDescription, setTeamDescription] = useState("");
   const [teamStack, setTeamStack] = useState([]);
-  const [resErr, setResErr] = useState("");
-  const [errMsg, setErrMsg] = useState("");
 
   const handleCancel = () => {
     navigate(-1);
   };
 
   const handleSubmit = async (e) => {
-    //   localStorage.setItem('userData', JSON.stringify(userData));
-    //   localStorage.setItem('token', response.data?.jwtToken);
-    //   localStorage.setItem('user', JSON.stringify(user));
-    // {
-    //     "teamName": "Огурцы",
-    //     "teamGoal": "Молодцы",
-    //     "team_lead" : "Admin1",
-    //     "MemberTeam" :
-    //     [
-    //     {
-    //         "dataMemberUser" :
-    //            {
-    //             "name":"alex",
-    //             "sureName":"uglov",
-    //             "descriptionUser":null,
-    //             "databirthday":"2000-12-31T00:00:00",
-    //             "gender":"male",
-    //             "hobbiesPerson":null,
-    //             "skillsPerson":null,
-    //             "goalsPerson":null,
-    //             "urlContact":"vk",
-    //             "inTeam":false
-    //             },
-    //         "roleMember" : "Тимлид"
-    //     }
-    //     ]
-    // }
-    // team_lead это значение user
     e.preventDefault();
-
-    // Формируем объект для team_lead на основе значения user
-
-    const user = JSON.parse(localStorage.getItem("user"));
-    const userData = JSON.parse(localStorage.getItem("userData"));
-
 
     // Формируем итоговый объект JSON
     const jsonData = JSON.stringify({
@@ -84,15 +46,8 @@ const CreateTeamForm = () => {
     } catch (err) {
       console.error("Ошибка при отправке запроса:", err);
       if (err.response) {
-        if (err.response.status === 502) {
-          if (err.response.data.message[0] === "Bad Gateway") {
-            setResErr("Опять че то с сервером");
-          }
-        } else {
-          setErrMsg("Ошибка создания команды");
-        }
-      } else {
-        setErrMsg("Нет ответа от сервера");
+        console.log(err.response.status);
+        console.log(err.response.data);
       }
     }
   };
@@ -110,7 +65,7 @@ const CreateTeamForm = () => {
           <h1>Создание команды</h1>
           <form onSubmit={(e) => handleSubmit(e)}>
             <div className={styles.field}>
-              <label htmlFor="teamName">Название команды:</label>
+              <label htmlFor="teamName">Название команды*</label>
               <input
                 type="text"
                 id="teamName"
@@ -120,7 +75,7 @@ const CreateTeamForm = () => {
               />
             </div>
             <div className={styles.field}>
-              <label htmlFor="teamGoal">Цель команды:</label>
+              <label htmlFor="teamGoal">Цель команды*</label>
               <textarea
                 id="teamGoal"
                 value={teamGoal}
@@ -129,7 +84,7 @@ const CreateTeamForm = () => {
               />
             </div>
             <div className={styles.field}>
-              <label htmlFor="teamGoal">Описание команды:</label>
+              <label htmlFor="teamGoal">Описание команды</label>
               <textarea
                 id="teamGoal"
                 value={teamDescription}
@@ -137,9 +92,9 @@ const CreateTeamForm = () => {
               />
             </div>
             <div className={styles.field}>
-              <label htmlFor="teamGoal">Навыки команды:</label>
+              <label htmlFor="teamGoal">Навыки команды*</label>
 
-              <PopUp_hobby onClose={toggleModal} />
+              <PopUpHobby onClose={toggleModal} />
               <ul className={styles.ul_list}>
                 {teamStack &&
                   teamStack.length > 0 &&
@@ -150,27 +105,6 @@ const CreateTeamForm = () => {
                   ))}
               </ul>
             </div>
-            {/* <div className={styles.field}>
-                            <label htmlFor="team_lead">Теги команды:</label>
-                            <textarea
-                                id="team_lead"
-                                value={team_lead}
-                                onChange={(e) => setteam_lead(e.target.value)}
-                                required
-                            />
-                        </div>
-                        <div className={styles.field}>
-                            <label htmlFor="numberOfmembers">Количество участников:</label>
-                            <input
-                                type="number"
-                                id="numberOfmembers"
-                                value={numberOfmembers}
-                                onChange={(e) => setNumberOfmembers(e.target.value)}
-                                min={2}
-                                max={10}
-                                required
-                            />
-                        </div> */}
 
             <div className={styles.btns}>
               <button

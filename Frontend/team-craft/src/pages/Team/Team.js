@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from "./Team.module.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import PopUp_hobby from "../../components/PopUp_Team_Edit/PopUp_hobby/PopUp_hobby_edit";
-import { useNavigate, useLocation } from "react-router-dom";
-// import { API_URL } from '../../api/apiConfig';
+import PopUpHobby from "../../components/PopUp_Team_Edit/PopUp_hobby/PopUp_hobby_edit";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../api/axios";
 
 const EDIT_URL = "/teams/edit";
@@ -22,16 +21,14 @@ export default function Team() {
 
   const [team, setTeam] = useState(JSON.parse(localStorage.getItem("team")));
   const userId = JSON.parse(localStorage.getItem("userData")).id;
-  const teamId = team.id;
   const userRole = team.memberTeam.find(
     (member) => member.dataMemberUserId === userId
   )?.roleMember;
 
-  // Обновление данных при перезагрузке страницы
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get(TEAM_URL + teamId);
+        const response = await axiosInstance.get(TEAM_URL + team.id);
         localStorage.setItem("team", JSON.stringify(response.data));
         setTeam(response.data);
       } catch (error) {
@@ -39,8 +36,9 @@ export default function Team() {
       }
     };
   
-    fetchData(); // Вызываем внутреннюю асинхронную функцию
-  }, []);
+    fetchData(); // Вызываем асинхронную функцию
+  }, [team.id]); // Добавляем team.id в зависимости
+  
   
   // Проверка на наличие в команде
   const checkIfUserIsMember = (team) => {
@@ -67,7 +65,7 @@ export default function Team() {
   };
 
   // Может ли пользователь отправить заявку на вступление в команду
-  const [canApply, setCanApply] = useState(!checkIfUserIsMember(team));
+  const [canApply] = useState(!checkIfUserIsMember(team));
   // Отправлена ли заявка на вступление в команду
   const [ApplySubmit, setApplySubmit] = useState(
     team?.jion_means && checkIfUserInJion(team) && !checkIfUserIsMember(team)
@@ -91,8 +89,6 @@ export default function Team() {
       );
 
       if (response.status === 200) {
-        const data = response.data;
-
         setApplySubmit(true);
       }
     } catch (error) {
@@ -117,7 +113,6 @@ export default function Team() {
       );
 
       if (response.status === 200) {
-        const data = response.data;
         setIsExiting(true);
         localStorage.setItem("team", JSON.stringify(response.data));
         setTeam(response.data);
@@ -260,9 +255,8 @@ export default function Team() {
             <div className={styles.team}>
               <h2>Команда</h2>
               <div className={styles.acc_panel}>
-                <img
-                  className={styles.avatar}
-                />
+                <div className={styles.avatar}></div>
+
                 <div className={styles.initials}>
                   {isEditing ? (
                     <input
@@ -296,7 +290,7 @@ export default function Team() {
                     <div
                     className={styles.active_div}
                     onClick={() => handleUserClick(member.dataMemberUser)}>
-                    <img
+                    <div
                       className={styles.player_icon}
                     />
                     <div className={styles.desc}>
@@ -342,7 +336,7 @@ export default function Team() {
                   {team.jion_means.map((member) => (
                     <div key={member.id} className={styles.block_player}>
                       <div className={styles.applic_member_block_player_info} onClick={() => handleUserClick(member)}>
-                      <img
+                      <div
                       className={styles.player_icon}
                     />  
                         <div className={styles.desc}>
@@ -437,7 +431,7 @@ export default function Team() {
                 </ul>
               </div>
               {isEditing &&
-              <PopUp_hobby team={team} onClose={toggleModal} />
+              <PopUpHobby team={team} onClose={toggleModal} />
               }
             </div>
           </div>
